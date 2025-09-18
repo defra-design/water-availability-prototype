@@ -1,0 +1,52 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  {{ serviceName }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">
+        Your daily abstraction 
+      </h1>
+
+      <h2 class="govuk-heading-m">
+        How many megalitres of water a day (ml/d) do you want to abstract? 
+      </h2>
+
+      <form class="form" action="/start-date" method="post">
+
+
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="width-20">
+          From
+        </label>
+        <input class="govuk-input govuk-input--width-10" id="width-10" name="width10" type="text">
+      </div>
+
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="width-20">
+          To
+        </label>
+        <input class="govuk-input govuk-input--width-10" id="width-10" name="width10" type="text">
+      </div>
+    </div>
+  </div>
+  {{ govukButton({
+    text: "Continue"
+  }) }}
+  
+  </form>
+
+
+{% endblock %}

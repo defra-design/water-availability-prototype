@@ -1,0 +1,57 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+ {{ serviceName }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">
+        Your site location
+      </h1>
+
+      <form class="form" action="/location-selection-answer" method="post">
+
+        {{ govukRadios({
+          name: "location-selection",
+          value: data['location-selection'],
+          fieldset: {
+            legend: {
+              text: "Where's the site you need to abstract water for?",
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--m"
+            }
+          },
+          items: [
+            {
+              value: "grid-ref",
+              text: "Enter a national grid reference"
+            },
+            {
+              value: "map",
+              text: "Locate the site on a map"
+            }
+            
+          ]
+        }) }}
+        
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+        
+        </form>
+
+    </div>
+  </div>
+
+{% endblock %}

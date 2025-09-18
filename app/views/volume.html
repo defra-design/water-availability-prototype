@@ -1,0 +1,57 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">
+        How much water do you want to abstract?
+      </h1>
+
+      <form class="form" action="/volume-method-answer" method="post">
+
+        {{ govukRadios({
+          name: "volume-method",
+          value: data['volume-method'],
+          fieldset: {
+            legend: {
+              text: "Do you want a range or an exact amount?",
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--m"
+            }
+          },
+          items: [
+            {
+              value: "range",
+              text: "Range"
+            },
+            {
+              value: "exact-amount",
+              text: "Exact amount"
+            }
+            
+          ]
+        }) }}
+        
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+        
+        </form>
+
+    </div>
+  </div>
+
+{% endblock %}

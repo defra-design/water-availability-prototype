@@ -1,0 +1,8 @@
+{
+  "serviceName": "Find water to abstract",
+  "plugins": {
+    "govuk-frontend": {
+      "rebrand": true
+    }
+  }
+}

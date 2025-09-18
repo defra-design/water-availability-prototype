@@ -1,0 +1,53 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+ {{ serviceName }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form class="form" action="/intention-answer" method="post">
+
+        {{ govukRadios({
+          name: "intention",
+          value: data['intention'],
+          fieldset: {
+            legend: {
+              text: "Do you:",
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l"
+            }
+          },
+          items: [
+            {
+              value: "know-site",
+              text: "know the site you need water for?"
+            },
+            {
+              value: "need-site",
+              text: "need to find a site where there's water to abstract?"
+            }
+            
+          ]
+        }) }}
+        
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+        
+        </form>
+
+    </div>
+  </div>
+
+{% endblock %}
