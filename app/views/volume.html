@@ -16,13 +16,21 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-      <h1 class="govuk-heading-l">
-        How much water do you want to abstract?
-      </h1>
+<div class="govuk-form-group">
+  <h1 class="govuk-label-wrapper">
+    <label class="govuk-label govuk-label--l" for="volume">
+      How many cubic metres of water a day do you want to abstract?
+    </label>
+  </h1>
 
-      <form class="form" action="/volume-method-answer" method="post">
+  <form class="form" action="/result" method="post">
+  <div class="govuk-input__wrapper">
+    <input class="govuk-input govuk-input--width-10" id="volume" name="volume" type="text" spellcheck="false">
+    <div class="govuk-input__suffix" aria-hidden="true">cubic metres a day</div>
+  </div>
+</div>
 
-        {{ govukRadios({
+    <!--   {{ govukRadios({
           name: "volume-method",
           value: data['volume-method'],
           fieldset: {
@@ -44,7 +52,7 @@
             
           ]
         }) }}
-        
+-->
         {{ govukButton({
           text: "Continue"
         }) }}

@@ -16,11 +16,35 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-      <h1 class="govuk-heading-l">
-        Your site location
-      </h1>
+        <form class="form" action="/do-you-know-volume" method="post">
 
-      <form class="form" action="/location-selection-answer" method="post">
+        <div class="govuk-form-group">
+          <h1 class="govuk-label-wrapper">
+            <label class="govuk-label govuk-label--l" for="event-name">
+             What's the national grid reference for the site?
+            </label>
+          </h1>
+
+          <div id="grid-ref-hint" class="govuk-hint">
+      For example, TQ 185 769
+    </div>
+          <input class="govuk-input" id="event-name" name="eventName" type="text">
+        </div>
+
+
+      <p class="govuk-body">
+         <a href="#" class="govuk-link">Find a national grid reference</a>
+      </p>
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+
+
+     <!-- <form class="form" action="/location-selection-answer" method="post">
 
         {{ govukRadios({
           name: "location-selection",
@@ -49,7 +73,7 @@
           text: "Continue"
         }) }}
         
-        </form>
+        </form> -->
 
     </div>
   </div>

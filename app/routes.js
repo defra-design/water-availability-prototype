@@ -17,7 +17,7 @@ router.post('/intention-answer', function(request, response) {
 	}
 })
 
-router.post('/location-selection-answer', function(request, response) {
+/* router.post('/location-selection-answer', function(request, response) {
 
 	var location_selection = request.session.data['location-selection']
 	if (location_selection == "grid-ref"){
@@ -25,7 +25,7 @@ router.post('/location-selection-answer', function(request, response) {
 	} else {
 		response.redirect("/map")
 	}
-})
+}) */
 
 router.post('/do-you-know-volume-answer', function(request, response) {
 
@@ -37,7 +37,7 @@ router.post('/do-you-know-volume-answer', function(request, response) {
 	}
 })
 
-router.post('/volume-method-answer', function(request, response) {
+/* router.post('/volume-method-answer', function(request, response) {
 
 	var volume_method = request.session.data['volume-method']
 	if (volume_method == "range"){
@@ -45,4 +45,4 @@ router.post('/volume-method-answer', function(request, response) {
 	} else {
 		response.redirect("/volume-exact")
 	}
-})
+}) */
