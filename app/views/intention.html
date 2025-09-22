@@ -16,7 +16,6 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-<h1 class="govuk-heading-l">Your water abstraction site</h1>
 
       <form class="form" action="/intention-answer" method="post">
 
@@ -25,7 +24,7 @@
           value: data['intention'],
           fieldset: {
             legend: {
-              text: "Do you:",
+              text: "Your water abstraction site",
               isPageHeading: true,
               classes: "govuk-fieldset__legend--l"
             }
@@ -33,11 +32,11 @@
           items: [
             {
               value: "know-site",
-              text: "know the site you need water for?"
+              text: "I know the site I need water for"
             },
             {
               value: "need-site",
-              text: "need to find a site where you can abstract water?"
+              text: "I need to find a site where I can abstract water?"
             }
             
           ]
