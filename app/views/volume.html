@@ -1,7 +1,7 @@
 {% extends "layouts/main.html" %}
 
 {% block pageTitle %}
-  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+  {{ serviceName }}
 {% endblock %}
 
 {% block beforeContent %}
@@ -23,36 +23,13 @@
     </label>
   </h1>
 
-  <form class="form" action="/result" method="post">
+  <form class="form" action="/volume" method="post">
   <div class="govuk-input__wrapper">
     <input class="govuk-input govuk-input--width-10" id="volume" name="volume" type="text" spellcheck="false">
     <div class="govuk-input__suffix" aria-hidden="true">cubic metres a day</div>
   </div>
 </div>
 
-    <!--   {{ govukRadios({
-          name: "volume-method",
-          value: data['volume-method'],
-          fieldset: {
-            legend: {
-              text: "Do you want a range or an exact amount?",
-              isPageHeading: true,
-              classes: "govuk-fieldset__legend--m"
-            }
-          },
-          items: [
-            {
-              value: "range",
-              text: "Range"
-            },
-            {
-              value: "exact-amount",
-              text: "Exact amount"
-            }
-            
-          ]
-        }) }}
--->
         {{ govukButton({
           text: "Continue"
         }) }}

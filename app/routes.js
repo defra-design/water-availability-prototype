@@ -8,7 +8,6 @@ const router = govukPrototypeKit.requests.setupRouter()
 
 // Add your routes here
 router.post('/intention-answer', function(request, response) {
-
 	var intention = request.session.data['intention']
 	if (intention == "know-site"){
 		response.redirect("/location")
@@ -28,12 +27,20 @@ router.post('/intention-answer', function(request, response) {
 }) */
 
 router.post('/do-you-know-volume-answer', function(request, response) {
-
 	var do_you_know_volume = request.session.data['do-you-know-volume']
 	if (do_you_know_volume == "yes"){
 		response.redirect("/volume")
 	} else {
 		response.redirect("/??")
+	}
+})
+
+router.post('/volume', function(request, response) {
+	var intention = request.session.data['intention']
+	if (intention == "know-site"){
+		response.redirect("/result")
+	} else {
+		response.redirect("/catchment-picker")
 	}
 })
 
