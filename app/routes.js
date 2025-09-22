@@ -38,7 +38,7 @@ router.post('/do-you-know-volume-answer', function(request, response) {
 router.post('/volume', function(request, response) {
 	var intention = request.session.data['intention']
 	if (intention == "know-site"){
-		response.redirect("/result")
+		response.redirect("/results")
 	} else {
 		response.redirect("/catchment-picker")
 	}
