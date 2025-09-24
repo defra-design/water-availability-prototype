@@ -9,23 +9,98 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-       {{ govukPanel({
-        titleText: "Water available",
-        html: "For national grid reference<br><strong>TQ 185 769</strong>"
-      }) }}
 
-     
+{% if (data['intention'] == "know-site" and data['do-you-know-volume'] == "yes" and data['availability'] == "yes") %}
+
+    <div class="govuk-body">
+
+      <h1 class="govuk-heading-l">Water available</h1>
+      <h2 class="govuk-heading-m">For national grid reference TQ 185 769</h2>
+
+      </p>     
        <p class="govuk-body">
          You could abstract <b>100 cubic metres</b> a day for this location for <b>8 months</b> of the year. 
       </p>
 
- <!--     <h2 class="govuk-heading-m">
+     <!-- <h2 class="govuk-heading-m">
         What happens next
-      </h2> -->
+      </h2>  -->
 
        <p class="govuk-body">
-         This is an indication only. <a href="#" class="govuk-link">See water availability in detail</a>.
+         This is an indication only. <a href="#" class="govuk-link">See water availability in detail</a>
       </p>
+
+    </div>
+
+{% elseif (data['intention'] == "know-site" and data['do-you-know-volume'] == "yes" and data['availability'] == "no") %}
+
+    <div class="govuk-body">
+    
+      <h1 class="govuk-heading-l">No water available</h1>
+      <h2 class="govuk-heading-m">For national grid reference TQ 185 769</h2>
+
+      </p>     
+       <p class="govuk-body">
+         You cannot abstract water for this location at the daily volume you've entered. 
+      </p>
+
+     <!-- <h2 class="govuk-heading-m">
+        What happens next
+      </h2>  -->
+
+       <p class="govuk-body">
+         <a href="volume" class="govuk-link">Try another volume</a>
+      </p>
+
+    </div>
+
+{% elseif (data['intention'] == "know-site" and data['do-you-know-volume'] == "no" and data['availability'] == "yes") %}
+
+    <div class="govuk-body">
+
+      <h1 class="govuk-heading-l">Water available</h1>
+      <h2 class="govuk-heading-m">For national grid reference TQ 185 769</h2>
+
+      </p>     
+       <p class="govuk-body">
+         You could abstract up to <b>250 cubic metres</b> a day for this location for <b>10 months</b> of the year. 
+      </p>
+
+     <!-- <h2 class="govuk-heading-m">
+        What happens next
+      </h2>  -->
+
+       <p class="govuk-body">
+         This is an indication only. <a href="#" class="govuk-link">See water availability in detail</a>
+      </p>
+
+    </div>
+
+{% elseif (data['intention'] == "know-site" and data['do-you-know-volume'] == "no" and data['availability'] == "no") %}
+
+    <div class="govuk-body">
+    
+      <h1 class="govuk-heading-l">No water available</h1>
+      <h2 class="govuk-heading-m">For national grid reference TQ 185 769</h2>
+
+      </p>     
+       <p class="govuk-body">
+        You cannot abstract water at any volume for this location.
+      </p>
+
+     <!-- <h2 class="govuk-heading-m">
+        What happens next
+      </h2>  -->
+
+       <p class="govuk-body">
+         <a href="location" class="govuk-link">Try another location</a>
+      </p>
+    </div>
+
+{% endif %}
+
+
+
 
 
 

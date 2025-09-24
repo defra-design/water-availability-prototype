@@ -11,7 +11,7 @@ router.post('/intention-answer', function(request, response) {
 	var intention = request.session.data['intention']
 	if (intention == "know-site"){
 		response.redirect("/location")
-	} else {
+	} else if (intention == "need-site"){
 		response.redirect("/volume")
 	}
 })
@@ -31,7 +31,7 @@ router.post('/do-you-know-volume-answer', function(request, response) {
 	if (do_you_know_volume == "yes"){
 		response.redirect("/volume")
 	} else {
-		response.redirect("/??")
+		response.redirect("/results")
 	}
 })
 
@@ -43,6 +43,15 @@ router.post('/volume', function(request, response) {
 		response.redirect("/catchment-picker")
 	}
 })
+
+/* router.post('/outcome', function(request, response) {
+	var availability = request.session.data['availability']
+	if (availability == "no"){
+		response.redirect("/no-results")
+	} else {
+		response.redirect("/results")
+	}
+}) */
 
 /* router.post('/volume-method-answer', function(request, response) {
 
