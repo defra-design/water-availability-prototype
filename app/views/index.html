@@ -7,15 +7,31 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
-    {% include "govuk-prototype-kit/includes/homepage-top.njk" %}
+   <!-- {% include "govuk-prototype-kit/includes/homepage-top.njk" %}-->
 
-    <h1 class="govuk-heading-xl">
+   <h1 class="govuk-heading-xl">
       {{ serviceName }}
     </h1>
 
-    <p class="govuk-body"><a href="start.html" class="govuk-link">Start</a></p>
+    <table class="govuk-table">
+  <caption class="govuk-table__caption govuk-table__caption--m">Alpha</caption>
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Version</th>
+      <th scope="col" class="govuk-table__header govuk-table__header--numeric">Date</th>
+      <th scope="col" class="govuk-table__header govuk-table__header--numeric">Design history</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell govuk-table__cell--text"><a href="start" class="govuk-link">Version 1</a></td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">18 September - xx 2025</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">Sprint 1</td>
+    </tr>
+  </tbody>
+</table>
     
-    {% include "govuk-prototype-kit/includes/homepage-bottom.njk" %}
+   <!-- {% include "govuk-prototype-kit/includes/homepage-bottom.njk" %}-->
   </div>
 </div>
 
