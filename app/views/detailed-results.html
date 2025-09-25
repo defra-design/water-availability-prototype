@@ -1,0 +1,180 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  {{ serviceName }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+
+{% if (data['intention'] == "know-site" and data['do-you-know-volume'] == "yes" and data['availability'] == "yes") %}
+
+    <div class="govuk-body">
+
+      <h1 class="govuk-heading-l">Your water availability report</h1>
+    
+      </p>     
+       <p class="govuk-body">
+         This report shows surface water and groundwater availability for 
+         your abstraction site and explains next steps in applying for a water abstraction licence. 
+      </p>
+
+      <p class="govuk-body"><b>National grid reference:</b> TQ 185 769</p>
+      <p class="govuk-body"><b>Proposed abstraction volume:</b> 100 cubic metres a day</p>
+      <p class="govuk-body"><b>Duration:</b> Proposed volume available for 8 months of the year</p>
+
+      <h2 class="govuk-heading-m">Surface water and groundwater availability</h2>
+
+      <p class="govuk-body">Water can be abstracted from surface water, 
+        such as a river, and from groundwater, such as an aquifer.</p>
+
+      <h3 class="govuk-heading-s">Surface water availability for your site</h3>
+
+      <p class="govuk-body">Surface water availability depends upon the flow rate 
+        of the surface water source you abstract from.</p>
+
+      <p class="govuk-body">Low flows are usually in summer and high flows in winter.</p>
+
+<table class="govuk-table">
+  <caption class="govuk-table__caption govuk-table__caption--s">Summary of flow rate and water availability for grid reference TQ 185 769</caption>
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Surface water flow rate</th>
+      <th scope="col" class="govuk-table__header">Water available for abstraction</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Low flow</th>
+      <td class="govuk-table__cell">No water available</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Medium flow</th>
+      <td class="govuk-table__cell">Water available at less than 100 cubic metres a day</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">High flow</th>
+      <td class="govuk-table__cell">Water available at 100 cubic metres a day</td>
+    </tr>
+  </tbody>
+</table>
+
+  <h3 class="govuk-heading-s">Groundwater availability for your site</h3>
+
+<p class="govuk-body">Groundwater for grid reference TQ 185 769 is: <b>Available to abstract</p></b>
+
+
+     <h2 class="govuk-heading-m">
+        Next steps
+      </h2>  
+
+       <p class="govuk-body">
+         The Environment Agency grants water abstraction licences. 
+         When considering whether to grant a licence for your site, 
+         we consider other factors as well as groundwater and surface water availability.
+      </p>
+
+      <p class="govuk-body">Those other factors include the impact of the proposed abstraction on:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>nearby abstractors</li>
+          <li>the natural environment</li>
+        </ul>
+
+      <p class="govuk-body"><a href="#">Apply for a water abstraction licence</a></p>
+      <p class="govuk-body"><a href="#">Get advice before you apply</a></p>   
+    </div>
+
+{% elseif (data['intention'] == "know-site" and data['do-you-know-volume'] == "no" and data['availability'] == "yes") %}
+
+    <div class="govuk-body">
+
+      <h1 class="govuk-heading-l">Your water availability report</h1>
+    
+      </p>     
+       <p class="govuk-body">
+         This report shows surface water and groundwater availability for 
+         your abstraction site and explains next steps in applying for a water abstraction licence. 
+      </p>
+
+      <p class="govuk-body"><b>National grid reference:</b> TQ 185 769</p>
+      <p class="govuk-body"><b>Proposed abstraction volume:</b> Up to 250 cubic metres a day</p>
+      <p class="govuk-body"><b>Duration:</b> Proposed volume available for 8 months of the year</p>
+
+      <h2 class="govuk-heading-m">Surface water and groundwater availability</h2>
+
+      <p class="govuk-body">Water can be abstracted from surface water, 
+        such as a river, and from groundwater, such as an aquifer.</p>
+
+      <h3 class="govuk-heading-s">Surface water availability for your site</h3>
+
+      <p class="govuk-body">Surface water availability depends upon the flow rate 
+        of the surface water source you abstract from.</p>
+
+      <p class="govuk-body">Low flows are usually in summer and high flows in winter.</p>
+
+<table class="govuk-table">
+  <caption class="govuk-table__caption govuk-table__caption--s">Summary of flow rate and water availability for grid reference TQ 185 769</caption>
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Surface water flow rate</th>
+      <th scope="col" class="govuk-table__header">Water available for abstraction</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Low flow</th>
+      <td class="govuk-table__cell">No water available</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Medium flow</th>
+      <td class="govuk-table__cell">Water available at up to 50 cubic metres a day</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">High flow</th>
+      <td class="govuk-table__cell">Water available at up to 150 cubic metres a day</td>
+    </tr>
+  </tbody>
+</table>
+
+  <h3 class="govuk-heading-s">Groundwater availability for your site</h3>
+
+<p class="govuk-body">Groundwater for grid reference TQ 185 769 is: <b>Available to abstract</p></b>
+
+
+     <h2 class="govuk-heading-m">
+        Next steps
+      </h2>  
+
+       <p class="govuk-body">
+         The Environment Agency grants water abstraction licences. 
+         When considering whether to grant a licence for your site, 
+         we consider other factors as well as groundwater and surface water availability.
+      </p>
+
+      <p class="govuk-body">Those other factors include the impact of the proposed abstraction on:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>nearby abstractors</li>
+          <li>the natural environment</li>
+        </ul>
+
+      <p class="govuk-body"><a href="#">Apply for a water abstraction licence</a></p>
+      <p class="govuk-body"><a href="#">Get advice before you apply</a></p>   
+    </div>
+
+{% endif %}
+
+
+
+
+
+
+    </div>
+  </div>
+
+<!--   {{data|dump}} -->
+  
+{% endblock %}
+
