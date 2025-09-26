@@ -7,6 +7,13 @@ const govukPrototypeKit = require('govuk-prototype-kit')
 const router = govukPrototypeKit.requests.setupRouter()
 
 // Add your routes here
+
+//Resetting session data for UR
+router.get('/ur', function(request, response) {
+request.session.data = {}
+response.render('ur')
+})
+
 router.post('/intention-answer', function(request, response) {
 	var intention = request.session.data['intention']
 	if (intention == "know-site"){
