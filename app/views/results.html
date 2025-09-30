@@ -19,7 +19,7 @@
 
       </p>     
        <p class="govuk-body">
-         You could abstract <b>100 cubic metres</b> a day for this location for <b>8 months</b> of the year. 
+         You could abstract <b>{{ data.vol | default("100") | safe }} cubic metres a day</b> for this location for <b>8 months</b> of the year. 
       </p>
 
      <!-- <h2 class="govuk-heading-m">
@@ -41,7 +41,7 @@
 
       </p>     
        <p class="govuk-body">
-         You cannot abstract water for this location at the daily volume you've entered. 
+         You cannot abstract water for this location at {{ data.vol | default("100") | safe }} cubic metres a day. 
       </p>
 
      <!-- <h2 class="govuk-heading-m">

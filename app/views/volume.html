@@ -16,19 +16,23 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-<div class="govuk-form-group">
-  <h1 class="govuk-label-wrapper">
-    <label class="govuk-label govuk-label--l" for="volume">
-      How many cubic metres of water a day do you want to abstract?
-    </label>
-  </h1>
 
   <form class="form" action="/results" method="post">
-  <div class="govuk-input__wrapper">
-    <input class="govuk-input govuk-input--width-10" id="volume" name="volume" type="text" spellcheck="false">
-    <div class="govuk-input__suffix" aria-hidden="true">cubic metres a day</div>
-  </div>
-</div>
+
+{{ govukInput({
+  label: {
+    text: "How many cubic metres of water a day do you want to abstract?",
+    classes: "govuk-label--l govuk-input--width-14",
+    isPageHeading: true
+  },
+  
+  suffix: {
+    text: "cubic metres a day"
+  },
+
+  name: "vol"
+}) }}
+
 
         {{ govukButton({
           text: "Continue"

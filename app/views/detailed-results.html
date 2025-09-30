@@ -24,7 +24,7 @@
 
       <div class="govuk-inset-text">
         <p class="govuk-body"><b>National grid reference:</b> {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347") | safe }}</p>
-        <p class="govuk-body"><b>Proposed abstraction volume:</b> 100 cubic metres a day</p>
+        <p class="govuk-body"><b>Proposed abstraction volume:</b> {{ data.vol | default("100") | safe }} cubic metres a day</p>
         <p class="govuk-body"><b>Duration:</b> Proposed volume available for 8 months of the year</p>
       </div>
 
@@ -71,10 +71,10 @@
           No water available
         </dd>
         <dd class="govuk-summary-list__value">
-          Water available at less than 100 cubic metres a day
+          Water available at less than {{ data.vol | default("100") | safe }} cubic metres a day
         </dd>
         <dd class="govuk-summary-list__value">
-          Water available at 100 cubic metres a day
+          Water available at {{ data.vol | default("100") | safe }} cubic metres a day
         </dd>       
       </div>
     </dl>
@@ -102,8 +102,8 @@
           <li>the natural environment</li>
         </ul>
 
-      <p class="govuk-body"><a href="#">Apply for a water abstraction licence</a></p>
-      <p class="govuk-body"><a href="#">Get advice before you apply</a></p>   
+      <p class="govuk-body"><a href="https://www.gov.uk/guidance/water-management-apply-for-a-water-abstraction-or-impoundment-licence">Apply for a water abstraction licence</a></p>
+      <p class="govuk-body"><a href="https://www.gov.uk/guidance/get-advice-before-you-apply-for-a-water-abstraction-or-impounding-licence">Get advice before you apply</a></p>   
     </div>
 
 {% elseif (data['intention'] == "know-site" and data['do-you-know-volume'] == "no" and data['availability'] == "yes") %}
@@ -198,8 +198,8 @@
           <li>the natural environment</li>
         </ul>
 
-      <p class="govuk-body"><a href="#">Apply for a water abstraction licence</a></p>
-      <p class="govuk-body"><a href="#">Get advice before you apply</a></p>   
+      <p class="govuk-body"><a href="https://www.gov.uk/guidance/water-management-apply-for-a-water-abstraction-or-impoundment-licence">Apply for a water abstraction licence</a></p>
+      <p class="govuk-body"><a href="https://www.gov.uk/guidance/get-advice-before-you-apply-for-a-water-abstraction-or-impounding-licence">Get advice before you apply</a></p>   
     </div>
 {% endif %}
 
