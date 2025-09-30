@@ -15,7 +15,7 @@
     <div class="govuk-body">
 
       <h1 class="govuk-heading-l">Water available</h1>
-      <h2 class="govuk-heading-m">For national grid reference SE 05246 70347</h2>
+      <h2 class="govuk-heading-m">For national grid reference {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347") | safe }}</h2>
 
       </p>     
        <p class="govuk-body">
@@ -37,7 +37,7 @@
     <div class="govuk-body">
     
       <h1 class="govuk-heading-l">No water available</h1>
-      <h2 class="govuk-heading-m">For national grid reference SE 05246 70347</h2>
+      <h2 class="govuk-heading-m">For national grid reference {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347") | safe }}</h2>
 
       </p>     
        <p class="govuk-body">
@@ -59,7 +59,7 @@
     <div class="govuk-body">
 
       <h1 class="govuk-heading-l">Water available</h1>
-      <h2 class="govuk-heading-m">For national grid reference SE 05246 70347</h2>
+      <h2 class="govuk-heading-m">For national grid reference {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347") | safe }}</h2>
 
       </p>     
        <p class="govuk-body">
@@ -81,7 +81,7 @@
     <div class="govuk-body">
     
       <h1 class="govuk-heading-l">No water available</h1>
-      <h2 class="govuk-heading-m">For national grid reference SE 05246 70347</h2>
+      <h2 class="govuk-heading-m">For national grid reference {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347") | safe }}</h2>
 
       </p>     
        <p class="govuk-body">

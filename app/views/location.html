@@ -13,12 +13,13 @@
 
 {% block content %}
 
+
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
         <form class="form" action="/do-you-know-volume" method="post">
      
-        <div class="govuk-form-group">
+       <!-- <div class="govuk-form-group">
           <h1 class="govuk-label-wrapper">
             <label class="govuk-label govuk-label--l" for="event-name">
              What's the national grid reference for the site?
@@ -26,14 +27,28 @@
           </h1>
           <div id="grid-ref-hint" class="govuk-hint">
                For example, SE 05246 70347
-           </div>
-          <input class="govuk-input govuk-input--width-10" id="width-10" name="width10" type="text">
-        </div>
+          </div>
+         </div> -->
 
 
-   <!--   <p class="govuk-body">
-         <a href="#" class="govuk-link">Find a national grid reference</a>
-      </p> -->
+{{ govukInput({
+  label: {
+    text: "What's the national grid reference for the site?",
+    classes: "govuk-label--l govuk-input--width-14",
+    isPageHeading: true
+  },
+  hint: {
+    text: "For example, SE 05246 70347"
+  },
+  name: "gridRef"
+}) }}
+
+
+ <!-- <input class="govuk-input govuk-input--width-10" id="width-10" name="width10" type="text">-->
+
+
+
+
 
         {{ govukButton({
           text: "Continue"
@@ -41,38 +56,6 @@
 
       </form>
 
-
-
-     <!-- <form class="form" action="/location-selection-answer" method="post">
-
-        {{ govukRadios({
-          name: "location-selection",
-          value: data['location-selection'],
-          fieldset: {
-            legend: {
-              text: "Where's the site you need to abstract water for?",
-              isPageHeading: true,
-              classes: "govuk-fieldset__legend--m"
-            }
-          },
-          items: [
-            {
-              value: "grid-ref",
-              text: "Enter a national grid reference"
-            },
-            {
-              value: "map",
-              text: "Locate the site on a map"
-            }
-            
-          ]
-        }) }}
-        
-        {{ govukButton({
-          text: "Continue"
-        }) }}
-        
-        </form> -->
 
     </div>
   </div>
