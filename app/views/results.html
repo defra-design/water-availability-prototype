@@ -15,11 +15,11 @@
     <div class="govuk-body">
 
       <h1 class="govuk-heading-l">Water available</h1>
-      <h2 class="govuk-heading-m">For national grid reference {{ data['gridRef'] or "SE 05246 70347" }}</h2>
+      <h2 class="govuk-heading-m">For national grid reference {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}</h2>
 
       </p>     
        <p class="govuk-body">
-         You could abstract <b>{{ data['vol'] or "100" }} cubic metres a day</b> for this location for <b>8 months</b> of the year. 
+         You could abstract <b>{{ data.vol | default("100", true) | safe }} cubic metres a day</b> for this location for <b>8 months</b> of the year. 
       </p>
 
      <!-- <h2 class="govuk-heading-m">
@@ -37,11 +37,11 @@
     <div class="govuk-body">
     
       <h1 class="govuk-heading-l">No water available</h1>
-      <h2 class="govuk-heading-m">For national grid reference {{ data['gridRef'] or "SE 05246 70347" }}</h2>
+      <h2 class="govuk-heading-m">For national grid reference {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}</h2>
 
       </p>     
        <p class="govuk-body">
-         You cannot abstract water for this location at {{ data['vol'] or "100" }} cubic metres a day. 
+         You cannot abstract water for this location at {{ data.vol | default("100", true) | safe }} cubic metres a day. 
       </p>
 
      <!-- <h2 class="govuk-heading-m">
@@ -59,7 +59,7 @@
     <div class="govuk-body">
 
       <h1 class="govuk-heading-l">Water available</h1>
-      <h2 class="govuk-heading-m">For national grid reference {{ data['gridRef'] or "SE 05246 70347" }}</h2>
+      <h2 class="govuk-heading-m">For national grid reference {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}</h2>
 
       </p>     
        <p class="govuk-body">
@@ -81,7 +81,7 @@
     <div class="govuk-body">
     
       <h1 class="govuk-heading-l">No water available</h1>
-      <h2 class="govuk-heading-m">For national grid reference {{ data['gridRef'] or "SE 05246 70347" }}</h2>
+      <h2 class="govuk-heading-m">For national grid reference {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}</h2>
 
       </p>     
        <p class="govuk-body">

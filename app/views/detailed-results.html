@@ -23,8 +23,8 @@
       </p>
 
       <div class="govuk-inset-text">
-        <p class="govuk-body"><b>National grid reference:</b> {{ data['gridRef'] or "SE 05246 70347" }}</p>
-        <p class="govuk-body"><b>Proposed abstraction volume:</b> {{ data['vol'] or "100" }} cubic metres a day</p>
+        <p class="govuk-body"><b>National grid reference:</b> {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}</p>
+        <p class="govuk-body"><b>Proposed abstraction volume:</b> {{ data.vol | default("100", true) | safe }} cubic metres a day</p>
         <p class="govuk-body"><b>Duration:</b> Proposed volume available for 8 months of the year</p>
       </div>
 
@@ -43,7 +43,7 @@
 <div class="govuk-summary-card">
   <div class="govuk-summary-card__title-wrapper">
     <h2 class="govuk-summary-card__title">
-      Summary of flow rate and water availability for grid reference {{ data['gridRef'] or "SE 05246 70347" }}
+      Summary of flow rate and water availability for grid reference {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}
     </h2>
   </div>
   <div class="govuk-summary-card__content">
@@ -71,10 +71,10 @@
           No water available
         </dd>
         <dd class="govuk-summary-list__value">
-          Water available at less than {{ data['vol'] or "100" }} cubic metres a day
+          Water available at less than {{ data.vol | default("100", true) | safe }} cubic metres a day
         </dd>
         <dd class="govuk-summary-list__value">
-          Water available at {{ data['vol'] or "100" }} cubic metres a day
+          Water available at {{ data.vol | default("100", true) | safe }} cubic metres a day
         </dd>       
       </div>
     </dl>
@@ -83,7 +83,7 @@
 
   <h3 class="govuk-heading-s">Groundwater availability for your site</h3>
 
-<p class="govuk-body">Groundwater for grid reference {{ data['gridRef'] or "SE 05246 70347" }} is: <b>Available to abstract</p></b>
+<p class="govuk-body">Groundwater for grid reference {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }} is: <b>Available to abstract</p></b>
 
 
      <h2 class="govuk-heading-m">
@@ -119,7 +119,7 @@
       </p>
 
       <div class="govuk-inset-text">
-        <p class="govuk-body"><b>National grid reference:</b> {{ data['gridRef'] or "SE 05246 70347" }}</p>
+        <p class="govuk-body"><b>National grid reference:</b> {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}</p>
         <p class="govuk-body"><b>Maximum abstraction volume:</b> Up to 250 cubic metres a day</p>
         <p class="govuk-body"><b>Duration:</b> Maximum volume available for 8 months of the year</p>
       </div>
@@ -139,7 +139,7 @@
 <div class="govuk-summary-card">
   <div class="govuk-summary-card__title-wrapper">
     <h2 class="govuk-summary-card__title">
-      Summary of flow rate and water availability for grid reference {{ data['gridRef'] or "SE 05246 70347" }}
+      Summary of flow rate and water availability for grid reference {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}
     </h2>
   </div>
   <div class="govuk-summary-card__content">
@@ -179,7 +179,7 @@
 
   <h3 class="govuk-heading-s">Groundwater availability for your site</h3>
 
-<p class="govuk-body">Groundwater for grid reference {{ data['gridRef'] or "SE 05246 70347" }} is: <b>Available to abstract</p></b>
+<p class="govuk-body">Groundwater for grid reference {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }} is: <b>Available to abstract</p></b>
 
 
      <h2 class="govuk-heading-m">
