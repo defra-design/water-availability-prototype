@@ -18,20 +18,68 @@
     <div class="govuk-grid-column-two-thirds">
 
         <form class="form" method="post">
-     
-       <!-- <div class="govuk-form-group">
-          <h1 class="govuk-label-wrapper">
-            <label class="govuk-label govuk-label--l" for="event-name">
-             What's the national grid reference for the site?
-            </label>
-          </h1>
-          <div id="grid-ref-hint" class="govuk-hint">
-               For example, SE 05246 70347
-          </div>
-         </div> -->
 
 
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% set gridrefHtml %}
 {{ govukInput({
+  id: "gridRef",
+  name: "gridRef",
+  classes: "govuk-input--width-14",
+  hint: {
+    text: "For example, SE 05246 70347"
+  }
+}) }}
+{% endset -%}
+
+{% set fieldparcelHtml %}
+{{ govukInput({
+  id: "fieldParcel",
+  name: "fieldParcel",
+  classes: "govuk-input--width-9",
+  hint: {
+    text: "For example, 1234/5678"
+  }
+}) }}
+{% endset -%}
+
+
+
+{{ govukRadios({
+  name: "location",
+  fieldset: {
+    legend: {
+      text: "What's the national grid reference for the site?",
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--l"
+    }
+  },
+  hint: {
+    text: "Select one option"
+  },
+  items: [
+    {
+      value: "gridRef",
+      text: "National grid reference",
+      
+      conditional: {
+        html: gridrefHtml
+      }
+    },
+    {
+      value: "fieldParcel",
+      text: "Field parcel",
+      conditional: {
+        html: fieldparcelHtml
+      }
+    }
+   
+  ]
+}) }}        
+
+<!--{{ govukInput({
   label: {
     text: "What's the national grid reference for the site?",
     classes: "govuk-label--l govuk-input--width-14",
@@ -41,7 +89,7 @@
     text: "For example, SE 05246 70347"
   },
   name: "gridRef"
-}) }}
+}) }} -->
 
 
 
