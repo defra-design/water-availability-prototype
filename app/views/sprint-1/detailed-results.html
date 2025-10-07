@@ -1,0 +1,212 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  {{ serviceName }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+
+{% if (data['intention'] == "know-site" and data['do-you-know-volume'] == "yes" and data['availability'] == "yes") %}
+
+    <div class="govuk-body">
+
+      <h1 class="govuk-heading-l">Your water availability report</h1>
+    
+      </p>     
+       <p class="govuk-body">
+         This report shows surface water and groundwater availability for 
+         your abstraction site and explains next steps in applying for a water abstraction licence. 
+      </p>
+
+      <div class="govuk-inset-text">
+        <p class="govuk-body"><b>National grid reference:</b> {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}</p>
+        <p class="govuk-body"><b>Proposed abstraction volume:</b> {{ data.vol | default("100", true) | safe }} cubic metres a day</p>
+        <p class="govuk-body"><b>Duration:</b> Proposed volume available for 8 months of the year</p>
+      </div>
+
+      <h2 class="govuk-heading-m">Surface water and groundwater availability</h2>
+
+      <p class="govuk-body">Water can be abstracted from surface water, 
+        such as a river, and from groundwater, such as an aquifer.</p>
+
+      <h3 class="govuk-heading-s">Surface water availability for your site</h3>
+
+      <p class="govuk-body">Surface water availability depends upon the flow rate 
+        of the surface water source you abstract from.</p>
+
+      <p class="govuk-body">Low flows are usually in summer and high flows in winter.</p>
+
+<div class="govuk-summary-card">
+  <div class="govuk-summary-card__title-wrapper">
+    <h2 class="govuk-summary-card__title">
+      Summary of flow rate and water availability for grid reference {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}
+    </h2>
+  </div>
+  <div class="govuk-summary-card__content">
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Surface water flow rate
+        </dt>
+        <dd class="govuk-summary-list__value">
+          Low flow
+        </dd>
+        <dd class="govuk-summary-list__value">
+          Medium flow
+        </dd>
+        <dd class="govuk-summary-list__value">
+          High flow
+        </dd>       
+      </div>
+
+       <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Water available for abstraction
+        </dt>
+        <dd class="govuk-summary-list__value">
+          No water available
+        </dd>
+        <dd class="govuk-summary-list__value">
+          Water available at less than {{ data.vol | default("100", true) | safe }} cubic metres a day
+        </dd>
+        <dd class="govuk-summary-list__value">
+          Water available at {{ data.vol | default("100", true) | safe }} cubic metres a day
+        </dd>       
+      </div>
+    </dl>
+  </div>
+</div>
+
+  <h3 class="govuk-heading-s">Groundwater availability for your site</h3>
+
+<p class="govuk-body">Groundwater for grid reference {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }} is: <b>Available to abstract</p></b>
+
+
+     <h2 class="govuk-heading-m">
+        Next steps
+      </h2>  
+
+       <p class="govuk-body">
+         The Environment Agency grants water abstraction licences. 
+         When considering whether to grant a licence for your site, 
+         we consider other factors as well as groundwater and surface water availability.
+      </p>
+
+      <p class="govuk-body">Those other factors include the impact of the proposed abstraction on:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>nearby abstractors</li>
+          <li>the natural environment</li>
+        </ul>
+
+      <p class="govuk-body"><a href="https://www.gov.uk/guidance/water-management-apply-for-a-water-abstraction-or-impoundment-licence">Apply for a water abstraction licence</a></p>
+      <p class="govuk-body"><a href="https://www.gov.uk/guidance/get-advice-before-you-apply-for-a-water-abstraction-or-impounding-licence">Get advice before you apply</a></p>   
+    </div>
+
+{% elseif (data['intention'] == "know-site" and data['do-you-know-volume'] == "no" and data['availability'] == "yes") %}
+
+    <div class="govuk-body">
+
+      <h1 class="govuk-heading-l">Your water availability report</h1>
+    
+      </p>     
+       <p class="govuk-body">
+         This report shows surface water and groundwater availability for 
+         your abstraction site and explains next steps in applying for a water abstraction licence. 
+      </p>
+
+      <div class="govuk-inset-text">
+        <p class="govuk-body"><b>National grid reference:</b> {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}</p>
+        <p class="govuk-body"><b>Maximum abstraction volume:</b> Up to 250 cubic metres a day</p>
+        <p class="govuk-body"><b>Duration:</b> Maximum volume available for 8 months of the year</p>
+      </div>
+
+      <h2 class="govuk-heading-m">Surface water and groundwater availability</h2>
+
+      <p class="govuk-body">Water can be abstracted from surface water, 
+        such as a river, and from groundwater, such as an aquifer.</p>
+
+      <h3 class="govuk-heading-s">Surface water availability for your site</h3>
+
+      <p class="govuk-body">Surface water availability depends upon the flow rate 
+        of the surface water source you abstract from.</p>
+
+      <p class="govuk-body">Low flows are usually in summer and high flows in winter.</p>
+
+<div class="govuk-summary-card">
+  <div class="govuk-summary-card__title-wrapper">
+    <h2 class="govuk-summary-card__title">
+      Summary of flow rate and water availability for grid reference {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}
+    </h2>
+  </div>
+  <div class="govuk-summary-card__content">
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Surface water flow rate
+        </dt>
+        <dd class="govuk-summary-list__value">
+          Low flow
+        </dd>
+        <dd class="govuk-summary-list__value">
+          Medium flow
+        </dd>
+        <dd class="govuk-summary-list__value">
+          High flow
+        </dd>       
+      </div>
+
+       <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Water available for abstraction
+        </dt>
+        <dd class="govuk-summary-list__value">
+          No water available
+        </dd>
+        <dd class="govuk-summary-list__value">
+          Water available at up to 50 cubic metres a day
+        </dd>
+        <dd class="govuk-summary-list__value">
+          Water available up to 150 cubic metres a day
+        </dd>       
+      </div>
+    </dl>
+  </div>
+</div>
+
+  <h3 class="govuk-heading-s">Groundwater availability for your site</h3>
+
+<p class="govuk-body">Groundwater for grid reference {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }} is: <b>Available to abstract</p></b>
+
+
+     <h2 class="govuk-heading-m">
+        Next steps
+      </h2>  
+
+       <p class="govuk-body">
+         The Environment Agency grants water abstraction licences. 
+         When considering whether to grant a licence for your site, 
+         we consider other factors as well as groundwater and surface water availability.
+      </p>
+
+      <p class="govuk-body">Those other factors include the impact of the proposed abstraction on:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>nearby abstractors</li>
+          <li>the natural environment</li>
+        </ul>
+
+      <p class="govuk-body"><a href="https://www.gov.uk/guidance/water-management-apply-for-a-water-abstraction-or-impoundment-licence">Apply for a water abstraction licence</a></p>
+      <p class="govuk-body"><a href="https://www.gov.uk/guidance/get-advice-before-you-apply-for-a-water-abstraction-or-impounding-licence">Get advice before you apply</a></p>   
+    </div>
+{% endif %}
+
+    </div>
+  </div>
+
+<!--   {{data|dump}} -->
+  
+{% endblock %}
+

@@ -1,0 +1,72 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  {{ serviceName }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">
+        Pick a catchment
+      </h1>
+
+      <form class="form" method="post">
+
+      
+        <div class="govuk-form-group">
+  <fieldset class="govuk-fieldset">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+      <h1 class="govuk-fieldset__heading">
+       These water catchments could provide the abstraction volume you need. 
+       Choose a catchment from the list to find out more about water availability in that area.
+      </h1>
+    </legend>
+    <div class="govuk-radios" data-module="govuk-radios">
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="catchment-1" name="catchment" type="radio" value="catchment-name-1">
+        <label class="govuk-label govuk-radios__label" for="catchment-1">
+          Catchment name 1
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="catchment-2" name="catchment" type="radio" value="catchment-name-2">
+        <label class="govuk-label govuk-radios__label" for="catchment-2">
+          Catchment name 2
+        </label>
+      </div>
+       <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="catchment-3" name="catchment" type="radio" value="catchment-name-3">
+        <label class="govuk-label govuk-radios__label" for="catchment-3">
+          Catchment name 3
+        </label>
+      </div>
+       <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="catchment-4" name="catchment" type="radio" value="catchment-name-4">
+        <label class="govuk-label govuk-radios__label" for="catchment-4">
+          Catchment name 4
+        </label>
+      </div>
+    </div>
+  </fieldset>
+</div>
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}
