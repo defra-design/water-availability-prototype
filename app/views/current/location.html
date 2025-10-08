@@ -20,14 +20,14 @@
         <form class="form" method="post">
 
 
-{% from "govuk/components/radios/macro.njk" import govukRadios %}
-{% from "govuk/components/input/macro.njk" import govukInput %}
+<!-- {% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/input/macro.njk" import govukInput %} -->
 
 {% set gridrefHtml %}
 {{ govukInput({
   id: "gridRef",
   name: "gridRef",
-  classes: "govuk-input--width-14",
+  classes: "govuk-input--width-20",
   hint: {
     text: "For example, SE 05246 70347"
   }
@@ -38,9 +38,9 @@
 {{ govukInput({
   id: "fieldParcel",
   name: "fieldParcel",
-  classes: "govuk-input--width-9",
+  classes: "govuk-input--width-10",
   hint: {
-    text: "For example, 1234/5678"
+    text: "For example, OS1234 5678"
   }
 }) }}
 {% endset -%}

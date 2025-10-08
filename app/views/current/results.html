@@ -18,7 +18,7 @@
    {% if (data['location'] == "gridRef") %}
     <h2 class="govuk-heading-m">For national grid reference {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}</h2>
 {% elseif (data['location'] == "fieldParcel") %}
-    <h2 class="govuk-heading-m">For field parcel {{ data.fieldParcel | default("1234/5678", true) | safe }}</h2>
+    <h2 class="govuk-heading-m">For field parcel {{ data.fieldParcel | default("OS1234 5678", true) | safe }}</h2>
 
  {% endif %}
 
@@ -40,16 +40,18 @@
 
     <div class="govuk-body">
     
-      <h1 class="govuk-heading-l">No water available</h1>
-      <h2 class="govuk-heading-m">For national grid reference {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}</h2>
-   
+ 
+
        <p class="govuk-body">
          You cannot abstract water for this location at {{ data.vol | default("100", true) | safe }} cubic metres a day. 
       </p>
 
-     <!-- <h2 class="govuk-heading-m">
-        What happens next
-      </h2>  -->
+     {% if (data['location'] == "gridRef") %}
+    <h2 class="govuk-heading-m">For national grid reference {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}</h2>
+{% elseif (data['location'] == "fieldParcel") %}
+    <h2 class="govuk-heading-m">For field parcel {{ data.fieldParcel | default("OS1234 5678", true) | safe }}</h2>
+
+ {% endif %}
 
        <p class="govuk-body">
          <a href="volume" class="govuk-link">Try another volume</a>

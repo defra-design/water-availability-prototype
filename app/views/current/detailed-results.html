@@ -23,8 +23,20 @@
       </p>
 
       <div class="govuk-inset-text">
-        <p class="govuk-body"><b>National grid reference:</b> {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}</p>
-        <p class="govuk-body"><b>Proposed abstraction volume:</b> {{ data.vol | default("100", true) | safe }} cubic metres a day</p>
+        <p class="govuk-body">
+
+
+  {% if (data['location'] == "gridRef") %}
+        <b>National grid reference:</b> {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}
+{% elseif (data['location'] == "fieldParcel") %}
+    <b>Field parcel:</b> {{ data.fieldParcel | default("OS1234 5678", true) | safe }}
+
+ {% endif %}
+        </p>
+       
+       
+       
+          <p class="govuk-body"><b>Proposed abstraction volume:</b> {{ data.vol | default("100", true) | safe }} cubic metres a day</p>
         <p class="govuk-body"><b>Duration:</b> Proposed volume available for 8 months of the year</p>
       </div>
 
@@ -42,9 +54,19 @@
 
 <div class="govuk-summary-card">
   <div class="govuk-summary-card__title-wrapper">
+
     <h2 class="govuk-summary-card__title">
-      Summary of flow rate and water availability for grid reference {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}
-    </h2>
+
+       {% if (data['location'] == "gridRef") %}
+        Summary of flow rate and water availability for {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}
+{% elseif (data['location'] == "fieldParcel") %}
+    Summary of flow rate and water availability for {{ data.fieldParcel | default("OS1234 5678", true) | safe }}</h2>
+
+ {% endif %}
+   </h2>
+
+
+
   </div>
   <div class="govuk-summary-card__content">
     <dl class="govuk-summary-list">
@@ -71,6 +93,7 @@
           No water available
         </dd>
         <dd class="govuk-summary-list__value">
+
           Water available at less than {{ data.vol | default("100", true) | safe }} cubic metres a day
         </dd>
         <dd class="govuk-summary-list__value">
@@ -83,7 +106,17 @@
 
   <h3 class="govuk-heading-s">Groundwater availability for your site</h3>
 
-<p class="govuk-body">Groundwater for grid reference {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }} is: <b>Available to abstract</p></b>
+<p class="govuk-body">
+
+         {% if (data['location'] == "gridRef") %}
+        Groundwater for {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}  is: <b>Available to abstract</b>
+{% elseif (data['location'] == "fieldParcel") %}
+    Groundwater for {{ data.fieldParcel | default("OS1234 5678", true) | safe }} is: <b>Available to abstract</b>
+
+ {% endif %}
+  
+
+</p>
 
 
      <h2 class="govuk-heading-m">
@@ -119,8 +152,14 @@
       </p>
 
       <div class="govuk-inset-text">
-        <p class="govuk-body"><b>National grid reference:</b> {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}</p>
-        <p class="govuk-body"><b>Maximum abstraction volume:</b> Up to 250 cubic metres a day</p>
+  <p>{% if (data['location'] == "gridRef") %}
+        <b>National grid reference:</b> {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}
+{% elseif (data['location'] == "fieldParcel") %}
+    <b>Field parcel:</b> {{ data.fieldParcel | default("OS1234 5678", true) | safe }}
+
+ {% endif %}</p>
+
+         <p class="govuk-body"><b>Maximum abstraction volume:</b> Up to 250 cubic metres a day</p>
         <p class="govuk-body"><b>Duration:</b> Maximum volume available for 8 months of the year</p>
       </div>
 
@@ -139,7 +178,14 @@
 <div class="govuk-summary-card">
   <div class="govuk-summary-card__title-wrapper">
     <h2 class="govuk-summary-card__title">
-      Summary of flow rate and water availability for grid reference {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}
+      Summary of flow rate and water availability for      
+  {% if (data['location'] == "gridRef") %}
+        <b>National grid reference:</b> {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}
+{% elseif (data['location'] == "fieldParcel") %}
+    <b>Field parcel:</b> {{ data.fieldParcel | default("OS1234 5678", true) | safe }}
+
+ {% endif %}
+      
     </h2>
   </div>
   <div class="govuk-summary-card__content">
@@ -179,7 +225,16 @@
 
   <h3 class="govuk-heading-s">Groundwater availability for your site</h3>
 
-<p class="govuk-body">Groundwater for grid reference {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }} is: <b>Available to abstract</p></b>
+<p class="govuk-body">Groundwater for 
+     
+  {% if (data['location'] == "gridRef") %}
+        <b>National grid reference:</b> {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}  is available.
+{% elseif (data['location'] == "fieldParcel") %}
+    <b>Field parcel:</b> {{ data.fieldParcel | default("OS1234 5678", true) | safe }}  is available.
+
+ {% endif %}
+ 
+</p>
 
 
      <h2 class="govuk-heading-m">
