@@ -15,7 +15,6 @@
     <div class="govuk-body">
 
       <h1 class="govuk-heading-l">Your water availability report</h1>
-    
       </p>     
        <p class="govuk-body">
          This report shows surface water and groundwater availability for 
@@ -37,7 +36,7 @@
        
        
           <p class="govuk-body"><b>Proposed abstraction volume:</b> {{ data.vol | default("100", true) | safe }} cubic metres a day</p>
-        <p class="govuk-body"><b>Duration:</b> Proposed volume available for 8 months of the year</p>
+        <p class="govuk-body"><b>Duration:</b> Proposed volume available for 7 months of the year</p>
       </div>
 
       <h2 class="govuk-heading-m">Surface water and groundwater availability</h2>
@@ -53,53 +52,120 @@
       <p class="govuk-body">Low flows are usually in summer and high flows in winter.</p>
 
 <div class="govuk-summary-card">
-  <div class="govuk-summary-card__title-wrapper">
-
-    <h2 class="govuk-summary-card__title">
-
-       {% if (data['location'] == "gridRef") %}
+  <div class="govuk-summary-card__title-wrapper vlow card-padding-left">
+    <h2 class="govuk-summary-card__title card-title__font-size">
+      {% if (data['location'] == "gridRef") %}
         Summary of flow rate and water availability for {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}
 {% elseif (data['location'] == "fieldParcel") %}
     Summary of flow rate and water availability for {{ data.fieldParcel | default("OS1234 5678", true) | safe }}</h2>
 
- {% endif %}
-   </h2>
+      {% endif %}
+    </h2>
 
-
-
+    <ul class="govuk-summary-card__actions">
+      <li class="govuk-summary-card__action">
+        <a class="govuk-link card-link__font-size" href="#">
+          More about flow rate and water availability
+        </a>
+      </li>
+    </ul>
   </div>
   <div class="govuk-summary-card__content">
     <dl class="govuk-summary-list">
       <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Surface water flow rate
-        </dt>
-        <dd class="govuk-summary-list__value">
-          Low flow
-        </dd>
-        <dd class="govuk-summary-list__value">
-          Medium flow
-        </dd>
-        <dd class="govuk-summary-list__value">
-          High flow
-        </dd>       
+        <h3 class="govuk-heading-s">September to March</h3>
+        <div class="risk-label-group govuk-!-margin-bottom-3">
+          
+          <strong class="govuk-tag govuk-tag--grey label-mod label-border">
+            Low flow<span class="govuk-visually-hidden"> within a scale of low, medium and high.</span>
+          </strong>
+      
+          <strong class="govuk-tag govuk-tag--grey label-mod" aria-hidden="true">
+            Medium flow
+          </strong>
+      
+          <strong class="govuk-tag govuk-tag--green label-mod" aria-hidden="true">
+            High flow
+          </strong>
+          <br>
+          <br>
+          <p class="govuk-body">Water available at {{ data.vol | default("100", true) | safe }} cubic metres a day.</p>
+        </div>
+       
       </div>
 
        <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Water available for abstraction
-        </dt>
-        <dd class="govuk-summary-list__value">
-          No water available
-        </dd>
-        <dd class="govuk-summary-list__value">
-
-          Water available at less than {{ data.vol | default("100", true) | safe }} cubic metres a day
-        </dd>
-        <dd class="govuk-summary-list__value">
-          Water available at {{ data.vol | default("100", true) | safe }} cubic metres a day
-        </dd>       
+        <br>
+        <h3 class="govuk-heading-s">April</h3>
+        <div class="risk-label-group govuk-!-margin-bottom-3">
+          
+              <strong class="govuk-tag govuk-tag--grey label-mod label-border">
+            Low flow<span class="govuk-visually-hidden"> within a scale of low, medium and high.</span>
+          </strong>
+      
+          <strong class="govuk-tag govuk-tag--yellow label-mod" aria-hidden="true">
+            Medium flow
+          </strong>
+      
+          <strong class="govuk-tag govuk-tag--grey label-mod" aria-hidden="true">
+            High flow
+          </strong>
+          <br>
+          <br>
+          <p class="govuk-body">Water available at {{ (data.vol-1) | default("100", true) | safe }} cubic metres a day.</p>
+          
+        </div>
+       
       </div>
+
+       <div class="govuk-summary-list__row">
+         <br>
+        <h3 class="govuk-heading-s">May to July</h3>
+        <div class="risk-label-group govuk-!-margin-bottom-3">
+          
+             <strong class="govuk-tag govuk-tag--red label-mod label-border">
+            Low flow<span class="govuk-visually-hidden"> within a scale of low, medium and high.</span>
+          </strong>
+      
+          <strong class="govuk-tag govuk-tag--grey label-mod" aria-hidden="true">
+            Medium flow
+          </strong>
+      
+          <strong class="govuk-tag govuk-tag--grey label-mod" aria-hidden="true">
+            High flow
+          </strong>
+          <br>
+          <br>
+          <p class="govuk-body">Water is not available.</p>
+      </div>
+       
+      </div>
+
+       <div class="govuk-summary-list__row">
+         <br>
+        <h3 class="govuk-heading-s">August</h3>
+        <div class="risk-label-group govuk-!-margin-bottom-3">
+          
+              <strong class="govuk-tag govuk-tag--grey label-mod label-border">
+            Low flow<span class="govuk-visually-hidden"> within a scale of low, medium and high.</span>
+          </strong>
+      
+          <strong class="govuk-tag govuk-tag--yellow label-mod" aria-hidden="true">
+            Medium flow
+          </strong>
+      
+          <strong class="govuk-tag govuk-tag--grey label-mod" aria-hidden="true">
+            High flow
+          </strong>
+          <br>
+          <br>
+          <p class="govuk-body">Water available at {{ (data.vol-1) | default("100", true) | safe }} cubic metres a day.</p>
+          
+          
+        </div>
+       
+      </div>
+
     </dl>
   </div>
 </div>
@@ -160,7 +226,7 @@
  {% endif %}</p>
 
          <p class="govuk-body"><b>Maximum abstraction volume:</b> Up to 250 cubic metres a day</p>
-        <p class="govuk-body"><b>Duration:</b> Maximum volume available for 8 months of the year</p>
+        <p class="govuk-body"><b>Duration:</b> Maximum volume available for 7 months of the year</p>
       </div>
 
       <h2 class="govuk-heading-m">Surface water and groundwater availability</h2>
@@ -176,49 +242,121 @@
       <p class="govuk-body">Low flows are usually in summer and high flows in winter.</p>
 
 <div class="govuk-summary-card">
-  <div class="govuk-summary-card__title-wrapper">
-    <h2 class="govuk-summary-card__title">
-      Summary of flow rate and water availability for      
-  {% if (data['location'] == "gridRef") %}
-        <b>National grid reference:</b> {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}
+  <div class="govuk-summary-card__title-wrapper vlow card-padding-left">
+    <h2 class="govuk-summary-card__title card-title__font-size">
+      {% if (data['location'] == "gridRef") %}
+        Summary of flow rate and water availability for {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}
 {% elseif (data['location'] == "fieldParcel") %}
-    <b>Field parcel:</b> {{ data.fieldParcel | default("OS1234 5678", true) | safe }}
+    Summary of flow rate and water availability for {{ data.fieldParcel | default("OS1234 5678", true) | safe }}</h2>
 
- {% endif %}
-      
+      {% endif %}
     </h2>
+
+    <ul class="govuk-summary-card__actions">
+      <li class="govuk-summary-card__action">
+        <a class="govuk-link card-link__font-size" href="#">
+          More about flow rate and water availability
+        </a>
+      </li>
+    </ul>
   </div>
   <div class="govuk-summary-card__content">
     <dl class="govuk-summary-list">
       <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Surface water flow rate
-        </dt>
-        <dd class="govuk-summary-list__value">
-          Low flow
-        </dd>
-        <dd class="govuk-summary-list__value">
-          Medium flow
-        </dd>
-        <dd class="govuk-summary-list__value">
-          High flow
-        </dd>       
+        <h3 class="govuk-heading-s">September to March</h3>
+        <div class="risk-label-group govuk-!-margin-bottom-3">
+          
+          <strong class="govuk-tag govuk-tag--grey label-mod label-border">
+            Low flow<span class="govuk-visually-hidden"> within a scale of low, medium and high.</span>
+          </strong>
+      
+          <strong class="govuk-tag govuk-tag--grey label-mod" aria-hidden="true">
+            Medium flow
+          </strong>
+      
+          <strong class="govuk-tag govuk-tag--green label-mod" aria-hidden="true">
+            High flow
+          </strong>
+          <br>
+          <br>
+          <p class="govuk-body">Water available at 250 cubic metres a day.</p>
+        </div>
+       
       </div>
 
        <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Water available for abstraction
-        </dt>
-        <dd class="govuk-summary-list__value">
-          No water available
-        </dd>
-        <dd class="govuk-summary-list__value">
-          Water available at up to 50 cubic metres a day
-        </dd>
-        <dd class="govuk-summary-list__value">
-          Water available up to 150 cubic metres a day
-        </dd>       
+        <br>
+        <h3 class="govuk-heading-s">April</h3>
+         <br>
+        <div class="risk-label-group govuk-!-margin-bottom-3">
+          
+              <strong class="govuk-tag govuk-tag--grey label-mod label-border">
+            Low flow<span class="govuk-visually-hidden"> within a scale of low, medium and high.</span>
+          </strong>
+      
+          <strong class="govuk-tag govuk-tag--yellow label-mod" aria-hidden="true">
+            Medium flow
+          </strong>
+      
+          <strong class="govuk-tag govuk-tag--grey label-mod" aria-hidden="true">
+            High flow
+          </strong>
+          <br>
+          <br>
+          <p class="govuk-body">Water available at up to 150 cubic metres a day.</p>
+          
+        </div>
+       
       </div>
+
+       <div class="govuk-summary-list__row">
+         <br>
+        <h3 class="govuk-heading-s">May to July</h3>
+        <div class="risk-label-group govuk-!-margin-bottom-3">
+          
+             <strong class="govuk-tag govuk-tag--red label-mod label-border">
+            Low flow<span class="govuk-visually-hidden"> within a scale of low, medium and high.</span>
+          </strong>
+      
+          <strong class="govuk-tag govuk-tag--grey label-mod" aria-hidden="true">
+            Medium flow
+          </strong>
+      
+          <strong class="govuk-tag govuk-tag--grey label-mod" aria-hidden="true">
+            High flow
+          </strong>
+          <br>
+          <br>
+          <p class="govuk-body">Water is not available.</p>
+      </div>
+       
+      </div>
+
+       <div class="govuk-summary-list__row">
+         <br>
+        <h3 class="govuk-heading-s">August</h3>
+        <div class="risk-label-group govuk-!-margin-bottom-3">
+          
+              <strong class="govuk-tag govuk-tag--grey label-mod label-border">
+            Low flow<span class="govuk-visually-hidden"> within a scale of low, medium and high.</span>
+          </strong>
+      
+          <strong class="govuk-tag govuk-tag--yellow label-mod" aria-hidden="true">
+            Medium flow
+          </strong>
+      
+          <strong class="govuk-tag govuk-tag--grey label-mod" aria-hidden="true">
+            High flow
+          </strong>
+          <br>
+          <br>
+          <p class="govuk-body">Water available at up to 150 cubic metres a day.</p>
+          
+          
+        </div>
+       
+      </div>
+
     </dl>
   </div>
 </div>
