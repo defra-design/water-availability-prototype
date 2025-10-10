@@ -29,7 +29,7 @@ router.get(folder + 'start', function (request, response) {
 })
 
 router.post('/start', function (request, response) {
-	response.redirect(folder + 'intention')
+	response.redirect(folder + 'location')
 })
 
 
@@ -55,7 +55,7 @@ router.get(folder + 'location', function (request, response) {
 })
 
 router.post('/location', function (request, response) {
-	response.redirect(folder + 'do-you-know-volume')
+	response.redirect(folder + 'detailed-results')
 })
 
 
