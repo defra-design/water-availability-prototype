@@ -25,7 +25,10 @@
       </p>
 
    
-      <h2 class="govuk-heading-m">Surface water availability for your site</h2>
+{% from "govuk/components/tabs/macro.njk" import govukTabs %}
+
+{% set surfaceWater %}
+    <h2 class="govuk-heading-m">Surface water availability for your site</h2>
 
       <p class="govuk-body">Surface water availability depends upon the flow rate 
         of the surface water source you abstract from.</p>
@@ -164,6 +167,11 @@
   </div>
 </div>
 
+
+
+{% endset -%}
+
+{% set groundWater %}
   <h2 class="govuk-heading-m">Groundwater availability for your site</h2>
 
 <p class="govuk-body">Groundwater for 
@@ -176,6 +184,34 @@
  {% endif %}
  
 </p>
+
+
+{% endset -%}
+
+
+
+{{ govukTabs({
+  items: [
+    {
+      label: "Surface water",
+      id: "surface-water",
+      panel: {
+        html: surfaceWater
+      }
+    },
+    {
+      label: "Ground water",
+      id: "ground-water",
+      panel: {
+        html: groundWater
+      }
+    }
+  ]
+}) }}
+
+
+  
+
 
 
      <h2 class="govuk-heading-m">
