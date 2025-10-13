@@ -27,19 +27,27 @@
           value: data['availability'],
           fieldset: {
             legend: {
-              text: "Do you want water to be available for this scenario?",
+              text: "What water do you want to be available for this scenario?",
               isPageHeading: true,
               classes: "govuk-fieldset__legend--m"
             }
           },
           items: [
             {
-              value: "yes",
-              text: "Yes"
+              value: "both",
+              text: "Both surface and ground water"
             },
             {
-              value: "no",
-              text: "No"
+              value: "surface",
+              text: "Surface water only"
+            },
+            {
+              value: "ground",
+              text: "Ground water only"
+            }, 
+            {
+              value: "neither",
+              text: "No water available"
             }
             
           ]

@@ -34,19 +34,19 @@ router.post('/start', function (request, response) {
 
 
 //Intention page - looking for water in a location or trying to find a location
-router.get(folder + 'intention', function (request, response) {
+/* router.get(folder + 'intention', function (request, response) {
 	response.render(folder + 'intention')
-})
+}) */
 
 //if they know the site go to grid ref page if not skip grid ref and go to volume
-router.post('/intention', function (request, response) {
+/* router.post('/intention', function (request, response) {
 	var intention = request.session.data['intention']
 	if (intention == "know-site") {
 		response.redirect(folder + "location")
 	} else if (intention == "need-site") {
 		response.redirect(folder + "volume")
 	}
-})
+}) */
 
 
 //Location page
@@ -60,7 +60,7 @@ router.post('/location', function (request, response) {
 
 
 //Do you know volume page
-router.get(folder + 'do-you-know-volume', function (request, response) {
+/* router.get(folder + 'do-you-know-volume', function (request, response) {
 	response.render(folder + 'do-you-know-volume')
 })
 //if they know the volume then enter it, if not go straight to results
@@ -71,33 +71,33 @@ router.post('/do-you-know-volume', function (request, response) {
 	} else {
 		response.redirect(folder + "results")
 	}
-})
+}) */
 
 
 //Volume page
-router.get(folder + 'volume', function (request, response) {
+/* router.get(folder + 'volume', function (request, response) {
 	response.render(folder + 'volume')
 })
 
 router.post('/volume', function (request, response) {
 	response.redirect(folder + 'results')
-})
+}) */
 
 
 //Catchment picker page
-router.get(folder + 'catchment-picker', function (request, response) {
+/* router.get(folder + 'catchment-picker', function (request, response) {
 	response.render(folder + 'catchment-picker')
 })
 
 router.post('/catchment-picker', function (request, response) {
 	response.redirect(folder + 'results')
-})
+}) */
 
 
 //Results page
-router.get(folder + 'results', function (request, response) {
+/* router.get(folder + 'results', function (request, response) {
 	response.render(folder + 'results')
-})
+}) */
 
 
 //Detailed results page

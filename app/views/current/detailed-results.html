@@ -9,7 +9,7 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-{% if (data['availability'] == "yes") %}
+{% if (data['availability'] == "both") %}
 
     <div class="govuk-body">
 
@@ -20,7 +20,7 @@
 
       </p>     
        <p class="govuk-body">
-         This report shows surface water and groundwater availability for 
+         This report shows water availability for 
          your abstraction site and explains next steps in applying for a water abstraction licence. 
       </p>
 
@@ -234,7 +234,238 @@
       <p class="govuk-body"><a href="https://www.gov.uk/guidance/get-advice-before-you-apply-for-a-water-abstraction-or-impounding-licence">Get advice before you apply</a></p>   
     </div>
 
-{% elseif (data['availability'] == "no") %}
+{% elseif (data['availability'] == "surface") %}
+    <div class="govuk-body">
+
+      <h1 class="govuk-heading-l">Water is available</h1>
+    
+          <p class="govuk-body">Water can be abstracted from surface water, 
+        such as a river, and from groundwater, such as an aquifer.</p>
+
+      </p>     
+       <p class="govuk-body">
+         This report shows water availability for 
+         your abstraction site and explains next steps in applying for a water abstraction licence. 
+      </p>
+ 
+
+    <h2 class="govuk-heading-m">Surface water availability for your site</h2>
+
+      <p class="govuk-body">Surface water availability depends upon the flow rate 
+        of the surface water source you abstract from.</p>
+
+      <p class="govuk-body">Low flows are usually in summer and high flows in winter.</p>
+    <div class="govuk-inset-text">
+  <p>{% if (data['location'] == "gridRef") %}
+        <b>National grid reference:</b> {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}
+{% elseif (data['location'] == "fieldParcel") %}
+    <b>Field parcel:</b> {{ data.fieldParcel | default("OS1234 5678", true) | safe }}
+
+ {% endif %}</p>
+
+         <p class="govuk-body"><b>Maximum abstraction volume:</b> Up to 2500 cubic metres a day</p>
+        <p class="govuk-body"><b>Duration:</b> Maximum volume available for 7 months of the year</p>
+      </div>
+
+  
+<div class="govuk-summary-card">
+  <div class="govuk-summary-card__title-wrapper vlow card-padding-left">
+    <h2 class="govuk-summary-card__title card-title__font-size">
+      {% if (data['location'] == "gridRef") %}
+        Summary of flow rate and water availability for {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}
+{% elseif (data['location'] == "fieldParcel") %}
+    Summary of flow rate and water availability for {{ data.fieldParcel | default("OS1234 5678", true) | safe }}</h2>
+
+      {% endif %}
+    </h2>
+
+    <ul class="govuk-summary-card__actions">
+      <li class="govuk-summary-card__action">
+        <a class="govuk-link card-link__font-size" href="#">
+          More about flow rate and water availability
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="govuk-summary-card__content">
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <h3 class="govuk-heading-s">September to March</h3>
+        <div class="risk-label-group govuk-!-margin-bottom-3">
+          
+          <strong class="govuk-tag govuk-tag--grey label-mod label-border">
+            Low flow<span class="govuk-visually-hidden"> within a scale of low, medium and high.</span>
+          </strong>
+      
+          <strong class="govuk-tag govuk-tag--grey label-mod" aria-hidden="true">
+            Medium flow
+          </strong>
+      
+          <strong class="govuk-tag govuk-tag--green label-mod" aria-hidden="true">
+            High flow
+          </strong>
+          <br>
+          <br>
+          <p class="govuk-body">Water available at up to 2500 cubic metres a day.</p>
+        </div>
+       
+      </div>
+
+       <div class="govuk-summary-list__row">
+        <br>
+        <h3 class="govuk-heading-s">April</h3>
+         <br>
+        <div class="risk-label-group govuk-!-margin-bottom-3">
+          
+              <strong class="govuk-tag govuk-tag--grey label-mod label-border">
+            Low flow<span class="govuk-visually-hidden"> within a scale of low, medium and high.</span>
+          </strong>
+      
+          <strong class="govuk-tag govuk-tag--yellow label-mod" aria-hidden="true">
+            Medium flow
+          </strong>
+      
+          <strong class="govuk-tag govuk-tag--grey label-mod" aria-hidden="true">
+            High flow
+          </strong>
+          <br>
+          <br>
+          <p class="govuk-body">Water available at up to 1300 cubic metres a day.</p>
+          
+        </div>
+       
+      </div>
+
+       <div class="govuk-summary-list__row">
+         <br>
+        <h3 class="govuk-heading-s">May to July</h3>
+        <div class="risk-label-group govuk-!-margin-bottom-3">
+          
+             <strong class="govuk-tag govuk-tag--red label-mod label-border">
+            Low flow<span class="govuk-visually-hidden"> within a scale of low, medium and high.</span>
+          </strong>
+      
+          <strong class="govuk-tag govuk-tag--grey label-mod" aria-hidden="true">
+            Medium flow
+          </strong>
+      
+          <strong class="govuk-tag govuk-tag--grey label-mod" aria-hidden="true">
+            High flow
+          </strong>
+          <br>
+          <br>
+          <p class="govuk-body">Water is not available.</p>
+      </div>
+       
+      </div>
+
+       <div class="govuk-summary-list__row">
+         <br>
+        <h3 class="govuk-heading-s">August</h3>
+        <div class="risk-label-group govuk-!-margin-bottom-3">
+          
+              <strong class="govuk-tag govuk-tag--grey label-mod label-border">
+            Low flow<span class="govuk-visually-hidden"> within a scale of low, medium and high.</span>
+          </strong>
+      
+          <strong class="govuk-tag govuk-tag--yellow label-mod" aria-hidden="true">
+            Medium flow
+          </strong>
+      
+          <strong class="govuk-tag govuk-tag--grey label-mod" aria-hidden="true">
+            High flow
+          </strong>
+          <br>
+          <br>
+          <p class="govuk-body">Water available at up to 1300 cubic metres a day.</p>
+          
+          
+        </div>
+       
+      </div>
+
+    </dl>
+  </div>
+</div>
+
+ <h2 class="govuk-heading-m">Groundwater availability for your site</h2>
+
+<p class="govuk-body">Groundwater for 
+     
+  {% if (data['location'] == "gridRef") %}
+        {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }} is <b>not available</b>.
+{% elseif (data['location'] == "fieldParcel") %}
+   {{ data.fieldParcel | default("OS1234 5678", true) | safe }} is <b>not available</b>.
+
+ {% endif %}
+ </p>
+ 
+     <h2 class="govuk-heading-m">
+        Next steps
+      </h2>  
+
+       <p class="govuk-body">
+         The Environment Agency grants water abstraction licences. 
+         When considering whether to grant a licence for your site, 
+         we consider other factors as well as groundwater and surface water availability.
+      </p>
+
+      <p class="govuk-body">Those other factors include the impact of the proposed abstraction on:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>nearby abstractors</li>
+          <li>the natural environment</li>
+        </ul>
+
+      <p class="govuk-body"><a href="https://www.gov.uk/guidance/water-management-apply-for-a-water-abstraction-or-impoundment-licence">Apply for a water abstraction licence</a></p>
+      <p class="govuk-body"><a href="https://www.gov.uk/guidance/get-advice-before-you-apply-for-a-water-abstraction-or-impounding-licence">Get advice before you apply</a></p>   
+    </div>
+
+{% elseif (data['availability'] == "ground") %}
+
+<div class="govuk-body">
+  <h2 class="govuk-heading-m">Surface water availability for your site</h2>
+<p class="govuk-body"> Surface water for 
+{% if (data['location'] == "gridRef") %}
+       {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }} is <b>not available</b>.
+{% elseif (data['location'] == "fieldParcel") %}
+   {{ data.fieldParcel | default("OS1234 5678", true) | safe }} is  <b>not available</b>.
+
+ {% endif %}
+</p>
+  <h2 class="govuk-heading-m">Groundwater availability for your site</h2>
+
+<p class="govuk-body">Groundwater for 
+     
+  {% if (data['location'] == "gridRef") %}
+        {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }} is <b>available</b>.
+{% elseif (data['location'] == "fieldParcel") %}
+   {{ data.fieldParcel | default("OS1234 5678", true) | safe }} is <b>available</b>.
+
+ {% endif %}
+ </p>
+ 
+   <h2 class="govuk-heading-m">
+        Next steps
+      </h2>  
+
+       <p class="govuk-body">
+         The Environment Agency grants water abstraction licences. 
+         When considering whether to grant a licence for your site, 
+         we consider other factors as well as groundwater and surface water availability.
+      </p>
+
+      <p class="govuk-body">Those other factors include the impact of the proposed abstraction on:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>nearby abstractors</li>
+          <li>the natural environment</li>
+        </ul>
+
+      <p class="govuk-body"><a href="https://www.gov.uk/guidance/water-management-apply-for-a-water-abstraction-or-impoundment-licence">Apply for a water abstraction licence</a></p>
+      <p class="govuk-body"><a href="https://www.gov.uk/guidance/get-advice-before-you-apply-for-a-water-abstraction-or-impounding-licence">Get advice before you apply</a></p>   
+
+</div>
+
+{% elseif (data['availability'] == "neither") %}
 
   <div class="govuk-body">
     
