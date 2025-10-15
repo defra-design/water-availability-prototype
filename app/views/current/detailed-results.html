@@ -51,9 +51,9 @@
   <div class="govuk-summary-card__title-wrapper vlow card-padding-left">
     <h2 class="govuk-summary-card__title card-title__font-size">
       {% if (data['location'] == "gridRef") %}
-        Summary of flow rate and water availability for {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}
+        Summary of flow rate and water availability for {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }} from the River Ouse
 {% elseif (data['location'] == "fieldParcel") %}
-    Summary of flow rate and water availability for {{ data.fieldParcel | default("OS1234 5678", true) | safe }}</h2>
+    Summary of flow rate and water availability for {{ data.fieldParcel | default("OS1234 5678", true) | safe }} from the River Ouse</h2>
 
       {% endif %}
     </h2>
@@ -218,25 +218,6 @@
   
 
 
-
-     <h2 class="govuk-heading-m">
-        Next steps
-      </h2>  
-
-       <p class="govuk-body">
-         The Environment Agency grants water abstraction licences. 
-         When considering whether to grant a licence for your site, 
-         we consider other factors as well as groundwater and surface water availability.
-      </p>
-
-      <p class="govuk-body">Those other factors include the impact of the proposed abstraction on:</p>
-        <ul class="govuk-list govuk-list--bullet">
-          <li>nearby abstractors</li>
-          <li>the natural environment</li>
-        </ul>
-
-      <p class="govuk-body"><a href="https://www.gov.uk/guidance/water-management-apply-for-a-water-abstraction-or-impoundment-licence">Apply for a water abstraction licence</a></p>
-      <p class="govuk-body"><a href="https://www.gov.uk/guidance/get-advice-before-you-apply-for-a-water-abstraction-or-impounding-licence">Get advice before you apply</a></p>   
     </div>
 
 {% elseif (data['availability'] == "surface") %}
@@ -277,9 +258,9 @@
   <div class="govuk-summary-card__title-wrapper vlow card-padding-left">
     <h2 class="govuk-summary-card__title card-title__font-size">
       {% if (data['location'] == "gridRef") %}
-        Summary of flow rate and water availability for {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}
+        Summary of flow rate and water availability for {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }} from the River Ouse
 {% elseif (data['location'] == "fieldParcel") %}
-    Summary of flow rate and water availability for {{ data.fieldParcel | default("OS1234 5678", true) | safe }}</h2>
+    Summary of flow rate and water availability for {{ data.fieldParcel | default("OS1234 5678", true) | safe }} from the River Ouse</h2>
 
       {% endif %}
     </h2>
@@ -408,25 +389,7 @@
  {% endif %}
  </p>
 
-     <h2 class="govuk-heading-m">
-        Next steps
-      </h2>  
-
-       <p class="govuk-body">
-         The Environment Agency grants water abstraction licences. 
-         When considering whether to grant a licence for your site, 
-         we consider other factors as well as groundwater and surface water availability.
-      </p>
-
-      <p class="govuk-body">Those other factors include the impact of the proposed abstraction on:</p>
-        <ul class="govuk-list govuk-list--bullet">
-          <li>nearby abstractors</li>
-          <li>the natural environment</li>
-        </ul>
-
-      <p class="govuk-body"><a href="https://www.gov.uk/guidance/water-management-apply-for-a-water-abstraction-or-impoundment-licence">Apply for a water abstraction licence</a></p>
-      <p class="govuk-body"><a href="https://www.gov.uk/guidance/get-advice-before-you-apply-for-a-water-abstraction-or-impounding-licence">Get advice before you apply</a></p>   
-    </div>
+      </div>
 
 {% elseif (data['availability'] == "ground") %}
 
@@ -453,26 +416,9 @@
  {% endif %}
  </p>
  
-   <h2 class="govuk-heading-m">
-        Next steps
-      </h2>  
-
-       <p class="govuk-body">
-         The Environment Agency grants water abstraction licences. 
-         When considering whether to grant a licence for your site, 
-         we consider other factors as well as groundwater and surface water availability.
-      </p>
-
-      <p class="govuk-body">Those other factors include the impact of the proposed abstraction on:</p>
-        <ul class="govuk-list govuk-list--bullet">
-          <li>nearby abstractors</li>
-          <li>the natural environment</li>
-        </ul>
-
-      <p class="govuk-body"><a href="https://www.gov.uk/guidance/water-management-apply-for-a-water-abstraction-or-impoundment-licence">Apply for a water abstraction licence</a></p>
-      <p class="govuk-body"><a href="https://www.gov.uk/guidance/get-advice-before-you-apply-for-a-water-abstraction-or-impounding-licence">Get advice before you apply</a></p>   
-
+  
 </div>
+
 
 {% elseif (data['availability'] == "neither") %}
 
@@ -496,6 +442,28 @@ you cannot abstract water at any volume at any time.</p>
          <a href="location" class="govuk-link">Try another location</a>
       </p>
     </div>
+
+{% endif %}
+
+{% if (data['availability']  == "surface" or data['availability']  == "ground" or data['availability']  == "both") %}
+ <h2 class="govuk-heading-m">
+        Next steps
+      </h2>  
+
+       <p class="govuk-body">
+         The Environment Agency grants water abstraction licences. 
+         When considering whether to grant a licence for your site, 
+         we consider other factors as well as groundwater and surface water availability.
+      </p>
+
+      <p class="govuk-body">Those other factors include the impact of the proposed abstraction on:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>nearby abstractors</li>
+          <li>the natural environment</li>
+        </ul>
+
+      <p class="govuk-body"><a href="https://www.gov.uk/guidance/water-management-apply-for-a-water-abstraction-or-impoundment-licence">Apply for a water abstraction licence</a></p>
+      <p class="govuk-body"><a href="https://www.gov.uk/guidance/get-advice-before-you-apply-for-a-water-abstraction-or-impounding-licence">Get advice before you apply</a></p>   
 
 {% endif %}
 
