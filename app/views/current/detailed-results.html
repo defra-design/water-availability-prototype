@@ -9,62 +9,59 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
+
+
+{% if (data['availability']  == "surface" or data['availability']  == "ground" or data['availability']  == "both") %}
+
+  <h1 class="govuk-heading-l">Water is available in your area</h1>
+    
+          <p class="govuk-body">
+      {% if (data['location'] == "gridRef") %}
+        The grid reference {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }} falls within the <b>Adur and Ouse</b> catchment.
+{% elseif (data['location'] == "fieldParcel") %}
+    The field parcel {{ data.fieldParcel | default("OS1234 5678", true) | safe }} falls within the <b>Adur and Ouse</b> catchment.
+
+      {% endif %}
+   </p>
+    
+{% endif -%}
+
+
 {% if (data['availability'] == "both") %}
+<h2 class="govuk-heading-m">Types of water available in your area</h2>
+
+ <p class="govuk-body">
+     Your local area has both surface water and groundwater available.  
+</p>    
 
     <div class="govuk-body">
-
-      <h1 class="govuk-heading-l">Water is available</h1>
-    
-          <p class="govuk-body">Water can be abstracted from surface water, 
-        such as a river, and from groundwater, such as an aquifer.</p>
-
-      </p>     
-       <p class="govuk-body">
-         This report shows water availability for 
-         your abstraction site and explains next steps in applying for a water abstraction licence. 
-      </p>
 
    
 {% from "govuk/components/tabs/macro.njk" import govukTabs %}
 
 {% set surfaceWater %}
-    <h2 class="govuk-heading-m">Surface water availability for your site</h2>
+    <h2 class="govuk-heading-m">Local surface water information</h2>
 
-      <p class="govuk-body">Surface water availability depends upon the flow rate 
-        of the surface water source you abstract from.</p>
+     
 
-      <p class="govuk-body">Low flows are usually in summer and high flows in winter.</p>
-    <div class="govuk-inset-text">
-  <p>{% if (data['location'] == "gridRef") %}
-        <b>National grid reference:</b> {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}
-{% elseif (data['location'] == "fieldParcel") %}
-    <b>Field parcel:</b> {{ data.fieldParcel | default("OS1234 5678", true) | safe }}
+<p class="govuk-body">Surface water availability is measured using data 
+  from local assessment points in your catchment area. It varies depending on the flow rate 
+        of the surface water source you abstract from. Low flows are usually in summer and high flows in winter.</p>
 
- {% endif %}</p>
-
-         <p class="govuk-body"><b>Maximum abstraction volume:</b> Up to 2500 cubic metres a day</p>
-        <p class="govuk-body"><b>Duration:</b> Maximum volume available for 7 months of the year</p>
-      </div>
+<ul class="govuk-list govuk-list--bullet">
+  <li>Your nearest water body is the <b>River Ouse</b></li>
+  <li>Your nearest assessment point is <b>Hatterells Bridge - Western Adur</b></li>
+</ul>
 
   
 <div class="govuk-summary-card">
   <div class="govuk-summary-card__title-wrapper vlow card-padding-left">
     <h2 class="govuk-summary-card__title card-title__font-size">
-      {% if (data['location'] == "gridRef") %}
-        Summary of flow rate and water availability for {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }} from the River Ouse
-{% elseif (data['location'] == "fieldParcel") %}
-    Summary of flow rate and water availability for {{ data.fieldParcel | default("OS1234 5678", true) | safe }} from the River Ouse</h2>
-
-      {% endif %}
+     
+        Summary of local flow rate and water availability
     </h2>
 
-    <ul class="govuk-summary-card__actions">
-      <li class="govuk-summary-card__action">
-        <a class="govuk-link card-link__font-size" href="#">
-          More about flow rate and water availability
-        </a>
-      </li>
-    </ul>
+    
   </div>
   <div class="govuk-summary-card__content">
     <dl class="govuk-summary-list">
@@ -94,7 +91,7 @@
        <div class="govuk-summary-list__row">
         <br>
         <h3 class="govuk-heading-s">April</h3>
-         <br>
+        
         <div class="risk-label-group govuk-!-margin-bottom-3">
           
               <strong class="govuk-tag govuk-tag--grey label-mod label-border">
@@ -204,7 +201,7 @@
       }
     },
     {
-      label: "Ground water",
+      label: "Groundwater",
       id: "ground-water",
       panel: {
         html: groundWater
@@ -221,18 +218,6 @@
 
 {% elseif (data['availability'] == "surface") %}
     <div class="govuk-body">
-
-      <h1 class="govuk-heading-l">Water is available</h1>
-    
-          <p class="govuk-body">Water can be abstracted from surface water, 
-        such as a river, and from groundwater, such as an aquifer.</p>
-
-      </p>     
-       <p class="govuk-body">
-         This report shows water availability for 
-         your abstraction site and explains next steps in applying for a water abstraction licence. 
-      </p>
- 
 
     <h2 class="govuk-heading-m">Surface water availability for your site</h2>
 
@@ -393,7 +378,7 @@
 {% elseif (data['availability'] == "ground") %}
 
 <div class="govuk-body">
-      <h1 class="govuk-heading-l">Water is available</h1>
+
   <h2 class="govuk-heading-m">Surface water availability for your site</h2>
 <p class="govuk-body"> Surface water for 
 {% if (data['location'] == "gridRef") %}

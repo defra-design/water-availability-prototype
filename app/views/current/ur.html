@@ -10,22 +10,25 @@
     Alpha: {{ serviceName }}
   </h1>
 
-  {{data|dump}}
-
 <table class="govuk-table">
   <caption class="govuk-table__caption govuk-table__caption--m">Round</caption>
   <thead class="govuk-table__head">
     <tr class="govuk-table__row">
-      <th scope="col" class="govuk-table__header">Current sprint</th>
+      <th scope="col" class="govuk-table__header">Current round</th>
       <th scope="col" class="govuk-table__header govuk-table__header--numeric">Scenarios</th>
       <th scope="col" class="govuk-table__header">Date</th>
     </tr>
   </thead>
   <tbody class="govuk-table__body">
     <tr class="govuk-table__row">
-      <td class="govuk-table__cell govuk-table__cell--text">Current</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric"><a href="start?availability=yes">Scenario 1</a><br><a href="start?availability=no">Scenario 2</a></td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">xx September - xx September 2025</td>
+      <td class="govuk-table__cell govuk-table__cell--text">Current round</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"><a href="start?availability=both">Scenario 1</a><br><a href="start?availability=surface">Scenario 2</a></td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">October 2025</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell govuk-table__cell--text">Round 1</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"><a href="../sprint-1/start?availability=yes">Scenario 1</a><br><a href="../sprint-1/start?availability=no">Scenario 2</a></td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">September 2025</td>
     </tr>
   </tbody>
 </table>
