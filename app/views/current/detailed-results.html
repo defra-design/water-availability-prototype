@@ -83,8 +83,8 @@
           <br>
           <br>
           <p class="govuk-body"><b>Water is currently available at up to 2500 cubic metres a day.</b></p>
-          <p class="govuk-body">Over the last 20 years, water has been available at up to 2500 cubic metres a day for <b>18</b> out of <b>20</b> of those years. It wasn't available in 2006 and 2009.</p>
-        </div>
+          <p class="govuk-body">Historically water has been available at these levels for <b>18</b> out of <b>20</b> years. It wasn't available in 2006 and 2009.</p>
+          </div>
        
       </div>
 
@@ -108,8 +108,7 @@
           <br>
           <br>
           <p class="govuk-body"><b>Water is currently available at up to 1300 cubic metres a day.</b></p>
-          <p class="govuk-body">Over the last 20 years, water has been available at up to 1300 cubic metres a day for <b>15</b> out of <b>20</b> of those years. It wasn't available in 2006, 2007, 2009, 2012 and 2024.</p>
- 
+          <p class="govuk-body">Historically water has been available at these levels for <b>15</b> out of <b>20</b> years. It wasn't available in 2006, 2007, 2009, 2012 and 2024.</p>
         </div>
        
       </div>
@@ -133,8 +132,8 @@
           <br>
           <br>
           <p class="govuk-body"><b>Water is not currently available.</b></p>
-          <p class="govuk-body">Over the last 20 years, water has not been available for <b>10</b> out of <b>20</b> of those years. It wasn't available in 2006, 2007, 2008, 2009, 2012, 2014, 2020, 2021, 2022 and 2024.</p>
-
+          <p class="govuk-body">Historically water has been available at these levels for <b>10</b> out of <b>20</b> years. It wasn't available in 2006, 2007, 2008, 2009, 2012, 2014, 2020, 2021, 2022 and 2024.</p>
+  
       </div>
        
       </div>
@@ -158,8 +157,7 @@
           <br>
           <br>
           <p class="govuk-body"><b>Water is currently available at up to 1100 cubic metres a day.</b></p>
-          <p class="govuk-body">Over the last 20 years, water has been available at up to 1100 cubic metres a day for <b>16</b> out of <b>20</b> of those years. It wasn't available in 2006, 2009, 2012 and 2024.</p>
-          
+          <p class="govuk-body">Historically water has been available at these levels for <b>16</b> out of <b>20</b> years. It wasn't available in 2006, 2009, 2012 and 2024.</p>
           
         </div>
        
@@ -175,14 +173,7 @@
 {% set groundWater %}
   <h2 class="govuk-heading-m">Groundwater availability for your site</h2>
 
-<p class="govuk-body">Groundwater for 
-     
-  {% if (data['location'] == "gridRef") %}
-        <b>{{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}</b> is available.
-{% elseif (data['location'] == "fieldParcel") %}
-    <b>{{ data.fieldParcel | default("OS1234 5678", true) | safe }}</b> is available.
-
- {% endif %}
+<p class="govuk-body">Groundwater for your local area is available.
  
 </p>
 
@@ -219,73 +210,43 @@
 {% elseif (data['availability'] == "surface") %}
     <div class="govuk-body">
 
-    <h2 class="govuk-heading-m">Surface water availability for your site</h2>
+  <h2 class="govuk-heading-m">Types of water available in your area</h2>
 
-      <p class="govuk-body">Surface water availability depends upon the flow rate 
-        of the surface water source you abstract from.</p>
+ <p class="govuk-body">
+     Your local area only has surface water available.  
+</p>    
 
-      <p class="govuk-body">Low flows are usually in summer and high flows in winter.</p>
-    <div class="govuk-inset-text">
-  <p>{% if (data['location'] == "gridRef") %}
-        <b>National grid reference:</b> {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}
-{% elseif (data['location'] == "fieldParcel") %}
-    <b>Field parcel:</b> {{ data.fieldParcel | default("OS1234 5678", true) | safe }}
+    <div class="govuk-body">
 
- {% endif %}</p>
+    <h2 class="govuk-heading-m">Local surface water information</h2>
 
-         <p class="govuk-body"><b>Maximum abstraction volume:</b> Up to 2500 cubic metres a day</p>
-        <p class="govuk-body"><b>Duration:</b> Maximum volume available for 7 months of the year</p>
-      </div>
+   </div>  
+
+<p class="govuk-body">Surface water availability is measured using data 
+  from local assessment points in your catchment area. It varies depending on the flow rate 
+        of the surface water source you abstract from. Low flows are usually in summer and high flows in winter.</p>
+
+<ul class="govuk-list govuk-list--bullet">
+  <li>Your nearest water body is the <b>River Ouse</b></li>
+  <li>Your nearest assessment point is <b>Hatterells Bridge - Western Adur</b></li>
+</ul>
 
   
 <div class="govuk-summary-card">
   <div class="govuk-summary-card__title-wrapper vlow card-padding-left">
-    <h2 class="govuk-summary-card__title card-title__font-size">
-      {% if (data['location'] == "gridRef") %}
-        Summary of flow rate and water availability for {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }} from the River Ouse
-{% elseif (data['location'] == "fieldParcel") %}
-    Summary of flow rate and water availability for {{ data.fieldParcel | default("OS1234 5678", true) | safe }} from the River Ouse</h2>
-
-      {% endif %}
+        <h2 class="govuk-summary-card__title card-title__font-size">
+     
+        Summary of local flow rate and water availability
     </h2>
 
-    <ul class="govuk-summary-card__actions">
-      <li class="govuk-summary-card__action">
-        <a class="govuk-link card-link__font-size" href="#">
-          More about flow rate and water availability
-        </a>
-      </li>
-    </ul>
+    
   </div>
   <div class="govuk-summary-card__content">
     <dl class="govuk-summary-list">
-      <div class="govuk-summary-list__row">
-        <h3 class="govuk-heading-s">September to March</h3>
-        <div class="risk-label-group govuk-!-margin-bottom-3">
-          
-          <strong class="govuk-tag govuk-tag--grey label-mod label-border">
-            Low flow<span class="govuk-visually-hidden"> within a scale of low, medium and high.</span>
-          </strong>
-      
-          <strong class="govuk-tag govuk-tag--grey label-mod" aria-hidden="true">
-            Medium flow
-          </strong>
-      
-          <strong class="govuk-tag govuk-tag--green label-mod" aria-hidden="true">
-            High flow
-          </strong>
-          <br>
-          <br>
-          <p class="govuk-body"><b>Water is currently available at up to 2500 cubic metres a day.</b></p>
-          <p class="govuk-body">Over the last 20 years, water has been available at up to 2500 cubic metres a day for <b>18</b> out of <b>20</b> of those years. It wasn't available in 2006 and 2009.</p>
-       </div>
-       
-      </div>
+  <div class="govuk-summary-list__row">
 
-       <div class="govuk-summary-list__row">
-        <br>
         <h3 class="govuk-heading-s">April</h3>
-         
+        
         <div class="risk-label-group govuk-!-margin-bottom-3">
           
               <strong class="govuk-tag govuk-tag--grey label-mod label-border">
@@ -301,9 +262,8 @@
           </strong>
           <br>
           <br>
-            <p class="govuk-body"><b>Water is currently available at up to 1300 cubic metres a day.</b></p>
-          <p class="govuk-body">Over the last 20 years, water has been available at up to 1300 cubic metres a day for <b>15</b> out of <b>20</b> of those years. It wasn't available in 2006, 2007, 2009, 2012 and 2024.</p>
-          
+          <p class="govuk-body"><b>Water is currently available at up to 1300 cubic metres a day.</b></p>
+          <p class="govuk-body">Historically water has been available at these levels for <b>18</b> out of <b>20</b> years. It wasn't available in 2006, 2007, 2009, 2012 and 2024.</p>
         </div>
        
       </div>
@@ -327,7 +287,8 @@
           <br>
           <br>
           <p class="govuk-body"><b>Water is not currently available.</b></p>
-          <p class="govuk-body">Over the last 20 years, water has not been available for <b>10</b> out of <b>20</b> of those years. It wasn't available in 2006, 2007, 2008, 2009, 2012, 2014, 2020, 2021, 2022 and 2024.</p>
+          <p class="govuk-body">Historically water has been available at these levels for <b>10</b> out of <b>20</b> years. It wasn't available in 2006, 2007, 2008, 2009, 2012, 2014, 2020, 2021, 2022 and 2024.</p>
+  
       </div>
        
       </div>
@@ -350,8 +311,8 @@
           </strong>
           <br>
           <br>
-            <p class="govuk-body"><b>Water is currently available at up to 1100 cubic metres a day.</b></p>
-          <p class="govuk-body">Over the last 20 years, water has been available at up to 1100 cubic metres a day for <b>16</b> out of <b>20</b> of those years. It wasn't available in 2006, 2009, 2012 and 2024.</p>
+          <p class="govuk-body"><b>Water is currently available at up to 1100 cubic metres a day.</b></p>
+          <p class="govuk-body">Historically water has been available at these levels for <b>16</b> out of <b>20</b> years. It wasn't available in 2006, 2009, 2012 and 2024.</p>
           
         </div>
        
@@ -361,43 +322,28 @@
   </div>
 </div>
 
- <h2 class="govuk-heading-m">Groundwater availability for your site</h2>
+ <h2 class="govuk-heading-m">Local groundwater information</h2>
 
-<p class="govuk-body">Groundwater for 
-     
-  {% if (data['location'] == "gridRef") %}
-        {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }} is <b>not available</b>.
-{% elseif (data['location'] == "fieldParcel") %}
-   {{ data.fieldParcel | default("OS1234 5678", true) | safe }} is <b>not available</b>.
-
- {% endif %}
+<p class="govuk-body">Groundwater is not available in your local area.
  </p>
 
       </div>
+
+   
 
 {% elseif (data['availability'] == "ground") %}
 
 <div class="govuk-body">
 
-  <h2 class="govuk-heading-m">Surface water availability for your site</h2>
-<p class="govuk-body"> Surface water for 
-{% if (data['location'] == "gridRef") %}
-       {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }} is <b>not available</b>.
-{% elseif (data['location'] == "fieldParcel") %}
-   {{ data.fieldParcel | default("OS1234 5678", true) | safe }} is  <b>not available</b>.
+  <h2 class="govuk-heading-m">Types of water available in your area</h2>
 
- {% endif %}
-</p>
-  <h2 class="govuk-heading-m">Groundwater availability for your site</h2>
+ <p class="govuk-body">
+     Your local area only has groundwater available.  
+</p>  
 
-<p class="govuk-body">Groundwater for 
-     
-  {% if (data['location'] == "gridRef") %}
-        {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }} is <b>available</b>.
-{% elseif (data['location'] == "fieldParcel") %}
-   {{ data.fieldParcel | default("OS1234 5678", true) | safe }} is <b>available</b>.
+  <h2 class="govuk-heading-m">Local groundwater information</h2>
 
- {% endif %}
+<p class="govuk-body">Groundwater is available in your local area.
  </p>
  
   
