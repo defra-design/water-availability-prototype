@@ -6,87 +6,43 @@
 
 {% block content %}
 
-<p class="govuk-body">Please do not press Continue until your researcher tells you to.</p>
+<p class="govuk-body">
+  {{ govukButton({
+  text: "Participant 1",
+  href: "ur-scenario?participant=1"
+}) }}
+</p>
 
-<div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
-  <div class="govuk-accordion__section">
-    <div class="govuk-accordion__section-header">
-      <h2 class="govuk-accordion__section-heading">
-        <span class="govuk-accordion__section-button" id="accordion-default-heading-1">
-          Scenario 1
-        </span>
-      </h2>
-    </div>
-    <div id="accordion-default-content-1" class="govuk-accordion__section-content">
-      <p class="govuk-body">Imagine you're getting water for your farm for the first time.</p>
-<p class="govuk-body">You don't have a licence.</p>
-<p class="govuk-body">You were told by someone that you needed a licence so you started doing some research on the internet and reached the page that follows.</p>
+<p class="govuk-body">
+{{ govukButton({
+  text: "Participant 2",
+  href: "ur-scenario?participant=2"
+}) }}
+</p>
+
+
+<p class="govuk-body">
+{{ govukButton({
+  text: "Participant 3",
+  href: "ur-scenario?participant=3"
+}) }}
+</p>
+
+
 
 {{ govukButton({
-  text: "Continue",
-  href: "start?availability=both&participant=1"
+  text: "Participant 4",
+  href: "ur-scenario?participant=4"
 }) }}
+</p>
 
-    </div>
-  </div>
-  <div class="govuk-accordion__section">
-    <div class="govuk-accordion__section-header">
-      <h2 class="govuk-accordion__section-heading">
-        <span class="govuk-accordion__section-button" id="accordion-default-heading-2">
-         Scenario 2
-        </span>
-      </h2>
-    </div>
-    <div id="accordion-default-content-2" class="govuk-accordion__section-content">
-      <p class="govuk-body">Imagine you're getting water for your farm for the first time.</p>
-<p class="govuk-body">You don't have a licence.</p>
-<p class="govuk-body">You were told by someone that you needed a licence so you started doing some research on the internet and reached the page that follows.</p>
 
+<p class="govuk-body">
 {{ govukButton({
-  text: "Continue",
-  href: "start?availability=neither"
+  text: "Participant 5",
+  href: "ur-scenario?participant=5"
 }) }}
 
-</div>
-  </div>
-
-</div>
-
-
-
-<!--  <h1 class="govuk-heading-xl">
-    Alpha: {{ serviceName }}
-  </h1>-->
-
-<!--<table class="govuk-table">
-  <caption class="govuk-table__caption govuk-table__caption--m">Round</caption>
-  <thead class="govuk-table__head">
-    <tr class="govuk-table__row">
-      <th scope="col" class="govuk-table__header">Current round</th>
-      <th scope="col" class="govuk-table__header govuk-table__header--numeric">Scenarios</th>
-      <th scope="col" class="govuk-table__header">Date</th>
-    </tr>
-  </thead>
-  <tbody class="govuk-table__body">
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell govuk-table__cell--text">Current round</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric"></td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">October 2025</td>
-    </tr>
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell govuk-table__cell--text">Round 1</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric"><a href="../sprint-1/start?availability=yes">Scenario 1</a><br><a href="../sprint-1/start?availability=no">Scenario 2</a></td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">September 2025</td>
-    </tr>
-  </tbody>
-</table> -->
-
-<!-- <h1 class="govuk-heading-m">
-        Team
-      </h1>
-  
-  <p class="govuk-body">
-    <a href="mailto:david.miller@environment-agency.gov.uk" class="govuk-link">David Miller</a>
-  </p> -->
+</p>
 
 {% endblock %}

@@ -9,8 +9,6 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-      {{data|dump}}
-
 {% if (data['availability']  == "surface" or data['availability']  == "ground" or data['availability']  == "both") %}
 
   <h1 class="govuk-heading-l">Water is available in your area</h1>
@@ -237,8 +235,8 @@
         of the surface water source you abstract from. Low flows are usually in summer and high flows in winter.</p>
 
 <ul class="govuk-list govuk-list--bullet">
-  <li>Your nearest water body is the <b>River Ouse</b></li>
-  <li>Your nearest assessment point is <b>Hatterells Bridge - Western Adur</b></li>
+  <li>Your nearest water body is the <b>{{data.waterBody | default ("River Ouse")}}</b></li>
+  <li>Your nearest assessment point is <b>{{data.aP | default ("Hatterells Bridge - Western Adur")}}</b></li>
 </ul>
 
   

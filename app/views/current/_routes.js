@@ -27,17 +27,34 @@ router.post('/set-variables', function (request, response) {
 router.get(folder + 'start', function (request, response) {
 
    if (request.session.data.participant == 1) {
-request.session.data.catchment = "Thetford and Norfolk"
-request.session.data.waterBody = "water body name"
-request.session.data.aP = "Assessment point name"
-   } else if (request.session.data.participant == 2) {
-request.session.data.catchment = "something else"
-request.session.data.waterBody = "water body name"
-request.session.data.aP = "Assessment point name"
+request.session.data.catchment = "Cam & Ely Ouse"
+request.session.data.waterBody = "River Wissey"
+request.session.data.aP = "Upper River Wissey (Northwold)"
+   }
+  
+   else if (request.session.data.participant == 2) {
+request.session.data.catchment = "Ribble, Douglas & Crossens"
+request.session.data.waterBody = "River Ribble"
+request.session.data.aP = "Lower Ribble"
    }
 
+   else if (request.session.data.participant == 3) {
+request.session.data.catchment = "Witham"
+request.session.data.waterBody = "River Witham"
+request.session.data.aP = "Hykeham Bridge"
+   }
 
+   else if (request.session.data.participant == 4) {
+request.session.data.catchment = "South & West Somerset"
+request.session.data.waterBody = "River Axe"
+request.session.data.aP = "Lower River Axe at Diamond Farm"
+   }
 
+   else if (request.session.data.participant == 5) {
+request.session.data.catchment = "Wharfe & Lower Ouse"
+request.session.data.waterBody = "River Ouse (tidal Lower Ouse)"
+request.session.data.aP = "Tadcaster"
+   }
    
 	response.render(folder + 'start')
 })
