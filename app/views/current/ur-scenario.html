@@ -8,53 +8,54 @@
 
 <p class="govuk-body">Please do not press Continue until your researcher tells you to.</p>
 
-<div class="govuk-body">
-<div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
-  <div class="govuk-accordion__section">
-    <div class="govuk-accordion__section-header">
-      <h2 class="govuk-accordion__section-heading">
-        <span class="govuk-accordion__section-button" id="accordion-default-heading-1">
-          Scenario 1
-        </span>
-      </h2>
-    </div>
-    <div id="accordion-default-content-1" class="govuk-accordion__section-content">
-      <p class="govuk-body">Imagine you're getting water for your farm for the first time.</p>
-<p class="govuk-body">You don't have a licence.</p>
-<p class="govuk-body">You were told by someone that you needed a licence so you started doing some research on the internet and reached the page that follows.</p>
-
+{% set htmlButton1 %}
 {{ govukButton({
   text: "Continue",
   href: "start?availability=both"
 }) }}
+{% endset %}
 
-    </div>
-  </div>
-  <div class="govuk-accordion__section">
-    <div class="govuk-accordion__section-header">
-      <h2 class="govuk-accordion__section-heading">
-        <span class="govuk-accordion__section-button" id="accordion-default-heading-2">
-         Scenario 2
-        </span>
-      </h2>
-    </div>
-    <div id="accordion-default-content-2" class="govuk-accordion__section-content">
-      <p class="govuk-body">Imagine you're getting water for your farm for the first time.</p>
-<p class="govuk-body">You don't have a licence.</p>
-<p class="govuk-body">You were told by someone that you needed a licence so you started doing some research on the internet and reached the page that follows.</p>
-
+{% set htmlButton2 %}
 {{ govukButton({
   text: "Continue",
   href: "start?availability=neither"
 }) }}
+{% endset %}
 
-</div>
-</div>
+{{ govukAccordion({
+  id: "accordion-default",
+  rememberExpanded: false,
+  items: [
+    {
+      
+      heading: {
+        text: "Scenario 1"
+      },
+      content: {
+        html: '<p class="govuk-body">Imagine you are getting water for your farm for the first time.</p>
+                <p class="govuk-body">You do not have a licence.</p>
+                <p class="govuk-body">You were told by someone that you needed a licence so you 
+                  started doing some research on the internet and reached the page that follows.</p>'   
+       +htmlButton1
+              }
+  
+    },
 
-</div>
-</div>
-
-
+    {
+      heading: {
+        text: "Scenario 2"
+      },
+      content: {
+        html: '<p class="govuk-body">Imagine you are getting water for your farm for the first time.</p>
+                <p class="govuk-body">You do not have a licence.</p>
+                <p class="govuk-body">You were told by someone that you needed a licence so you 
+                  started doing some research on the internet and reached the page that follows.</p>'   
+      +htmlButton2
+             }
+    }
+   
+  ]
+}) }}
 
 
 {% endblock %}
