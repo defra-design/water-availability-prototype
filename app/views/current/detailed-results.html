@@ -9,7 +9,7 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-
+      {{data|dump}}
 
 {% if (data['availability']  == "surface" or data['availability']  == "ground" or data['availability']  == "both") %}
 
@@ -17,9 +17,9 @@
     
           <p class="govuk-body">
       {% if (data['location'] == "gridRef") %}
-        The grid reference {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }} falls within the <b>Adur and Ouse</b> catchment.
+        The grid reference {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }} falls within the <b>{{data.catchment  | default ("Adur and Ouse")}}</b> catchment.
 {% elseif (data['location'] == "fieldParcel") %}
-    The field parcel {{ data.fieldParcel | default("OS1234 5678", true) | safe }} falls within the <b>Adur and Ouse</b> catchment.
+    The field parcel {{ data.fieldParcel | default("OS1234 5678", true) | safe }} falls within the <b>{{data.catchment  | default ("Adur and Ouse")}}</b> catchment.
 
       {% endif %}
    </p>
@@ -49,8 +49,8 @@
         of the surface water source you abstract from. Low flows are usually in summer and high flows in winter.</p>
 
 <ul class="govuk-list govuk-list--bullet">
-  <li>Your nearest water body is the <b>River Ouse</b></li>
-  <li>Your nearest assessment point is <b>Hatterells Bridge - Western Adur</b></li>
+  <li>Your nearest water body is the <b>{{data.waterBody | default ("River Ouse")}}</b></li>
+  <li>Your nearest assessment point is <b>{{data.aP | default ("Hatterells Bridge - Western Adur")}}</b></li>
 </ul>
 
   

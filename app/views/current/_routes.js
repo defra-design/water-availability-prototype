@@ -25,6 +25,20 @@ router.post('/set-variables', function (request, response) {
 
 //Start page
 router.get(folder + 'start', function (request, response) {
+
+   if (request.session.data.participant == 1) {
+request.session.data.catchment = "Thetford and Norfolk"
+request.session.data.waterBody = "water body name"
+request.session.data.aP = "Assessment point name"
+   } else if (request.session.data.participant == 2) {
+request.session.data.catchment = "something else"
+request.session.data.waterBody = "water body name"
+request.session.data.aP = "Assessment point name"
+   }
+
+
+
+   
 	response.render(folder + 'start')
 })
 
