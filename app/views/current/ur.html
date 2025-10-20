@@ -1,16 +1,64 @@
 {% extends "govuk-prototype-kit/layouts/unbranded.html" %}
 
-{% block pageTitle %}
+<!-- {% block pageTitle %}
   {{ serviceName }}
-{% endblock %}
+{% endblock %} -->
 
 {% block content %}
 
-  <h1 class="govuk-heading-xl">
-    Alpha: {{ serviceName }}
-  </h1>
+<p class="govuk-body">Please do not press Continue until your researcher tells you to.</p>
 
-<table class="govuk-table">
+<div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
+  <div class="govuk-accordion__section">
+    <div class="govuk-accordion__section-header">
+      <h2 class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button" id="accordion-default-heading-1">
+          Scenario 1
+        </span>
+      </h2>
+    </div>
+    <div id="accordion-default-content-1" class="govuk-accordion__section-content">
+      <p class="govuk-body">Imagine you're getting water for your farm for the first time.</p>
+<p class="govuk-body">You don't have a licence.</p>
+<p class="govuk-body">You were told by someone that you needed a licence so you started doing some research on the internet and reached the page that follows.</p>
+
+{{ govukButton({
+  text: "Continue",
+  href: "start?availability=both"
+}) }}
+
+    </div>
+  </div>
+  <div class="govuk-accordion__section">
+    <div class="govuk-accordion__section-header">
+      <h2 class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button" id="accordion-default-heading-2">
+         Scenario 2
+        </span>
+      </h2>
+    </div>
+    <div id="accordion-default-content-2" class="govuk-accordion__section-content">
+      <p class="govuk-body">Imagine you're getting water for your farm for the first time.</p>
+<p class="govuk-body">You don't have a licence.</p>
+<p class="govuk-body">You were told by someone that you needed a licence so you started doing some research on the internet and reached the page that follows.</p>
+
+{{ govukButton({
+  text: "Continue",
+  href: "start?availability=neither"
+}) }}
+
+</div>
+  </div>
+
+</div>
+
+
+
+<!--  <h1 class="govuk-heading-xl">
+    Alpha: {{ serviceName }}
+  </h1>-->
+
+<!--<table class="govuk-table">
   <caption class="govuk-table__caption govuk-table__caption--m">Round</caption>
   <thead class="govuk-table__head">
     <tr class="govuk-table__row">
@@ -22,7 +70,7 @@
   <tbody class="govuk-table__body">
     <tr class="govuk-table__row">
       <td class="govuk-table__cell govuk-table__cell--text">Current round</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric"><a href="start?availability=both">Scenario 1</a><br><a href="start?availability=surface">Scenario 2</a></td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"></td>
       <td class="govuk-table__cell govuk-table__cell--numeric">October 2025</td>
     </tr>
     <tr class="govuk-table__row">
@@ -31,14 +79,14 @@
       <td class="govuk-table__cell govuk-table__cell--numeric">September 2025</td>
     </tr>
   </tbody>
-</table>
+</table> -->
 
- <h1 class="govuk-heading-m">
+<!-- <h1 class="govuk-heading-m">
         Team
       </h1>
   
   <p class="govuk-body">
     <a href="mailto:david.miller@environment-agency.gov.uk" class="govuk-link">David Miller</a>
-  </p>
+  </p> -->
 
 {% endblock %}
