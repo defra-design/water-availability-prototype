@@ -28,14 +28,14 @@
 
 
 {% if (data['availability'] == "both") %}
+
+
+    <div class="govuk-body">
 <h2 class="govuk-heading-m">Types of water available in your area</h2>
 
  <p class="govuk-body">
      Your local area has both surface water and groundwater available.  
 </p>    
-
-    <div class="govuk-body">
-
    
 {% from "govuk/components/tabs/macro.njk" import govukTabs %}
 
@@ -173,9 +173,19 @@
 {% set groundWater %}
   <h2 class="govuk-heading-m">Groundwater availability for your site</h2>
 
-<p class="govuk-body">Groundwater for your local area is available.
+<p class="govuk-body">Our data shows there is groundwater available for abstraction 
+  in your area. New licenses can be considered depending on impacts on other abstractors 
+  and on surface water.
+ </p>
  
+ <p class="govuk-body">There may also be restrictions onnew groundwater abstractions 
+  in some locations if they pose a risk to existing water users or groundwater dependent features.
 </p>
+  
+ <p class="govuk-body">Other restrictions may apply where availability is limited or to 
+  protect the environment, for example to prevent saline intrusion.
+
+ </p>
 
 
 {% endset -%}
@@ -213,7 +223,7 @@
   <h2 class="govuk-heading-m">Types of water available in your area</h2>
 
  <p class="govuk-body">
-     Your local area only has surface water available.  
+     Your local area only has surface water available. There is no groundwater available.
 </p>    
 
     <div class="govuk-body">
@@ -322,12 +332,7 @@
   </div>
 </div>
 
- <h2 class="govuk-heading-m">Local groundwater information</h2>
-
-<p class="govuk-body">Groundwater is not available in your local area.
- </p>
-
-      </div>
+</div>
 
    
 
@@ -338,15 +343,26 @@
   <h2 class="govuk-heading-m">Types of water available in your area</h2>
 
  <p class="govuk-body">
-     Your local area only has groundwater available.  
+     Your local area only has groundwater available. There is no surface water available.
 </p>  
 
   <h2 class="govuk-heading-m">Local groundwater information</h2>
 
-<p class="govuk-body">Groundwater is available in your local area.
+<p class="govuk-body">Our data shows there is groundwater available for abstraction 
+  in your area. New licenses can be considered depending on impacts on other abstractors 
+  and on surface water.
  </p>
  
+ <p class="govuk-body">There may also be restrictions onnew groundwater abstractions 
+  in some locations if they pose a risk to existing water users or groundwater dependent features.
+</p>
   
+ <p class="govuk-body">Other restrictions may apply where availability is limited or to 
+  protect the environment, for example to prevent saline intrusion.
+
+ </p>
+
+
 </div>
 
 
