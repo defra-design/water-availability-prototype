@@ -1,0 +1,420 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  {{ serviceName }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+{% if (data['availability']  == "surface" or data['availability']  == "ground" or data['availability']  == "both") %}
+
+  <h1 class="govuk-heading-l">Water is available in your area</h1>
+    
+          <p class="govuk-body">
+      {% if (data['location'] == "gridRef") %}
+        The grid reference {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }} falls within the <b>{{data.catchment  | default ("Adur and Ouse")}}</b> catchment.
+{% elseif (data['location'] == "fieldParcel") %}
+    The field parcel {{ data.fieldParcel | default("OS1234 5678", true) | safe }} falls within the <b>{{data.catchment  | default ("Adur and Ouse")}}</b> catchment.
+
+      {% endif %}
+   </p>
+    
+{% endif -%}
+
+
+{% if (data['availability'] == "both") %}
+
+
+    <div class="govuk-body">
+<h2 class="govuk-heading-m">Types of water available in your area</h2>
+
+ <p class="govuk-body">
+     Your local area has both surface water and groundwater available.  
+</p>    
+   
+{% from "govuk/components/tabs/macro.njk" import govukTabs %}
+
+{% set surfaceWater %}
+    <h2 class="govuk-heading-m">Local surface water information</h2>
+
+     
+
+<p class="govuk-body">Surface water availability is measured using data 
+  from local assessment points in your catchment area. It varies depending on the flow rate 
+        of the surface water source you abstract from. Low flows are usually in summer and high flows in winter.</p>
+
+<ul class="govuk-list govuk-list--bullet">
+  <li>Your nearest water body is the <b>{{data.waterBody | default ("River Ouse")}}</b></li>
+  <li>Your nearest assessment point is <b>{{data.aP | default ("Hatterells Bridge - Western Adur")}}</b></li>
+</ul>
+
+  
+<div class="govuk-summary-card">
+  <div class="govuk-summary-card__title-wrapper vlow card-padding-left">
+    <h2 class="govuk-summary-card__title card-title__font-size">
+     
+        Summary of local flow rate and water availability
+    </h2>
+
+    
+  </div>
+  <div class="govuk-summary-card__content">
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <h3 class="govuk-heading-s">September to March</h3>
+        <div class="risk-label-group govuk-!-margin-bottom-3">
+          
+          <strong class="govuk-tag govuk-tag--grey label-mod label-border">
+            Low flow<span class="govuk-visually-hidden"> within a scale of low, medium and high.</span>
+          </strong>
+      
+          <strong class="govuk-tag govuk-tag--grey label-mod" aria-hidden="true">
+            Medium flow
+          </strong>
+      
+          <strong class="govuk-tag govuk-tag--green label-mod" aria-hidden="true">
+            High flow
+          </strong>
+          <br>
+          <br>
+          <p class="govuk-body"><b>Water is currently available at up to 2500 cubic metres a day.</b></p>
+          <p class="govuk-body">Historically water has been available at these levels for <b>18</b> out of <b>20</b> years. It wasn't available in 2006 and 2009.</p>
+          </div>
+       
+      </div>
+
+       <div class="govuk-summary-list__row">
+        <br>
+        <h3 class="govuk-heading-s">April</h3>
+        
+        <div class="risk-label-group govuk-!-margin-bottom-3">
+          
+              <strong class="govuk-tag govuk-tag--grey label-mod label-border">
+            Low flow<span class="govuk-visually-hidden"> within a scale of low, medium and high.</span>
+          </strong>
+      
+          <strong class="govuk-tag govuk-tag--yellow label-mod" aria-hidden="true">
+            Medium flow
+          </strong>
+      
+          <strong class="govuk-tag govuk-tag--grey label-mod" aria-hidden="true">
+            High flow
+          </strong>
+          <br>
+          <br>
+          <p class="govuk-body"><b>Water is currently available at up to 1300 cubic metres a day.</b></p>
+          <p class="govuk-body">Historically water has been available at these levels for <b>15</b> out of <b>20</b> years. It wasn't available in 2006, 2007, 2009, 2012 and 2024.</p>
+        </div>
+       
+      </div>
+
+       <div class="govuk-summary-list__row">
+         <br>
+        <h3 class="govuk-heading-s">May to July</h3>
+        <div class="risk-label-group govuk-!-margin-bottom-3">
+          
+             <strong class="govuk-tag govuk-tag--red label-mod label-border">
+            Low flow<span class="govuk-visually-hidden"> within a scale of low, medium and high.</span>
+          </strong>
+      
+          <strong class="govuk-tag govuk-tag--grey label-mod" aria-hidden="true">
+            Medium flow
+          </strong>
+      
+          <strong class="govuk-tag govuk-tag--grey label-mod" aria-hidden="true">
+            High flow
+          </strong>
+          <br>
+          <br>
+          <p class="govuk-body"><b>Water is not currently available.</b></p>
+          <p class="govuk-body">Historically water has been available at these levels for <b>10</b> out of <b>20</b> years. It wasn't available in 2006, 2007, 2008, 2009, 2012, 2014, 2020, 2021, 2022 and 2024.</p>
+  
+      </div>
+       
+      </div>
+
+       <div class="govuk-summary-list__row">
+         <br>
+        <h3 class="govuk-heading-s">August</h3>
+        <div class="risk-label-group govuk-!-margin-bottom-3">
+          
+              <strong class="govuk-tag govuk-tag--grey label-mod label-border">
+            Low flow<span class="govuk-visually-hidden"> within a scale of low, medium and high.</span>
+          </strong>
+      
+          <strong class="govuk-tag govuk-tag--yellow label-mod" aria-hidden="true">
+            Medium flow
+          </strong>
+      
+          <strong class="govuk-tag govuk-tag--grey label-mod" aria-hidden="true">
+            High flow
+          </strong>
+          <br>
+          <br>
+          <p class="govuk-body"><b>Water is currently available at up to 1100 cubic metres a day.</b></p>
+          <p class="govuk-body">Historically water has been available at these levels for <b>16</b> out of <b>20</b> years. It wasn't available in 2006, 2009, 2012 and 2024.</p>
+          
+        </div>
+       
+      </div>
+
+    </dl>
+  </div>
+</div>
+
+
+{% endset -%}
+
+{% set groundWater %}
+  <h2 class="govuk-heading-m">Local groundwater information</h2>
+
+<p class="govuk-body">Our data shows there is groundwater available for abstraction 
+  in your area. New licenses can be considered depending on impacts on other abstractors 
+  and on surface water.
+ </p>
+ 
+ <p class="govuk-body">There may also be restrictions on new groundwater abstractions 
+  in some locations if they pose a risk to existing water users or groundwater dependent features.
+</p>
+  
+ <p class="govuk-body">Other restrictions may apply where availability is limited or to 
+  protect the environment, for example to prevent saline intrusion.
+
+ </p>
+
+
+{% endset -%}
+
+
+
+{{ govukTabs({
+  items: [
+    {
+      label: "Surface water",
+      id: "surface-water",
+      panel: {
+        html: surfaceWater
+      }
+    },
+    {
+      label: "Groundwater",
+      id: "ground-water",
+      panel: {
+        html: groundWater
+      }
+    }
+  ]
+}) }}
+
+
+  
+
+
+    </div>
+
+{% elseif (data['availability'] == "surface") %}
+    <div class="govuk-body">
+
+  <h2 class="govuk-heading-m">Types of water available in your area</h2>
+
+ <p class="govuk-body">
+     Your local area only has surface water available. There is no groundwater available.
+</p>    
+
+    <div class="govuk-body">
+
+    <h2 class="govuk-heading-m">Local surface water information</h2>
+
+   </div>  
+
+<p class="govuk-body">Surface water availability is measured using data 
+  from local assessment points in your catchment area. It varies depending on the flow rate 
+        of the surface water source you abstract from. Low flows are usually in summer and high flows in winter.</p>
+
+<ul class="govuk-list govuk-list--bullet">
+  <li>Your nearest water body is the <b>{{data.waterBody | default ("River Ouse")}}</b></li>
+  <li>Your nearest assessment point is <b>{{data.aP | default ("Hatterells Bridge - Western Adur")}}</b></li>
+</ul>
+
+  
+<div class="govuk-summary-card">
+  <div class="govuk-summary-card__title-wrapper vlow card-padding-left">
+        <h2 class="govuk-summary-card__title card-title__font-size">
+     
+        Summary of local flow rate and water availability
+    </h2>
+
+    
+  </div>
+  <div class="govuk-summary-card__content">
+    <dl class="govuk-summary-list">
+  <div class="govuk-summary-list__row">
+
+        <h3 class="govuk-heading-s">April</h3>
+        
+        <div class="risk-label-group govuk-!-margin-bottom-3">
+          
+              <strong class="govuk-tag govuk-tag--grey label-mod label-border">
+            Low flow<span class="govuk-visually-hidden"> within a scale of low, medium and high.</span>
+          </strong>
+      
+          <strong class="govuk-tag govuk-tag--yellow label-mod" aria-hidden="true">
+            Medium flow
+          </strong>
+      
+          <strong class="govuk-tag govuk-tag--grey label-mod" aria-hidden="true">
+            High flow
+          </strong>
+          <br>
+          <br>
+          <p class="govuk-body"><b>Water is currently available at up to 1300 cubic metres a day.</b></p>
+          <p class="govuk-body">Historically water has been available at these levels for <b>18</b> out of <b>20</b> years. It wasn't available in 2006, 2007, 2009, 2012 and 2024.</p>
+        </div>
+       
+      </div>
+
+       <div class="govuk-summary-list__row">
+         <br>
+        <h3 class="govuk-heading-s">May to July</h3>
+        <div class="risk-label-group govuk-!-margin-bottom-3">
+          
+             <strong class="govuk-tag govuk-tag--red label-mod label-border">
+            Low flow<span class="govuk-visually-hidden"> within a scale of low, medium and high.</span>
+          </strong>
+      
+          <strong class="govuk-tag govuk-tag--grey label-mod" aria-hidden="true">
+            Medium flow
+          </strong>
+      
+          <strong class="govuk-tag govuk-tag--grey label-mod" aria-hidden="true">
+            High flow
+          </strong>
+          <br>
+          <br>
+          <p class="govuk-body"><b>Water is not currently available.</b></p>
+          <p class="govuk-body">Historically water has been available at these levels for <b>10</b> out of <b>20</b> years. It wasn't available in 2006, 2007, 2008, 2009, 2012, 2014, 2020, 2021, 2022 and 2024.</p>
+  
+      </div>
+       
+      </div>
+
+       <div class="govuk-summary-list__row">
+         <br>
+        <h3 class="govuk-heading-s">August</h3>
+        <div class="risk-label-group govuk-!-margin-bottom-3">
+          
+              <strong class="govuk-tag govuk-tag--grey label-mod label-border">
+            Low flow<span class="govuk-visually-hidden"> within a scale of low, medium and high.</span>
+          </strong>
+      
+          <strong class="govuk-tag govuk-tag--yellow label-mod" aria-hidden="true">
+            Medium flow
+          </strong>
+      
+          <strong class="govuk-tag govuk-tag--grey label-mod" aria-hidden="true">
+            High flow
+          </strong>
+          <br>
+          <br>
+          <p class="govuk-body"><b>Water is currently available at up to 1100 cubic metres a day.</b></p>
+          <p class="govuk-body">Historically water has been available at these levels for <b>16</b> out of <b>20</b> years. It wasn't available in 2006, 2009, 2012 and 2024.</p>
+          
+        </div>
+       
+      </div>
+
+    </dl>
+  </div>
+</div>
+
+</div>
+
+   
+
+{% elseif (data['availability'] == "ground") %}
+
+<div class="govuk-body">
+
+  <h2 class="govuk-heading-m">Types of water available in your area</h2>
+
+ <p class="govuk-body">
+     Your local area only has groundwater available. There is no surface water available.
+</p>  
+
+  <h2 class="govuk-heading-m">Local groundwater information</h2>
+
+<p class="govuk-body">Our data shows there is groundwater available for abstraction 
+  in your area. New licenses can be considered depending on impacts on other abstractors 
+  and on surface water.
+ </p>
+ 
+ <p class="govuk-body">There may also be restrictions on new groundwater abstractions 
+  in some locations if they pose a risk to existing water users or groundwater dependent features.
+</p>
+  
+ <p class="govuk-body">Other restrictions may apply where availability is limited or to 
+  protect the environment, for example to prevent saline intrusion.
+
+ </p>
+
+
+</div>
+
+
+{% elseif (data['availability'] == "neither") %}
+
+  <div class="govuk-body">
+    
+      <h1 class="govuk-heading-l">No water available</h1>
+      <p class="govuk-body">For 
+    
+
+  {% if (data['location'] == "gridRef") %}
+        <b>national grid reference {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}</b>
+{% elseif (data['location'] == "fieldParcel") %}
+    <b>field parcel {{ data.fieldParcel | default("OS1234 5678", true) | safe }}</b>
+
+ {% endif %}
+you cannot abstract water at any volume at any time.</p>
+
+
+ <h2 class="govuk-heading-m">Other options for water abstraction</h2>
+<p class="govuk-body">If you want an abstraction licence but are unable to get one because there is no water available in your area, you may be able to enter into an agreement with an existing licence holder.</p>
+<p class="govuk-body">You can agree for them to give you part or all of their water abstraction rights permanently or temporarily. This is called the <a href="https://www.gov.uk/guidance/trade-water-abstraction-rights">trading of water abstraction rights</a>.</p>
+
+    </div>
+
+{% endif %}
+
+{% if (data['availability']  == "surface" or data['availability']  == "ground" or data['availability']  == "both") %}
+ <h2 class="govuk-heading-m">
+        Next steps
+      </h2>  
+
+       <p class="govuk-body">
+         The Environment Agency grants water abstraction licences. 
+         When considering whether to grant a licence for your site, 
+         we consider other factors as well as groundwater and surface water availability.
+      </p>
+
+      <p class="govuk-body">Those other factors include the impact of the proposed abstraction on:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>nearby abstractors</li>
+          <li>the natural environment</li>
+        </ul>
+
+      <p class="govuk-body"><a href="https://www.gov.uk/guidance/water-management-apply-for-a-water-abstraction-or-impoundment-licence">Apply for a water abstraction licence</a></p>
+      <p class="govuk-body"><a href="https://www.gov.uk/guidance/get-advice-before-you-apply-for-a-water-abstraction-or-impounding-licence">Get advice before you apply</a></p>   
+
+{% endif %}
+
+    </div>
+  </div>
+
+<!--   {{data|dump}} -->
+  
+{% endblock %}
+

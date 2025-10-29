@@ -1,0 +1,48 @@
+{% extends "govuk-prototype-kit/layouts/unbranded.html" %}
+
+<!-- {% block pageTitle %}
+  {{ serviceName }}
+{% endblock %} -->
+
+{% block content %}
+
+<p class="govuk-body">
+  {{ govukButton({
+  text: "Participant 1",
+  href: "ur-scenario?participant=1"
+}) }}
+</p>
+
+<p class="govuk-body">
+{{ govukButton({
+  text: "Participant 2",
+  href: "ur-scenario?participant=2"
+}) }}
+</p>
+
+
+<p class="govuk-body">
+{{ govukButton({
+  text: "Participant 3",
+  href: "ur-scenario?participant=3"
+}) }}
+</p>
+
+
+
+{{ govukButton({
+  text: "Participant 4",
+  href: "ur-scenario?participant=4"
+}) }}
+</p>
+
+
+<p class="govuk-body">
+{{ govukButton({
+  text: "Participant 5",
+  href: "ur-scenario?participant=5"
+}) }}
+
+</p>
+
+{% endblock %}
