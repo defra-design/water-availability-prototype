@@ -1,0 +1,71 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  {{ serviceName }} 
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+
+
+<div class="govuk-form-group">
+  <h1 class="govuk-label-wrapper">
+    <label class="govuk-label govuk-label--l" for="usage">
+      Why do you need to abstract water?
+    </label>
+  </h1>
+  <select class="govuk-select" id="usage" name="usage"
+    data-module="autocomplete" data-autoselect="" data-display-menu="" data-min-length="" data-show-all-values="" data-show-no-options-found="">
+    <option value="" selected disabled>Choose your reason for needing water</option>
+    <option value="Austria">Animal watering and welfare</option>
+    <option value="Belgium">Boiler feed</option>
+    <option value="Bulgaria">Canal throughflow</option>
+    <option value="Croatia">Canoe pass</option>
+    <option value="Republic of Cyprus">Conveying materials</option>
+    <option value="Czech Republic">Creating and maintaining water meadows</option>
+    <option value="Denmark">Cress pond throughflow</option>
+    <option value="Estonia">Dewatering</option>
+    <option value="Finland">Domestic purposes (commercial)</option>
+    <option value="France">Domestic purposes (non-commercial)</option>
+    <option value="Germany">Dust suppression</option>
+    <option value="Greece">Effluent or slurry dilution</option>
+    <option value="Hungary">Evaporative cooling</option>
+    <option value="Ireland">Fish farm throughflow</option>
+    <option value="Italy">Fish pass</option>
+    <option value="Latvia">Flood irrigation not including warping and pest control</option>
+    <option value="Lithuania">Flood irrigation (pest control)</option>
+    <option value="Luxembourg">Flood irrigation (warping)</option>
+    <option value="Malta">Gas suppression or scrubbing</option>
+    <option value="Netherlands">General farming (except irrigation)</option>
+    <option value="Poland">General farming (except irrigation) and domestic</option>
+    <option value="Portugal">General or process washing</option>
+    <option value="Romania">Heat pump</option>
+    <option value="Slovakia">Horticultural irrigation (except spray and trickle irrigation)</option>
+    <option value="Slovenia">Horticultural watering</option>
+    <option value="Spain">Hydraulic fracturing (Fracking)</option>
+    <option value="Sweden">Hydraulic rams</option>
+  </select>
+</div>
+
+      <form class="form" action="" method="post">
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

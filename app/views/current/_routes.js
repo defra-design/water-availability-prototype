@@ -89,6 +89,14 @@ router.post('/location', function (request, response) {
 	response.redirect(folder + 'detailed-results')
 })
 
+//Usage autocomplete page
+router.get(folder + 'usage-autocomplete', function (request, response) {
+	response.render(folder + 'usage-autocomplete')
+})
+
+router.post('/usage-autocomplete', function (request, response) {
+	response.redirect(folder + 'detailed-results')
+})
 
 //Do you know volume page
 /* router.get(folder + 'do-you-know-volume', function (request, response) {
