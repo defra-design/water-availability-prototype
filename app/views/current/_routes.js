@@ -98,6 +98,30 @@ router.post('/usage-autocomplete', function (request, response) {
 	response.redirect(folder + 'detailed-results')
 })
 
+//Usage category page
+router.get(folder + 'usage-category', function (request, response) {
+	response.render(folder + 'usage-category')
+})
+
+
+router.post('/usage-category', function (request, response) {
+	var usageCategory = request.session.data['usage-category']
+	if (usageCategory == "farming") {
+		response.redirect(folder + "usage-farming")
+	} else if (usageCategory == "irrigation") {
+		response.redirect(folder + "usage-irrigation")
+	}
+})
+
+//Usage farming sub category page
+router.get(folder + 'usage-farming', function (request, response) {
+	response.render(folder + 'usage-farming')
+})
+
+router.post('/usage-farming', function (request, response) {
+	response.redirect(folder + 'detailed-results')
+})
+
 //Do you know volume page
 /* router.get(folder + 'do-you-know-volume', function (request, response) {
 	response.render(folder + 'do-you-know-volume')
