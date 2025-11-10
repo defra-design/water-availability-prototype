@@ -1,7 +1,7 @@
 {% extends "layouts/main.html" %}
 
 {% block pageTitle %}
-{{ serviceName }}
+  {{ serviceName }}
 {% endblock %}
 
 {% block beforeContent %}
@@ -16,35 +16,26 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-      <form class="form" action="/path/of/next/page" method="post">
+      <form class="form" method="post">
 
-{% from "govuk/components/radios/macro.njk" import govukRadios %}
 
 {{ govukRadios({
-  name: "waterType",
+  name: "duration",
   fieldset: {
     legend: {
-      text: "What type of water do you need?",
+      text: "How long do you want to abstract water from a water source?",
       isPageHeading: true,
       classes: "govuk-fieldset__legend--l"
     }
   },
   items: [
     {
-      value: "surface",
-      text: "Surface water"
+      value: "lessthanyear",
+      text: "Less than a year"
     },
     {
-      value: "ground",
-      text: "Ground water"
-    },
-    {
-      value: "both",
-      text: "Both"
-    },
-    {
-      value: "dont-know",
-      text: "I don't know"
+      value: "longterm",
+      text: "Long term"
     }
   ]
 }) }}

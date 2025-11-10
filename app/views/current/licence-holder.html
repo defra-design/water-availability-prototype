@@ -16,29 +16,35 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
+      <form class="form" method="post">
 
-  <form class="form" method="post">
 
-{{ govukInput({
-  label: {
-    text: "How many cubic metres of water a day do you want to abstract?",
-    classes: "govuk-label--l govuk-input--width-14",
-    isPageHeading: true
+{{ govukRadios({
+  name: "licenceHolder",
+  fieldset: {
+    legend: {
+      text: "Do you already hold a water abstraction licence?",
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--l"
+    }
   },
-  
-  suffix: {
-    text: "cubic metres a day"
-  },
-
-  name: "vol"
+  items: [
+    {
+      value: "yes",
+      text: "Yes"
+    },
+    {
+      value: "no",
+      text: "No"
+    }
+  ]
 }) }}
-
 
         {{ govukButton({
           text: "Continue"
         }) }}
-        
-        </form>
+
+      </form>
 
     </div>
   </div>

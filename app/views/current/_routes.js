@@ -25,60 +25,24 @@ router.post('/set-variables', function (request, response) {
 
 //Start page
 router.get(folder + 'start', function (request, response) {
-
-   if (request.session.data.participant == 1) {
-request.session.data.catchment = "Cam & Ely Ouse"
-request.session.data.waterBody = "River Wissey"
-request.session.data.aP = "Upper River Wissey (Northwold)"
-   }
   
-   else if (request.session.data.participant == 2) {
-request.session.data.catchment = "Ribble, Douglas & Crossens"
-request.session.data.waterBody = "River Ribble"
-request.session.data.aP = "Lower Ribble"
-   }
-
-   else if (request.session.data.participant == 3) {
-request.session.data.catchment = "Witham"
-request.session.data.waterBody = "River Witham"
-request.session.data.aP = "Hykeham Bridge"
-   }
-
-   else if (request.session.data.participant == 4) {
-request.session.data.catchment = "South & West Somerset"
-request.session.data.waterBody = "River Axe"
-request.session.data.aP = "Lower River Axe at Diamond Farm"
-   }
-
-   else if (request.session.data.participant == 5) {
-request.session.data.catchment = "Wharfe & Lower Ouse"
-request.session.data.waterBody = "River Ouse (tidal Lower Ouse)"
-request.session.data.aP = "Tadcaster"
-   }
-   
 	response.render(folder + 'start')
 })
 
 router.post('/start', function (request, response) {
-	response.redirect(folder + 'location')
+	response.redirect(folder + 'licence-holder')
 })
 
 
-//Intention page - looking for water in a location or trying to find a location
-/* router.get(folder + 'intention', function (request, response) {
-	response.render(folder + 'intention')
-}) */
+//Existing licence holder
+//Set variables page
+router.get(folder + 'licence-holder', function (request, response) {
+	response.render(folder + 'licence-holder')
+})
 
-//if they know the site go to grid ref page if not skip grid ref and go to volume
-/* router.post('/intention', function (request, response) {
-	var intention = request.session.data['intention']
-	if (intention == "know-site") {
-		response.redirect(folder + "location")
-	} else if (intention == "need-site") {
-		response.redirect(folder + "volume")
-	}
-}) */
-
+router.post('/licence-holder', function (request, response) {
+	response.redirect(folder + 'location')
+})
 
 //Location page
 router.get(folder + 'location', function (request, response) {
@@ -86,7 +50,16 @@ router.get(folder + 'location', function (request, response) {
 })
 
 router.post('/location', function (request, response) {
-	response.redirect(folder + 'detailed-results')
+	response.redirect(folder + 'location-abstract')
+})
+
+//Location abstract page
+router.get(folder + 'location-abstract', function (request, response) {
+	response.render(folder + 'location-abstract')
+})
+
+router.post('/location-abstract', function (request, response) {
+	response.redirect(folder + 'usage-autocomplete')
 })
 
 //Usage autocomplete page
@@ -95,8 +68,27 @@ router.get(folder + 'usage-autocomplete', function (request, response) {
 })
 
 router.post('/usage-autocomplete', function (request, response) {
+	response.redirect(folder + 'exemption')
+})
+
+//exemption page
+router.get(folder + 'exemption', function (request, response) {
+	response.render(folder + 'exemption')
+})
+
+router.post('/exemption', function (request, response) {
+	response.redirect(folder + 'duration')
+})
+
+//duration page
+router.get(folder + 'duration', function (request, response) {
+	response.render(folder + 'duration')
+})
+
+router.post('/duration', function (request, response) {
 	response.redirect(folder + 'detailed-results')
 })
+
 
 //Usage category page
 router.get(folder + 'usage-category', function (request, response) {
@@ -121,46 +113,6 @@ router.get(folder + 'usage-farming', function (request, response) {
 router.post('/usage-farming', function (request, response) {
 	response.redirect(folder + 'detailed-results')
 })
-
-//Do you know volume page
-/* router.get(folder + 'do-you-know-volume', function (request, response) {
-	response.render(folder + 'do-you-know-volume')
-})
-//if they know the volume then enter it, if not go straight to results
-router.post('/do-you-know-volume', function (request, response) {
-	var do_you_know_volume = request.session.data['do-you-know-volume']
-	if (do_you_know_volume == "yes") {
-		response.redirect(folder + "volume")
-	} else {
-		response.redirect(folder + "results")
-	}
-}) */
-
-
-//Volume page
-/* router.get(folder + 'volume', function (request, response) {
-	response.render(folder + 'volume')
-})
-
-router.post('/volume', function (request, response) {
-	response.redirect(folder + 'results')
-}) */
-
-
-//Catchment picker page
-/* router.get(folder + 'catchment-picker', function (request, response) {
-	response.render(folder + 'catchment-picker')
-})
-
-router.post('/catchment-picker', function (request, response) {
-	response.redirect(folder + 'results')
-}) */
-
-
-//Results page
-/* router.get(folder + 'results', function (request, response) {
-	response.render(folder + 'results')
-}) */
 
 
 //Detailed results page

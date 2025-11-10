@@ -23,10 +23,10 @@
 <!-- {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/input/macro.njk" import govukInput %} -->
 
-{% set gridrefHtml %}
+{% set gridrefAbstractHtml %}
 {{ govukInput({
-  id: "gridRef",
-  name: "gridRef",
+  id: "gridRefAbstract",
+  name: "gridRefAbstract",
   classes: "govuk-input--width-20",
   hint: {
     text: "For example, SE 05246 70347"
@@ -34,10 +34,10 @@
 }) }}
 {% endset -%}
 
-{% set fieldparcelHtml %}
+{% set fieldparcelAbstractHtml %}
 {{ govukInput({
-  id: "fieldParcel",
-  name: "fieldParcel",
+  id: "fieldParcelAbstract",
+  name: "fieldParcelAbstract",
   classes: "govuk-input--width-10",
   hint: {
     text: "These can usually be found in your Rural Payment Agency account - for example, OS1234 5678"
@@ -45,10 +45,10 @@
 }) }}
 {% endset -%}
 
-{% set postCodeHtml %}
+{% set postCodeAbstractHtml %}
 {{ govukInput({
-  id: "postCode",
-  name: "postCode",
+  id: "postCodeAbstract",
+  name: "postCodeAbstract",
   classes: "govuk-input--width-10",
   hint: {
     text: "For example, SW15 4AX"
@@ -59,40 +59,55 @@
 
 
 {{ govukRadios({
-  name: "location",
+  name: "location-abstract",
   fieldset: {
     legend: {
-      text: "Where do you want to use the water you abstract?",
+      text: "Where do you want to abstract water?",
       isPageHeading: true,
       classes: "govuk-fieldset__legend--l"
     }
   },
 
   hint: {
-    text: "We will check if there is any water available to abstract to use in your chosen location."
+    text: "Your nearest water sources are the River Adur for surface water and the Brighton Chalk Groundwater Management Unit for groundwater. We will check if there is any water available in these."
   },
 
   items: [
     {
-      value: "gridRef",
+      value: "sameAsUse",
+      text: "Same location as where I want to use the water",
+      
+      conditional: {
+        html: sameAsUseHtml
+      }
+    },
+    {
+      value: "gridRefAbstract",
       text: "National grid reference",
       
       conditional: {
-        html: gridrefHtml
+        html: gridrefAbstractHtml
       }
     },
     {
-      value: "fieldParcel",
+      value: "fieldParcelAbstract",
       text: "Field parcel",
       conditional: {
-        html: fieldparcelHtml
+        html: fieldparcelAbstractHtml
       }
     },
     {
-      value: "postCode",
+      value: "postCodeAbstract",
       text: "Postcode",
       conditional: {
-        html: postCodeHtml
+        html: postCodeAbstractHtml
+      }
+    },
+     {
+      value: "dontKnowAbstract",
+      text: "Don't know",
+      conditional: {
+        html: dontKnowAbstractHtml
       }
     }
    
