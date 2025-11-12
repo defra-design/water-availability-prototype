@@ -20,22 +20,27 @@
 
 
 {{ govukRadios({
-  name: "exemption",
+  name: "abstraction-type",
+   value: data['abstraction-type'],
   fieldset: {
     legend: {
-      text: "Do you want to abstract less than 20 cubic metres of water per day?",
+      text: "Is your existing abstraction point a point, a range or an area?",
       isPageHeading: true,
       classes: "govuk-fieldset__legend--l"
     }
   },
   items: [
     {
-      value: "yes",
-      text: "Yes"
+      value: "point",
+      text: "NGR point"
     },
     {
-      value: "no",
-      text: "No"
+      value: "range",
+      text: "NGR range"
+    },
+    {
+      value: "area",
+      text: "Shape area"
     }
   ]
 }) }}

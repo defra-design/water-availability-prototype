@@ -16,7 +16,7 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-
+  <form class="form" method="post">
 
 <div class="govuk-form-group">
   <h1 class="govuk-label-wrapper">
@@ -25,10 +25,11 @@
     </label>
   </h1>
 
-  <div id="ccategory-hint" class="govuk-hint">
+  <div id="category-hint" class="govuk-hint">
      Describe what you need the water for
     </div>
-  
+      
+
   <select class="govuk-select" id="usage" name="usage"
     data-module="autocomplete" data-autoselect="" data-display-menu="" data-min-length="" data-show-all-values="" data-show-no-options-found="">
     <option value="" selected disabled>Choose your reason for needing water</option>
@@ -97,7 +98,7 @@
   </select>
 </div>
 
-      <form class="form" action="" method="post">
+
 
         {{ govukButton({
           text: "Continue"

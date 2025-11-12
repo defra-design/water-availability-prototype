@@ -41,16 +41,41 @@ router.get(folder + 'licence-holder', function (request, response) {
 })
 
 router.post('/licence-holder', function (request, response) {
-	response.redirect(folder + 'location')
+var licenceHolder = request.session.data['licence-holder']
+	if (licenceHolder == "yes") {
+		response.redirect(folder + "new-or-existing-abstraction")
+	} else if (licenceHolder == "no") {
+		response.redirect(folder + "location")
+	}
 })
 
-//Location page
-router.get(folder + 'location', function (request, response) {
-	response.render(folder + 'location')
+
+//new or existing abstraction point page
+router.get(folder + 'new-or-existing-abstraction', function (request, response) {
+	response.render(folder + 'new-or-existing-abstraction')
 })
 
-router.post('/location', function (request, response) {
-	response.redirect(folder + 'location-abstract')
+router.post('/new-or-existing-abstraction', function (request, response) {
+var newExisting = request.session.data['new-existing']
+	if (newExisting == "new") {
+		response.redirect(folder + "location")
+	} else if (newExisting == "existing") {
+		response.redirect(folder + "abstraction-type")
+	}
+
+})
+
+//abstraction type page
+router.get(folder + 'abstraction-type', function (request, response) {
+	response.render(folder + 'abstraction-type')
+})
+
+router.post('/abstraction-type', function (request, response) {
+	var abstractionType = request.session.data['abstraction-type']
+	if (abstractionType == "point" || abstractionType == "range" || abstractionType == "area") {
+		response.redirect(folder + "location-abstract")
+	}
+
 })
 
 //Location abstract page
@@ -62,13 +87,30 @@ router.post('/location-abstract', function (request, response) {
 	response.redirect(folder + 'usage-autocomplete')
 })
 
+
+//Location use water page
+router.get(folder + 'location', function (request, response) {
+	response.render(folder + 'location')
+})
+
+router.post('/location', function (request, response) {
+	response.redirect(folder + 'usage-autocomplete')
+})
+
+
+
 //Usage autocomplete page
 router.get(folder + 'usage-autocomplete', function (request, response) {
 	response.render(folder + 'usage-autocomplete')
 })
 
 router.post('/usage-autocomplete', function (request, response) {
-	response.redirect(folder + 'exemption')
+	var newExisting = request.session.data['new-existing']
+	if (newExisting == "existing") {
+		response.redirect(folder + "duration")
+	} else {
+        response.redirect(folder + "exemption")
+    }
 })
 
 //exemption page
@@ -77,7 +119,22 @@ router.get(folder + 'exemption', function (request, response) {
 })
 
 router.post('/exemption', function (request, response) {
-	response.redirect(folder + 'duration')
+var eXemption = request.session.data['exemption']
+	if (eXemption == "yes") {
+		response.redirect(folder + "exempt-results")
+	} else {
+        response.redirect(folder + "duration")
+    }
+})
+
+//exempt results page
+router.get(folder + 'exempt-results', function (request, response) {
+  
+	response.render(folder + 'exempt-results')
+})
+
+router.post('/exempt-results', function (request, response) {
+	response.redirect(folder + 'exempt-results')
 })
 
 //duration page
@@ -88,6 +145,8 @@ router.get(folder + 'duration', function (request, response) {
 router.post('/duration', function (request, response) {
 	response.redirect(folder + 'detailed-results')
 })
+
+
 
 
 //Usage category page

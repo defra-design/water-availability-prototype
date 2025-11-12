@@ -20,22 +20,23 @@
 
 
 {{ govukRadios({
-  name: "exemption",
+  name: "new-existing",
+    value: data['new-existing'],
   fieldset: {
     legend: {
-      text: "Do you want to abstract less than 20 cubic metres of water per day?",
+      text: "Do you want to take water from a new or an existing abstraction point?",
       isPageHeading: true,
       classes: "govuk-fieldset__legend--l"
     }
   },
   items: [
     {
-      value: "yes",
-      text: "Yes"
+      value: "new",
+      text: "New"
     },
     {
-      value: "no",
-      text: "No"
+      value: "existing",
+      text: "Existing abstraction point"
     }
   ]
 }) }}

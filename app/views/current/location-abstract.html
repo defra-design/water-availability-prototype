@@ -20,113 +20,16 @@
         <form class="form" method="post">
 
 
-<!-- {% from "govuk/components/radios/macro.njk" import govukRadios %}
-{% from "govuk/components/input/macro.njk" import govukInput %} -->
 
-{% set gridrefAbstractHtml %}
 {{ govukInput({
-  id: "gridRefAbstract",
-  name: "gridRefAbstract",
-  classes: "govuk-input--width-20",
-  hint: {
-    text: "For example, SE 05246 70347"
-  }
-}) }}
-{% endset -%}
-
-{% set fieldparcelAbstractHtml %}
-{{ govukInput({
-  id: "fieldParcelAbstract",
-  name: "fieldParcelAbstract",
-  classes: "govuk-input--width-10",
-  hint: {
-    text: "These can usually be found in your Rural Payment Agency account - for example, OS1234 5678"
-  }
-}) }}
-{% endset -%}
-
-{% set postCodeAbstractHtml %}
-{{ govukInput({
-  id: "postCodeAbstract",
-  name: "postCodeAbstract",
-  classes: "govuk-input--width-10",
-  hint: {
-    text: "For example, SW15 4AX"
-  }
-}) }}
-{% endset -%}
-
-
-
-{{ govukRadios({
-  name: "location-abstract",
-  fieldset: {
-    legend: {
-      text: "Where do you want to abstract water?",
-      isPageHeading: true,
-      classes: "govuk-fieldset__legend--l"
-    }
-  },
-
-  hint: {
-    text: "Your nearest water sources are the River Adur for surface water and the Brighton Chalk Groundwater Management Unit for groundwater. We will check if there is any water available in these."
-  },
-
-  items: [
-    {
-      value: "sameAsUse",
-      text: "Same location as where I want to use the water",
-      
-      conditional: {
-        html: sameAsUseHtml
-      }
-    },
-    {
-      value: "gridRefAbstract",
-      text: "National grid reference",
-      
-      conditional: {
-        html: gridrefAbstractHtml
-      }
-    },
-    {
-      value: "fieldParcelAbstract",
-      text: "Field parcel",
-      conditional: {
-        html: fieldparcelAbstractHtml
-      }
-    },
-    {
-      value: "postCodeAbstract",
-      text: "Postcode",
-      conditional: {
-        html: postCodeAbstractHtml
-      }
-    },
-     {
-      value: "dontKnowAbstract",
-      text: "Don't know",
-      conditional: {
-        html: dontKnowAbstractHtml
-      }
-    }
-   
-  ]
-}) }}        
-
-<!--{{ govukInput({
   label: {
-    text: "What's the national grid reference for the site?",
-    classes: "govuk-label--l govuk-input--width-14",
+    text: "Give us the abstraction location",
+    classes: "govuk-label--l",
     isPageHeading: true
   },
-  hint: {
-    text: "For example, SE 05246 70347"
-  },
-  name: "gridRef"
-}) }} -->
-
-
+  id: "location-abstract",
+  name: "locationAbstract"
+}) }}
 
         {{ govukButton({
           text: "Continue"
