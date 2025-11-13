@@ -33,7 +33,9 @@
 
 <p class="govuk-body">September - March</p>
 <p class="govuk-body"><i>Last updated: 25 October 2025</i></p>
-<p class="govuk-body">Water is available at up to 25000 cubic metres per day subject to flow restrictions.</p>
+<p class="govuk-body">Water is available to abstract at up to 25000 cubic metres per day subject to 'Hands Off Flow' restrictions.</p>
+
+<p class="govuk-body">'Hands Off Flow' restrictions can limit abstraction for local licence holders when the water flow rate is low. Learn more about <a href ="">Hands Off Flow restrictions</a>.</p>
 
 <details class="govuk-details">
   <summary class="govuk-details__summary">
@@ -85,64 +87,17 @@ Restrictions were imposed in <b>2 out of the last 10</b> years.
   </div>
 </details>
 
-<h3 class="govuk-heading-s">Winter
+<h3 class="govuk-heading-s">Summer
   <strong class="govuk-tag govuk-tag--red label-mod" aria-hidden="true">
   No water available</strong>
 </h3>
 
 <p class="govuk-body">April - August</p>
 <p class="govuk-body"><i>Last updated: 25 October 2025</i></p>
-<p class="govuk-body">Water is not available.</p>
+<p class="govuk-body">Water is not available to abstract at any time 
+  during the summer months as the flow rate is too low.</p>
 
-<details class="govuk-details">
-  <summary class="govuk-details__summary">
-    <span class="govuk-details__summary-text">
-      Previous restrictions
-    </span>
-  </summary>
-  <div class="govuk-details__text">
-Restrictions were imposed in <b>2 out of the last 10</b> years.
 
-{{ govukTable({
-  head: [
-    {
-      text: "Year restricted"
-    },
-    {
-      text: "Days no water available"
-    },
-    {
-      text: "Days water restricted"
-    }
-  ],
-  rows: [
-    [
-      {
-        text: "2024"
-      },
-      {
-        text: "23"
-      },
-      {
-        text: "60"
-      }
-    ],
-    [
-      {
-        text: "2021"
-      },
-      {
-        text: "10"
-      },
-      {
-        text: "22"
-      }
-    ]
-  ]
-}) }}
-
-  </div>
-</details>
 
 {% endset -%}
 
