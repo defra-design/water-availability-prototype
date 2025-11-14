@@ -14,20 +14,31 @@
   <p class="govuk-body">
    {% if (data['availability'] == "both" or data['availability'] == "surface" or data['availability'] == "ground") %}  
 
-    {% if (data['licence-holder'] == "no") %}
-          Water can be abstracted from surface water, 
-            such as a river, and from groundwater, such as an aquifer.
-          {% endif %}
+   This report shows surface water and groundwater availability 
+   for your abstraction site and explains next steps in applying 
+   for a water abstraction licence.
   </p>
+
+    <div class="govuk-inset-text">
+        <p class="govuk-body"><b>National grid reference:</b> {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}</p>
+        <p class="govuk-body"><b>Use:</b> Spray irrigation - direct</p>
+        <p class="govuk-body"><b>Duration:</b> Permanent (over a year)</p>
+      </div>
+
+  <h2 class="govuk-heading-m">Seasonal availability and restrictions</h2>
 
   {% from "govuk/components/tabs/macro.njk" import govukTabs %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
 
 {% set surfacewaterHtml %}
 <h2 class="govuk-heading-m">Surface water</h2>
+<p class="govuk-body">Surface water is available in the <b>Ouse Lower</b> area of 
+the <b>River Ouse</b> (subject to restrictions, see below for more information).</p>
+
+<p class="govuk-body">View a <a href="">map of your local area and the River Ouse</a>.</p>
 
 <h3 class="govuk-heading-s">Winter
-  <strong class="govuk-tag govuk-tag--green label-mod" aria-hidden="true">
+  <strong class="govuk-tag govuk-tag--green" aria-hidden="true">
   Water available</strong>
 </h3>
 
@@ -35,7 +46,7 @@
 <p class="govuk-body-s"><i>Last updated: 25 October 2025</i></p>
 <p class="govuk-body">Water is available to abstract at up to 25000 cubic metres per day subject to 'Hands Off Flow' restrictions.</p>
 
-<p class="govuk-body">'Hands Off Flow' restrictions can limit abstraction for local licence holders when the water flow rate is lower than the environment can sustain. Learn more about <a href ="">Hands Off Flow restrictions</a>.</p>
+<p class="govuk-body">Hands Off Flow restrictions can limit abstraction for local licence holders when the water flow rate is lower than the environment can sustain. Learn more about <a href ="">Hands Off Flow restrictions</a>.</p>
 
 <details class="govuk-details">
   <summary class="govuk-details__summary">
@@ -88,23 +99,16 @@ Restrictions were imposed in <b>2 out of the last 10</b> years.
 </details>
 
 <h3 class="govuk-heading-s">Summer
-  <strong class="govuk-tag govuk-tag--red label-mod" aria-hidden="true">
-  No water available</strong>
+  <strong class="govuk-tag govuk-tag--yellow" aria-hidden="true">
+  Restrictions in place</strong>
 </h3>
 
 <p class="govuk-body">April - August</p>
 <p class="govuk-body-s"><i>Last updated: 25 October 2025</i></p>
-<p class="govuk-body">Water is not available to abstract at any time 
-  during the summer months as the flow rate is too low.</p>
+<p class="govuk-body">Water is available to abstract at up to 10000 cubic metres per day subject to 'Hands Off Flow' restrictions.</p>
 
+<p class="govuk-body">Hands Off Flow restrictions can limit abstraction for local licence holders when the water flow rate is lower than the environment can sustain. Learn more about <a href ="">Hands Off Flow restrictions</a>.</p>
 
-
-{% endset -%}
-
-
-
-{% set groundwaterHtml %}
-<h2 class="govuk-heading-l">Groundwater</h2>
 <details class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
@@ -112,17 +116,18 @@ Restrictions were imposed in <b>2 out of the last 10</b> years.
     </span>
   </summary>
   <div class="govuk-details__text">
-Restrictions were imposed in <b>2 out of the last 10</b> years.
+Restrictions were imposed in <b>1 out of the last 10</b> years.
+
 {{ govukTable({
   head: [
     {
       text: "Year restricted"
     },
     {
-      text: "No water available"
+      text: "Days no water available"
     },
     {
-      text: "Water availability restricted"
+      text: "Days water restricted"
     }
   ],
   rows: [
@@ -131,18 +136,75 @@ Restrictions were imposed in <b>2 out of the last 10</b> years.
         text: "2024"
       },
       {
-        text: "24"
+        text: "3"
       },
       {
-        text: "18"
+        text: "12"
+      }
+    ]
+  ]
+}) }}
+
+  </div>
+</details>
+
+
+{% endset -%}
+
+
+
+{% set groundwaterHtml %}
+<h2 class="govuk-heading-m">Groundwater</h2>
+<h3 class="govuk-heading-s">Winter
+  <strong class="govuk-tag govuk-tag--green" aria-hidden="true">
+  Water available</strong>
+</h3>
+
+<p class="govuk-body">September - March</p>
+<p class="govuk-body-s"><i>Last updated: 25 October 2025</i></p>
+<p class="govuk-body">Water is available to abstract at up to 25000 cubic metres per day subject to 'Hands Off Flow' restrictions.</p>
+
+<p class="govuk-body">Hands Off Flow restrictions can limit abstraction for local licence holders when the water flow rate is lower than the environment can sustain. Learn more about <a href ="">Hands Off Flow restrictions</a>.</p>
+
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Previous restrictions
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+Restrictions were imposed in <b>2 out of the last 10</b> years.
+
+{{ govukTable({
+  head: [
+    {
+      text: "Year restricted"
+    },
+    {
+      text: "Days no water available"
+    },
+    {
+      text: "Days water restricted"
+    }
+  ],
+  rows: [
+    [
+      {
+        text: "2024"
+      },
+      {
+        text: "23"
+      },
+      {
+        text: "60"
       }
     ],
     [
       {
-        text: "2022"
+        text: "2021"
       },
       {
-        text: "2"
+        text: "10"
       },
       {
         text: "22"
@@ -153,6 +215,18 @@ Restrictions were imposed in <b>2 out of the last 10</b> years.
 
   </div>
 </details>
+
+<h3 class="govuk-heading-s">Summer
+  <strong class="govuk-tag govuk-tag--red" aria-hidden="true">
+  No water available</strong>
+</h3>
+
+<p class="govuk-body">April - August</p>
+<p class="govuk-body-s"><i>Last updated: 25 October 2025</i></p>
+<p class="govuk-body">Water is not available to abstract at any time 
+  during the summer months as the flow rate is too low.</p>
+
+
 {% endset -%}
 
 
@@ -176,10 +250,33 @@ Restrictions were imposed in <b>2 out of the last 10</b> years.
   ]
 }) }}
 
+<h2 class="govuk-heading-m">Other options for sourcing water</h2>
+<p class="govuk-body">Learn more about <a href="">trading</a>, <a href="">desalination</a> and <a href="">water recycling</a>.</p>
+
+ <h2 class="govuk-heading-m">
+        Next steps
+      </h2>  
+
+       <p class="govuk-body">
+         The Environment Agency grants water abstraction licences. 
+         When considering whether to grant a licence for your site, 
+         we consider other factors as well as groundwater and surface water availability.
+      </p>
+
+      <p class="govuk-body">Those other factors include the impact of the proposed abstraction on:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>nearby abstractors</li>
+          <li>the natural environment</li>
+        </ul>
+
+      <p class="govuk-body"><a href="https://www.gov.uk/guidance/water-management-apply-for-a-water-abstraction-or-impoundment-licence">Apply for a water abstraction licence</a></p>
+      <p class="govuk-body"><a href="https://www.gov.uk/guidance/get-advice-before-you-apply-for-a-water-abstraction-or-impounding-licence">Get advice before you apply</a></p>   
 
 
     </div>
   </div>
+
+  
 
 {% elseif (data['availability'] == "none") %}
 <p class="govuk-body">No water available at any time.</p>
