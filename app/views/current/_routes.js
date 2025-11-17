@@ -71,19 +71,6 @@ router.get(folder + 'abstraction-type', function (request, response) {
 })
 
 router.post('/abstraction-type', function (request, response) {
-	var abstractionType = request.session.data['abstraction-type']
-	if (abstractionType == "point" || abstractionType == "range" || abstractionType == "area") {
-		response.redirect(folder + "location-abstract")
-	}
-
-})
-
-//Location abstract page
-router.get(folder + 'location-abstract', function (request, response) {
-	response.render(folder + 'location-abstract')
-})
-
-router.post('/location-abstract', function (request, response) {
 	response.redirect(folder + 'usage-autocomplete')
 })
 

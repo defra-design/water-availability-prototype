@@ -23,19 +23,23 @@
   name: "duration",
   fieldset: {
     legend: {
-      text: "How long do you want to abstract water from a water source?",
+      text: "How long do you want to abstract water for?",
       isPageHeading: true,
       classes: "govuk-fieldset__legend--l"
     }
   },
   items: [
+     {
+      value: "28days",
+      text: "28 days or less"
+    },
     {
       value: "lessthanyear",
       text: "Less than a year"
     },
     {
       value: "longterm",
-      text: "Long term"
+      text: "More than a year"
     }
   ]
 }) }}

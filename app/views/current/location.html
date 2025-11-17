@@ -22,6 +22,16 @@
 
 <!-- {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/input/macro.njk" import govukInput %} -->
+{% set postCodeHtml %}
+{{ govukInput({
+  id: "postCode",
+  name: "postCode",
+  classes: "govuk-input--width-10",
+  hint: {
+    text: "For example, SW15 4AX"
+  }
+}) }}
+{% endset -%}
 
 {% set gridrefHtml %}
 {{ govukInput({
@@ -45,17 +55,6 @@
 }) }}
 {% endset -%}
 
-{% set postCodeHtml %}
-{{ govukInput({
-  id: "postCode",
-  name: "postCode",
-  classes: "govuk-input--width-10",
-  hint: {
-    text: "For example, SW15 4AX"
-  }
-}) }}
-{% endset -%}
-
 
 
 {{ govukRadios({
@@ -69,10 +68,17 @@
   },
 
   hint: {
-    text: "We will check if there is any water available to abstract in your local area."
+    text: "We will check if there is any water available to abstract in your local area"
   },
 
   items: [
+     {
+      value: "postCode",
+      text: "Postcode",
+      conditional: {
+        html: postCodeHtml
+      }
+    },
     {
       value: "gridRef",
       text: "National grid reference",
@@ -87,14 +93,8 @@
       conditional: {
         html: fieldparcelHtml
       }
-    },
-    {
-      value: "postCode",
-      text: "Postcode",
-      conditional: {
-        html: postCodeHtml
-      }
     }
+   
    
   ]
 }) }}        
