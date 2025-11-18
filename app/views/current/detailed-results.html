@@ -12,16 +12,20 @@
     
   <h1 class="govuk-heading-l">Your water availability report</h1>
   <p class="govuk-body">
-   {% if (data['availability'] == "both" or data['availability'] == "surface" or data['availability'] == "ground") %}  
-
-  This report shows surface water and groundwater availability for your local area 
-  and explains next steps when applying for a water abstraction licence.
+      {% if (data['new-existing'] == "existing")%}  
+         This report shows surface water and groundwater availability 
+        for your local area and explains how to make changes to your 
+        water abstraction licence.
+      {% else %}
+       This report shows surface water and groundwater availability for your local area 
+        and explains next steps when applying for a water abstraction licence.
+      {% endif %}
   </p>
 
     <div class="govuk-inset-text">
         <p class="govuk-body"><b>National grid reference:</b> {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}</p>
         <p class="govuk-body"><b>Use:</b> Spray irrigation - direct</p>
-        <p class="govuk-body"><b>Duration:</b> Long term (over a year)</p>
+        <p class="govuk-body"><b>Duration:</b> More than a year</p>
       </div>
 
   <h2 class="govuk-heading-m">Seasonal availability and restrictions</h2>
@@ -274,16 +278,6 @@ Restrictions were imposed in <b>2 out of the last 10</b> years.
 
     </div>
   </div>
-
-  
-
-{% elseif (data['availability'] == "none") %}
-<p class="govuk-body">No water available at any time.</p>
-
-
-
-{% endif %}
-
 
 
 <!--   {{data|dump}} -->
