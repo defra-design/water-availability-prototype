@@ -60,9 +60,18 @@ var newExisting = request.session.data['new-existing']
 	if (newExisting == "new") {
 		response.redirect(folder + "location")
 	} else if (newExisting == "existing") {
-		response.redirect(folder + "abstraction-type")
+		response.redirect(folder + "licence-number")
 	}
 
+})
+
+//licence number page
+router.get(folder + 'licence-number', function (request, response) {
+	response.render(folder + 'licence-number')
+})
+
+router.post('/licence-number', function (request, response) {
+	response.redirect(folder + 'usage-autocomplete')
 })
 
 //abstraction type page
