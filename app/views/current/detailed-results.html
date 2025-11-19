@@ -22,21 +22,25 @@
       {% endif %}
   </p>
 
+    <h2 class="govuk-heading-m">Your requirements</h2>
+
     <div class="govuk-inset-text">
-        <p class="govuk-body">
+       
           {% if (data['new-existing'] == "new") %}
               {% if (data['location'] == "gridRef") %}
-                  <b>National grid reference:</b> {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}
+                  <div class="govuk-body">
+                  </p> <b>National grid reference:</b> {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}
                 {% elseif (data['location'] == "fieldParcel") %}
                   </b>Field parcel:</b> {{ data.fieldParcel | default("OS1234&nbsp;5678", true) | safe }}
                 {% elseif (data['location'] == "postCode") %}
                   <b>Postcode:</b> {{ data.postCode | default("SW1A&nbsp;0AA", true) | safe }}           
-              {% endif %}
+                </div>
+                      {% endif %}
 
               {% else %}              
-                  <b>Licence number:</b> {{ data.licenceNumber | default("100/22/33/0123", true) | safe }}               
+                 <!--<b>Licence number:</b> {{ data.licenceNumber | default("100/22/33/0123", true) | safe }}   -->             
            {% endif %}
-        </p>
+
 
         <p class="govuk-body"><b>Use:</b> {{ data['water-use-label'] }}</p>
         <p class="govuk-body"><b>Consumption type:</b> {{ data['water-use-type'] }}</p>
