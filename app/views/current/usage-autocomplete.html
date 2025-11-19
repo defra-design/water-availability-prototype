@@ -20,7 +20,7 @@
 
 <div class="govuk-form-group">
   <h1 class="govuk-label-wrapper">
-    <label class="govuk-label govuk-label--l" for="usage">
+    <label class="govuk-label govuk-label--l" for="water-use">
       What do you want to use the water for?
     </label>
   </h1>
@@ -30,75 +30,70 @@
     </div>
       
 
-  <select class="govuk-select" id="usage" name="usage"
+  <select class="govuk-select" id="water-use" name="water-use"
     data-module="autocomplete" data-autoselect="" data-display-menu="" data-min-length="" data-show-all-values="" data-show-no-options-found="">
     <option value="" selected disabled>Choose your reason for needing water</option>
-    <option value="x">Animal watering and welfare</option>
-    <option value="x">Boiler feed</option>
-    <option value="x">Canal throughflow</option>
-    <option value="non-con">Canoe pass</option>
-    <option value="x">Conveying materials</option>
-    <option value="x">Creating and maintaining water meadows</option>
-    <option value="x">Cress pond throughflow</option>
-    <option value="x">Dewatering</option>
-    <option value="x">Domestic purposes (commercial)</option>
-    <option value="x">Domestic purposes (non-commercial)</option>
-    <option value="x">Dust suppression</option>
-    <option value="x">Effluent or slurry dilution</option>
-    <option value="x">Evaporative cooling</option>
-    <option value="x">Fish farm throughflow</option>
-    <option value="x">Fish pass</option>
-    <option value="x">Flood irrigation not including warping and pest control</option>
-    <option value="x">Flood irrigation (pest control)</option>
-    <option value="x">Flood irrigation (warping)</option>
-    <option value="x">Gas suppression or scrubbing</option>
-    <option value="x">General farming (except irrigation)</option>
-    <option value="x">General farming (except irrigation) and domestic</option>
-    <option value="x">General or process washing</option>
-    <option value="x">Heat pump</option>
-    <option value="x">Horticultural irrigation (except spray and trickle irrigation)</option>
-    <option value="x">Horticultural watering</option>
-    <option value="x">Hydraulic fracturing (Fracking)</option>
-    <option value="x">Hydraulic rams</option>
-    <option value="x">Hydraulic testing</option>
-    <option value="x">Hydroelectric power generation</option>
-    <option value="x">Impounding (hydropower)</option>
-    <option value="x">Impounding (non-hydropower)</option>
-    <option value="x">Lake or pond throughflow</option>
-    <option value="x">Laundry use</option>
-    <option value="x">Leat throughflow</option>
-    <option value="x">Make-up or top-up water</option>
-    <option value="x">Milling and water power other than generating electricity</option>
-    <option value="x">Mineral washing</option>
-    <option value="x">Nature conservation</option>
-    <option value="x">Non-evaporative cooling</option>
-    <option value="x">Ornamental garden watering (not irrigation)</option>
-    <option value="x">Pollution remediation</option>
-    <option value="x">Potable water supply - direct</option>
-    <option value="x">Potable water supply - storage</option>
-    <option value="x">Process water</option>
-    <option value="x">Public water supply</option>
-    <option value="x">Raw water supply to third party</option>
-    <option value="x">River recirculation</option>
-    <option value="x">Spray irrigation - anti-frost (direct)</option>
-    <option value="x">Spray irrigation - anti-frost (storage)</option>
-    <option value="x">Spray irrigation - direct</option>
-    <option value="x">Spray irrigation - storage</option>
-    <option value="x">Spray irrigation - undercover or containers</option>
-    <option value="x">Transfer between sources (hydropower)</option>
-    <option value="x">Transfer between sources (Post Water Act 2003)</option>
-    <option value="x">Trickle irrigation - direct</option>
-    <option value="x">Trickle irrigation - storage</option>
-    <option value="x">Trickle irrigation - under cover or containers</option>
-    <option value="x">Vegetable washing</option>
-    <option value="x">Water bottling</option>
-    <option value="x">Water wheels not used for power</option>
-    <option value="x">Wet fencing</option>
+  <option value="hydraulic-fracturing-fracking">Hydraulic Fracturing (Fracking)</option>
+  <option value="dust-suppression">Dust Suppression</option>
+  <option value="evaporative-cooling">Evaporative Cooling</option>
+  <option value="general-cooling-existing-licences-only-high-loss">General Cooling (Existing Licences Only) (High Loss)</option>
+  <option value="general-use-secondary-category-high-loss">General Use Relating To Secondary Category (High Loss)</option>
+  <option value="make-up-top-up-water">Make-Up Or Top Up Water</option>
+  <option value="spray-irrigation-direct">Spray Irrigation - Direct</option>
+  <option value="spray-irrigation-definition-order">Spray Irrigation - Spray Irrigation Definition Order</option>
+  <option value="spray-irrigation-storage">Spray Irrigation - Storage</option>
+  <option value="trickle-irrigation-direct">Trickle Irrigation - Direct</option>
+  <option value="trickle-irrigation-under-cover-containers">Trickle Irrigation - Under Cover/Containers</option>
+  <option value="trickle-irrigation-storage">Trickle Irrigation - Storage</option>
+  <option value="animal-watering-non-farming">Animal Watering & General Use In Non Farming Situations</option>
+  <option value="boiler-feed">Boiler Feed</option>
+  <option value="conveying-materials">Conveying Materials</option>
+  <option value="drinking-etc-commercial">Drinking, Cooking, Sanitary, Washing, (Small Garden) - Commercial/Industrial/Public Services</option>
+  <option value="general-process-washing">General Washing/Process Washing</option>
+  <option value="drinking-etc-household">Drinking, Cooking, Sanitary, Washing, (Small Garden) - Household</option>
+  <option value="gas-suppression-scrubbing">Gas Suppression/Scrubbing</option>
+  <option value="general-farming-domestic">General Farming & Domestic</option>
+  <option value="general-use-secondary-category-medium-loss">General Use Relating To Secondary Category (Medium Loss)</option>
+  <option value="horticultural-watering">Horticultural Watering</option>
+  <option value="large-garden-watering">Large Garden Watering</option>
+  <option value="laundry-use">Laundry Use</option>
+  <option value="potable-supply-direct">Potable Water Supply - Direct</option>
+  <option value="potable-supply-storage">Potable Water Supply - Storage</option>
+  <option value="process-water">Process Water</option>
+  <option value="raw-water-supply">Raw Water Supply</option>
+  <option value="spray-irrigation-anti-frost">Spray Irrigation - Anti Frost</option>
+  <option value="spray-irrigation-anti-frost-storage">Spray Irrigation - Anti Frost Storage</option>
+  <option value="water-bottling">Water Bottling</option>
 
+  <option value="general-cooling-existing-licences-only-low-loss">General Cooling (Existing Licences Only) (Low Loss)</option>
+  <option value="general-use-secondary-category-low-loss">General Use Relating To Secondary Category (Low Loss)</option>
+  <option value="mineral-washing">Mineral Washing</option>
+  <option value="non-evaporative-cooling">Non-Evaporative Cooling</option>
+  <option value="vegetable-washing">Vegetable Washing</option>
+  <option value="dewatering">Dewatering</option>
+  <option value="wet-fencing-agriculture">Wet Fencing and Agriculture</option>
+  <option value="effluent-slurry-dilution">Effluent/Slurry Dilution</option>
+  <option value="fish-farm-cress-pond-throughflow">Fish Farm/Cress Pond Throughflow</option>
+  <option value="fish-pass-canoe-pass">Fish Pass/Canoe Pass</option>
+  <option value="general-use-secondary-category-very-low-loss">General Use Relating To Secondary Category (Very Low Loss)</option>
+  <option value="heat-pump">Heat Pump</option>
+  <option value="hydraulic-rams">Hydraulic Rams</option>
+  <option value="hydraulic-testing">Hydraulic Testing</option>
+  <option value="hydroelectric-power-generation">Hydroelectric Power Generation</option>
+  <option value="lake-pond-throughflow">Lake & Pond Throughflow</option>
+  <option value="milling-water-power-non-electric">Milling & Water Power Other Than Electricity Generation</option>
+  <option value="pollution-remediation">Pollution Remediation</option>
+  <option value="river-recirculation">River Recirculation</option>
+  <option value="supply-to-canal-throughflow">Supply To A Canal For Throughflow</option>
+  <option value="supply-to-leat-throughflow">Supply To A Leat For Throughflow</option>
+  <option value="transfer-between-sources-pre-2003">Transfer Between Sources (Pre Water Act 2003)</option>
+  <option value="water-wheels-not-used-for-power">Water Wheels Not Used For Power</option>
+  <option value="flood-irrigation-water-meadows-warping">Flood Irrigation, Including Water Meadows, Warping And Pest Control</option>
+  <option value="wet-fencing-nature-conservation">Wet Fencing And Nature Conservation</option>
+  <option value="transfer-between-sources-post-2003">Transfer Between Sources (Post Water Act 2003)</option>
+  <option value="impounding-excluding-hep">Impounding (for any purpose excluding impounding for HEP)</option>
   </select>
 </div>
-
-
 
         {{ govukButton({
           text: "Continue"

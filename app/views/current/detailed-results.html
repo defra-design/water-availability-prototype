@@ -23,15 +23,30 @@
   </p>
 
     <div class="govuk-inset-text">
-        <p class="govuk-body"><b>National grid reference:</b> {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}</p>
-        <p class="govuk-body"><b>Use:</b> Spray irrigation - direct</p>
+        <p class="govuk-body">
+          {% if (data['new-existing'] == "new") %}
+              {% if (data['location'] == "gridRef") %}
+                  <b>National grid reference:</b> {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}
+                {% elseif (data['location'] == "fieldParcel") %}
+                  </b>Field parcel:</b> {{ data.fieldParcel | default("OS1234&nbsp;5678", true) | safe }}
+                {% elseif (data['location'] == "postCode") %}
+                  <b>Postcode:</b> {{ data.postCode | default("SW1A&nbsp;0AA", true) | safe }}           
+              {% endif %}
+
+              {% else %}              
+                  <b>Licence number:</b> {{ data.licenceNumber | default("100/22/33/0123", true) | safe }}               
+           {% endif %}
+        </p>
+
+        <p class="govuk-body"><b>Use:</b> {{ data['water-use-label'] }}</p>
+        <p class="govuk-body"><b>Consumption type:</b> {{ data['water-use-type'] }}</p>
         <p class="govuk-body"><b>Duration:</b> More than a year</p>
       </div>
 
-  <h2 class="govuk-heading-m">Seasonal availability and restrictions</h2>
 
-  {% from "govuk/components/tabs/macro.njk" import govukTabs %}
-{% from "govuk/components/table/macro.njk" import govukTable %}
+
+
+  <h2 class="govuk-heading-m">Seasonal availability and restrictions</h2>
 
 {% set surfacewaterHtml %}
 <h2 class="govuk-heading-m">Surface water</h2>
@@ -280,7 +295,7 @@ Restrictions were imposed in <b>2 out of the last 10</b> years.
   </div>
 
 
-<!--   {{data|dump}} -->
+<!-- {{data|dump}} -->
   
 {% endblock %}
 

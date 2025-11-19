@@ -1,6 +1,248 @@
 const govukPrototypeKit = require('govuk-prototype-kit')
 const router = govukPrototypeKit.requests.setupRouter()
 // Add your routes here - above the module.exports line
+// Lookup table for water uses
+
+const waterUses = {
+  // CONSUMPTIVE
+  'hydraulic-fracturing-fracking': {
+    label: 'Hydraulic Fracturing (Fracking)',
+    type: 'Consumptive'
+  },
+  'dust-suppression': {
+    label: 'Dust Suppression',
+    type: 'Consumptive'
+  },
+  'evaporative-cooling': {
+    label: 'Evaporative Cooling',
+    type: 'Consumptive'
+  },
+  'general-cooling-existing-licences-only-high-loss': {
+    label: 'General Cooling (Existing Licences Only) (High Loss)',
+    type: 'Consumptive'
+  },
+  'general-use-secondary-category-high-loss': {
+    label: 'General Use Relating To Secondary Category (High Loss)',
+    type: 'Consumptive'
+  },
+  'make-up-top-up-water': {
+    label: 'Make-Up Or Top Up Water',
+    type: 'Consumptive'
+  },
+  'spray-irrigation-direct': {
+    label: 'Spray Irrigation - Direct',
+    type: 'Consumptive'
+  },
+  'spray-irrigation-definition-order': {
+    label: 'Spray Irrigation - Spray Irrigation Definition Order',
+    type: 'Consumptive'
+  },
+  'spray-irrigation-storage': {
+    label: 'Spray Irrigation - Storage',
+    type: 'Consumptive'
+  },
+  'trickle-irrigation-direct': {
+    label: 'Trickle Irrigation - Direct',
+    type: 'Consumptive'
+  },
+  'trickle-irrigation-under-cover-containers': {
+    label: 'Trickle Irrigation - Under Cover/Containers',
+    type: 'Consumptive'
+  },
+  'trickle-irrigation-storage': {
+    label: 'Trickle Irrigation - Storage',
+    type: 'Consumptive'
+  },
+  'animal-watering-non-farming': {
+    label: 'Animal Watering & General Use In Non Farming Situations',
+    type: 'Consumptive'
+  },
+  'boiler-feed': {
+    label: 'Boiler Feed',
+    type: 'Consumptive'
+  },
+  'conveying-materials': {
+    label: 'Conveying Materials',
+    type: 'Consumptive'
+  },
+  'drinking-etc-commercial': {
+    label: 'Drinking, Cooking, Sanitary, Washing, (Small Garden) - Commercial/Industrial/Public Services',
+    type: 'Consumptive'
+  },
+  'general-process-washing': {
+    label: 'General Washing/Process Washing',
+    type: 'Consumptive'
+  },
+  'drinking-etc-household': {
+    label: 'Drinking, Cooking, Sanitary, Washing, (Small Garden) - Household',
+    type: 'Consumptive'
+  },
+  'gas-suppression-scrubbing': {
+    label: 'Gas Suppression/Scrubbing',
+    type: 'Consumptive'
+  },
+  'general-farming-domestic': {
+    label: 'General Farming & Domestic',
+    type: 'Consumptive'
+  },
+  'general-use-secondary-category-medium-loss': {
+    label: 'General Use Relating To Secondary Category (Medium Loss)',
+    type: 'Consumptive'
+  },
+  'horticultural-watering': {
+    label: 'Horticultural Watering',
+    type: 'Consumptive'
+  },
+  'large-garden-watering': {
+    label: 'Large Garden Watering',
+    type: 'Consumptive'
+  },
+  'laundry-use': {
+    label: 'Laundry Use',
+    type: 'Consumptive'
+  },
+  'potable-supply-direct': {
+    label: 'Potable Water Supply - Direct',
+    type: 'Consumptive'
+  },
+  'potable-supply-storage': {
+    label: 'Potable Water Supply - Storage',
+    type: 'Consumptive'
+  },
+  'process-water': {
+    label: 'Process Water',
+    type: 'Consumptive'
+  },
+  'raw-water-supply': {
+    label: 'Raw Water Supply',
+    type: 'Consumptive'
+  },
+  'spray-irrigation-anti-frost': {
+    label: 'Spray Irrigation - Anti Frost',
+    type: 'Consumptive'
+  },
+  'spray-irrigation-anti-frost-storage': {
+    label: 'Spray Irrigation - Anti Frost Storage',
+    type: 'Consumptive'
+  },
+  'water-bottling': {
+    label: 'Water Bottling',
+    type: 'Consumptive'
+  },
+
+  // NON-CONSUMPTIVE
+  'general-cooling-existing-licences-only-low-loss': {
+    label: 'General Cooling (Existing Licences Only) (Low Loss)',
+    type: 'Non-consumptive'
+  },
+  'general-use-secondary-category-low-loss': {
+    label: 'General Use Relating To Secondary Category (Low Loss)',
+    type: 'Non-consumptive'
+  },
+  'mineral-washing': {
+    label: 'Mineral Washing',
+    type: 'Non-consumptive'
+  },
+  'non-evaporative-cooling': {
+    label: 'Non-Evaporative Cooling',
+    type: 'Non-consumptive'
+  },
+  'vegetable-washing': {
+    label: 'Vegetable Washing',
+    type: 'Non-consumptive'
+  },
+  'dewatering': {
+    label: 'Dewatering',
+    type: 'Non-consumptive'
+  },
+  'wet-fencing-agriculture': {
+    label: 'Wet Fencing and Agriculture',
+    type: 'Non-consumptive'
+  },
+  'effluent-slurry-dilution': {
+    label: 'Effluent/Slurry Dilution',
+    type: 'Non-consumptive'
+  },
+  'fish-farm-cress-pond-throughflow': {
+    label: 'Fish Farm/Cress Pond Throughflow',
+    type: 'Non-consumptive'
+  },
+  'fish-pass-canoe-pass': {
+    label: 'Fish Pass/Canoe Pass',
+    type: 'Non-consumptive'
+  },
+  'general-use-secondary-category-very-low-loss': {
+    label: 'General Use Relating To Secondary Category (Very Low Loss)',
+    type: 'Non-consumptive'
+  },
+  'heat-pump': {
+    label: 'Heat Pump',
+    type: 'Non-consumptive'
+  },
+  'hydraulic-rams': {
+    label: 'Hydraulic Rams',
+    type: 'Non-consumptive'
+  },
+  'hydraulic-testing': {
+    label: 'Hydraulic Testing',
+    type: 'Non-consumptive'
+  },
+  'hydroelectric-power-generation': {
+    label: 'Hydroelectric Power Generation',
+    type: 'Non-consumptive'
+  },
+  'lake-pond-throughflow': {
+    label: 'Lake & Pond Throughflow',
+    type: 'Non-consumptive'
+  },
+  'milling-water-power-non-electric': {
+    label: 'Milling & Water Power Other Than Electricity Generation',
+    type: 'Non-consumptive'
+  },
+  'pollution-remediation': {
+    label: 'Pollution Remediation',
+    type: 'Non-consumptive'
+  },
+  'river-recirculation': {
+    label: 'River Recirculation',
+    type: 'Non-consumptive'
+  },
+  'supply-to-canal-throughflow': {
+    label: 'Supply To A Canal For Throughflow',
+    type: 'Non-consumptive'
+  },
+  'supply-to-leat-throughflow': {
+    label: 'Supply To A Leat For Throughflow',
+    type: 'Non-consumptive'
+  },
+  'transfer-between-sources-pre-2003': {
+    label: 'Transfer Between Sources (Pre Water Act 2003)',
+    type: 'Non-consumptive'
+  },
+  'water-wheels-not-used-for-power': {
+    label: 'Water Wheels Not Used For Power',
+    type: 'Non-consumptive'
+  },
+  'flood-irrigation-water-meadows-warping': {
+    label: 'Flood Irrigation, Including Water Meadows, Warping And Pest Control',
+    type: 'Non-consumptive'
+  },
+  'wet-fencing-nature-conservation': {
+    label: 'Wet Fencing And Nature Conservation',
+    type: 'Non-consumptive'
+  },
+  'transfer-between-sources-post-2003': {
+    label: 'Transfer Between Sources (Post Water Act 2003)',
+    type: 'Non-consumptive'
+  },
+  'impounding-excluding-hep': {
+    label: 'Impounding (for any purpose excluding impounding for HEP)',
+    type: 'Non-consumptive'
+  }
+};
+
+
+
 const folder = "/current/"
 
 
@@ -96,18 +338,34 @@ router.post('/location', function (request, response) {
 
 
 //Usage autocomplete page
-router.get(folder + 'usage-autocomplete', function (request, response) {
-	response.render(folder + 'usage-autocomplete')
-})
 
-router.post('/usage-autocomplete', function (request, response) {
-	var newExisting = request.session.data['new-existing']
-	if (newExisting == "existing") {
-		response.redirect(folder + "duration")
+
+
+// Handle POST from the water use page
+router.post('/usage-autocomplete', function (req, res) {
+	var newExisting = req.session.data['new-existing']
+	
+  const key = req.session.data['water-use']; // from the select
+
+  const info = waterUses[key];
+
+  if (info) {
+    req.session.data['water-use-label'] = info.label;
+    req.session.data['water-use-type'] = info.type;
+  } else {
+    // Optional: handle missing/unknown key
+    req.session.data['water-use-label'] = key;
+    req.session.data['water-use-type'] = '';
+  }
+
+  // Redirect to whatever page you want next
+  if (newExisting == "existing") {
+		res.redirect(folder + "duration")
 	} else {
-        response.redirect(folder + "exemption")
+        res.redirect(folder + "exemption")
     }
-})
+
+});
 
 //exemption page
 router.get(folder + 'exemption', function (request, response) {
