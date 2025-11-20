@@ -332,7 +332,7 @@ router.get(folder + 'location', function (request, response) {
 })
 
 router.post('/location', function (request, response) {
-	response.redirect(folder + 'usage-autocomplete')
+	response.redirect(folder + 'exemption')
 })
 
 
@@ -359,11 +359,9 @@ router.post('/usage-autocomplete', function (req, res) {
   }
 
   // Redirect to whatever page you want next
-  if (newExisting == "existing") {
+  
 		res.redirect(folder + "duration")
-	} else {
-        res.redirect(folder + "exemption")
-    }
+	
 
 });
 
@@ -377,7 +375,7 @@ var eXemption = request.session.data['exemption']
 	if (eXemption == "yes") {
 		response.redirect(folder + "exempt-results")
 	} else {
-        response.redirect(folder + "duration")
+        response.redirect(folder + "usage-autocomplete")
     }
 })
 
