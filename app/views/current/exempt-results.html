@@ -17,18 +17,27 @@
     <div class="govuk-grid-column-two-thirds">
 
       <h1 class="govuk-heading-l">
-        You do not need a licence to abstract under 20 cubic metres per day
+        You may not need a licence to abstract water
       </h1>
 
       <p class="govuk-body">
   Our records show both surface and groundwater is available to abstract 
-  for spray irrigation in the local area for the National Grid Reference <b>1234556675</b>.
+  for spray irrigation in the local area for the 
+    {% if (data['location'] == "gridRef") %}
+       National grid reference <b>{{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}</b>
+    {% elseif (data['location'] == "fieldParcel") %}
+       field parcel <b>{{ data.fieldParcel | default("OS1234&nbsp;5678", true) | safe }}</b>
+    {% elseif (data['location'] == "postCode") %}
+        postcode <b>{{ data.postCode | default("SW1A&nbsp;0AA", true) | safe }}</b>         
+    {% endif %}.
      </p>
 
       <p class="govuk-body">
-        You do not need an abstraction licence for abstractions of 20 
+       {{ govukInsetText({
+        text: "You do not need an abstraction licence for abstractions of 20 
         cubic metres or less a day, provided your abstraction is part 
-        of a single operation.
+        of a single operation."
+      }) }} 
       </p>
 
           <p class="govuk-body">
