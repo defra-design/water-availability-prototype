@@ -280,30 +280,21 @@ Restrictions were imposed in <b>2 out of the last 10</b> years.
   ]
 }) }}
 
-{% if (data['duration'] == "28 days or less") or (data['duration'] == "Less than a year") %} 
-  <h2 class="govuk-heading-m">Types of water resources licence</h2> 
+  <h2 class="govuk-heading-m">Next steps</h2>
 
-  <p class="govuk-body">There are different types of water resources licences you can apply for. They are:</p>
-  <ul class="govuk-list govuk-list--bullet">
-      <li>a full abstraction licence - for most types of water abstraction over 20 cubic metres a day</li>
-      <li>a transfer abstraction licence - to move over 20 cubic metres of water a day from one source to another without intervening use</li>
-      <li>a temporary abstraction licence - to abstract more than 20 cubic metres of water a day over a period of less than 28 days</li>
-  </ul>
-
-  <p class="govuk-body">Learn more about the options available if you want to apply 
-    for a water abstraction licence.</p>
-{% endif %}
+  <h3 class="govuk-heading-s">Trading</h3>
 
 {% if (data['duration'] == "More than a year")%} 
-  <h2 class="govuk-heading-m">Other options for sourcing water</h2>
-  <p class="govuk-body">Learn more about <a href="">trading</a>, <a href="">desalination</a> and <a href="">water recycling</a>.</p>
+
+  <p class="govuk-body">Another option instead of applying for a 
+    licence, which can take a while to process, is to to enter into an agreement with an existing licence holder.</p>
 
 {% elseif (data['duration'] == "28 days or less") or (data['duration'] == "Less than a year") %}
-  <h2 class="govuk-heading-m">Trading</h2>  
 
 <p class="govuk-body">If you only need water for a short period of time, 
   instead of applying for a licence which can take a while to process, 
   you may be able to enter into an agreement with an existing licence holder.</p>
+{% endif %}
 
 <p class="govuk-body">You can agree for them to give you part or all of 
   their water abstraction rights permanently or temporarily. 
@@ -314,10 +305,18 @@ Restrictions were imposed in <b>2 out of the last 10</b> years.
 <p class="govuk-body">Find local abstractors to trade with using 
   the map on DEFRA's <a href="">Help for Water Rights Trading Data</a> platform.</p>
 
+
+
+{% if (data['duration'] == "28 days or less") %} 
+  <h3 class="govuk-heading-s">Temporary licences</h3> 
+
+  <p class="govuk-body">You can apply for a temporary abstraction licence if you only 
+    want to abstract over a period of less than 28 days.</p>
+
 {% endif %}
 
 {% if (data['licence-holder'] == "no")%} 
- <h2 class="govuk-heading-m">Next steps</h2>     
+ <h3 class="govuk-heading-s">Applying for a licence</h3>     
 
        <p class="govuk-body">
          The Environment Agency grants water abstraction licences. 
@@ -337,7 +336,7 @@ Restrictions were imposed in <b>2 out of the last 10</b> years.
 
       {% elseif (data['licence-holder'] == "yes") %} 
 
- <h2 class="govuk-heading-m">Changing your existing licence</h2>
+ <h3 class="govuk-heading-s">Changing your existing licence</h3>
 <p class="govuk-body">If you have an existing water abstraction licence, 
   you can apply to the Environmental Agency to make a change to your licence. 
   This is called a variation.</p>
