@@ -280,12 +280,44 @@ Restrictions were imposed in <b>2 out of the last 10</b> years.
   ]
 }) }}
 
-<h2 class="govuk-heading-m">Other options for sourcing water</h2>
-<p class="govuk-body">Learn more about <a href="">trading</a>, <a href="">desalination</a> and <a href="">water recycling</a>.</p>
+{% if (data['duration'] == "28 days or less") or (data['duration'] == "Less than a year") %} 
+  <h2 class="govuk-heading-m">Types of water resources licence</h2> 
 
- <h2 class="govuk-heading-m">
-        Next steps
-      </h2>  
+  <p class="govuk-body">There are different types of water resources licences you can apply for. They are:</p>
+  <ul class="govuk-list govuk-list--bullet">
+      <li>a full abstraction licence - for most types of water abstraction over 20 cubic metres a day</li>
+      <li>a transfer abstraction licence - to move over 20 cubic metres of water a day from one source to another without intervening use</li>
+      <li>a temporary abstraction licence - to abstract more than 20 cubic metres of water a day over a period of less than 28 days</li>
+  </ul>
+
+  <p class="govuk-body">Learn more about the options available if you want to apply 
+    for a water abstraction licence.</p>
+{% endif %}
+
+{% if (data['duration'] == "More than a year")%} 
+  <h2 class="govuk-heading-m">Other options for sourcing water</h2>
+  <p class="govuk-body">Learn more about <a href="">trading</a>, <a href="">desalination</a> and <a href="">water recycling</a>.</p>
+
+{% elseif (data['duration'] == "28 days or less") or (data['duration'] == "Less than a year") %}
+  <h2 class="govuk-heading-m">Trading</h2>  
+
+<p class="govuk-body">If you only need water for a short period of time, 
+  instead of applying for a licence which can take a while to process, 
+  you may be able to enter into an agreement with an existing licence holder.</p>
+
+<p class="govuk-body">You can agree for them to give you part or all of 
+  their water abstraction rights permanently or temporarily. 
+  This is called the <a href="">trading of water abstraction rights</a>. 
+  Trades need approval by the Environment Agency to protect 
+  the environment and the rights of other lawful water users.</p> 
+
+<p class="govuk-body">Find local abstractors to trade with using 
+  the map on DEFRA's <a href="">Help for Water Rights Trading Data</a> platform.</p>
+
+{% endif %}
+
+{% if (data['licence-holder'] == "no")%} 
+ <h2 class="govuk-heading-m">Next steps</h2>     
 
        <p class="govuk-body">
          The Environment Agency grants water abstraction licences. 
@@ -302,6 +334,30 @@ Restrictions were imposed in <b>2 out of the last 10</b> years.
       <p class="govuk-body"><a href="https://www.gov.uk/guidance/water-management-apply-for-a-water-abstraction-or-impoundment-licence">Apply for a water abstraction licence</a></p>
       <p class="govuk-body"><a href="https://www.gov.uk/guidance/get-advice-before-you-apply-for-a-water-abstraction-or-impounding-licence">Get advice before you apply</a></p>   
 
+
+      {% elseif (data['licence-holder'] == "yes") %} 
+
+ <h2 class="govuk-heading-m">Changing your existing licence</h2>
+<p class="govuk-body">If you have an existing water abstraction licence, 
+  you can apply to the Environmental Agency to make a change to your licence. 
+  This is called a variation.</p>
+
+<p class="govuk-body">Examples of variations include:</p>
+
+<ul class="govuk-list govuk-list--bullet">
+  <li>adding or changing an abstraction purpose (use)</li>
+  <li>adding or changing an abstraction point</li>
+  <li>increasing the volume of water to be abstracted, hourly, daily or annually</li>
+  <li>changing a gauging station or observation borehole referred to in a licence condition</li>
+  <li>changing the lining in an abstraction borehole referred to in a licence condition</li>
+</ul>
+
+
+<p class="govuk-body">To vary your licence, you will need to use the 
+  relevant <a href="">water resource application forms and form guidance notes</a>.</p>
+
+
+{% endif %}
 
     </div>
   </div>

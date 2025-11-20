@@ -287,8 +287,22 @@ var licenceHolder = request.session.data['licence-holder']
 	if (licenceHolder == "yes") {
 		response.redirect(folder + "new-or-existing-abstraction")
 	} else if (licenceHolder == "no") {
-		response.redirect(folder + "location")
+		response.redirect(folder + "exemption")
 	}
+})
+
+//exemption page
+router.get(folder + 'exemption', function (request, response) {
+	response.render(folder + 'exemption')
+})
+
+router.post('/exemption', function (request, response) {
+var eXemption = request.session.data['exemption']
+	if (eXemption == "yes") {
+		response.redirect(folder + "exempt-results")
+	} else {
+        response.redirect(folder + "location")
+    }
 })
 
 
@@ -300,7 +314,7 @@ router.get(folder + 'new-or-existing-abstraction', function (request, response) 
 router.post('/new-or-existing-abstraction', function (request, response) {
 var newExisting = request.session.data['new-existing']
 	if (newExisting == "new") {
-		response.redirect(folder + "location")
+		response.redirect(folder + "exemption")
 	} else if (newExisting == "existing") {
 		response.redirect(folder + "licence-number")
 	}
@@ -332,7 +346,7 @@ router.get(folder + 'location', function (request, response) {
 })
 
 router.post('/location', function (request, response) {
-	response.redirect(folder + 'exemption')
+	response.redirect(folder + 'usage-autocomplete')
 })
 
 
@@ -365,19 +379,6 @@ router.post('/usage-autocomplete', function (req, res) {
 
 });
 
-//exemption page
-router.get(folder + 'exemption', function (request, response) {
-	response.render(folder + 'exemption')
-})
-
-router.post('/exemption', function (request, response) {
-var eXemption = request.session.data['exemption']
-	if (eXemption == "yes") {
-		response.redirect(folder + "exempt-results")
-	} else {
-        response.redirect(folder + "usage-autocomplete")
-    }
-})
 
 //exempt results page
 router.get(folder + 'exempt-results', function (request, response) {
