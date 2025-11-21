@@ -179,85 +179,22 @@ Restrictions were imposed in <b>2 out of the last 10</b> years.
 
 
 {% set groundwaterHtml %}
-<h2 class="govuk-heading-m">Groundwater</h2>
+<h2 class="govuk-heading-m">Groundwater  <strong class="govuk-tag govuk-tag--green" aria-hidden="true">
+  Good availability</strong></h2>
 
-<p class="govuk-body">'Hands Off Flow' restrictions can limit abstraction 
-  for local licence holders when the water flow rate is lower than the 
-  environment can sustain. Learn more about <a href ="">Hands Off Flow restrictions</a>.</p>
-
-
-<h3 class="govuk-heading-s">Summer
-  <strong class="govuk-tag govuk-tag--red" aria-hidden="true">
-  No water available</strong>
-</h3>
-
-<p class="govuk-body">April - August</p>
 <p class="govuk-body-s"><i>Last updated: 25 October 2025</i></p>
-<p class="govuk-body">Water is not available to abstract at any time 
-  during the summer months as the flow rate is too low.</p>
+<p class="govuk-body">Local Groundwater Body: <b>Derwent PT Sandstone - Derby (Principal)</b></p>
+<p class="govuk-body">Local Groundwater Management Unit: <b>Derby</b></p>
+<p class="govuk-body">Approx. water available (Ml/d): 1 Ml/d</p> 
 
-<h3 class="govuk-heading-s">Winter
-  <strong class="govuk-tag govuk-tag--green" aria-hidden="true">
-  Good availability</strong>
-</h3>
+<p class="govuk-body">Licence restrictions: A Hands off Flow restriction of 
+  1,980.8 Ml/d will be applied to applications found to be in direct continuity with the river.</p>
 
+<p class="govuk-body">Other restrictions may apply where availability is limited or to protect the environment.</p>
 
-<p class="govuk-body">September - March</p>
-<p class="govuk-body-s"><i>Last updated: 25 October 2025</i></p>
-<p class="govuk-body">Water is available to abstract at up to 25000 
-  cubic metres per day subject to Hands Off Flow restrictions.</p>
+<p class="govuk-body">A pump test will most likely be needed to determine availability for your specific abstraction point.</p>
 
-
-<details class="govuk-details">
-  <summary class="govuk-details__summary">
-    <span class="govuk-details__summary-text">
-      Previous restrictions
-    </span>
-  </summary>
-  <div class="govuk-details__text">
-Restrictions were imposed in <b>2 out of the last 10</b> years.
-
-{{ govukTable({
-  head: [
-    {
-      text: "Year restricted"
-    },
-    {
-      text: "Days no water available"
-    },
-    {
-      text: "Days water restricted"
-    }
-  ],
-  rows: [
-    [
-      {
-        text: "2024"
-      },
-      {
-        text: "23"
-      },
-      {
-        text: "60"
-      }
-    ],
-    [
-      {
-        text: "2021"
-      },
-      {
-        text: "10"
-      },
-      {
-        text: "22"
-      }
-    ]
-  ]
-}) }}
-
-  </div>
-</details>
-
+<p class="govuk-body"><a href="">View a map of existing local boreholes</a>.</p>
 
 {% endset -%}
 
@@ -288,7 +225,7 @@ Restrictions were imposed in <b>2 out of the last 10</b> years.
 
 {% if (data['duration'] == "More than a year")%} 
 
-  <p class="govuk-body">Another option instead of applying for a 
+  <p class="govuk-body">One option instead of applying for a 
     licence, which can take a while to process, is to to enter into an agreement with an existing licence holder.</p>
 
 {% elseif (data['duration'] == "28 days or less") or (data['duration'] == "Less than a year") %}
