@@ -28,7 +28,7 @@
               {% if (data['location'] == "gridRef") %}
                   <b>National grid reference:</b> {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}
                 {% elseif (data['location'] == "fieldParcel") %}
-                  </b>Field parcel:</b> {{ data.fieldParcel | default("OS1234&nbsp;5678", true) | safe }}
+                  <b>Field parcel:</b> {{ data.fieldParcel | default("OS1234&nbsp;5678", true) | safe }}
                 {% elseif (data['location'] == "postCode") %}
                   <b>Postcode:</b> {{ data.postCode | default("SW1A&nbsp;0AA", true) | safe }}           
                 </p>
@@ -46,8 +46,11 @@
         <p class="govuk-body"><b>Duration:</b> {{ data['duration'] }}</p>
       </div>
 
-
+{% if (data['availability'] == "both" or data['availability'] == "surface" or data['availability'] == "ground") %}
   <h2 class="govuk-heading-m">Seasonal availability and restrictions</h2>
+{% else %}
+
+  {% endif %}
 
 
 {% set surfacewaterHtml %}
@@ -230,21 +233,31 @@ Restrictions were imposed in <b>2 out of the last 10</b> years.
 
 {% else %}
 
-<h2 class="govuk-heading-m">No water</h2>
+<div class="border govuk-!-margin-bottom-3">
+  <h2 class="govuk-heading-m">Year round availability <strong class="govuk-tag govuk-tag--red" aria-hidden="true">
+  No water available</strong></h2>
+<p class="govuk-body">No water is available for licencing at any time in your local area.</p>
+
+<p class="govuk-body">This can be due to low flow rates and a high number of other abstractors. 
+  The area is likely to be water stressed meaning more abstraction 
+  could have a negative impact on the local environment.</p>
+</div>
 {% endif %}
 
 
-
+{% if (data['availability'] == "both" or data['availability'] == "surface" or data['availability'] == "ground") %}
   <h2 class="govuk-heading-m">Next steps</h2>
 
-  <h3 class="govuk-heading-s">Trading</h3>
 
 {% if (data['duration'] == "More than a year") %} 
+
+  <h3 class="govuk-heading-s">Trading</h3>
 
   <p class="govuk-body">One option instead of applying for a 
     licence, which can take a while to process, is to to enter into an agreement with an existing licence holder.</p>
 
 {% elseif (data['duration'] == "28 days or less") or (data['duration'] == "Less than a year") %}
+  <h3 class="govuk-heading-s">Trading</h3>
 
 <p class="govuk-body">If you only need water for a short period of time, 
   instead of applying for a licence which can take a while to process, 
@@ -313,8 +326,82 @@ Restrictions were imposed in <b>2 out of the last 10</b> years.
 
 {% endif %}
 
+
+
+  {% else %}
+<h2 class="govuk-heading-m">Other options for sourcing water</h2>
+
+<h3 class="govuk-heading-s">Reservoirs</h3>
+
+<p class="govuk-body">If local water availability is low over summer and higher over winter, 
+  building a reservoir is one option to ensure a more consistent water supply. 
+  Read the <a href="">guide to planning, designing, constructing and commissioning a water storage 
+  reservoir</a> for more information.</p>
+
+<p class="govuk-body"><a href="">Local Resource Option (LRO)</a> is a water resource solution 
+  designed to enhance water resilience or supply for a small group of abstractors 
+  within their area. Owned, operated, and managed by the abstractors themselves. 
+  LROs range from infrastructure projects like reservoirs and rainwater harvesting 
+  systems to collaborative solutions such as water sharing agreements or licence pooling.</p>
+
+<h3 class="govuk-heading-s">Water recycling and efficiency</h3>
+<p class="govuk-body">The Environment Agency believes <a href="">water recycling</a> 
+  can play an effective and increasingly important role in securing 
+  water supplies. Indirect recycling treats wastewater and discharges 
+  it to an environmental buffer, such as a river, reservoir or 
+  underground aquifer. Water is then abstracted and treated further to 
+  drinking water standards.</p>
+
+<p class="govuk-body">Increasing water efficiency is also encouraged 
+  when local water availability is low. Smart irrigation scheduling, 
+  reducing leakages and reusing water for wash down are all options 
+  to save water. <a href="">Waterwise</a> offer tips and information on water 
+  efficiency and conservation.</p>
+
+  <h3 class="govuk-heading-s">Water supply agreements</h3>
+  <p class="govuk-body">You may be able to arrange a favourable <a href="">bulk water 
+    supply agreement</a> from your local water company. Read more about 
+    bulk water supply agreements on the Ofwat website, and 
+    look up your <a href="">local supplier</a> on the Water UK website.</p>
+
+  <h3 class="govuk-heading-s">Rainwater and storage</h3>
+  <p class="govuk-body">Rainwater harvesting is an efficient way to use water.</p>
+ <p class="govuk-body">Harvested rainwater is rainwater:</p>
+<ul class="govuk-list govuk-list--bullet">
+  <li>collected from roofs and other above ground surfaces</li>
+  <li>collected via a system of above ground pipes and tanks</li>
+  <li>isolated from inland waters or groundwater</li>
+</ul>
+
+<p class="govuk-body">The Environment Agency will not regulate harvested 
+rainwater provided its use does not harm the environment - either alone or 
+combined with other abstractions or transfers. Rainwater harvesting 
+within a catchment must not affect the normal watercourse flow.</p>
+
+<p class="govuk-body">You do not need an abstraction licence to use 
+  water that only consists of harvested rainwater. However you may need 
+  a water abstraction licence if you combine harvested rainwater with 
+  ground or surface water, which you then abstract or transfer.</p>
+
+ <h3 class="govuk-heading-s">Desalination</h3>
+<p class="govuk-body">Desalination is the treatment of brackish (slightly salty 
+  water from river estuaries) or seawater to remove dissolved salts and other 
+  organic chemicals to provide a source of fresh water. After treatment, 
+  this can be suitable for drinking. </p>
+
+<p class="govuk-body">It is a more expensive and complicated option 
+  to implement but is being used successfully in other countries and becoming more popular.</p>
+
+<p class="govuk-body">For further information, take a look at the <a href="">Environment 
+  Agency position statement on desalination for public water supply</a>.
+</p>
+
+  {% endif %}
+
+
     </div>
   </div>
+
 
 
 <!-- {{data|dump}} -->
