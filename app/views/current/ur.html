@@ -6,43 +6,61 @@
 
 {% block content %}
 
-<p class="govuk-body">
-  {{ govukButton({
-  text: "Participant 1",
-  href: "ur-scenario?participant=1"
-}) }}
-</p>
+<p class="govuk-body">Please do not press Continue until your researcher tells you to.</p>
 
-<p class="govuk-body">
+{% set htmlButton1 %}
 {{ govukButton({
-  text: "Participant 2",
-  href: "ur-scenario?participant=2"
+  text: "Continue",
+  href: "start?availability=both"
 }) }}
-</p>
+{% endset %}
 
-
-<p class="govuk-body">
+{% set htmlButton2 %}
 {{ govukButton({
-  text: "Participant 3",
-  href: "ur-scenario?participant=3"
+  text: "Continue",
+  href: "start?availability=both"
 }) }}
-</p>
+{% endset %}
 
+{{ govukAccordion({
+  id: "accordion-default",
+  rememberExpanded: false,
+  items: [
+    {
+      
+      heading: {
+        text: "Participant A"
+      },
+      content: {
+        html: '<p class="govuk-body">You are running a business and you already have a licence to abstract water. You need more water than you are licenced for. You would like to find out if there is more water available from the same point.</p>
+                <p class="govuk-body">Your business is located Derbyshire.</p>'   
+       +htmlButton1
+              }
+  
+    },
 
+    {
+      heading: {
+        text: "Participant B"
+      },
+      content: {
+        html: '<p class="govuk-body">You need water for your business and you started doing some research online and reached the following page.</p>
+                <p class="govuk-body">Your business is located Derbyshire.</p>'   
+      +htmlButton2
+             }
+    },
 
-{{ govukButton({
-  text: "Participant 4",
-  href: "ur-scenario?participant=4"
+    {
+      heading: {
+        text: "Additional"
+      },
+      content: {
+        html: '<p class="govuk-body"><a href="start?availability=neither" class="govuk-link">Scenario 2</a></p>'   
+             }
+    }
+   
+  ]
 }) }}
-</p>
 
-
-<p class="govuk-body">
-{{ govukButton({
-  text: "Participant 5",
-  href: "ur-scenario?participant=5"
-}) }}
-
-</p>
 
 {% endblock %}
