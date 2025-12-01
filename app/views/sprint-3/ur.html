@@ -1,0 +1,66 @@
+{% extends "govuk-prototype-kit/layouts/unbranded.html" %}
+
+<!-- {% block pageTitle %}
+  {{ serviceName }}
+{% endblock %} -->
+
+{% block content %}
+
+<p class="govuk-body">Please do not press Continue until your researcher tells you to.</p>
+
+{% set htmlButton1 %}
+{{ govukButton({
+  text: "Continue",
+  href: "start?availability=both"
+}) }}
+{% endset %}
+
+{% set htmlButton2 %}
+{{ govukButton({
+  text: "Continue",
+  href: "start?availability=both"
+}) }}
+{% endset %}
+
+{{ govukAccordion({
+  id: "accordion-default",
+  rememberExpanded: false,
+  items: [
+    {
+      
+      heading: {
+        text: "Participant A"
+      },
+      content: {
+        html: '<p class="govuk-body">You are running a business and you already have a licence to abstract water. You need more water than you are licenced for. You would like to find out if there is more water available from the same point.</p>
+                <p class="govuk-body">Your business is located Derbyshire.</p>'   
+       +htmlButton1
+              }
+  
+    },
+
+    {
+      heading: {
+        text: "Participant B"
+      },
+      content: {
+        html: '<p class="govuk-body">You need water for your business and you started doing some research online and reached the following page.</p>
+                <p class="govuk-body">Your business is located Derbyshire.</p>'   
+      +htmlButton2
+             }
+    },
+
+    {
+      heading: {
+        text: "Additional"
+      },
+      content: {
+        html: '<p class="govuk-body"><a href="start?availability=neither" class="govuk-link">Scenario 2</a></p>'   
+             }
+    }
+   
+  ]
+}) }}
+
+
+{% endblock %}

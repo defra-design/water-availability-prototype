@@ -1,0 +1,410 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  {{ "Your water availability report" }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+    
+  <h1 class="govuk-heading-l">Your water availability report</h1>
+  <p class="govuk-body">
+      {% if (data['new-existing'] == "existing")%}  
+         This report shows surface water and groundwater availability 
+        for your local area and explains how to make changes to your 
+        water abstraction licence.
+      {% else %}
+       This report shows surface water and groundwater availability for your local area 
+        and explains next steps when applying for a water abstraction licence.
+      {% endif %}
+  </p>
+
+      <div class="govuk-inset-text">
+        {% if (data['new-existing'] == "new" or data['licence-holder'] == "no") %}
+        <p class="govuk-body">  
+              {% if (data['location'] == "gridRef") %}
+                  <b>National grid reference:</b> {{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}
+                {% elseif (data['location'] == "fieldParcel") %}
+                  <b>Field parcel:</b> {{ data.fieldParcel | default("OS1234&nbsp;5678", true) | safe }}
+                {% elseif (data['location'] == "postCode") %}
+                  <b>Postcode:</b> {{ data.postCode | default("SW1A&nbsp;0AA", true) | safe }}           
+                </p>
+                {% endif %}
+
+              {% else %} 
+              <p class="govuk-body">               
+                 <b>Licence number:</b> {{ data.licenceNumber | default("100/22/33/0123", true) | safe }}            
+                </p>
+            {% endif %}
+
+
+        <p class="govuk-body"><b>Use:</b> {{ data['water-use-label'] }}</p>
+        <p class="govuk-body"><b>Consumption type:</b> {{ data['water-use-type'] }}</p>
+        <p class="govuk-body"><b>Duration:</b> {{ data['duration'] }}</p>
+      </div>
+
+{% if (data['availability'] == "both" or data['availability'] == "surface" or data['availability'] == "ground") %}
+  <h2 class="govuk-heading-m">Seasonal availability and restrictions</h2>
+{% else %}
+
+  {% endif %}
+
+
+{% set surfacewaterHtml %}
+<h2 class="govuk-heading-m">Surface water</h2>
+<p class="govuk-body">Surface water is available in the <b>Derwent Upper - Derbyshire</b> area of 
+the <b>Derwent from Westend to Wye</b> (subject to restrictions, see below for more information).</p>
+
+<p class="govuk-body">View a <a href="https://environment.data.gov.uk/catchment-planning/WaterBody/GB104028057880" class="govuk-link">map of your local area and the River Derwent from Westend to Wye</a>.</p>
+
+<p class="govuk-body">'Hands Off Flow' restrictions can limit abstraction 
+  for local licence holders when the water flow rate is lower than the 
+  environment can sustain. Learn more about <a href =" https://www.gov.uk/guidance/manage-your-water-abstraction-or-impoundment-licences-online#abstraction-alerts" class="govuk-link">Hands Off Flow restrictions</a>.</p>
+
+<h3 class="govuk-heading-s">Summer
+  <strong class="govuk-tag govuk-tag--yellow" aria-hidden="true">
+  Restricted</strong>
+</h3>
+
+<p class="govuk-body">April - August</p>
+<p class="govuk-body-s"><i>Last updated: 25 October 2025</i></p>
+<p class="govuk-body">Water is available to abstract at up to 10000 
+  cubic metres per day subject to Hands Off Flow restrictions.</p>
+
+
+
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Previous restrictions
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+Restrictions were imposed in <b>1 out of the last 10</b> years.
+
+{{ govukTable({
+  head: [
+    {
+      text: "Year restricted"
+    },
+    {
+      text: "Days no water available"
+    },
+    {
+      text: "Days water restricted"
+    }
+  ],
+  rows: [
+    [
+      {
+        text: "2024"
+      },
+      {
+        text: "3"
+      },
+      {
+        text: "12"
+      }
+    ]
+  ]
+}) }}
+
+  </div>
+</details>
+
+<h3 class="govuk-heading-s">Winter
+  <strong class="govuk-tag govuk-tag--green" aria-hidden="true">
+  Good availability</strong>
+</h3>
+
+<p class="govuk-body">September - March</p>
+<p class="govuk-body-s"><i>Last updated: 25 October 2025</i></p>
+<p class="govuk-body">Water is available to abstract at up to 25000 
+  cubic metres per day subject to Hands Off Flow restrictions.</p>
+
+
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Previous restrictions
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+Restrictions were imposed in <b>2 out of the last 10</b> years.
+
+{{ govukTable({
+  head: [
+    {
+      text: "Year restricted"
+    },
+    {
+      text: "Days no water available"
+    },
+    {
+      text: "Days water restricted"
+    }
+  ],
+  rows: [
+    [
+      {
+        text: "2024"
+      },
+      {
+        text: "23"
+      },
+      {
+        text: "60"
+      }
+    ],
+    [
+      {
+        text: "2021"
+      },
+      {
+        text: "10"
+      },
+      {
+        text: "22"
+      }
+    ]
+  ]
+}) }}
+
+</div>
+</details>
+
+{% endset -%}
+
+
+{% set groundwaterHtml %}
+<h2 class="govuk-heading-m">Groundwater  <strong class="govuk-tag govuk-tag--green" aria-hidden="true">
+  Good availability</strong></h2>
+
+<p class="govuk-body-s"><i>Last updated: 25 October 2025</i></p>
+<p class="govuk-body">Local Groundwater Body: <b>Derwent PT Sandstone - Derby (Principal)</b></p>
+<p class="govuk-body">Local Groundwater Management Unit: <b>Derby</b></p>
+<p class="govuk-body">Approx. water available (Ml/d): 1 Ml/d</p> 
+
+<p class="govuk-body">Licence restrictions: A Hands off Flow restriction of 
+  1,980.8 Ml/d will be applied to applications found to be in direct continuity with the river.</p>
+
+<p class="govuk-body">Other restrictions may apply where availability is limited or to protect the environment.</p>
+
+<p class="govuk-body">A pump test will most likely be needed to determine availability for your specific abstraction point.</p>
+
+<p class="govuk-body"><a href="">View a map of existing local boreholes</a>.</p>
+
+{% endset -%}
+
+
+{% if (data['availability'] == "both") %} 
+
+{{ govukTabs({
+  items: [
+    {
+      label: "Surface water",
+      id: "surface-water-tab",
+      panel: {
+        html: surfacewaterHtml
+      }
+    },
+    {
+      label: "Groundwater",
+      id: "groundwater-tab",
+      panel: {
+        html: groundwaterHtml
+      }
+    }
+  ]
+}) }}
+
+{% elseif (data['availability'] == "surface") %}
+<div class="border govuk-!-margin-bottom-3">
+{{ surfacewaterHtml | safe }}
+</div>
+
+{% elseif (data['availability'] == "ground") %}
+<div class="border govuk-!-margin-bottom-3">
+{{ groundwaterHtml | safe }}
+</div>
+
+{% else %}
+
+<div class="border govuk-!-margin-bottom-3">
+  <h2 class="govuk-heading-m">Year round availability <strong class="govuk-tag govuk-tag--red" aria-hidden="true">
+  No water available</strong></h2>
+<p class="govuk-body">No water is available for licencing at any time in your local area.</p>
+
+<p class="govuk-body">This can be due to low flow rates and a high number of other abstractors. 
+  The area is likely to be water stressed meaning more abstraction 
+  could have a negative impact on the local environment.</p>
+</div>
+{% endif %}
+
+
+{% if (data['availability'] == "both" or data['availability'] == "surface" or data['availability'] == "ground") %}
+  <h2 class="govuk-heading-m">Next steps</h2>
+
+
+{% if (data['duration'] == "More than a year") %} 
+
+  <h3 class="govuk-heading-s">Trading</h3>
+
+  <p class="govuk-body">One option instead of applying for a 
+    licence, which can take a while to process, is to to enter into an agreement with an existing licence holder.</p>
+
+{% elseif (data['duration'] == "28 days or less") or (data['duration'] == "Less than a year") %}
+  <h3 class="govuk-heading-s">Trading</h3>
+
+<p class="govuk-body">If you only need water for a short period of time, 
+  instead of applying for a licence which can take a while to process, 
+  you may be able to enter into an agreement with an existing licence holder.</p>
+{% endif %}
+
+<p class="govuk-body">You can agree for them to give you part or all of 
+  their water abstraction rights permanently or temporarily. 
+  This is called the <a href="">trading of water abstraction rights</a>. 
+  Trades need approval by the Environment Agency to protect 
+  the environment and the rights of other lawful water users.</p> 
+
+<p class="govuk-body">Find local abstractors to trade with using 
+  the map on DEFRA's <a href="">Help for Water Rights Trading Data</a> platform.</p>
+
+
+
+{% if (data['duration'] == "28 days or less") %} 
+  <h3 class="govuk-heading-s">Temporary licences</h3> 
+
+  <p class="govuk-body">You can apply for a temporary abstraction licence if you only 
+    want to abstract over a period of less than 28 days.</p>
+
+{% endif %}
+
+{% if (data['licence-holder'] == "no" or data['new-existing'] == "new")%} 
+ <h3 class="govuk-heading-s">Applying for a licence</h3>     
+
+       <p class="govuk-body">
+         The Environment Agency grants water abstraction licences. 
+         When considering whether to grant a licence for your site, 
+         we consider other factors as well as groundwater and surface water availability.
+      </p>
+
+      <p class="govuk-body">Those other factors include the impact of the proposed abstraction on:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>nearby abstractors</li>
+          <li>the natural environment</li>
+        </ul>
+
+      <p class="govuk-body"><a href="https://www.gov.uk/guidance/water-management-apply-for-a-water-abstraction-or-impoundment-licence">Apply for a water abstraction licence</a></p>
+      <p class="govuk-body"><a href="https://www.gov.uk/guidance/get-advice-before-you-apply-for-a-water-abstraction-or-impounding-licence">Get advice before you apply</a></p>   
+
+
+      {% elseif (data['licence-holder'] == "yes" and data['new-existing'] == "existing") %} 
+
+ <h3 class="govuk-heading-s">Changing your existing licence</h3>
+<p class="govuk-body">If you have an existing water abstraction licence, 
+  you can apply to the Environmental Agency to make a change to your licence. 
+  This is called a variation.</p>
+
+<p class="govuk-body">Examples of variations include:</p>
+
+<ul class="govuk-list govuk-list--bullet">
+  <li>adding or changing an abstraction purpose (use)</li>
+  <li>adding or changing an abstraction point</li>
+  <li>increasing the volume of water to be abstracted, hourly, daily or annually</li>
+  <li>changing a gauging station or observation borehole referred to in a licence condition</li>
+  <li>changing the lining in an abstraction borehole referred to in a licence condition</li>
+</ul>
+
+
+<p class="govuk-body">To vary your licence, you will need to use the 
+  relevant <a href="">water resource application forms and form guidance notes</a>.</p>
+
+
+{% endif %}
+
+
+
+  {% else %}
+<h2 class="govuk-heading-m">Other options for sourcing water</h2>
+
+<h3 class="govuk-heading-s">Reservoirs</h3>
+
+<p class="govuk-body">If local water availability is low over summer and higher over winter, 
+  building a reservoir is one option to ensure a more consistent water supply. 
+  Read the <a href="">guide to planning, designing, constructing and commissioning a water storage 
+  reservoir</a> for more information.</p>
+
+<p class="govuk-body"><a href="">Local Resource Option (LRO)</a> is a water resource solution 
+  designed to enhance water resilience or supply for a small group of abstractors 
+  within their area. Owned, operated, and managed by the abstractors themselves. 
+  LROs range from infrastructure projects like reservoirs and rainwater harvesting 
+  systems to collaborative solutions such as water sharing agreements or licence pooling.</p>
+
+<h3 class="govuk-heading-s">Water recycling and efficiency</h3>
+<p class="govuk-body">The Environment Agency believes <a href="">water recycling</a> 
+  can play an effective and increasingly important role in securing 
+  water supplies. Indirect recycling treats wastewater and discharges 
+  it to an environmental buffer, such as a river, reservoir or 
+  underground aquifer. Water is then abstracted and treated further to 
+  drinking water standards.</p>
+
+<p class="govuk-body">Increasing water efficiency is also encouraged 
+  when local water availability is low. Smart irrigation scheduling, 
+  reducing leakages and reusing water for wash down are all options 
+  to save water. <a href="">Waterwise</a> offer tips and information on water 
+  efficiency and conservation.</p>
+
+  <h3 class="govuk-heading-s">Water supply agreements</h3>
+  <p class="govuk-body">You may be able to arrange a favourable bulk water 
+    supply agreement from your local water company. Read more about 
+    <a href="">bulk water supply agreements</a> on the Ofwat website, and 
+    <a href="">look up your local supplier</a> on the Water UK website.</p>
+
+  <h3 class="govuk-heading-s">Rainwater and storage</h3>
+  <p class="govuk-body">Rainwater harvesting is an efficient way to use water.</p>
+ <p class="govuk-body">Harvested rainwater is rainwater:</p>
+<ul class="govuk-list govuk-list--bullet">
+  <li>collected from roofs and other above ground surfaces</li>
+  <li>collected via a system of above ground pipes and tanks</li>
+  <li>isolated from inland waters or groundwater</li>
+</ul>
+
+<p class="govuk-body">The Environment Agency will not regulate harvested 
+rainwater provided its use does not harm the environment - either alone or 
+combined with other abstractions or transfers. Rainwater harvesting 
+within a catchment must not affect the normal watercourse flow.</p>
+
+<p class="govuk-body">You do not need an abstraction licence to use 
+  water that only consists of harvested rainwater. However you may need 
+  a water abstraction licence if you combine harvested rainwater with 
+  ground or surface water, which you then abstract or transfer.</p>
+
+ <h3 class="govuk-heading-s">Desalination</h3>
+<p class="govuk-body">Desalination is the treatment of brackish (slightly salty 
+  water from river estuaries) or seawater to remove dissolved salts and other 
+  organic chemicals to provide a source of fresh water. After treatment, 
+  this can be suitable for drinking. </p>
+
+<p class="govuk-body">It is a more expensive and complicated option 
+  to implement but is being used successfully in other countries and becoming more popular.</p>
+
+<p class="govuk-body">For further information, take a look at the <a href="">Environment 
+  Agency position statement on desalination for public water supply</a>.
+</p>
+
+  {% endif %}
+
+
+    </div>
+  </div>
+
+
+
+<!-- {{data|dump}} -->
+  
+{% endblock %}
+
