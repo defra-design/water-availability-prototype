@@ -55,10 +55,10 @@
 
 {% set surfacewaterHtml %}
 <h2 class="govuk-heading-m">Surface water</h2>
-<p class="govuk-body">Surface water is available in the <b>Derwent Upper - Derbyshire</b> area of 
-the <b>Derwent from Westend to Wye</b> (subject to restrictions, see below for more information).</p>
+<p class="govuk-body">Surface water is available in the <b>{{data.waterBody}}</b> area of 
+the <b>{{data.riverBasin}}</b> (subject to restrictions, see below for more information).</p>
 
-<p class="govuk-body">View a <a href="https://environment.data.gov.uk/catchment-planning/WaterBody/GB104028057880" class="govuk-link">map of your local area and the River Derwent from Westend to Wye</a>.</p>
+<p class="govuk-body">View a <a href="https://environment.data.gov.uk/catchment-planning/WaterBody/{{data.riverCatchmentData.properties.WB_ID}}">map of your local area and the {{data.riverBasin}} from {{data.waterBody}}</a>.</p>
 
 <p class="govuk-body">'Hands Off Flow' restrictions can limit abstraction 
   for local licence holders when the water flow rate is lower than the 
@@ -184,8 +184,8 @@ Restrictions were imposed in <b>2 out of the last 10</b> years.
   Good availability</strong></h2>
 
 <p class="govuk-body-s"><i>Last updated: 25 October 2025</i></p>
-<p class="govuk-body">Local Groundwater Body: <b>Derwent PT Sandstone - Derby (Principal)</b></p>
-<p class="govuk-body">Local Groundwater Management Unit: <b>Derby</b></p>
+<p class="govuk-body">Local Groundwater Body: <b>{{data.groundwaterCatchmentData.properties.WB_NAME}}</b></p>
+<p class="govuk-body">Local Groundwater Management Unit: <b>{{data.groundwaterCatchmentData.properties.MNCAT_NAME}}</b></p>
 <p class="govuk-body">Approx. water available (Ml/d): 1 Ml/d</p> 
 
 <p class="govuk-body">Licence restrictions: A Hands off Flow restriction of 
@@ -195,7 +195,7 @@ Restrictions were imposed in <b>2 out of the last 10</b> years.
 
 <p class="govuk-body">A pump test will most likely be needed to determine availability for your specific abstraction point.</p>
 
-<p class="govuk-body"><a href="">View a map of existing local boreholes</a>.</p>
+<p class="govuk-body"><a href="{{data.groundwaterCatchmentData.properties.WB_DETAIL}}">View a map of existing the local groundwater body</a>.</p>
 
 {% endset -%}
 

@@ -1,0 +1,119 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+{{ serviceName }}
+{% endblock %}
+
+{% block content %}
+
+ <h1 class="govuk-heading-l">Your local water availability</h1>
+
+   <h2 class="govuk-heading-m">Surface water</h2>
+
+<p class="govuk-body">Water can be abstracted from surface water, such as a river, lake or reservoir.</p>
+
+{{ govukTable({
+firstCellIsHeader: true,
+  rows: [
+    [
+      {
+        text: "Availability",
+        classes: "govuk-!-width-one-half"
+      },
+      {
+        text: "£109.80 per week",
+        classes: "govuk-!-width-one-half"
+      }
+    ],
+    [
+      {
+        text: "Water body",
+        classes: "govuk-!-width-one-half"
+      },
+      {
+        html: "Surface water is available in the <b>" + data.waterBody + "</b> area of 
+the <b>" + data.riverBasin + "</b> (subject to restrictions, see below for more information).",
+        classes: "govuk-!-width-one-half"
+      }
+    ],
+    [
+      {
+        text: "Summary",
+        classes: "govuk-!-width-one-half"
+      },
+      {
+        text: "£109.80 per week",
+        classes: "govuk-!-width-one-half"
+      }
+    ],
+    [
+      {
+        text: "Restrictions",
+        classes: "govuk-!-width-one-half"
+      },
+      {
+        text: "£109.80 per week",
+        classes: "govuk-!-width-one-half"
+      }
+    ]
+  ]
+}) }}
+
+
+  <h2 class="govuk-heading-m">Groundwater</h2>
+
+<p class="govuk-body">Groundwater lies below the surface in bodies known as aquifers.</p>
+
+{{ govukTable({
+firstCellIsHeader: true,
+  rows: [
+    [
+      {
+        text: "Availability",
+        classes: "govuk-!-width-one-half"
+      },
+      {
+        text: "£109.80 per week",
+        classes: "govuk-!-width-one-half"
+      }
+    ],
+    [
+      {
+        text: "Groundwater body",
+        classes: "govuk-!-width-one-half"
+      },
+      {
+        text: "£109.80 per week",
+        classes: "govuk-!-width-one-half"
+      }
+    ],
+    [
+      {
+        text: "Summary",
+        classes: "govuk-!-width-one-half"
+      },
+      {
+        text: "£109.80 per week",
+        classes: "govuk-!-width-one-half"
+      }
+    ],
+    [
+      {
+        text: "Restrictions",
+        classes: "govuk-!-width-one-half"
+      },
+      {
+        text: "£109.80 per week",
+        classes: "govuk-!-width-one-half"
+      }
+    ]
+  ]
+}) }}
+
+
+      {{ govukButton({
+          text: "Continue"
+        }) }}
+
+
+{% endblock %}
