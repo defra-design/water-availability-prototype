@@ -587,7 +587,7 @@ router.get(folder + 'duration', function (request, response) {
 })
 
 router.post('/duration', function (request, response) {
-	response.redirect(folder + 'detailed-results')
+	response.redirect(folder + 'summary')
 })
 
 
@@ -614,6 +614,16 @@ router.get(folder + 'usage-farming', function (request, response) {
 })
 
 router.post('/usage-farming', function (request, response) {
+	response.redirect(folder + 'summary')
+})
+
+
+//summary page
+router.get(folder + 'summary', function (request, response) {
+	response.render(folder + 'summary')
+})
+
+router.post('/summary', function (request, response) {
 	response.redirect(folder + 'detailed-results')
 })
 
