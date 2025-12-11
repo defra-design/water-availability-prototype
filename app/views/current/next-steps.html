@@ -16,159 +16,224 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-  
-{% if (data['availability'] == "both" or data['availability'] == "surface" or data['availability'] == "ground") %}
-  <h2 class="govuk-heading-m">Next steps</h2>
+    <h1 class="govuk-heading-l">Other options and next steps</h1>
+
+    <p class="govuk-body">Learn more about applying for a licence and 
+      what your other options are for sourcing water. Read further details by 
+      selecting from the sections below.</p>
+<div class="govuk-accordion" data-module="govuk-accordion" id="accordion-with-summary-sections">
+  <div class="govuk-accordion__section--expanded">
+    <div class="govuk-accordion__section-header">
+      <h2 class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button" id="accordion-with-summary-sections-heading-1">
+          Applying for a licence
+        </span>
+      </h2>
+      <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-1">
+        Find out how to apply for a licence.
+      </div>
+    </div>
+    <div id="accordion-with-summary-sections-content-1" class="govuk-accordion__section-content">
+      <ul class="govuk-list">
+        <li>The Environment Agency grants water abstraction licences. 
+          When considering whether to grant a licence for your site, 
+          we consider other factors such as the flow rate for your 
+          local area, how much nearby abstractors are taking, the 
+          natural environment and any protected areas.</li>
+
+        <li>Additional flow data might be needed to determine water 
+          availability in your area. You may be asked to submit flow 
+          data as part of your licence application. Completing an 
+          enhanced pre-application will give you more information 
+          about whether this is needed.</li>
+
+        <li><a href="https://www.gov.uk/guidance/water-management-apply-for-a-water-abstraction-or-impoundment-licence">Apply for a water abstraction licence</a></li>
+
+<li><a href="https://www.gov.uk/guidance/get-advice-before-you-apply-for-a-water-abstraction-or-impounding-licence">Get advice before you apply</a></li>
+
+      </ul>
+    </div>
+  </div>
+
+  <div class="govuk-accordion__section">
+    <div class="govuk-accordion__section-header">
+      <h2 class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button" id="accordion-with-summary-sections-heading-2">
+          Trading abstraction rights
+        </span>
+      </h2>
+      <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
+        It can sometimes be quicker and easier to source water by entering an agreement 
+        with an local licence holder. When water availability is low the existing 
+        abstractor can give up some of their rights to abstract.
+      </div>
+    </div>
+    <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
+      <ul class="govuk-list">
+        <li>If you only need water for a short period of time, 
+          instead of applying for a licence which can take a while 
+          to process, you may be able to enter into an agreement 
+          with an existing licence holder.</li>
+
+        <li>You can agree for them to give you part or all of their water 
+          abstraction rights permanently or temporarily. This is called 
+          the <a href="">trading of water abstraction rights</a>. Trades need approval 
+          by the Environment Agency to protect the environment 
+          and the rights of other lawful water users.</li>
+
+        <li>Find local abstractors to trade with using the map on 
+          <a href="">DEFRA's Help for Water Rights Trading Data</a> platform.</li>
+          <li>Chris magic in here..</li>
+      </ul>
+    </div>
+  </div>
 
 
-{% if (data['duration'] == "More than a year") %} 
+  <div class="govuk-accordion__section">
+    <div class="govuk-accordion__section-header">
+      <h2 class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button" id="accordion-with-summary-sections-heading-3">
+          Building a reservoir
+        </span>
+      </h2>
+      <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-3">
+        This is a common option if water availability is scarce over summer, 
+        but it is most suited to long-term use and requires up-front investment.
+      </div>
+    </div>
+    <div id="accordion-with-summary-sections-content-3" class="govuk-accordion__section-content">
+      <ul class="govuk-list">
+        <li>If local water availability is low over summer and higher over winter, 
+         building a reservoir is one option to ensure a more consistent water 
+         supply. Read the <a class="govuk-link" href="#">guide to planning, designing, 
+          constructing and commissioning a water storage reservoir</a> for more information.</li>
 
-  <h3 class="govuk-heading-s">Trading</h3>
+        <li><a class="govuk-link" href="#">Local Resource Option (LRO)</a> is a water resource solution designed to 
+          enhance water resilience or supply for a small group of abstractors within their 
+          area. Owned, operated, and managed by the abstractors themselves. 
+          LROs range from infrastructure projects like reservoirs and rainwater 
+          harvesting systems to collaborative solutions such as water sharing 
+          agreements or licence pooling.</li>
+      </ul>
+    </div>
+  </div>
 
-  <p class="govuk-body">One option instead of applying for a 
-    licence, which can take a while to process, is to to enter into an agreement with an existing licence holder.</p>
+   <div class="govuk-accordion__section">
+    <div class="govuk-accordion__section-header">
+      <h2 class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button" id="accordion-with-summary-sections-heading-3">
+          Water recycling and efficiency
+        </span>
+      </h2>
+      <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-3">
+        Learn more about recycling and saving water, which can be a good solution when licencing is limited and also helps protect the environment.
+      </div>
+    </div>
+    <div id="accordion-with-summary-sections-content-3" class="govuk-accordion__section-content">
+      <ul class="govuk-list">
+        <li>The Environment Agency believes <a class="govuk-link" href="#">water recycling</a> can play an 
+          effective and increasingly important role in securing water 
+          supplies. Indirect recycling treats wastewater and discharges 
+          it to an environmental buffer, such as a river, reservoir or 
+          underground aquifer. Water can then be abstracted and treated further.</li>
 
-{% elseif (data['duration'] == "28 days or less") or (data['duration'] == "Less than a year") %}
-  <h3 class="govuk-heading-s">Trading</h3>
-
-<p class="govuk-body">If you only need water for a short period of time, 
-  instead of applying for a licence which can take a while to process, 
-  you may be able to enter into an agreement with an existing licence holder.</p>
-{% endif %}
-
-<p class="govuk-body">You can agree for them to give you part or all of 
-  their water abstraction rights permanently or temporarily. 
-  This is called the <a href="">trading of water abstraction rights</a>. 
-  Trades need approval by the Environment Agency to protect 
-  the environment and the rights of other lawful water users.</p> 
-
-<p class="govuk-body">Find local abstractors to trade with using 
-  the map on DEFRA's <a href="">Help for Water Rights Trading Data</a> platform.</p>
-
-
-
-{% if (data['duration'] == "28 days or less") %} 
-  <h3 class="govuk-heading-s">Temporary licences</h3> 
-
-  <p class="govuk-body">You can apply for a temporary abstraction licence if you only 
-    want to abstract over a period of less than 28 days.</p>
-
-{% endif %}
-
-{% if (data['licence-holder'] == "no" or data['new-existing'] == "new")%} 
- <h3 class="govuk-heading-s">Applying for a licence</h3>     
-
-       <p class="govuk-body">
-         The Environment Agency grants water abstraction licences. 
-         When considering whether to grant a licence for your site, 
-         we consider other factors as well as groundwater and surface water availability.
-      </p>
-
-      <p class="govuk-body">Those other factors include the impact of the proposed abstraction on:</p>
-        <ul class="govuk-list govuk-list--bullet">
-          <li>nearby abstractors</li>
-          <li>the natural environment</li>
-        </ul>
-
-      <p class="govuk-body"><a href="https://www.gov.uk/guidance/water-management-apply-for-a-water-abstraction-or-impoundment-licence">Apply for a water abstraction licence</a></p>
-      <p class="govuk-body"><a href="https://www.gov.uk/guidance/get-advice-before-you-apply-for-a-water-abstraction-or-impounding-licence">Get advice before you apply</a></p>   
+<li>Increasing water efficiency is also encouraged when local water 
+  availability is low. Smart irrigation scheduling, reducing leakages 
+  and reusing water for wash down are all options to save water. 
+  <a class="govuk-link" href="#">Waterwise</a> offer tips and information on water 
+  efficiency and conservation.</li>
+      </ul>
+    </div>
+  </div>
 
 
-      {% elseif (data['licence-holder'] == "yes" and data['new-existing'] == "existing") %} 
+  <div class="govuk-accordion__section">
+    <div class="govuk-accordion__section-header">
+      <h2 class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button" id="accordion-with-summary-sections-heading-3">
+          Water supply agreements
+        </span>
+      </h2>
+      <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-3">
+        Arranging a contract for bulk water supply with a local water company 
+        is another common option for those looking to abstract smaller amounts, 
+        or when licencing is limited.
+      </div>
+    </div>
+    <div id="accordion-with-summary-sections-content-3" class="govuk-accordion__section-content">
+      <ul class="govuk-list">
+        <li>You may be able to arrange a favourable <a class="govuk-link" href="#">bulk water supply agreement</a> 
+          from your local water company. Read more about bulk water supply 
+          agreements on the Ofwat website, and look up your <a class="govuk-link" href="#">local supplier</a> 
+          on the Water UK website.</li>
+      </ul>
+    </div>
+  </div>
 
- <h3 class="govuk-heading-s">Changing your existing licence</h3>
-<p class="govuk-body">If you have an existing water abstraction licence, 
-  you can apply to the Environmental Agency to make a change to your licence. 
-  This is called a variation.</p>
 
-<p class="govuk-body">Examples of variations include:</p>
-
+  <div class="govuk-accordion__section">
+    <div class="govuk-accordion__section-header">
+      <h2 class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button" id="accordion-with-summary-sections-heading-3">
+          Rainwater collection and storage
+        </span>
+      </h2>
+      <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-3">
+        Harvesting rainwater is efficient and you may not need a licence depending on the environmental impact. 
+        This can be a viable option for water stressed areas.
+      </div>
+    </div>
+    <div id="accordion-with-summary-sections-content-3" class="govuk-accordion__section-content">
+      <ul class="govuk-list">
+        <li>Rainwater harvesting is an efficient way to use water.</li>
+        <li>Harvested rainwater is rainwater:</li>
 <ul class="govuk-list govuk-list--bullet">
-  <li>adding or changing an abstraction purpose (use)</li>
-  <li>adding or changing an abstraction point</li>
-  <li>increasing the volume of water to be abstracted, hourly, daily or annually</li>
-  <li>changing a gauging station or observation borehole referred to in a licence condition</li>
-  <li>changing the lining in an abstraction borehole referred to in a licence condition</li>
+<li>collected from roofs and other above ground surfaces</li>
+<li>collected via a system of above ground pipes and tanks</li>
+<li>isolated from inland waters or groundwater</li>
 </ul>
 
+<li>The Environment Agency will not regulate harvested rainwater 
+  provided its use does not harm the environment - either alone 
+  or combined with other abstractions or transfers. Rainwater 
+  harvesting within a catchment must not affect the normal watercourse flow.</li>
 
-<p class="govuk-body">To vary your licence, you will need to use the 
-  relevant <a href="">water resource application forms and form guidance notes</a>.</p>
+<li>Learn more about rainwater harvesting and regulation in the 
+  <a class="govuk-link" href="#">Environment Agency's Rainwater harvesting: regulatory position statement</a>.</li>
+      </ul>
+    </div>
+  </div>
 
 
-{% endif %}
+  <div class="govuk-accordion__section">
+    <div class="govuk-accordion__section-header">
+      <h2 class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button" id="accordion-with-summary-sections-heading-4">
+          Desalination
+        </span>
+      </h2>
+      <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-4">
+        Learn more about this technique which removes salts and chemicals from surface or 
+        groundwater but is energy intensive and needs careful waste management.
+      </div>
+    </div>
+    <div id="accordion-with-summary-sections-content-4" class="govuk-accordion__section-content">
+      <ul class="govuk-list">
+        <li>Desalination is the treatment of brackish (slightly salty water 
+          from river estuaries) or seawater to remove dissolved salts and 
+          other organic chemicals to provide a source of fresh water. 
+          After treatment, this can be suitable for drinking.</li>
 
+        <li>It is a more expensive and complicated option to implement 
+          but is being used successfully in other countries and becoming more popular.</li>
 
+        <li>For further information, take a look at the <a class="govuk-link" href="#">Environment Agency 
+          position statement on desalination for public water supply</a>.</li>
+      </ul>
+    </div>
+  </div>
+</div>
 
-  {% else %}
-<h2 class="govuk-heading-m">Other options for sourcing water</h2>
-
-<h3 class="govuk-heading-s">Reservoirs</h3>
-
-<p class="govuk-body">If local water availability is low over summer and higher over winter, 
-  building a reservoir is one option to ensure a more consistent water supply. 
-  Read the <a href="">guide to planning, designing, constructing and commissioning a water storage 
-  reservoir</a> for more information.</p>
-
-<p class="govuk-body"><a href="">Local Resource Option (LRO)</a> is a water resource solution 
-  designed to enhance water resilience or supply for a small group of abstractors 
-  within their area. Owned, operated, and managed by the abstractors themselves. 
-  LROs range from infrastructure projects like reservoirs and rainwater harvesting 
-  systems to collaborative solutions such as water sharing agreements or licence pooling.</p>
-
-<h3 class="govuk-heading-s">Water recycling and efficiency</h3>
-<p class="govuk-body">The Environment Agency believes <a href="">water recycling</a> 
-  can play an effective and increasingly important role in securing 
-  water supplies. Indirect recycling treats wastewater and discharges 
-  it to an environmental buffer, such as a river, reservoir or 
-  underground aquifer. Water is then abstracted and treated further to 
-  drinking water standards.</p>
-
-<p class="govuk-body">Increasing water efficiency is also encouraged 
-  when local water availability is low. Smart irrigation scheduling, 
-  reducing leakages and reusing water for wash down are all options 
-  to save water. <a href="">Waterwise</a> offer tips and information on water 
-  efficiency and conservation.</p>
-
-  <h3 class="govuk-heading-s">Water supply agreements</h3>
-  <p class="govuk-body">You may be able to arrange a favourable bulk water 
-    supply agreement from your local water company. Read more about 
-    <a href="">bulk water supply agreements</a> on the Ofwat website, and 
-    <a href="">look up your local supplier</a> on the Water UK website.</p>
-
-  <h3 class="govuk-heading-s">Rainwater and storage</h3>
-  <p class="govuk-body">Rainwater harvesting is an efficient way to use water.</p>
- <p class="govuk-body">Harvested rainwater is rainwater:</p>
-<ul class="govuk-list govuk-list--bullet">
-  <li>collected from roofs and other above ground surfaces</li>
-  <li>collected via a system of above ground pipes and tanks</li>
-  <li>isolated from inland waters or groundwater</li>
-</ul>
-
-<p class="govuk-body">The Environment Agency will not regulate harvested 
-rainwater provided its use does not harm the environment - either alone or 
-combined with other abstractions or transfers. Rainwater harvesting 
-within a catchment must not affect the normal watercourse flow.</p>
-
-<p class="govuk-body">You do not need an abstraction licence to use 
-  water that only consists of harvested rainwater. However you may need 
-  a water abstraction licence if you combine harvested rainwater with 
-  ground or surface water, which you then abstract or transfer.</p>
-
- <h3 class="govuk-heading-s">Desalination</h3>
-<p class="govuk-body">Desalination is the treatment of brackish (slightly salty 
-  water from river estuaries) or seawater to remove dissolved salts and other 
-  organic chemicals to provide a source of fresh water. After treatment, 
-  this can be suitable for drinking. </p>
-
-<p class="govuk-body">It is a more expensive and complicated option 
-  to implement but is being used successfully in other countries and becoming more popular.</p>
-
-<p class="govuk-body">For further information, take a look at the <a href="">Environment 
-  Agency position statement on desalination for public water supply</a>.
-</p>
-
-  {% endif %}
 
     </div>
   </div>
