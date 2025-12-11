@@ -21,6 +21,24 @@
 
 <p class="govuk-body">Water can be abstracted from surface water, such as a river, lake or reservoir.</p>
 
+{% set tagsrestrictedHTML %}
+
+{{ govukTag({
+  text: "Restricted",
+  classes: "govuk-tag--yellow"
+}) }}
+
+{% endset %}
+
+{% set tagsgoodHTML %}
+
+{{ govukTag({
+  text: "Good availability",
+  classes: "govuk-tag--green"
+}) }}
+
+{% endset %}
+
 {{ govukTable({
 firstCellIsHeader: true,
   rows: [
@@ -30,8 +48,8 @@ firstCellIsHeader: true,
         classes: "govuk-!-width-one-half"
       },
       {
-          text: "Restricted",
-          classes: "govuk-tag--yellow govuk-!-width-one-half"
+          html: tagsrestrictedHTML,
+          classes: "govuk-!-width-one-half"
       }     
     ],
     [
@@ -81,10 +99,10 @@ firstCellIsHeader: true,
         text: "Availability",
         classes: "govuk-!-width-one-half"
       },
-      {
-          text: "Good availability",
-          classes: "govuk-tag--green govuk-!-width-one-half"
-      }  
+       {
+          html: tagsgoodHTML,
+          classes: "govuk-!-width-one-half"
+      }   
     ],
     [
       {
@@ -119,6 +137,10 @@ the <b>" + data.groundwaterCatchmentData.properties.MNCAT_NAME + "</b> (subject 
     ]
   ]
 }) }}
+
+ <h2 class="govuk-heading-m">Full water availability report and next steps</h2>
+ <p class="govuk-body">Get a detailed water availability report for your local area by continuing below.</p>
+
  <form class="form" method="post">
 
       {{ govukButton({
