@@ -628,9 +628,19 @@ router.post('/summary', function (request, response) {
 })
 
 
+
 //Detailed results page
 router.get(folder + 'detailed-results', function (request, response) {
 	response.render(folder + 'detailed-results')
+})
+
+router.post('/detailed-results', function (request, response) {
+	response.redirect(folder + 'next-steps')
+})
+
+//next steps page
+router.get(folder + 'next-steps', function (request, response) {
+	response.render(folder + 'next-steps')
 })
 
 
