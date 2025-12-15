@@ -207,10 +207,14 @@ the <b>{{data.riverBasin}}</b> (subject to restrictions, see below for more info
   cubic metres per day subject to Hands Off Flow restrictions.</p>
 
 
-<h3 class="govuk-heading-s">Previous restrictions</h3>
-
-
-<p class="govuk-body">Restrictions were imposed in <b>1 out of the last 10</b> years.</p>
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Previous restrictions
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+Restrictions were imposed in <b>2 out of the last 10</b> years.
 
 {{ govukTable({
   head: [
@@ -218,35 +222,34 @@ the <b>{{data.riverBasin}}</b> (subject to restrictions, see below for more info
       text: "Year restricted"
     },
     {
-      text: "Month"
+      text: "Days no water available"
     },
     {
-      text: "Restrictions in place, dates to and from"
-    },
-    {
-      text: "Dates no water available"
-    },
-    {
-      text: "Hands off Flow restriction"
+      text: "Days water restricted"
     }
   ],
   rows: [
     [
       {
-      text: "2018"
-    },
-    {
-      text: "December"
-    },
-    {
-      text: "20th December to 30th December"
-    },
-    {
-      text: "None"
-    },
-    {
-      text: "37 (Ml/d)"
-    }
+        text: "2024"
+      },
+      {
+        text: "23"
+      },
+      {
+        text: "60"
+      }
+    ],
+    [
+      {
+        text: "2021"
+      },
+      {
+        text: "10"
+      },
+      {
+        text: "22"
+      }
     ]
   ]
 }) }}
