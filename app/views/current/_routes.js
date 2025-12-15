@@ -183,8 +183,8 @@ const waterUses = {
     label: 'Farming (except irrigation)',
     type: 'Consumptive'
   },
-  'Fruit, vegetable and plant watering (horitcultural watering)': {
-    label: 'Fruit, vegetable and plant watering (horitcultural watering)',
+  'Fruit, vegetable and plant watering': {
+    label: 'Fruit, vegetable and plant watering',
     type: 'Consumptive'
   },
   'Gas suppression or scrubbing': {
