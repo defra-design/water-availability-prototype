@@ -151,226 +151,162 @@ response.redirect(folder + 'usage');}
 
 const waterUses = {
   // CONSUMPTIVE
-  'animal-watering-and-welfare': {
+  'Animal watering and welfare': {
     label: 'Animal watering and welfare',
     type: 'Consumptive'
   },
-  'boiler-feed': {
+  'Boiler feed': {
     label: 'Boiler feed',
     type: 'Consumptive'
   },
-  'conveying-materials': {
+  'Conveying materials': {
     label: 'Conveying materials',
     type: 'Consumptive'
   },
-  'domestic-purposes-commercial': {
-    label: 'Domestic purposes (commercial)',
+  'Domestic purposes (commercial and non-commercial)': {
+    label: 'Domestic purposes (commercial and non-commercial)',
     type: 'Consumptive'
   },
-  'domestic-purposes-non-commercial': {
-    label: 'Domestic purposes (non‐commercial)',
+  'Drinking water (portable water) - direct and storage': {
+    label: 'Drinking water (portable water) - direct and storage',
     type: 'Consumptive'
   },
-  'dust-suppression': {
+  'Dust suppression': {
     label: 'Dust suppression',
     type: 'Consumptive'
   },
-  'evaporative-cooling': {
+  'Evaporative cooling': {
     label: 'Evaporative cooling',
     type: 'Consumptive'
   },
-  'gas-suppression-or-scrubbing': {
+  'Farming (except irrigation)': {
+    label: 'Farming (except irrigation)',
+    type: 'Consumptive'
+  },
+  'Fruit, vegetable and plant watering (horitcultural watering)': {
+    label: 'Fruit, vegetable and plant watering (horitcultural watering)',
+    type: 'Consumptive'
+  },
+  'Gas suppression or scrubbing': {
     label: 'Gas suppression or scrubbing',
     type: 'Consumptive'
   },
-  'general-farming-except-irrigation-and-domestic': {
-    label: 'General farming (except irrigation) and domestic',
-    type: 'Consumptive'
-  },
-  'general-or-process-washing': {
+  'General or process washing': {
     label: 'General or process washing',
     type: 'Consumptive'
   },
-  'general-washing-down': {
-    label: 'General washing down',
+  'Hydraulic fracturing (Fracking)': {
+    label: 'Hydraulic fracturing (Fracking)',
     type: 'Consumptive'
   },
-  'heat-transfer': {
-    label: 'Heat transfer',
+  'Ornamental garden watering (not irrigation)': {
+    label: 'Ornamental garden watering (not irrigation)',
     type: 'Consumptive'
   },
-  'horticulture': {
-    label: 'Horticulture',
+  'Laundry use': {
+    label: 'Laundry use',
     type: 'Consumptive'
   },
-  'irrigation': {
-    label: 'Irrigation',
+  'Make-up or top-up water': {
+    label: 'Make-up or top-up water',
     type: 'Consumptive'
   },
-  'land-drainage': {
-    label: 'Land drainage',
-    type: 'Consumptive'
-  },
-  'landfill-leachate-suppression': {
-    label: 'Landfill leachate suppression',
-    type: 'Consumptive'
-  },
-  'laundering': {
-    label: 'Laundering',
-    type: 'Consumptive'
-  },
-  'non-potable-public-water-supply': {
-    label: 'Non potable public water supply',
-    type: 'Consumptive'
-  },
-  'paper-making': {
-    label: 'Paper making',
-    type: 'Consumptive'
-  },
-  'potable-public-water-supply': {
-    label: 'Portable public water supply',
-    type: 'Consumptive'
-  },
-  'power-station': {
-    label: 'Power station',
-    type: 'Consumptive'
-  },
-  'process-water': {
+  'Process water': {
     label: 'Process water',
     type: 'Consumptive'
   },
-  'public-water-supply': {
-    label: 'Public water supply',
+  'Raw water supply to third party': {
+    label: 'Raw water supply to third party',
     type: 'Consumptive'
   },
-  'quenching': {
-    label: 'Quenching',
+  'Spray irrigration (including storage)': {
+    label: 'Spray irrigration (including storage)',
     type: 'Consumptive'
   },
-  'rainwater-harvesting': {
-    label: 'Rainwater harvesting',
+  'Trickle irrigation (including storage)': {
+    label: 'Trickle irrigation (including storage)',
     type: 'Consumptive'
   },
-  'refrigeration-and-air-conditioning': {
-    label: 'Refrigeration and air conditioning',
-    type: 'Consumptive'
-  },
-  'slurry-making': {
-    label: 'Slurry making',
-    type: 'Consumptive'
-  },
-  'steam-raising': {
-    label: 'Steam raising',
+  'Water bottling': {
+    label: 'Water bottling',
     type: 'Consumptive'
   },
 
   // NON-CONSUMPTIVE
-  'dewatering': {
+  'Creating and maintaining water meadows': {
+    label: 'Creating and maintaining water meadows',
+    type: 'Non-consumptive'
+  },
+  'Dewatering': {
     label: 'Dewatering',
     type: 'Non-consumptive'
   },
-  'effluent-or-slurry-dilution': {
+  'Effluent or slurry dilution': {
     label: 'Effluent or slurry dilution',
     type: 'Non-consumptive'
   },
-  'fish-farm-throughflow': {
-    label: 'Fish farm throughflow',
+  'Flood irrigation': {
+    label: 'Flood irrigation',
     type: 'Non-consumptive'
   },
-  'fish-pass-canoe-pass': {
-    label: 'Fish pass/canoe pass',
-    type: 'Non-consumptive'
-  },
-  'heat-pump': {
+  'Heat pump': {
     label: 'Heat pump',
     type: 'Non-consumptive'
   },
-  'hydraulic-testing': {
-    label: 'Hydraulic testing',
+  'Hydraulic rams and testing': {
+    label: 'Hydraulic rams and testing',
     type: 'Non-consumptive'
   },
-  'hydrostatic-testing': {
-    label: 'Hydrostatic testing',
+  'Hydroelectric power generation': {
+    label: 'Hydroelectric power generation',
     type: 'Non-consumptive'
   },
-  'impounding': {
-    label: 'Impounding',
+  'Impounding (non-hydropower)': {
+    label: 'Impounding (non-hydropower)',
     type: 'Non-consumptive'
   },
-  'lake-or-pond-throughflow': {
-    label: 'Lake or pond throughflow',
+  'Milling and water power other than generating electricity': {
+    label: 'Milling and water power other than generating electricity',
     type: 'Non-consumptive'
   },
-  'mains-flushing': {
-    label: 'Mains flushing',
-    type: 'Non-consumptive'
-  },
-  'mine-dewatering': {
-    label: 'Mine dewatering',
-    type: 'Non-consumptive'
-  },
-  'mineral-washing': {
+  'Mineral washing': {
     label: 'Mineral washing',
     type: 'Non-consumptive'
   },
-  'nature-conservation': {
-    label: 'Nature conservation',
+  'Non-evaporative cooling': {
+    label: 'Non-evaporative cooling',
     type: 'Non-consumptive'
   },
-  'other-consumptive': {
-    label: 'Other (consumptive)',
+  'Pollution remediation': {
+    label: 'Pollution remediation',
     type: 'Non-consumptive'
   },
-  'other-non-consumptive': {
-    label: 'Other (non consumptive)',
+  'River recirculation': {
+    label: 'River recirculation',
     type: 'Non-consumptive'
   },
-  'reservoir-augmentation': {
-    label: 'Reservoir augmentation',
+  'Throughflows and passes (pond, lake, canal, leat, fish, canoe)': {
+    label: 'Throughflows and passes (pond, lake, canal, leat, fish, canoe)',
     type: 'Non-consumptive'
   },
-  'sewer-flushing': {
-    label: 'Sewer flushing',
+  'Transfer between sources (hydropower and Post Water Act 2003)': {
+    label: 'Transfer between sources (hydropower and Post Water Act 2003)',
     type: 'Non-consumptive'
   },
-  'spray-irrigation': {
-    label: 'Spray irrigation',
-    type: 'Non-consumptive'
-  },
-  'suppression': {
-    label: 'Suppression',
-    type: 'Non-consumptive'
-  },
-  'sweeping': {
-    label: 'Sweeping',
-    type: 'Non-consumptive'
-  },
-  'tanker-loading': {
-    label: 'Tanker loading',
-    type: 'Non-consumptive'
-  },
-  'temperature-control': {
-    label: 'Temperature control',
-    type: 'Non-consumptive'
-  },
-  'transfer-between-sources-consumptive': {
-    label: 'Transfer between sources (consumptive)',
-    type: 'Non-consumptive'
-  },
-  'transfer-between-sources-hydropower': {
-    label: 'Transfer between sources (hydropower)',
-    type: 'Non-consumptive'
-  },
-  'vegetable-washing': {
+  'Vegetable washing': {
     label: 'Vegetable washing',
     type: 'Non-consumptive'
   },
-  'water-wheels-not-used-for-power': {
+  'Water wheels not used for power': {
     label: 'Water wheels not used for power',
     type: 'Non-consumptive'
   },
-  'wet-fencing': {
+  'Wet fencing': {
     label: 'Wet fencing',
+    type: 'Non-consumptive'
+  },
+  'Nature conservation': {
+    label: 'Nature conservation',
     type: 'Non-consumptive'
   }
 };
