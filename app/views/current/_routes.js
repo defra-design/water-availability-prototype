@@ -111,6 +111,7 @@ function getCatchment(request, response, geometry) {
 axios.get('https://services1.arcgis.com/JZM7qJpmv7vJ0Hzx/ArcGIS/rest/services/WFD_Cycle_2_River_catchment_classification/FeatureServer/5/query?where=1%3D1&objectIds=&time=&geometry&geometryType=esriGeometryPoint&inSR=&spatialRel=esriSpatialRelWithin&resultType=none&distance=0.0&units=esriSRUnit_Meter&relationParam=&returnGeodetic=false&outFields=*&returnGeometry=true&returnCentroid=false&returnEnvelope=false&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&defaultSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnTrueCurves=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pgeojson&token=', config)
 .then(function(res) {
    session.return = res.data
+   console.log("Getting surfacewater")
  //console.log("Features "+ JSON.stringify(session.return, null, 2));
    if ( Object.keys(session.return.features).length) {
      request.session.data.riverCatchmentData = session.return.features[0]
@@ -124,13 +125,14 @@ axios.get('https://services1.arcgis.com/JZM7qJpmv7vJ0Hzx/ArcGIS/rest/services/WF
   } else {
     console.log("Error - Water body not modelled for that location")
     request.session.data.error = "Water body not modelled for that location";
-}})
+}
 
   //API call
 axios.get('https://services1.arcgis.com/JZM7qJpmv7vJ0Hzx/ArcGIS/rest/services/WFD_Cycle_3_Groundwater_body_classifications/FeatureServer/21/query?where=1%3D1&objectIds=&geometryType=esriGeometryPoint&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&outDistance=&relationParam=&returnGeodetic=false&outFields=*&returnGeometry=true&returnCentroid=false&returnEnvelope=false&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&defaultSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&collation=&orderByFields=&groupByFieldsForStatistics=&returnAggIds=false&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnTrueCurves=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pgeojson&token=', config)
 .then(function(res) {
    session.return = res.data
-console.log("Features "+ JSON.stringify(session.return, null, 2));
+   console.log("Getting groundwater")
+//console.log("Features "+ JSON.stringify(session.return, null, 2));
    if ( Object.keys(session.return.features).length) {
      request.session.data.groundwaterCatchmentData = session.return.features[0]
  //  console.log("Catchment Geometry " +  request.session.data.catchmentGeometry );
@@ -144,7 +146,7 @@ response.redirect(folder + 'usage');}
  else { request.session.data.error = "Water body not modelled for that location" 
   response.redirect(folder + 'location');}
 
-
+})
 })}
 
 
@@ -417,7 +419,7 @@ router.get(folder + 'location', function (request, response) {
 
 router.post('/location', function (request, response) {
 
-
+request.session.data.error = ""
 console.log(request.session.data.location)
 
 let eastingNorthing = {}
