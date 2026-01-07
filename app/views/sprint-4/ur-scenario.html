@@ -1,0 +1,61 @@
+{% extends "govuk-prototype-kit/layouts/unbranded.html" %}
+
+<!-- {% block pageTitle %}
+  {{ serviceName }}
+{% endblock %} -->
+
+{% block content %}
+
+<p class="govuk-body">Please do not press Continue until your researcher tells you to.</p>
+
+{% set htmlButton1 %}
+{{ govukButton({
+  text: "Continue",
+  href: "start?availability=both"
+}) }}
+{% endset %}
+
+{% set htmlButton2 %}
+{{ govukButton({
+  text: "Continue",
+  href: "start?availability=neither"
+}) }}
+{% endset %}
+
+{{ govukAccordion({
+  id: "accordion-default",
+  rememberExpanded: false,
+  items: [
+    {
+      
+      heading: {
+        text: "Scenario 1"
+      },
+      content: {
+        html: '<p class="govuk-body">You have bought some new land and you want to find out if you can abstract water to use there.</p>
+                <p class="govuk-body">You do not have a licence.</p>
+                <p class="govuk-body">You were told by someone that you needed a licence so you 
+                  started doing some research on the internet and reached the page that follows.</p>'   
+       +htmlButton1
+              }
+  
+    },
+
+    {
+      heading: {
+        text: "Scenario 2"
+      },
+      content: {
+        html: '<p class="govuk-body">You have bought some new land and you want to find out if you can abstract water to use there.</p>
+                <p class="govuk-body">You do not have a licence.</p>
+                <p class="govuk-body">You were told by someone that you needed a licence so you 
+                  started doing some research on the internet and reached the page that follows.</p>'   
+      +htmlButton2
+             }
+    }
+   
+  ]
+}) }}
+
+
+{% endblock %}

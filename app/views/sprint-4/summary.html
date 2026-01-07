@@ -1,0 +1,153 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  {{ "Your local water availability summary" }}
+{% endblock %}
+
+
+
+{% block content %}
+
+{% set warningHTML %}
+{{ govukWarningText({
+  text: "Hands-off flow conditions apply.",
+  iconFallbackText: "Warning"
+}) }}
+{% endset %}
+
+ <h1 class="govuk-heading-l">Your local water availability summary</h1>
+
+ <p class="govuk-body">This page shows a summary with an overall indication of water availability for your local area.</p>
+
+   <h2 class="govuk-heading-m">Surface water</h2>
+
+<p class="govuk-body">Water can be abstracted from surface water, such as a river, lake or reservoir.</p>
+
+{% set tagsrestrictedHTML %}
+
+{{ govukTag({
+  text: "Restricted",
+  classes: "govuk-tag--yellow"
+}) }}
+
+{% endset %}
+
+{% set tagsgoodHTML %}
+
+{{ govukTag({
+  text: "Good availability",
+  classes: "govuk-tag--green"
+}) }}
+
+{% endset %}
+
+{{ govukTable({
+firstCellIsHeader: true,
+  rows: [
+    [
+      {
+        text: "Availability",
+        classes: "govuk-!-width-one-half"
+      },
+      {
+          html: tagsrestrictedHTML,
+          classes: "govuk-!-width-one-half"
+      }     
+    ],
+    [
+      {
+        text: "Water body",
+        classes: "govuk-!-width-one-half"
+      },
+      {
+        html: "Surface water is available in the <b>" + data.waterBody + "</b> area of 
+the <b>" + data.riverBasin + "</b> (subject to restrictions, see below for more information).",
+        classes: "govuk-!-width-one-half"
+      }
+    ],
+    [
+      {
+        text: "Summary",
+        classes: "govuk-!-width-one-half"
+      },
+      {
+        text: "Some licences are available. Surface water abstraction in this area is limited due to low flows and/or environmental concerns.",
+        classes: "govuk-!-width-one-half"
+      }
+    ],
+    [
+      {
+        text: "Restrictions",
+        classes: "govuk-!-width-one-half"
+      },
+      {
+         html: warningHTML,
+        classes: "govuk-!-width-one-half"
+      }
+    ]
+  ]
+}) }}
+
+
+  <h2 class="govuk-heading-m">Groundwater</h2>
+
+<p class="govuk-body">Groundwater lies below the surface in bodies known as aquifers.</p>
+
+{{ govukTable({
+firstCellIsHeader: true,
+  rows: [
+    [
+      {
+        text: "Availability",
+        classes: "govuk-!-width-one-half"
+      },
+       {
+          html: tagsgoodHTML,
+          classes: "govuk-!-width-one-half"
+      }   
+    ],
+    [
+      {
+        text: "Groundwater body",
+        classes: "govuk-!-width-one-half"
+      },
+      {
+         html: "Groundwater is available in the <b>" + data.groundwaterCatchmentData.properties.WB_NAME + "</b> area of 
+the <b>" + data.groundwaterCatchmentData.properties.MNCAT_NAME + "</b> (subject to restrictions, see below for more information).",
+        classes: "govuk-!-width-one-half"
+      }
+    ],
+    [
+      {
+        text: "Summary",
+        classes: "govuk-!-width-one-half"
+      },
+      {
+        text: "Groundwater levels in this area are healthy. New licences can still be granted subject to restrictions and environmental considerations.",
+        classes: "govuk-!-width-one-half"
+      }
+    ],
+    [
+      {
+        text: "Restrictions",
+        classes: "govuk-!-width-one-half"
+      },
+      {
+        html: warningHTML,
+        classes: "govuk-!-width-one-half"
+      }
+    ]
+  ]
+}) }}
+
+ <h2 class="govuk-heading-m">Full water availability report and next steps</h2>
+ <p class="govuk-body">Get a detailed water availability report for your local area by continuing below.</p>
+
+ <form class="form" method="post">
+
+      {{ govukButton({
+          text: "Continue"
+        }) }}
+
+</form>
+{% endblock %}
