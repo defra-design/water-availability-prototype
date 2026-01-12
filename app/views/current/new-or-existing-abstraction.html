@@ -4,6 +4,12 @@
   {{ "Do you want to take water from your existing abstraction point or a new one?" }}
 {% endblock %}
 
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
 
 {% block content %}
 

@@ -4,6 +4,12 @@
  {{ "Where do you want to use the water you abstract?" }}
 {% endblock %}
 
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
 
 {% block content %}
 

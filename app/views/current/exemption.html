@@ -4,6 +4,13 @@
   {{ "Do you want to abstract less than 20 cubic metres of water per day?" }}
 {% endblock %}
 
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
 {% block content %}
 
   <div class="govuk-grid-row">
