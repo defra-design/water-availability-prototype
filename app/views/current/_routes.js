@@ -494,7 +494,7 @@ router.post('/usage', function (request, response) {
 
   // Redirect to whatever page you want next
   
-		response.redirect(folder + "duration")
+		response.redirect(folder + "summary")
 	
 
 });
@@ -511,13 +511,13 @@ router.post('/exempt-results', function (request, response) {
 })
 
 //duration page
-router.get(folder + 'duration', function (request, response) {
-	response.render(folder + 'duration')
-})
+// router.get(folder + 'duration', function (request, response) {
+// 	response.render(folder + 'duration')
+// })
 
-router.post('/duration', function (request, response) {
-	response.redirect(folder + 'summary')
-})
+// router.post('/duration', function (request, response) {
+// 	response.redirect(folder + 'summary')
+// })
 
 
 
