@@ -4,13 +4,6 @@
   {{ "Do you want to abstract less than 20 cubic metres of water per day?" }}
 {% endblock %}
 
-{% block beforeContent %}
-  {{ govukBackLink({
-  text: "Back",
-  href: "javascript:window.history.back()"
-}) }}
-{% endblock %}
-
 {% block content %}
 
   <div class="govuk-grid-row">
@@ -18,14 +11,26 @@
 
       <form class="form" method="post">
 
+        <h1 class="govuk-heading-l">Check if you are exempt from needing a licence</h1>
+<p class="govuk-body">You probably will not need a licence if you want to abstract 
+  (take) less than 20 cubic metres of water a day.</p>
+
+<p class="govuk-body">Certain other uses are also exempt from needing a 
+  licence for abstraction, including water used for fire fighting, drinking water 
+  on boats, and water used for low risk passive dewatering.</p>
+
+<p class="govuk-body">Most standard commercial or farming uses like 
+  spray irrigation and mining will require a licence.</p>
+
+<p class="govuk-body"><a href="https://www.gov.uk/guidance/check-if-you-need-a-licence-to-abstract-water#when-you-do-not-need-an-abstraction-licence" class="govuk-link">Check if your intended water use is listed as an exemption.</a></p>
 
 {{ govukRadios({
   name: "exemption",
   fieldset: {
     legend: {
-      text: "Do you want to abstract more than 20 cubic metres of water per day?",
+      text: "Do you think you will need a licence?",
       isPageHeading: true,
-      classes: "govuk-fieldset__legend--l"
+      classes: "govuk-fieldset__legend--m"
     }
   },
   items: [
