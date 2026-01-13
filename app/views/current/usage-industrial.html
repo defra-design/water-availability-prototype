@@ -1,0 +1,112 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  {{ serviceName }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+
+     <form class="form" method="post">
+
+        <p>
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{{ govukRadios({
+  id: "water-use",
+  name: "usage-industrial",
+  value: data['usage-industrial'],
+  fieldset: {
+    legend: {
+      text: "Industrial, commercial and construction",
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--l"
+     
+    }
+  },
+  items: [
+    {
+      value: "Boiler feed",
+      text: "Boiler feed"
+    },
+     {
+      value: "Conveying materials",
+      text: "Conveying materials"
+    },
+     {
+      value: "Dewatering",
+      text: "Dewatering"
+    },
+     {
+      value: "Dust suppression",
+      text: "Dust suppression"
+    },
+     {
+      value: "Evaporative cooling",
+      text: "Evaporative cooling"
+    },
+    {
+      value: "Gas suppression or scrubbing",
+      text: "Gas suppression or scrubbing"
+    },
+    {
+      value: "General or process washing",
+      text: "General or process washing"
+    },
+    {
+      value: "Hydraulic fracturing (Fracking)",
+      text: "Hydraulic fracturing (Fracking)"
+    },
+    {
+      value: "Hydraulic rams and testing",
+      text: "Hydraulic rams and testing"
+    },
+    {
+      value: "Make-up or top-up water",
+      text: "Make-up or top-up water"
+    },
+    {
+      value: "Mineral washing",
+      text: "Mineral washing"
+    },
+    {
+      value: "Pollution remediation",
+      text: "Pollution remediation"
+    },
+    {
+      value: "Process water",
+      text: "Process water"
+    },
+    {
+      value: "Raw water supply to third party",
+      text: "Raw water supply to third party"
+    },
+    {
+      value: "Water bottling",
+      text: "Water bottling"
+    }
+  ]
+}) }}    
+
+        </p>
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

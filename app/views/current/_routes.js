@@ -142,7 +142,7 @@ axios.get('https://services1.arcgis.com/JZM7qJpmv7vJ0Hzx/ArcGIS/rest/services/WF
   }
 
   if ( Object.keys(session.return.features).length) {
-response.redirect(folder + 'usage');}
+response.redirect(folder + 'usage-category');}
  else { request.session.data.error = "Water body not modelled for that location" 
   response.redirect(folder + 'location');}
 
@@ -185,8 +185,8 @@ const waterUses = {
     label: 'Farming (except irrigation)',
     type: 'Consumptive'
   },
-  'Fruit, vegetable and plant watering': {
-    label: 'Fruit, vegetable and plant watering',
+  'Fruit, vegetable and plant watering (horitcultural watering)': {
+    label: 'Fruit, vegetable and plant watering (horitcultural watering)',
     type: 'Consumptive'
   },
   'Gas suppression or scrubbing': {
@@ -221,8 +221,8 @@ const waterUses = {
     label: 'Raw water supply to third party',
     type: 'Consumptive'
   },
-  'Spray irrigration (including storage)': {
-    label: 'Spray irrigration (including storage)',
+  'Spray irrigration (application and/or storage)': {
+    label: 'Spray irrigration (application and/or storage)',
     type: 'Consumptive'
   },
   'Trickle irrigation (including storage)': {
@@ -399,7 +399,7 @@ router.get(folder + 'licence-number', function (request, response) {
 })
 
 router.post('/licence-number', function (request, response) {
-	response.redirect(folder + 'usage')
+	response.redirect(folder + 'usage-category')
 })
 
 //abstraction type page
@@ -408,7 +408,7 @@ router.get(folder + 'abstraction-type', function (request, response) {
 })
 
 router.post('/abstraction-type', function (request, response) {
-	response.redirect(folder + 'usage')
+	response.redirect(folder + 'usage-category')
 })
 
 
@@ -470,14 +470,39 @@ getCatchment(request, response, geometry)
 	
 })
 
+//Usage category page
+router.get(folder + 'usage-category', function (request, response) {
+	response.render(folder + 'usage-category')
+})
 
 
-// Handle POST from the water use page
-router.post('/usage', function (request, response) {
+router.post('/usage-category', function (request, response) {
+	var usageCategory = request.session.data['usage-category']
+	if (usageCategory == "farming") {
+		response.redirect(folder + "usage-farming")
+	} else if (usageCategory == "industrial") {
+		response.redirect(folder + "usage-industrial")
+	} else if (usageCategory == "conservation") {
+		response.redirect(folder + "usage-conservation")
+	} else if (usageCategory == "domestic") {
+		response.redirect(folder + "usage-domestic")
+	} else if (usageCategory == "energy") {
+		response.redirect(folder + "usage-energy")
+	} else if (usageCategory == "storage") {
+		response.redirect(folder + "usage-storage")
+	}
+})
+
+
+
+/// USAGE ROUTING ///
+
+// Handle POST from the usage farming page
+router.post('/usage-farming', function (request, response) {
 	var newExisting = request.session.data['new-existing']
 	
-  const key = request.session.data['water_use']; // from the select
-
+  const key = request.session.data['usage-farming']; // from the select
+    console.log(key)
 
   const info = waterUses[key];
 
@@ -496,9 +521,137 @@ router.post('/usage', function (request, response) {
   
 		response.redirect(folder + "summary")
 	
-
 });
 
+// Handle POST from the usage industrial page
+router.post('/usage-industrial', function (request, response) {
+	var newExisting = request.session.data['new-existing']
+	
+  const key = request.session.data['usage-industrial']; // from the select
+    console.log(key)
+
+  const info = waterUses[key];
+
+    console.log(info)
+
+  if (info) {
+    request.session.data['water-use-label'] = info.label;
+    request.session.data['water-use-type'] = info.type;
+  } else {
+    // Optional: handle missing/unknown key
+    request.session.data['water-use-label'] = key;
+    request.session.data['water-use-type'] = '';
+  }
+
+  // Redirect to whatever page you want next
+  
+		response.redirect(folder + "summary")
+	
+});
+
+// Handle POST from the usage conservation page
+router.post('/usage-conservation', function (request, response) {
+	var newExisting = request.session.data['new-existing']
+	
+  const key = request.session.data['usage-conservation']; // from the select
+    console.log(key)
+
+  const info = waterUses[key];
+
+    console.log(info)
+
+  if (info) {
+    request.session.data['water-use-label'] = info.label;
+    request.session.data['water-use-type'] = info.type;
+  } else {
+    // Optional: handle missing/unknown key
+    request.session.data['water-use-label'] = key;
+    request.session.data['water-use-type'] = '';
+  }
+
+  // Redirect to whatever page you want next
+  
+		response.redirect(folder + "summary")
+	
+});
+
+// Handle POST from the usage domestic page
+router.post('/usage-domestic', function (request, response) {
+	var newExisting = request.session.data['new-existing']
+	
+  const key = request.session.data['usage-domestic']; // from the select
+    console.log(key)
+
+  const info = waterUses[key];
+
+    console.log(info)
+
+  if (info) {
+    request.session.data['water-use-label'] = info.label;
+    request.session.data['water-use-type'] = info.type;
+  } else {
+    // Optional: handle missing/unknown key
+    request.session.data['water-use-label'] = key;
+    request.session.data['water-use-type'] = '';
+  }
+
+  // Redirect to whatever page you want next
+  
+		response.redirect(folder + "summary")
+	
+});
+
+// Handle POST from the usage energy page
+router.post('/usage-energy', function (request, response) {
+	var newExisting = request.session.data['new-existing']
+	
+  const key = request.session.data['usage-energy']; // from the select
+    console.log(key)
+
+  const info = waterUses[key];
+
+    console.log(info)
+
+  if (info) {
+    request.session.data['water-use-label'] = info.label;
+    request.session.data['water-use-type'] = info.type;
+  } else {
+    // Optional: handle missing/unknown key
+    request.session.data['water-use-label'] = key;
+    request.session.data['water-use-type'] = '';
+  }
+
+  // Redirect to whatever page you want next
+  
+		response.redirect(folder + "summary")
+	
+});
+
+// Handle POST from the usage storage page
+router.post('/usage-storage', function (request, response) {
+	var newExisting = request.session.data['new-existing']
+	
+  const key = request.session.data['usage-storage']; // from the select
+    console.log(key)
+
+  const info = waterUses[key];
+
+    console.log(info)
+
+  if (info) {
+    request.session.data['water-use-label'] = info.label;
+    request.session.data['water-use-type'] = info.type;
+  } else {
+    // Optional: handle missing/unknown key
+    request.session.data['water-use-label'] = key;
+    request.session.data['water-use-type'] = '';
+  }
+
+  // Redirect to whatever page you want next
+  
+		response.redirect(folder + "summary")
+	
+});
 
 //exempt results page
 router.get(folder + 'exempt-results', function (request, response) {

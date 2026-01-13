@@ -1,0 +1,60 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  {{ serviceName }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+
+     <form class="form" method="post">
+
+        <p>
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{{ govukRadios({
+  id: "water-use",
+  name: "usage-storage",
+  value: data['usage-storage'],
+  fieldset: {
+    legend: {
+      text: "Water transfers and storage",
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--l"
+     
+    }
+  },
+  items: [
+    {
+      value: "Impounding (non-hydropower)",
+      text: "Impounding (non-hydropower)"
+    },
+     {
+      value: "Transfer between sources (hydropower and Post Water Act 2003)",
+      text: "Transfer between sources (hydropower and Post Water Act 2003)"
+    }
+  ]
+}) }}    
+
+        </p>
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

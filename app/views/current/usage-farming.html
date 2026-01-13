@@ -1,0 +1,92 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  {{ serviceName }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+
+     <form class="form" method="post">
+
+        <p>
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{{ govukRadios({
+  id: "water-use",
+  name: "usage-farming",
+  value: data['usage-farming'],
+  fieldset: {
+    legend: {
+      text: "Farming and agriculture",
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--l"
+     
+    }
+  },
+  items: [
+    {
+      value: "Animal watering and welfare",
+      text: "Animal watering and welfare"
+    },
+     {
+      value: "Creating and maintaining water meadows",
+      text: "Creating and maintaining water meadows"
+    },
+     {
+      value: "Effluent or slurry dilution",
+      text: "Effluent or slurry dilution"
+    },
+     {
+      value: "Farming (except irrigation)",
+      text: "Farming (except irrigation)"
+    },
+     {
+      value: "Flood irrigation",
+      text: "Flood irrigation"
+    },
+    {
+      value: "Fruit, vegetable and plant watering (horitcultural watering)",
+      text: "Fruit, vegetable and plant watering (horitcultural watering)"
+    },
+    {
+      value: "Spray irrigration (application and/or storage)",
+      text: "Spray irrigration (application and/or storage)"
+    },
+    {
+      value: "Trickle irrigation (including storage)",
+      text: "Trickle irrigation (including storage)"
+    },
+    {
+      value: "Vegetable washing",
+      text: "Vegetable washing"
+    },
+    {
+      value: "Wet fencing",
+      text: "Wet fencing"
+    }
+  ]
+}) }}    
+
+        </p>
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

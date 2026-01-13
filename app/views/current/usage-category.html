@@ -1,0 +1,75 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  {{ serviceName }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+
+     <form class="form" method="post">
+
+        <p>
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{{ govukRadios({
+  name: "usage-category",
+  value: data['usage-category'],
+  fieldset: {
+    legend: {
+      text: "What do you want to use the water for?",
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--l"
+     
+    }
+  },
+  items: [
+    {
+      value: "farming",
+      text: "Farming and agriculture"
+    },
+     {
+      value: "industrial",
+      text: "Industrial, commercial and construction"
+    },
+     {
+      value: "conservation",
+      text: "Conservation, gardening, ponds, throughflows and fisheries"
+    },
+     {
+      value: "domestic",
+      text: "Domestic, drinking and everyday use"
+    },
+     {
+      value: "energy",
+      text: "Cooling, heating and energy systems"
+    },
+    {
+      value: "storage",
+      text: "Water transfers and storage"
+    }
+  ]
+}) }}    
+
+        </p>
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

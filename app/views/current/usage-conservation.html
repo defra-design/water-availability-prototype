@@ -1,0 +1,72 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  {{ serviceName }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+
+     <form class="form" method="post">
+
+        <p>
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{{ govukRadios({
+  id: "water-use",
+  name: "usage-conservation",
+  value: data['usage-conservation'],
+  fieldset: {
+    legend: {
+      text: "Conservation, gardening, ponds, throughflows and fisheries",
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--l"
+     
+    }
+  },
+  items: [
+    {
+      value: "Creating and maintaining water meadows",
+      text: "Creating and maintaining water meadows"
+    },
+     {
+      value: "Ornamental garden watering (not irrigation)",
+      text: "Ornamental garden watering (not irrigation)"
+    },
+     {
+      value: "River recirculation",
+      text: "River recirculation"
+    },
+     {
+      value: "Throughflows and passes (pond, lake, canal, leat, fish, canoe)",
+      text: "Throughflows and passes (pond, lake, canal, leat, fish, canoe)"
+    },
+     {
+      value: "Nature conservation",
+      text: "Nature conservation"
+    }
+  ]
+}) }}    
+
+        </p>
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}
