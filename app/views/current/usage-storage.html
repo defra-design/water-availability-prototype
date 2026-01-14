@@ -19,7 +19,6 @@
 
      <form class="form" method="post">
 
-        <p>
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
 {{ govukRadios({
@@ -35,6 +34,10 @@
     }
   },
   items: [
+     {
+      value: "Raw water supply to third party",
+      text: "Raw water supply to third party"
+    },
     {
       value: "Impounding (non-hydropower)",
       text: "Impounding (non-hydropower)"
@@ -46,7 +49,6 @@
   ]
 }) }}    
 
-        </p>
 
         {{ govukButton({
           text: "Continue"

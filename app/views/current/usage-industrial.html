@@ -19,7 +19,6 @@
 
      <form class="form" method="post">
 
-        <p>
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
 {{ govukRadios({
@@ -50,10 +49,6 @@
      {
       value: "Dust suppression",
       text: "Dust suppression"
-    },
-     {
-      value: "Evaporative cooling",
-      text: "Evaporative cooling"
     },
     {
       value: "Gas suppression or scrubbing",
@@ -98,7 +93,6 @@
   ]
 }) }}    
 
-        </p>
 
         {{ govukButton({
           text: "Continue"
