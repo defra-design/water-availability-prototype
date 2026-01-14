@@ -27,7 +27,7 @@
   value: data['usage-conservation'],
   fieldset: {
     legend: {
-      text: "Conservation, gardening, ponds, throughflows and fisheries",
+      text: "Select a conservation, gardening, ponds, throughflows or fisheries use for your water",
       isPageHeading: true,
       classes: "govuk-fieldset__legend--l"
      
@@ -54,7 +54,10 @@
       value: "Nature conservation",
       text: "Nature conservation"
     }
-  ]
+  ],
+  hint: {
+    text: "Choose an option that best describes how you will use the water"
+  }
 }) }}    
 
 {{ govukDetails({

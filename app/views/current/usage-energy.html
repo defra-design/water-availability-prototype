@@ -27,7 +27,7 @@
   value: data['usage-energy'],
   fieldset: {
     legend: {
-      text: "Cooling, heating and energy systems",
+      text: "Select a cooling, heating or energy systems use for your water",
       isPageHeading: true,
       classes: "govuk-fieldset__legend--l"
      
@@ -59,7 +59,10 @@
       value: "Water wheels not used for power",
       text: "Water wheels not used for power"
     }
-  ]
+  ],
+  hint: {
+    text: "Choose an option that best describes how you will use the water"
+  }
 }) }}    
 
 {{ govukDetails({
