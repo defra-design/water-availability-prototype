@@ -532,7 +532,8 @@ router.post('/usage-farming', function (request, response) {
 // Handle POST from the usage industrial page
 router.post('/usage-industrial', function (request, response) {
 	var newExisting = request.session.data['new-existing']
-	
+	var licenceHolder = request.session.data['licence-holder']
+
   const key = request.session.data['usage-industrial']; // from the select
     console.log(key)
 
@@ -562,7 +563,8 @@ router.post('/usage-industrial', function (request, response) {
 // Handle POST from the usage conservation page
 router.post('/usage-conservation', function (request, response) {
 	var newExisting = request.session.data['new-existing']
-	
+	var licenceHolder = request.session.data['licence-holder']
+
   const key = request.session.data['usage-conservation']; // from the select
     console.log(key)
 
@@ -592,7 +594,8 @@ router.post('/usage-conservation', function (request, response) {
 // Handle POST from the usage domestic page
 router.post('/usage-domestic', function (request, response) {
 	var newExisting = request.session.data['new-existing']
-	
+	var licenceHolder = request.session.data['licence-holder']
+
   const key = request.session.data['usage-domestic']; // from the select
     console.log(key)
 
@@ -622,7 +625,8 @@ router.post('/usage-domestic', function (request, response) {
 // Handle POST from the usage energy page
 router.post('/usage-energy', function (request, response) {
 	var newExisting = request.session.data['new-existing']
-	
+	var licenceHolder = request.session.data['licence-holder']
+
   const key = request.session.data['usage-energy']; // from the select
     console.log(key)
 
@@ -652,7 +656,8 @@ router.post('/usage-energy', function (request, response) {
 // Handle POST from the usage storage page
 router.post('/usage-storage', function (request, response) {
 	var newExisting = request.session.data['new-existing']
-	
+	var licenceHolder = request.session.data['licence-holder']
+  
   const key = request.session.data['usage-storage']; // from the select
     console.log(key)
 
