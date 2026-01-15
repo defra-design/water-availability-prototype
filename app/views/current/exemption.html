@@ -18,24 +18,47 @@
 
       <form class="form" method="post">
 
-        <h1 class="govuk-heading-l">Check if you are exempt from needing a licence</h1>
+        <h1 class="govuk-heading-l">Licence exemptions</h1>
 <p class="govuk-body">You probably will not need a licence if you want to abstract 
-  (take) less than 20 cubic metres of water a day.</p>
-
-<p class="govuk-body">Certain other uses are also exempt from needing a 
-  licence for abstraction, including water used for fire fighting, drinking water 
-  on boats, and water used for low risk passive dewatering.</p>
+  (take) less than 20 cubic metres of water a day. Certain other uses are also exempt.</p>
 
 <p class="govuk-body">Most standard commercial or farming uses like 
   spray irrigation and mining will require a licence.</p>
 
-<p class="govuk-body"><a href="https://www.gov.uk/guidance/check-if-you-need-a-licence-to-abstract-water#when-you-do-not-need-an-abstraction-licence" class="govuk-link">Check if your intended water use is listed as an exemption.</a></p>
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      See the full list of exemptions
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+   <h3 class=govuk-heading-s>When you do not need an abstraction licence</h1>
+
+<ul class="govuk-list govuk-list--bullet">
+<li>abstractions of 20 cubic metres or less a day, provided your abstraction is part of a single operation &ndash; if you abstract from the same source at multiple points, the exemption only applies if the combined total of all abstractions is 20 cubic metres or less a day</li>
+<li>filling ships or boats with drinking or ballast water</li>
+<li>water used for fire fighting</li>
+<li>abstraction (transfers) downstream of the normal tidal limit by navigation, harbour and conservancy authorities, other than in the hour before or after low tide</li>
+<li>abstraction in connection with dredging operations authorised by an authority in its statutory duties in relation to waters upstream of the normal tidal limit, and any abstraction downstream of the normal tidal limit</li>
+<li>abstraction of water within managed wetland systems (if the main abstraction into the system is licensed) and impounding works solely for the management, operation or maintenance of water within managed wetland systems</li>
+<li>abstraction of water with a high saline content from underground strata in the Cheshire basin (part of an existing exemption given to the former Mersey and Weaver River Authority in 1968)</li>
+<li>small scale dewatering of underground strata and abstractions of surface waters to prevent interference with building or engineering works where the abstraction lasts less than 6 consecutive months and does not take place from wells or boreholes, subject to further restrictions set out in <a href="https://www.legislation.gov.uk/uksi/2017/1044/regulation/5/made" rel="external">regulation 5 of the Water Abstraction and Impounding (Exemptions) Regulations 2017</a></li>
+<li>low risk passive dewatering, if you follow the conditions in the <a href="https://www.gov.uk/government/publications/passive-dewatering-regulatory-position-statement">passive dewatering regulatory position statement</a></li>
+<li>third-party operated dry docks that transfer water to and from a navigation authority&rsquo;s water system</li>
+<li>emergency abstraction by port, harbour or conservancy authorities, provided they tell the Environment Agency using <a href="https://www.gov.uk/government/publications/notice-of-emergency-abstraction-form-wr341">form WR341</a></li>
+<li>using rainwater collected from roofs and other surfaces &ndash; see <a href="https://www.gov.uk/government/publications/rainwater-harvesting-regulatory-position-statement">regulatory position statement on collecting rainwater</a> which explains when collected rainwater is exempt and when you need a water abstraction licence</li>
+<li>abstractions by His Royal Highness the King and the Duchies of Cornwall and Lancaster in their private capacities</li>
+</ul>
+
+<p class="govuk-body">For more information on exemptions see the <a href="http://www.legislation.gov.uk/uksi/2017/1044/contents/made" rel="external">Water Abstraction and Impounding (Exemptions) Regulations 2017</a>.</p>
+</details>
+
 
 {{ govukRadios({
   name: "exemption",
   fieldset: {
     legend: {
-      text: "Do you think you will need a licence?",
+      text: "Do you think you need a licence?",
       isPageHeading: true,
       classes: "govuk-fieldset__legend--m"
     }

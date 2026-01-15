@@ -142,7 +142,7 @@ axios.get('https://services1.arcgis.com/JZM7qJpmv7vJ0Hzx/ArcGIS/rest/services/WF
   }
 
   if ( Object.keys(session.return.features).length) {
-response.redirect(folder + 'usage-category');}
+response.redirect(folder + 'summary');}
  else { request.session.data.error = "Water body not modelled for that location" 
   response.redirect(folder + 'location');}
 
@@ -373,7 +373,7 @@ var eXemption = request.session.data['exemption']
 	if (eXemption == "no") {
 		response.redirect(folder + "exempt-results")
 	} else {
-        response.redirect(folder + "location")
+        response.redirect(folder + "usage-category")
     }
 })
 
@@ -500,7 +500,8 @@ router.post('/usage-category', function (request, response) {
 // Handle POST from the usage farming page
 router.post('/usage-farming', function (request, response) {
 	var newExisting = request.session.data['new-existing']
-	
+	var licenceHolder = request.session.data['licence-holder']
+
   const key = request.session.data['usage-farming']; // from the select
     console.log(key)
 
@@ -519,7 +520,12 @@ router.post('/usage-farming', function (request, response) {
 
   // Redirect to whatever page you want next
   
+  if (newExisting == "new" || licenceHolder == "no") {
+	response.redirect(folder + "location")
+	} else if (newExisting == "existing") {
 		response.redirect(folder + "summary")
+	}
+		
 	
 });
 
@@ -545,7 +551,11 @@ router.post('/usage-industrial', function (request, response) {
 
   // Redirect to whatever page you want next
   
+	if (newExisting == "new" || licenceHolder == "no") {
+	response.redirect(folder + "location")
+	} else if (newExisting == "existing") {
 		response.redirect(folder + "summary")
+	}
 	
 });
 
@@ -571,7 +581,11 @@ router.post('/usage-conservation', function (request, response) {
 
   // Redirect to whatever page you want next
   
+	if (newExisting == "new" || licenceHolder == "no") {
+	response.redirect(folder + "location")
+	} else if (newExisting == "existing") {
 		response.redirect(folder + "summary")
+	}
 	
 });
 
@@ -597,7 +611,11 @@ router.post('/usage-domestic', function (request, response) {
 
   // Redirect to whatever page you want next
   
+	if (newExisting == "new" || licenceHolder == "no") {
+	response.redirect(folder + "location")
+	} else if (newExisting == "existing") {
 		response.redirect(folder + "summary")
+	}
 	
 });
 
@@ -623,7 +641,11 @@ router.post('/usage-energy', function (request, response) {
 
   // Redirect to whatever page you want next
   
+	if (newExisting == "new" || licenceHolder == "no") {
+	response.redirect(folder + "location")
+	} else if (newExisting == "existing") {
 		response.redirect(folder + "summary")
+	}
 	
 });
 
@@ -649,7 +671,11 @@ router.post('/usage-storage', function (request, response) {
 
   // Redirect to whatever page you want next
   
+	if (newExisting == "new" || licenceHolder == "no") {
+	response.redirect(folder + "location")
+	} else if (newExisting == "existing") {
 		response.redirect(folder + "summary")
+	}
 	
 });
 

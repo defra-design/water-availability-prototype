@@ -1,7 +1,7 @@
 {% extends "layouts/main.html" %}
 
 {% block pageTitle %}
- {{ "Where do you want to use the water you abstract?" }}
+ {{ "Identify your local water bodies" }}
 {% endblock %}
 
 {% block beforeContent %}
@@ -18,6 +18,20 @@
     <div class="govuk-grid-column-two-thirds">
 
         <form class="form" method="post">
+
+<h1 class="govuk-heading-l">How we measure water availability</h1>
+<p class="govuk-body">The Environment Agency split up the country into water bodies.</p>
+ 
+<p class="govuk-body">Surface water bodies are usually rivers and their tributaries, 
+      canals, lakes and reservoirs. Groundwater bodies lie underground and are called aquifers.</p>
+ 
+  <p>We measure availability at the local water 
+  body level using data from assessment points.</p>
+
+  
+      
+  <p class="govuk-body">We will give you a water availability report for 
+    surface water and groundwater bodies in your local area.</p>
 
 
 <!-- {% from "govuk/components/radios/macro.njk" import govukRadios %}
@@ -61,14 +75,13 @@
   name: "location",
   fieldset: {
     legend: {
-      text: "Where do you want water?",
-      isPageHeading: true,
-      classes: "govuk-fieldset__legend--l"
+      text: "Enter your location",
+      classes: "govuk-fieldset__legend--m"
     }
   },
 
   hint: {
-    text: "We will check if there is any water available to abstract in your local area"
+    text: "Tell us where you want to either take or use water so we can find your local water bodies"
   },
 
   items: [
