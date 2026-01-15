@@ -20,18 +20,19 @@
         <form class="form" method="post">
 
 <h1 class="govuk-heading-l">How we measure water availability</h1>
-<p class="govuk-body">The Environment Agency split up the country into water bodies.</p>
+<p class="govuk-body">The Environment Agency split the country up into areas called 'water bodies' in 
+  order to assess and regulate water. Each water body has a status indicating water availability.</p>
  
-<p class="govuk-body">Surface water bodies are usually rivers and their tributaries, 
-      canals, lakes and reservoirs. Groundwater bodies lie underground and are called aquifers.</p>
+<p class="govuk-body">Data from local assessment points is used to monitor water levels 
+  and make decisions about licencing and restrictions.</p>
  
-  <p>We measure availability at the local water 
-  body level using data from assessment points.</p>
-
-  
+  <h2 class="govuk-heading-m">Surface and groundwater bodies</h2>
       
-  <p class="govuk-body">We will give you a water availability report for 
-    surface water and groundwater bodies in your local area.</p>
+  <p class="govuk-body">Surface water bodies cover a defined area of land around 
+    sections of rivers (and their tributaries), canals, lakes, reservoirs and coastal waters.</p> 
+
+<p class="govuk-body">Groundwater bodies usually cover part of an aquifer - a natural 
+  underground layer of porous rock, sand or gravel that holds significant quantities of water.</p>
 
 
 <!-- {% from "govuk/components/radios/macro.njk" import govukRadios %}
@@ -75,13 +76,13 @@
   name: "location",
   fieldset: {
     legend: {
-      text: "Enter your location",
+      text: "Check availability for your local water bodies",
       classes: "govuk-fieldset__legend--m"
     }
   },
 
   hint: {
-    text: "Tell us where you want to either take or use water so we can find your local water bodies"
+    text: "Tell us where you want to take or use water so we can give you a water availability report for your surface and groundwater bodies"
   },
 
   items: [
