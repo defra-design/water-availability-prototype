@@ -370,7 +370,7 @@ router.get(folder + 'exemption', function (request, response) {
 
 router.post('/exemption', function (request, response) {
 var eXemption = request.session.data['exemption']
-	if (eXemption == "no") {
+	if (eXemption == "yes") {
 		response.redirect(folder + "exempt-results")
 	} else {
         response.redirect(folder + "usage-category")
@@ -657,7 +657,7 @@ router.post('/usage-energy', function (request, response) {
 router.post('/usage-storage', function (request, response) {
 	var newExisting = request.session.data['new-existing']
 	var licenceHolder = request.session.data['licence-holder']
-  
+
   const key = request.session.data['usage-storage']; // from the select
     console.log(key)
 
