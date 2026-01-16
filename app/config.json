@@ -1,5 +1,5 @@
 {
-  "serviceName": "Check water availability for abstraction",
+  "serviceName": "Check water availability for licencing",
   "plugins": {
     "govuk-frontend": {
       "rebrand": true
