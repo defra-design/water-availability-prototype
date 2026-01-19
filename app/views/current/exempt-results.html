@@ -17,35 +17,34 @@
     <div class="govuk-grid-column-two-thirds">
 
       <h1 class="govuk-heading-l">
-        You may not need a licence to abstract water
+        Make sure you do not need a licence before abstracting water
       </h1>
 
-      <p class="govuk-body">
-  Our records show both surface and groundwater is available to abstract 
-  for spray irrigation in the local area for the 
-    {% if (data['location'] == "gridRef") %}
-       National grid reference <b>{{ data.gridRef | default("SE&nbsp;05246&nbsp;70347", true) | safe }}</b>
-    {% elseif (data['location'] == "fieldParcel") %}
-       field parcel <b>{{ data.fieldParcel | default("OS1234&nbsp;5678", true) | safe }}</b>
-    {% elseif (data['location'] == "postCode") %}
-        postcode <b>{{ data.postCode | default("SW1A&nbsp;0AA", true) | safe }}</b>         
-    {% endif %}.
-     </p>
+      <p class="govuk-body">It's important you comply with water and environmental regulations. 
+ Make sure you are definitely exempt from licensing and consider whether you need any 
+ other <a href="#" class="govuk-link">environmental permits</a> or 
+ <a href="#" class="govuk-link">planning permissions</a> before you abstract water.</p>
 
-      <p class="govuk-body">
-       {{ govukInsetText({
-        text: "You do not need an abstraction licence for abstractions of 20 
-        cubic metres or less a day, provided your abstraction is part 
-        of a single operation."
-      }) }} 
-      </p>
+<p class="govuk-body"><a href="#" class="govuk-link">Check if your intended water use is listed as an exemption.</a></p>
 
-          <p class="govuk-body">
-         If you abstract from the same source at multiple points, 
-         the exemption only applies if the combined total of all abstractions 
-         is 20 cubic metres or less a day. Learn more 
-         about <a href="/path/of/page">when you do not need an abstraction licence.</a>.
-      </p>
+<p class="govuk-body">The Environment Agency carry out site inspections to 
+  check compliance. If you commit an offence they may take enforcement action. 
+  More information on fines and convictions are listed in 
+  the <a href="#" class="govuk-link">water resources offence response</a> options.</p>
+
+  <p class="govuk-body">If you are unsure and need further guidance on 
+    whether you need a licence, contact the Environment Agency.</p>
+
+ <h2 class="govuk-heading-m">Contact the Environment Agency</h2>
+
+  <h3 class="govuk-heading-s">General enquiries</h3>
+
+<p class="govuk-body">National Customer Contact Centre</p>
+<p class="govuk-body">PO Box 544</p>
+<p class="govuk-body">Rotherham</p>
+<p class="govuk-body">S60 1BY</p>
+
+<p class="govuk-body">Email <a href="#" class="govuk-link">enquiries@environment-agency.gov.uk</a></p>
 
     </div>
   </div>
