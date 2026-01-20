@@ -142,7 +142,7 @@ axios.get('https://services1.arcgis.com/JZM7qJpmv7vJ0Hzx/ArcGIS/rest/services/WF
   }
 
   if ( Object.keys(session.return.features).length) {
-response.redirect(folder + 'summary');}
+response.redirect(folder + 'water-type');}
  else { request.session.data.error = "Water body not modelled for that location" 
   response.redirect(folder + 'location');}
 
@@ -332,7 +332,7 @@ router.get(folder + 'water-type', function (request, response) {
 })
 
 router.post('/water-type', function (request, response) {
-	response.redirect(folder + 'usage-category')
+	response.redirect(folder + 'summary')
 })
 
 
@@ -373,7 +373,7 @@ var eXemption = request.session.data['exemption']
 	if (eXemption == "yes") {
 		response.redirect(folder + "exempt-results")
 	} else {
-        response.redirect(folder + "water-type")
+        response.redirect(folder + "usage-category")
     }
 })
 
