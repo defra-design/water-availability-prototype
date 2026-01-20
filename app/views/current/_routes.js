@@ -326,13 +326,13 @@ router.get(folder + 'ur', function (request, response) {
 
 
 
-//Set variables page
-router.get(folder + 'set-variables', function (request, response) {
-	response.render(folder + 'set-variables')
+//water type page
+router.get(folder + 'water-type', function (request, response) {
+	response.render(folder + 'water-type')
 })
 
-router.post('/set-variables', function (request, response) {
-	response.redirect(folder + 'start')
+router.post('/water-type', function (request, response) {
+	response.redirect(folder + 'usage-category')
 })
 
 
@@ -373,7 +373,7 @@ var eXemption = request.session.data['exemption']
 	if (eXemption == "yes") {
 		response.redirect(folder + "exempt-results")
 	} else {
-        response.redirect(folder + "usage-category")
+        response.redirect(folder + "water-type")
     }
 })
 

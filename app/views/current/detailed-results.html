@@ -43,11 +43,8 @@
         <!-- <p class="govuk-body"><b>Duration:</b> {{ data['duration'] }}</p> -->
       </div>
 
-{% if (data['availability'] == "both" or data['availability'] == "surface" or data['availability'] == "ground") %}
   <h2 class="govuk-heading-m">Seasonal availability and restrictions</h2>
-{% else %}
 
-  {% endif %}
 
 
 {% set surfacewaterHtml %}
@@ -223,7 +220,7 @@ the <b>{{data.opCatchment}}</b> (subject to restrictions, see below for more inf
 {% endset -%}
 
 
-{% if (data['availability'] == "both") %} 
+{% if (data['watertype'] == "both" or data['watertype'] == "dontknow") %} 
 
 
 {% from "govuk/components/accordion/macro.njk" import govukAccordion %}
@@ -250,12 +247,12 @@ the <b>{{data.opCatchment}}</b> (subject to restrictions, see below for more inf
   ]
 }) }}
 
-{% elseif (data['availability'] == "surface") %}
+{% elseif (data['watertype'] == "surface") %}
 <div class="border govuk-!-margin-bottom-3">
 {{ surfacewaterHtml | safe }}
 </div>
 
-{% elseif (data['availability'] == "ground") %}
+{% elseif (data['watertype'] == "ground") %}
 <div class="border govuk-!-margin-bottom-3">
 {{ groundwaterHtml | safe }}
 </div>

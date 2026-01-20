@@ -16,41 +16,40 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-      <h1 class="govuk-heading-l">
-       Set prototype variables to see different outcomes
-      </h1>
-
       <form class="form" method="post">
 
         {{ govukRadios({
-          name: "availability",
-          value: data['availability'],
+          name: "watertype",
+          value: data['watertype'],
           fieldset: {
             legend: {
-              text: "What water do you want to be available for this scenario?",
-              isPageHeading: true,
-              classes: "govuk-fieldset__legend--m"
+            text: "Do you want information about surface or groundwater?",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
             }
           },
           items: [
             {
-              value: "both",
-              text: "Both surface and ground water"
-            },
-            {
               value: "surface",
-              text: "Surface water only"
+              text: "Surface water"
             },
             {
               value: "ground",
-              text: "Groundwater only"
+              text: "Groundwater"
             }, 
             {
-              value: "neither",
-              text: "No water available"
+              value: "both",
+              text: "Both surface and groundwater"
+            },
+            {
+              value: "dontknow",
+              text: "I don't know"
             }
             
-          ]
+          ],
+          hint: {
+    text: "Surface water can be taken from rivers (and their tributaries), canals, lakes, reservoirs and coastal waters. Groundwater lies underground in layers of porous rock, sand or gravel and can be reached using boreholes and wells."
+  }
         }) }}
         
         {{ govukButton({
