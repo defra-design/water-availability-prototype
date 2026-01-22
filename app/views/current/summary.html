@@ -113,7 +113,7 @@ New licences can be considered depending on local and downstream impacts.",
   report for each water body.</p>
 
  
-  <h3 class="govuk-heading-s"><a href=detailed-results>{{data.waterBody}}</a> in the {{data.opCatchment}} catchment</h3>
+  <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false">{{data.waterBody}}</a> in the {{data.opCatchment}} catchment</h3>
 <p class="govuk-body">Distance from the centre of your {% if (data['location'] == "gridRef") %}
         national grid reference
 {% elseif (data['location'] == "fieldParcel") %}
@@ -123,14 +123,12 @@ New licences can be considered depending on local and downstream impacts.",
       {% endif %}
       : 23 metres</p>
 
-   <p class="govuk-body">Summer: <strong class="govuk-tag govuk-tag--yellow" aria-hidden="true">
-  Restricted</strong></p>   
-   <p class="govuk-body">Winter: <strong class="govuk-tag govuk-tag--green" aria-hidden="true">
-  Good availability</strong></p> 
+   <p class="govuk-body">Summer: {{tagsrestrictedHTML | safe}}</p>   
+   <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p> 
 
   <hr>
 
-    <h3 class="govuk-heading-s"><a href=detailed-results>{{data.waterBody}}</a> in the {{data.opCatchment}} catchment</h3>
+    <h3 class="govuk-heading-s"><a href="detailed-results?nowater=true">{{data.waterBody}}</a> in the {{data.opCatchment}} catchment</h3>
 <p class="govuk-body">Distance from the centre of your {% if (data['location'] == "gridRef") %}
         national grid reference
 {% elseif (data['location'] == "fieldParcel") %}
@@ -147,7 +145,7 @@ New licences can be considered depending on local and downstream impacts.",
 
   <hr>
 
-    <h3 class="govuk-heading-s"><a href=detailed-results>{{data.waterBody}}</a> in the {{data.opCatchment}} catchment</h3>
+    <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false">{{data.waterBody}}</a> in the {{data.opCatchment}} catchment</h3>
 <p class="govuk-body">Distance from the centre of your {% if (data['location'] == "gridRef") %}
         national grid reference
 {% elseif (data['location'] == "fieldParcel") %}
@@ -305,7 +303,7 @@ New licences can be considered depending on local and downstream impacts.",
 
  <p class="govuk-body">View a full availability report for your local groundwater body using the link below.</p>
 
-   <h3 class="govuk-heading-s"><a href=detailed-results>{{data.groundwaterCatchmentData.properties.WB_NAME}}</a> in the {{data.groundwaterCatchmentData.properties.MNCAT_NAME}} catchment</h3>
+   <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false">{{data.groundwaterCatchmentData.properties.WB_NAME}}</a> in the {{data.groundwaterCatchmentData.properties.MNCAT_NAME}} catchment</h3>
 
    <p class="govuk-body">Summer: <strong class="govuk-tag govuk-tag--green" aria-hidden="true">
   Good availability</strong></p>   
