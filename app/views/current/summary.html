@@ -41,6 +41,45 @@
 
 {% endset %}
 
+
+<h2 class="govuk-heading-m">Surface</h2>
+{% if data.riverCatchmentData.length %}
+{% for waterBody in data.riverCatchmentData%}
+ 
+  {% if loop.index0 == 0 %} 
+    <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false">{{waterBody.properties.WB_NAME}}</a> in the {{waterBody.properties.OPCAT_NAME}} catchment</h3>
+   <p class="govuk-body">Summer: {{tagsrestrictedHTML | safe}}</p>   
+   <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p> 
+   {% elif loop.index0 == 1 %}
+    <h3 class="govuk-heading-s"><a href="detailed-results?nowater=true">{{waterBody.properties.WB_NAME}}</a> in the {{waterBody.properties.OPCAT_NAME}} catchment</h3>
+   <p class="govuk-body">Summer: {{tagsnowaterHTML | safe}}</p>   
+   <p class="govuk-body">Winter: {{tagsnowaterHTML | safe}}</p> 
+   {% else %}
+    <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false">{{waterBody.properties.WB_NAME}}</a> in the {{waterBody.properties.OPCAT_NAME}} catchment</h3>
+    <p class="govuk-body">Summer: {{tagsgoodHTML | safe}}</p>   
+   <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p> 
+   {% endif %}
+
+  <hr>
+{% endfor %}
+{% else %}
+<p class="govuk-body">Surface water body not modelled for this area</p>
+{% endif %}
+
+<h2 class="govuk-heading-m">Groundwater</h2>
+{% if data.groundwaterCatchmentData.length %}
+{% for waterBody in data.groundwaterCatchmentData%}
+  <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false">{{waterBody.properties.WB_NAME}}</a> in the {{waterBody.properties.MNCAT_NAME}} catchment</h3>
+
+   <p class="govuk-body">Summer: {{tagsrestrictedHTML | safe}}</p>   
+   <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p> 
+
+  <hr>
+{% endfor %}
+{% else %}
+<p class="govuk-body">Groundwater body not modelled for this area</p>
+{% endif %}
+
  <h1 class="govuk-heading-l">Your local water availability summary</h1>
 
  <p class="govuk-body">This page shows a summary with an overall indication of water 

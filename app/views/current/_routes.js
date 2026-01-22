@@ -15,139 +15,98 @@ proj4.defs('EPSG:27700', OSGB_PROJ);
 
 
 
-///////Functions/////////
+// /////// Helper Functions /////////
 
-//Convert NGR to easting and northing
+
+// Convert NGR to easting and northing
 function convertNGR(location) {
+    let gridRef = location;
+    let gridLetters = "VWXYZQRSTULMNOPFGHJKABCDE";
+    let ref = gridRef.toString().replace(/\s/g, '').toUpperCase();
 
-let gridRef = location
+    let majorEasting = gridLetters.indexOf(ref[0]) % 5 * 500000 - 1000000;
+    let majorNorthing = Math.floor(gridLetters.indexOf(ref[0]) / 5) * 500000 - 500000;
 
-let gridLetters = "VWXYZQRSTULMNOPFGHJKABCDE";
+    let minorEasting = gridLetters.indexOf(ref[1]) % 5 * 100000;
+    let minorNorthing = Math.floor(gridLetters.indexOf(ref[1]) / 5) * 100000;
 
-let ref = gridRef.toString().replace(/\s/g, '').toUpperCase();
+    let i = (ref.length - 2) / 2;
+    let m = Math.pow(10, 5 - i);
 
-let majorEasting = gridLetters.indexOf(ref[0]) % 5  * 500000 - 1000000;
-let majorNorthing = Math.floor(gridLetters.indexOf(ref[0]) / 5) * 500000 - 500000;
+    let easting = majorEasting + minorEasting + (ref.substr(2, i) * m);
+    let northing = majorNorthing + minorNorthing + (ref.substr(i + 2, i) * m);
 
-let minorEasting = gridLetters.indexOf(ref[1]) % 5  * 100000;
-let minorNorthing = Math.floor(gridLetters.indexOf(ref[1]) / 5) * 100000;
-
-let i = (ref.length-2) / 2;
-let m = Math.pow(10, 5-i);
-
-let easting = majorEasting + minorEasting + (ref.substr(2, i) * m);
-let northing = majorNorthing + minorNorthing + (ref.substr(i+2, i) * m);
-
-return {"easting": easting, "northing": northing,}
-
+    return { easting: easting, northing: northing };
 }
 
-//Convert FieldNo to NGR
+// Convert FieldNo to NGR
 function convertFieldNo(location) {
-let fieldNo = location
-fieldNo = fieldNo.toString().replace(/\s/g, '').toUpperCase();
-let NGR = fieldNo.substring(0, 4) + fieldNo.substring(6, 8) + fieldNo.substring(4, 6) + fieldNo.substring(8, 10)
-return NGR
+    let fieldNo = location;
+    fieldNo = fieldNo.toString().replace(/\s/g, '').toUpperCase();
+    let NGR = fieldNo.substring(0, 4) + fieldNo.substring(6, 8) + fieldNo.substring(4, 6) + fieldNo.substring(8, 10);
+    return NGR;
 }
 
-
-//Use proj4 to convert Easting and Northing to decimal latitude and longitude
+// Use proj4 to convert Easting and Northing to decimal latitude and longitude
 function convertBNGToWGS84(easting, northing) {
     const bngCoordinates = [easting, northing];
-    
-    // Perform the transformation
-    // proj4(source projection, target projection, coordinates)
     const wgs84Coordinates = proj4('EPSG:27700', WGS84_PROJ, bngCoordinates);
-    
-    // The result is [longitude, latitude]
-    return wgs84Coordinates;
+    return wgs84Coordinates; // Returns [longitude, latitude]
 }
 
-//Change postcode into easting and northing
-async function convertPostcode(postcode, request, response) {
-  const url = `https://api.postcodes.io/postcodes/${postcode.replace(/\s/g, "")}`;
+// Change postcode into easting and northing
+// Returns a Promise that resolves to an object or throws an error
+async function convertPostcode(postcode) {
+    const url = `https://api.postcodes.io/postcodes/${postcode.replace(/\s/g, "")}`;
 
-  try {
-    const response = await axios.get(url);
-    const data = response.data.result;
+    try {
+        const response = await axios.get(url);
+        const data = response.data.result;
 
-    if (data && data.eastings && data.northings) {
-    const   easting = data.eastings;
-    const   northing = data.northings;
-
-      console.log(`Postcode: ${postcode}`);
-      console.log(`Easting: ${easting}`);
-      console.log(`Northing: ${northing}`);
-
-  
-      return location = [ easting, northing ];
-  
-      
-    } else {
-      console.log(`Error: Could not find easting and northing for postcode ${postcode}`); 
-      return request.session.data.error = `Error: Could not find easting and northing for postcode ${postcode}`;
-      
+        if (data && data.eastings && data.northings) {
+            return { easting: data.eastings, northing: data.northings };
+        } else {
+            throw new Error(`Could not find easting and northing for postcode ${postcode}`);
+        }
+    } catch (error) {
+        console.error(`Postcode API Request Failed: ${error.message}`);
+        throw new Error(`Invalid Postcode or API Error`);
     }
+}
 
-  } catch (error) {
-    console.error(`API Request Failed: ${error.message}`);
-    return request.session.data.error = `API Request Failed: ${error.response.data.error}`;
+// Get water body information
+// Returns a Promise with an object containing both surface and ground water data
+// Get water body information with a Search Radius (Buffer)
+async function getCatchmentData(geometry, searchRadius = 18) {
+    console.log(`Fetching catchment data for ${geometry} with radius ${searchRadius}m`);
+
+    const config = {
+        params: { "geometry": geometry }
+    };
+
+    // We inject the 'searchRadius' into the 'distance' parameter of the API URL.
+    // We also changed 'spatialRel' to 'esriSpatialRelIntersects' to ensure we catch anything touching our area.
     
-  }
+    const surfaceWaterUrl = `https://services1.arcgis.com/JZM7qJpmv7vJ0Hzx/ArcGIS/rest/services/WFD_Cycle_2_River_catchment_classification/FeatureServer/5/query?where=1%3D1&objectIds=&time=&geometry&geometryType=esriGeometryPoint&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=${searchRadius}&units=esriSRUnit_Meter&relationParam=&returnGeodetic=false&outFields=*&returnGeometry=true&returnCentroid=false&returnEnvelope=false&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&defaultSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnTrueCurves=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pgeojson&token=`;
+    
+    const groundWaterUrl = `https://services1.arcgis.com/JZM7qJpmv7vJ0Hzx/ArcGIS/rest/services/WFD_Cycle_3_Groundwater_body_classifications/FeatureServer/21/query?where=1%3D1&objectIds=&geometryType=esriGeometryPoint&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=${searchRadius}&units=esriSRUnit_Meter&outDistance=&relationParam=&returnGeodetic=false&outFields=*&returnGeometry=true&returnCentroid=false&returnEnvelope=false&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&defaultSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&collation=&orderByFields=&groupByFieldsForStatistics=&returnAggIds=false&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnTrueCurves=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pgeojson&token=`;
+
+    try {
+        const [surfaceResponse, groundResponse] = await Promise.all([
+            axios.get(surfaceWaterUrl, config),
+            axios.get(groundWaterUrl, config)
+        ]);
+
+        return {
+            surfaceWater: surfaceResponse.data,
+            groundWater: groundResponse.data
+        };
+
+    } catch (error) {
+        console.error("Catchment API Error:", error.message);
+        throw new Error("Failed to retrieve catchment data");
+    }
 }
-
-//Get water body information
-function getCatchment(request, response, geometry) {
-  console.log("get catchment")
-    //set params for the API call
- 
-  let session = request.session
-  console.log(geometry);
-  let config = {
-    params: { "geometry": geometry,  } 
-}
-
-//API call
-axios.get('https://services1.arcgis.com/JZM7qJpmv7vJ0Hzx/ArcGIS/rest/services/WFD_Cycle_2_River_catchment_classification/FeatureServer/5/query?where=1%3D1&objectIds=&time=&geometry&geometryType=esriGeometryPoint&inSR=&spatialRel=esriSpatialRelWithin&resultType=none&distance=0.0&units=esriSRUnit_Meter&relationParam=&returnGeodetic=false&outFields=*&returnGeometry=true&returnCentroid=false&returnEnvelope=false&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&defaultSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnTrueCurves=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pgeojson&token=', config)
-.then(function(res) {
-   session.return = res.data
-   console.log("Getting surfacewater")
- //console.log("Features "+ JSON.stringify(session.return, null, 2));
-   if ( Object.keys(session.return.features).length) {
-     request.session.data.riverCatchmentData = session.return.features[0]
-     request.session.data.area = session.return.features[0].properties.AREA_NAME
-     request.session.data.mnCatchment = session.return.features[0].properties.MNCAT_NAME
-     request.session.data.opCatchment = session.return.features[0].properties.OPCAT_NAME
-     request.session.data.riverBasin = session.return.features[0].properties.RBD_NAME
-     request.session.data.waterBody = session.return.features[0].properties.WB_NAME
-     request.session.data.catchmentGeometry = [session.return.features[0].properties.BB_MinX, session.return.features[0].properties.BB_MinY, session.return.features[0].properties.BB_MaxX, session.return.features[0].properties.BB_MaxY ];
- //  console.log("Catchment Geometry " +  request.session.data.catchmentGeometry );
-  } else {
-    console.log("Error - Water body not modelled for that location")
-    request.session.data.error = "Water body not modelled for that location";
-}
-
-  //API call
-axios.get('https://services1.arcgis.com/JZM7qJpmv7vJ0Hzx/ArcGIS/rest/services/WFD_Cycle_3_Groundwater_body_classifications/FeatureServer/21/query?where=1%3D1&objectIds=&geometryType=esriGeometryPoint&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&outDistance=&relationParam=&returnGeodetic=false&outFields=*&returnGeometry=true&returnCentroid=false&returnEnvelope=false&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&defaultSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&collation=&orderByFields=&groupByFieldsForStatistics=&returnAggIds=false&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnTrueCurves=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pgeojson&token=', config)
-.then(function(res) {
-   session.return = res.data
-   console.log("Getting groundwater")
-//console.log("Features "+ JSON.stringify(session.return, null, 2));
-   if ( Object.keys(session.return.features).length) {
-     request.session.data.groundwaterCatchmentData = session.return.features[0]
- //  console.log("Catchment Geometry " +  request.session.data.catchmentGeometry );
-  } else {
-    console.log("Error - Groundwater body not modelled for that location")
-    request.session.data.error = "Groundwater body not modelled for that location";
-  }
-
-  if ( Object.keys(session.return.features).length) {
-response.redirect(folder + 'water-type');}
- else { request.session.data.error = "Water body not modelled for that location" 
-  response.redirect(folder + 'location');}
-
-})
-})}
 
 
 
@@ -414,61 +373,86 @@ router.post('/abstraction-type', function (request, response) {
 
 //Location use water page
 router.get(folder + 'location', function (request, response) {
-	response.render(folder + 'location')
-})
+    response.render(folder + 'location');
+});
 
-router.post('/location', function (request, response) {
+router.post('/location', async function (request, response) {
+    request.session.data.error = "";
+    console.log("Input Location:", request.session.data.location);
 
-request.session.data.error = ""
-console.log(request.session.data.location)
+    let eastingNorthing = {}; // Object {easting: x, northing: y}
+    let latLon = [];
+    let geometry = "";
 
-let eastingNorthing = {}
-let latLon = []
-let geometry = ""
+    try {
+        // 1. Determine Coordinates based on input type
+        if (request.session.data.location == "fieldParcel") {
+            // Convert field number to NGR
+            let ngr = convertFieldNo(request.session.data.fieldParcel);
+            console.log("NGR:", ngr);
+            request.session.data.ngr = ngr;
+            
+            // Convert NGR to easting and northing
+            eastingNorthing = convertNGR(ngr);
 
-//convert field No to NGR
-if(request.session.data.location == "fieldParcel") {
- //convert field number to NGR 
-let ngr =  convertFieldNo(request.session.data.fieldParcel)
-console.log(ngr)
-request.session.data.ngr = ngr
-//Convert NGR to easting and northing
-eastingNorthing = convertNGR(ngr)
-//convert easting and northing into decimal lat lon
-latLon = convertBNGToWGS84(eastingNorthing.easting, eastingNorthing.northing);
-console.log(latLon)
-//set geometry in order to get the water body and catchment info
-geometry = latLon[0] +','+ latLon[1]
-//get the catchment data
-getCatchment(request, response, geometry)
-} else if (request.session.data.location == "postCode") {
-//convert Postcode into Easting and Northing  
-  convertPostcode(request.session.data.postCode, request, response).then(data => {
-if (request.session.data.error) {response.redirect('location')} else {
-   eastingNorthing = location
-//convert Easting and Northing into Decimal LatLon
-latLon = convertBNGToWGS84(eastingNorthing[0], eastingNorthing[1]);
-console.log(latLon)
-//set geometry in order to get the water body and catchment info
-geometry = latLon[0] +','+ latLon[1]
-//get the catchment data
-getCatchment(request, response, geometry) }
- });
-} else {
-//convert NGR into Easting and Northing 
-eastingNorthing = convertNGR(request.session.data.gridRef)
-//convert Easting and Northing into Decimal LatLon
-latLon = convertBNGToWGS84(eastingNorthing.easting, eastingNorthing.northing);
-console.log(latLon)
-//set geometry in order to get the water body and catchment info
-geometry = latLon[0] +','+ latLon[1]
-//get the catchment data
-getCatchment(request, response, geometry)
-}
+        } else if (request.session.data.location == "postCode") {
+            // Await the postcode conversion
+            eastingNorthing = await convertPostcode(request.session.data.postCode);
+            
+        } else {
+            // Default: Grid Ref
+            // Convert NGR into Easting and Northing
+            eastingNorthing = convertNGR(request.session.data.gridRef);
+        }
 
+        // 2. Convert to WGS84 and format geometry
+        // Ensure we actually have numbers
+        if (!eastingNorthing.easting || !eastingNorthing.northing) {
+            throw new Error("Invalid coordinates generated");
+        }
 
-	
-})
+        latLon = convertBNGToWGS84(eastingNorthing.easting, eastingNorthing.northing);
+        console.log("LatLon:", latLon);
+        geometry = latLon[0] + ',' + latLon[1];
+
+        // 3. Get Catchment Data (Async)
+        // 18m radius approx equals 1000m² area. 
+        // You can increase this (e.g., 1800 = 10,000m2) if you want a wider net.
+        const searchRadius = 1800;
+
+        const catchmentResults = await getCatchmentData(geometry, searchRadius);
+        
+        // Process Surface Water
+        const surfaceFeatures = catchmentResults.surfaceWater.features;
+        if (surfaceFeatures && surfaceFeatures.length > 0) {
+            request.session.data.riverCatchmentData = surfaceFeatures;
+        } else {
+            console.log("Error - Surface water body not modelled for that location");
+        }
+
+        // Process Groundwater
+        const groundFeatures = catchmentResults.groundWater.features;
+        if (groundFeatures && groundFeatures.length > 0) {
+            request.session.data.groundwaterCatchmentData = groundFeatures;
+        } else {
+            console.log("Error - Groundwater body not modelled for that location");
+        }
+
+        // 4. Final Redirect Logic
+        // Check if we found valid data to decide where to redirect
+        if ((surfaceFeatures && surfaceFeatures.length > 0) || (groundFeatures && groundFeatures.length > 0)) {
+            response.redirect(folder + 'water-type');
+        } else {
+            request.session.data.error = "Water body not modelled for that location";
+            response.redirect(folder + 'summary');
+        }
+
+    } catch (error) {
+        console.error("Route Error:", error.message);
+        request.session.data.error = error.message;
+        response.redirect(folder + 'location');
+    }
+});
 
 //Usage category page
 router.get(folder + 'usage-category', function (request, response) {
