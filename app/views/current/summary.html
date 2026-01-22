@@ -122,12 +122,67 @@ New licences can be considered depending on local and downstream impacts.",
     ],
     [
       {
+        text: "Distance from the centre of your location",
+        classes: "govuk-!-width-one-half"
+      },
+      {
+        text: "23 metres",
+          classes: "govuk-!-width-one-half"
+      }     
+    ],
+    [
+      {
         text: "Availability",
         classes: "govuk-!-width-one-half"
       },
       {
-          html: "<p>"+"Summer"+tagsrestrictedHTML+"</p>"+"<p>"+"Winter"+tagsgoodHTML+"</p>",
+          html: "<p class='govuk-body'>"+"Summer"+tagsrestrictedHTML+"</p>"+"<p class='govuk-body'>"+"Winter"+tagsgoodHTML+"</p>",
           classes: "govuk-!-width-one-half"
+      }     
+    ]
+  ]
+}) }}
+
+{{ govukTable({
+  rows: [    
+    [
+      {
+        text: "Your operational catchment",
+        classes: "govuk-!-width-one-half"
+      },
+      {
+        html: "<b>"+data.opCatchment+"</b>",
+        classes: "govuk-!-width-one-half"
+      }
+    ],
+    [
+      {
+        text: "Your water body",
+        classes: "govuk-!-width-one-half"
+      },
+      {
+         html: "<a href=detailed-results>"+"<b>"+data.waterBody+"</b>"+"</a>",
+        classes: "govuk-!-width-one-half"
+      }
+    ],
+     [
+      {
+        text: "Distance from the centre of your location",
+        classes: "govuk-!-width-one-half"
+      },
+      {
+        text: "197 metres",
+          classes: "govuk-!-width-one-half"
+      }     
+    ],
+    [
+      {
+        text: "Availability",
+        classes: "govuk-!-width-one-half"
+      },
+      {
+         html: "<p class='govuk-body'>"+"Summer"+tagsnowaterHTML+"</p>"+"<p class='govuk-body'>"+"Winter"+tagsrestrictedHTML+"</p>",
+           classes: "govuk-!-width-one-half"
       }     
     ]
   ]
@@ -157,38 +212,13 @@ New licences can be considered depending on local and downstream impacts.",
     ],
     [
       {
-        text: "Availability",
+        text: "Distance from the centre of your location",
         classes: "govuk-!-width-one-half"
       },
       {
-          html: "Summer"+tagsnowaterHTML+"<br/>"+"<br/>"+"Winter"+tagsrestrictedHTML,
+        text: "401 metres",
           classes: "govuk-!-width-one-half"
       }     
-    ]
-  ]
-}) }}
-
-{{ govukTable({
-  rows: [    
-    [
-      {
-        text: "Your operational catchment",
-        classes: "govuk-!-width-one-half"
-      },
-      {
-        html: "<b>"+data.opCatchment+"</b>",
-        classes: "govuk-!-width-one-half"
-      }
-    ],
-    [
-      {
-        text: "Your water body",
-        classes: "govuk-!-width-one-half"
-      },
-      {
-         html: "<a href=detailed-results>"+"<b>"+data.waterBody+"</b>"+"</a>",
-        classes: "govuk-!-width-one-half"
-      }
     ],
     [
       {
@@ -196,7 +226,7 @@ New licences can be considered depending on local and downstream impacts.",
         classes: "govuk-!-width-one-half"
       },
       {
-          html: "Summer"+tagsnowaterHTML+", "+"Winter"+tagsrestrictedHTML,
+          html: "<p class='govuk-body'>"+"Summer"+tagsgoodHTML+"</p>"+"<p class='govuk-body'>"+"Winter"+tagsgoodHTML+"</p>",
           classes: "govuk-!-width-one-half"
       }     
     ]
@@ -235,7 +265,7 @@ New licences can be considered depending on local and downstream impacts.",
         classes: "govuk-!-width-one-half"
       },
        {
-          html: "Summer"+tagsgoodHTML+" "+"Winter"+tagsgoodHTML,
+           html: "<p class='govuk-body'>"+"Summer"+tagsgoodHTML+"</p>"+"<p class='govuk-body'>"+"Winter"+tagsgoodHTML+"</p>",
           classes: "govuk-!-width-one-half"
       }   
     ]
