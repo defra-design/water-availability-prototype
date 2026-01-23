@@ -1,7 +1,7 @@
 const govukPrototypeKit = require('govuk-prototype-kit')
 const router = govukPrototypeKit.requests.setupRouter()
 // Add your routes here - above the module.exports line
-// Lookup table for water uses
+
 
 const axios = require('axios');
 const proj4 = require('proj4');
@@ -109,7 +109,7 @@ async function getCatchmentData(geometry, searchRadius = 18) {
 }
 
 
-
+// Lookup table for water uses
 const waterUses = {
   // CONSUMPTIVE
   'Animal watering and welfare': {
@@ -286,11 +286,13 @@ router.get(folder + 'ur', function (request, response) {
 
 
 //water type page
+//Set variables page
 router.get(folder + 'water-type', function (request, response) {
 	response.render(folder + 'water-type')
 })
 
 router.post('/water-type', function (request, response) {
+  var waterType = request.session.data['watertype']
 	response.redirect(folder + 'summary')
 })
 

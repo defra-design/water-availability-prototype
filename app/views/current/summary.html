@@ -92,6 +92,8 @@ New licences can be considered depending on local and downstream impacts.",
   </div>
 </details>
  
+<!-- SURFACE WATER-->
+ {% if (data['watertype'] == "both" or data['watertype'] == "dontknow" or data['watertype'] == "surface") %} 
 <div class="govuk-body">
   <h2 class="govuk-heading-m">Your surface water availability</h2>
 
@@ -116,14 +118,14 @@ New licences can be considered depending on local and downstream impacts.",
   {% if loop.index0 == 0 %} 
       <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false">{{waterBody.properties.WB_NAME}}</a> in the {{waterBody.properties.OPCAT_NAME}} catchment</h3>
   
-  <p class="govuk-body">Distance from the centre of your {% if (data['location'] == "gridRef") %}
+  <p class="govuk-body">0 metres from centre of {% if (data['location'] == "gridRef") %}
         national grid reference
 {% elseif (data['location'] == "fieldParcel") %}
     field parcel
 {% elseif (data['location'] == "postCode") %}
     postcode
       {% endif %}
-      : 0 metres</p>
+     </p>
 
       <p class="govuk-body">Summer: {{tagsrestrictedHTML | safe}}</p>   
    <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p> 
@@ -132,33 +134,49 @@ New licences can be considered depending on local and downstream impacts.",
 
       <h3 class="govuk-heading-s"><a href="detailed-results?nowater=true">{{waterBody.properties.WB_NAME}}</a> in the {{waterBody.properties.OPCAT_NAME}} catchment</h3>
  
-    <p class="govuk-body">Distance from the centre of your {% if (data['location'] == "gridRef") %}
+    <p class="govuk-body">96 metres from centre of {% if (data['location'] == "gridRef") %}
         national grid reference
 {% elseif (data['location'] == "fieldParcel") %}
     field parcel
 {% elseif (data['location'] == "postCode") %}
     postcode
       {% endif %}
-      : 96 metres</p>
+    </p>
 
       <p class="govuk-body">Summer: {{tagsgoodHTML | safe}}</p>   
    <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p> 
+   <hr>
+   {% elif loop.index0 == 2 %}
+
+      <h3 class="govuk-heading-s"><a href="detailed-results?nowater=true">{{waterBody.properties.WB_NAME}}</a> in the {{waterBody.properties.OPCAT_NAME}} catchment</h3>
+ 
+    <p class="govuk-body">188 metres from centre of {% if (data['location'] == "gridRef") %}
+        national grid reference
+{% elseif (data['location'] == "fieldParcel") %}
+    field parcel
+{% elseif (data['location'] == "postCode") %}
+    postcode
+      {% endif %}
+     </p>
+
+      <p class="govuk-body">Summer: {{tagsnowaterHTML | safe}}</p>   
+   <p class="govuk-body">Winter: {{tagsnowaterHTML | safe}}</p> 
    <hr>
    {% else %}
 
       <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false">{{waterBody.properties.WB_NAME}}</a> in the {{waterBody.properties.OPCAT_NAME}} catchment</h3>
  
- <p class="govuk-body">Distance from the centre of your {% if (data['location'] == "gridRef") %}
+ <p class="govuk-body">323 from centre of {% if (data['location'] == "gridRef") %}
         national grid reference
 {% elseif (data['location'] == "fieldParcel") %}
     field parcel
 {% elseif (data['location'] == "postCode") %}
     postcode
       {% endif %}
-      : 323 metres</p>
+     </p>
       
-      <p class="govuk-body">Summer: {{tagsnowaterHTML | safe}}</p>   
-   <p class="govuk-body">Winter: {{tagsnowaterHTML | safe}}</p> 
+      <p class="govuk-body">Summer: {{tagsrestrictedHTML | safe}}</p>   
+   <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p> 
      <hr>
    {% endif %}
 
@@ -167,8 +185,10 @@ New licences can be considered depending on local and downstream impacts.",
 <p class="govuk-body">Surface water body not modelled for this area</p>
 {% endif %}
 </div>
+{% endif %}
 
-
+<!-- GROUNDWATER-->
+  {% if (data['watertype'] == "both" or data['watertype'] == "dontknow" or data['watertype'] == "ground") %} 
 <div class="govuk-body">
 <h2 class="govuk-heading-m">Your groundwater availability</h2>
   <p class="govuk-body">The 
@@ -197,5 +217,6 @@ New licences can be considered depending on local and downstream impacts.",
 <p class="govuk-body">Groundwater body not modelled for this area</p>
 {% endif %}
 </div>
+{% endif %}
 
 {% endblock %}
