@@ -97,7 +97,11 @@ New licences can be considered depending on local and downstream impacts.",
 <div class="govuk-body">
   <h2 class="govuk-heading-m">Your surface water availability</h2>
 
-  <p class="govuk-body">The 
+
+
+{% if data.riverCatchmentData.length %}
+
+<p class="govuk-body">The 
   
   {% if (data['location'] == "gridRef") %}
         national grid reference
@@ -111,11 +115,11 @@ New licences can be considered depending on local and downstream impacts.",
   bodies. Choose from the options below to view a full availability 
   report for each water body.</p>
 
-
-{% if data.riverCatchmentData.length %}
 {% for waterBody in data.riverCatchmentData%}
- 
+
+
   {% if loop.index0 == 0 %} 
+  
       <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false">{{waterBody.properties.WB_NAME}}</a> in the {{waterBody.properties.OPCAT_NAME}} catchment</h3>
   
   <p class="govuk-body">0 metres from centre of {% if (data['location'] == "gridRef") %}
@@ -130,7 +134,8 @@ New licences can be considered depending on local and downstream impacts.",
       <p class="govuk-body">Summer: {{tagsrestrictedHTML | safe}}</p>   
    <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p> 
   <hr>
-   {% elif loop.index0 == 1 %}
+  
+  {% elif loop.index0 == 1 %}
 
       <h3 class="govuk-heading-s"><a href="detailed-results?nowater=true">{{waterBody.properties.WB_NAME}}</a> in the {{waterBody.properties.OPCAT_NAME}} catchment</h3>
  
@@ -166,7 +171,7 @@ New licences can be considered depending on local and downstream impacts.",
 
       <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false">{{waterBody.properties.WB_NAME}}</a> in the {{waterBody.properties.OPCAT_NAME}} catchment</h3>
  
- <p class="govuk-body">323 from centre of {% if (data['location'] == "gridRef") %}
+ <p class="govuk-body">323 metres from centre of {% if (data['location'] == "gridRef") %}
         national grid reference
 {% elseif (data['location'] == "fieldParcel") %}
     field parcel
@@ -182,7 +187,7 @@ New licences can be considered depending on local and downstream impacts.",
 
 {% endfor %}
 {% else %}
-<p class="govuk-body">Surface water body not modelled for this area</p>
+<p class="govuk-body">No surface water body data is available for this area. Please choose a different <a href="location.html" class="govuk-link">location</a>.</p>
 {% endif %}
 </div>
 {% endif %}
@@ -191,7 +196,9 @@ New licences can be considered depending on local and downstream impacts.",
   {% if (data['watertype'] == "both" or data['watertype'] == "dontknow" or data['watertype'] == "ground") %} 
 <div class="govuk-body">
 <h2 class="govuk-heading-m">Your groundwater availability</h2>
-  <p class="govuk-body">The 
+ 
+  {% if data.groundwaterCatchmentData.length %}
+   <p class="govuk-body">The 
   
   {% if (data['location'] == "gridRef") %}
         national grid reference
@@ -205,18 +212,80 @@ New licences can be considered depending on local and downstream impacts.",
   bodies. Choose from the options below to view a full availability 
   report for each groundwater body.</p>
   
-  {% if data.groundwaterCatchmentData.length %}
 {% for waterBody in data.groundwaterCatchmentData%}
+  {% if loop.index0 == 0 %}
+
   <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false">{{waterBody.properties.WB_NAME}}</a> in the {{waterBody.properties.MNCAT_NAME}} catchment</h3>
-   <p class="govuk-body">Summer: {{tagsrestrictedHTML | safe}}</p>   
+  
+  <p class="govuk-body">0 metres from centre of {% if (data['location'] == "gridRef") %}
+        national grid reference
+{% elseif (data['location'] == "fieldParcel") %}
+    field parcel
+{% elseif (data['location'] == "postCode") %}
+    postcode
+      {% endif %}
+     </p>
+     <p class="govuk-body">Summer: {{tagsrestrictedHTML | safe}}</p>   
    <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p> 
 
   <hr>
-{% endfor %}
+
+  {% elif loop.index0 == 1 %}
+  
+  <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false">{{waterBody.properties.WB_NAME}}</a> in the {{waterBody.properties.MNCAT_NAME}} catchment</h3>
+  
+  <p class="govuk-body">54 metres from centre of {% if (data['location'] == "gridRef") %}
+        national grid reference
+{% elseif (data['location'] == "fieldParcel") %}
+    field parcel
+{% elseif (data['location'] == "postCode") %}
+    postcode
+      {% endif %}
+     </p>
+     <p class="govuk-body">Summer: {{tagsrestrictedHTML | safe}}</p>   
+   <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p> 
+
+  <hr>
+
+  {% elif loop.index0 == 2 %}
+  
+  <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false">{{waterBody.properties.WB_NAME}}</a> in the {{waterBody.properties.MNCAT_NAME}} catchment</h3>
+  
+  <p class="govuk-body">199 metres from centre of {% if (data['location'] == "gridRef") %}
+        national grid reference
+{% elseif (data['location'] == "fieldParcel") %}
+    field parcel
+{% elseif (data['location'] == "postCode") %}
+    postcode
+      {% endif %}
+     </p>
+     <p class="govuk-body">Summer: {{tagsrestrictedHTML | safe}}</p>   
+   <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p> 
+
+  <hr>
 {% else %}
-<p class="govuk-body">Groundwater body not modelled for this area</p>
+ <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false">{{waterBody.properties.WB_NAME}}</a> in the {{waterBody.properties.MNCAT_NAME}} catchment</h3>
+  
+  <p class="govuk-body">401 metres from centre of {% if (data['location'] == "gridRef") %}
+        national grid reference
+{% elseif (data['location'] == "fieldParcel") %}
+    field parcel
+{% elseif (data['location'] == "postCode") %}
+    postcode
+      {% endif %}
+     </p>
+     <p class="govuk-body">Summer: {{tagsrestrictedHTML | safe}}</p>   
+   <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p> 
+
+  <hr>
+ {% endif %}
+{% endfor %}
+
+{% else %}
+<p class="govuk-body">No groundwater body data is available for this area. Please choose a different <a href="location.html" class="govuk-link">location</a>.</p>
 {% endif %}
 </div>
+
 {% endif %}
 
 {% endblock %}

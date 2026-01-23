@@ -53,8 +53,8 @@
 
 {% set surfacewaterHtml %}
 <h2 class="govuk-heading-m">Surface water</h2>
-<p class="govuk-body">Surface water is available in the <b>{{data.waterBody}}</b> area of 
-the <b>{{data.opCatchment}}</b> (subject to restrictions, see below for more information).</p>
+<p class="govuk-body">Surface water is available in the <b>{{waterBody.properties.WB_NAME}}</b> area of 
+the <b>{{waterBody.properties.MNCAT_NAME}}</b> (subject to restrictions, see below for more information).</p>
 
 <p class="govuk-body">View a <a href="https://environment.data.gov.uk/catchment-planning/WaterBody/{{data.riverCatchmentData.properties.WB_ID}}">map of your local area and the {{data.opCatchment}} from {{data.waterBody}}</a>.</p>
 
@@ -212,8 +212,8 @@ the <b>{{data.opCatchment}}</b> (subject to restrictions, see below for more inf
   Good availability</strong></h2>
 
 <p class="govuk-body-s"><i>Last updated: 25 October 2025</i></p>
-<p class="govuk-body">Local Groundwater Management Catchment: <b>{{data.groundwaterCatchmentData.properties.MNCAT_NAME}}</b></p>
-<p class="govuk-body">Local Groundwater Body: <b>{{data.groundwaterCatchmentData.properties.WB_NAME}}</b></p>
+<p class="govuk-body">Local Groundwater Management Catchment: <b>{{waterBody.properties.MNCAT_NAME}}</b></p>
+<p class="govuk-body">Local Groundwater Body: <b>{{waterBody.properties.WB_NAME}}</b></p>
 
 <p class="govuk-body">Restrictions may apply where availability is limited or to protect the environment.</p>
 
