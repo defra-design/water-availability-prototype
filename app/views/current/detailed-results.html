@@ -280,6 +280,12 @@ the <b>{{data.riverCatchmentData[data.sid].properties.MNCAT_NAME}}</b> (subject 
 
 {% endif %}
 
+  {% if (data.nowater == "true") %} 
+<h2 class="govuk-heading-m">Other options and next steps</h2>
+<p class="govuk-body">You may still be able to obtain water in a different way to licenced abstraction. Find out your alternative options.</p>
+
+  {% endif %}
+
 <form class="form" method="post">
 
  {{ govukButton({

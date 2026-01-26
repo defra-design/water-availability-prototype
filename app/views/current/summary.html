@@ -103,7 +103,19 @@ New licences can be considered depending on local and downstream impacts.",
 
 {% if data.riverCatchmentData.length==1 %}
 
-<p class="govuk-body">The 
+   <p class="govuk-body">View a full surface water availability report for your   
+  {% if (data['location'] == "gridRef") %}
+        national grid reference
+{% elseif (data['location'] == "fieldParcel") %}
+    field parcel
+{% elseif (data['location'] == "postCode") %}
+    postcode
+      {% endif %} using the link below. 
+</p>
+
+   {% else %}
+
+  <p class="govuk-body">The 
   
   {% if (data['location'] == "gridRef") %}
         national grid reference
@@ -113,23 +125,9 @@ New licences can be considered depending on local and downstream impacts.",
     postcode
       {% endif %}
       
-      you have provided covers SINGLE surface water 
+      you have provided covers multiple groundwater 
   bodies. Choose from the options below to view a full availability 
-  report for each water body.</p>
-{% else %}
-<p class="govuk-body">The 
-  
-  {% if (data['location'] == "gridRef") %}
-        national grid reference
-{% elseif (data['location'] == "fieldParcel") %}
-    field parcel
-{% elseif (data['location'] == "postCode") %}
-    postcode
-      {% endif %}
-      
-      you have provided covers multiple surface water 
-  bodies. Choose from the options below to view a full availability 
-  report for each water body.</p>
+  report for each groundwater body.</p>
 
 {% endif %}
 
@@ -219,19 +217,16 @@ New licences can be considered depending on local and downstream impacts.",
   {% if data.groundwaterCatchmentData.length %}
 
   {% if data.groundwaterCatchmentData.length==1 %}
-   <p class="govuk-body">The 
   
+   <p class="govuk-body">View a full groundwater availability report for your   
   {% if (data['location'] == "gridRef") %}
         national grid reference
 {% elseif (data['location'] == "fieldParcel") %}
     field parcel
 {% elseif (data['location'] == "postCode") %}
     postcode
-      {% endif %}
-      
-      you have provided covers SINGLE groundwater 
-  bodies. Choose from the options below to view a full availability 
-  report for each groundwater body.</p>
+      {% endif %} using the link below. 
+</p>
 
   {% else %}
   <p class="govuk-body">The 
