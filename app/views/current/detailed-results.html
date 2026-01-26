@@ -16,7 +16,19 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-    
+  {% if (data.nowater == "true") %} 
+  
+    <h1 class="govuk-heading-l">Your water availability report</h1>
+<div class="border govuk-!-margin-bottom-3">
+  <h2 class="govuk-heading-m">Year round availability <strong class="govuk-tag govuk-tag--red" aria-hidden="true">
+  No water available</strong></h2>
+<p class="govuk-body">No water is available for licencing at any time in this water body.</p>
+
+<p class="govuk-body">This can be due to low flow rates and a high number of other abstractors. 
+  The area is likely to be water stressed meaning more abstraction 
+  could have a negative impact on the local environment.</p>
+</div>
+  {% else %}
   <h1 class="govuk-heading-l">Your water availability report</h1>
 
   <p class="govuk-body">
@@ -30,9 +42,9 @@
       {% endif %}
   </p>
 
-{% if (data.nowater == "true") %}
-<!-- no water -->
-{% endif %}
+
+
+
 
       <div class="govuk-inset-text">
          
@@ -258,21 +270,15 @@ the <b>{{data.riverCatchmentData[data.sid].properties.MNCAT_NAME}}</b> (subject 
 
 {% else %}
 
-<div class="border govuk-!-margin-bottom-3">
-  <h2 class="govuk-heading-m">Year round availability <strong class="govuk-tag govuk-tag--red" aria-hidden="true">
-  No water available</strong></h2>
-<p class="govuk-body">No water is available for licencing at any time in your local area.</p>
 
-<p class="govuk-body">This can be due to low flow rates and a high number of other abstractors. 
-  The area is likely to be water stressed meaning more abstraction 
-  could have a negative impact on the local environment.</p>
-</div>
 {% endif %}
 
 <h2 class="govuk-heading-m">Other options and next steps</h2>
 <p class="govuk-body">Find out more about applying for a licence 
   and your other options for sourcing water, such as trading abstraction 
   rights, desalination and water recycling.</p>
+
+{% endif %}
 
 <form class="form" method="post">
 
