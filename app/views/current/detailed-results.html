@@ -18,6 +18,7 @@
 
     
   <h1 class="govuk-heading-l">Your water availability report</h1>
+
   <p class="govuk-body">
       {% if (data['new-existing'] == "existing")%}  
          This report shows surface water and groundwater availability 
@@ -53,15 +54,18 @@
 
 {% set surfacewaterHtml %}
 <h2 class="govuk-heading-m">Surface water</h2>
-<p class="govuk-body">Surface water is available in the <b>{{waterBody.properties.WB_NAME}}</b> area of 
-the <b>{{waterBody.properties.MNCAT_NAME}}</b> (subject to restrictions, see below for more information).</p>
 
-<p class="govuk-body">View a <a href="https://environment.data.gov.uk/catchment-planning/WaterBody/{{data.riverCatchmentData.properties.WB_ID}}">map of your local area and the {{data.opCatchment}} from {{data.waterBody}}</a>.</p>
+
+<p class="govuk-body">Surface water is available in the <b>{{data.riverCatchmentData[data.sid].properties.WB_NAME}}</b> area of 
+the <b>{{data.riverCatchmentData[data.sid].properties.MNCAT_NAME}}</b> (subject to restrictions, see below for more information).</p>
+
+<!-- <p class="govuk-body">View a <a href="https://environment.data.gov.uk/catchment-planning/WaterBody/{{data.riverCatchmentData.properties.WB_ID}}">map of your local area and the {{data.opCatchment}} from {{data.waterBody}}</a>.</p> -->
 
 <p class="govuk-body">'Hands Off Flow' restrictions can limit abstraction 
   for local licence holders when the water flow rate is lower than the 
   environment can sustain. Learn more about <a href =" https://www.gov.uk/guidance/manage-your-water-abstraction-or-impoundment-licences-online#abstraction-alerts" class="govuk-link">Hands Off Flow restrictions</a>.</p>
 
+  
 <h3 class="govuk-heading-s">Summer
   <strong class="govuk-tag govuk-tag--yellow" aria-hidden="true">
   Restricted</strong>
@@ -82,7 +86,6 @@ the <b>{{waterBody.properties.MNCAT_NAME}}</b> (subject to restrictions, see bel
     {
       text: "Years restricted"
     },
-   
     {
       text: "Dates no water available"
     }
@@ -92,17 +95,14 @@ the <b>{{waterBody.properties.MNCAT_NAME}}</b> (subject to restrictions, see bel
       {
       text: "2018"
     },
-  
     {
       text: "24th to 31st July"
     }
     ],
-
     [
       {
       text: ""
-    },
-   
+    }, 
     {
       text: "1st August to 2nd September"
     }
@@ -110,8 +110,7 @@ the <b>{{waterBody.properties.MNCAT_NAME}}</b> (subject to restrictions, see bel
     [
       {
       text: ""
-    },
-   
+    }, 
     {
       text: "6th to 22nd September"
     }
@@ -119,8 +118,7 @@ the <b>{{waterBody.properties.MNCAT_NAME}}</b> (subject to restrictions, see bel
     [
       {
       text: "2020"
-    },
-   
+    }, 
     {
       text: "4th to 25th September"
     }
@@ -128,8 +126,7 @@ the <b>{{waterBody.properties.MNCAT_NAME}}</b> (subject to restrictions, see bel
     [
       {
       text: "2024"
-    },
-    
+    },  
     {
       text: "10th to 30th September"
     }
@@ -138,12 +135,10 @@ the <b>{{waterBody.properties.MNCAT_NAME}}</b> (subject to restrictions, see bel
       {
       text: ""
     },
-   
     {
       text: "1st to 4th October"
     }
-    ]
-    
+    ] 
   ]
 }) }}
 
@@ -212,14 +207,14 @@ the <b>{{waterBody.properties.MNCAT_NAME}}</b> (subject to restrictions, see bel
   Good availability</strong></h2>
 
 <p class="govuk-body-s"><i>Last updated: 25 October 2025</i></p>
-<p class="govuk-body">Local Groundwater Management Catchment: <b>{{waterBody.properties.MNCAT_NAME}}</b></p>
-<p class="govuk-body">Local Groundwater Body: <b>{{waterBody.properties.WB_NAME}}</b></p>
+<p class="govuk-body">Local Groundwater Management Catchment: <b>{{data.groundwaterCatchmentData[data.gid].properties.MNCAT_NAME}}</b></p>
+<p class="govuk-body">Local Groundwater Body: <b>{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}</b></p>
 
 <p class="govuk-body">Restrictions may apply where availability is limited or to protect the environment.</p>
 
 <p class="govuk-body">A pump test will most likely be needed to determine availability for your specific abstraction point.</p>
 
-<p class="govuk-body"><a href="{{data.groundwaterCatchmentData.properties.WB_DETAIL}}">View a map of existing the local groundwater body</a>.</p>
+<!-- <p class="govuk-body"><a href="{{data.groundwaterCatchmentData.properties.WB_DETAIL}}">View a map of existing the local groundwater body</a>.</p> -->
 
 {% endset -%}
 
