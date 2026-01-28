@@ -34,6 +34,37 @@ function getDistance(point1, point2) {
 }
 
 /**
+ * NEW: Calculates the bearing between two points in degrees (0-360)
+ */
+function getBearing(startPoint, endPoint) {
+    const [lon1, lat1] = startPoint;
+    const [lon2, lat2] = endPoint;
+
+    const toRad = (deg) => deg * Math.PI / 180;
+    const toDeg = (rad) => rad * 180 / Math.PI;
+
+    const φ1 = toRad(lat1);
+    const φ2 = toRad(lat2);
+    const Δλ = toRad(lon2 - lon1);
+
+    const y = Math.sin(Δλ) * Math.cos(φ2);
+    const x = Math.cos(φ1) * Math.sin(φ2) -
+              Math.sin(φ1) * Math.cos(φ2) * Math.cos(Δλ);
+
+    let brng = toDeg(Math.atan2(y, x));
+    return (brng + 360) % 360; // Normalize to 0-360
+}
+
+/**
+ * NEW: Converts degrees to Cardinal direction
+ */
+function getCardinal(angle) {
+    const directions = ['North', 'North East', 'East', 'South East', 'South', 'South West', 'West', 'North West'];
+    const index = Math.round(((angle %= 360) < 0 ? angle + 360 : angle) / 45) % 8;
+    return directions[index];
+}
+
+/**
  * Ray Casting algorithm to check if point is inside a polygon ring
  */
 function isPointInPolygon(point, vs) {
@@ -51,7 +82,7 @@ function isPointInPolygon(point, vs) {
 }
 
 /**
- * Calculates shortest distance from point P to line segment AB
+ * UPDATED: Calculates shortest distance AND the specific closest point coordinate
  */
 function distToSegment(p, a, b) {
     const x = p[0], y = p[1];
@@ -61,42 +92,44 @@ function distToSegment(p, a, b) {
     const dx = x2 - x1;
     const dy = y2 - y1;
 
-    if (dx === 0 && dy === 0) return getDistance(p, a);
+    // If segment is a point
+    if (dx === 0 && dy === 0) {
+        return { distance: getDistance(p, a), point: a };
+    }
 
     // Calculate projection of p onto line segment ab
     let t = ((x - x1) * dx + (y - y1) * dy) / (dx * dx + dy * dy);
     t = Math.max(0, Math.min(1, t)); // Clamp t to the range [0, 1]
 
     const closestPoint = [x1 + t * dx, y1 + t * dy];
-    return getDistance(p, closestPoint);
+    
+    return { 
+        distance: getDistance(p, closestPoint), 
+        point: closestPoint 
+    };
 }
 
 /**
- * Normalizes geometry to a MultiPolygon-style array [[[ring1], [hole1]], [[ring2]]]
+ * Normalizes geometry to a MultiPolygon-style array
  */
 function normalizeToPolygons(data) {
     if (!Array.isArray(data) || data.length === 0) return [];
-
-    // Check depth of the first element
-    // depth 1: [lon, lat]
-    // depth 2: [[lon, lat], ...] (A Ring)
-    // depth 3: [[[lon, lat], ...]] (A Polygon)
-    // depth 4: [[[[lon, lat], ...]]] (A MultiPolygon)
     
     const getDepth = (arr) => Array.isArray(arr) ? 1 + getDepth(arr[0]) : 0;
     const depth = getDepth(data);
 
-    if (depth === 3) return [data]; // Wrap single polygon in an array
-    if (depth === 4) return data;    // Already a list of polygons
+    if (depth === 3) return [data]; 
+    if (depth === 4) return data;    
     return [];
 }
 
 /**
- * Main Function
+ * UPDATED: Main Function
  */
 function findClosestWithHoles(targetPoint, data) {
     const polygons = normalizeToPolygons(data);
     let minDistance = Infinity;
+    let nearestPointCoords = null; // Track where the nearest point is
 
     for (let pIdx = 0; pIdx < polygons.length; pIdx++) {
         const rings = polygons[pIdx];
@@ -118,25 +151,39 @@ function findClosestWithHoles(targetPoint, data) {
 
         // If inside the polygon and NOT in a hole
         if (isInsideOuter && !isInsideHole) {
-            return { inside: true, distanceKm: 0, polygonIndex: pIdx };
+            return { inside: true, distanceKm: 0, polygonIndex: pIdx, direction: null };
         }
 
         // 2. If not inside, calculate distance to nearest edge
         rings.forEach(ring => {
             for (let i = 0; i < ring.length - 1; i++) {
-                const d = distToSegment(targetPoint, ring[i], ring[i+1]);
-                if (d < minDistance) {
-                    minDistance = d;
+                // Now returns object { distance, point }
+                const result = distToSegment(targetPoint, ring[i], ring[i+1]);
+                
+                if (result.distance < minDistance) {
+                    minDistance = result.distance;
+                    nearestPointCoords = result.point;
                 }
             }
         });
     }
 
+    // Calculate Direction
+    let directionStr = null;
+    let bearingDeg = null;
+    
+    if (nearestPointCoords && minDistance !== Infinity) {
+        bearingDeg = getBearing(targetPoint, nearestPointCoords);
+        directionStr = getCardinal(bearingDeg);
+    }
+
     return {
         inside: false,
-        distanceKm: minDistance === Infinity ? null : Number(minDistance.toFixed(4))
+        distanceKm: minDistance === Infinity ? null : Number(minDistance.toFixed(4)),
+        direction: directionStr, // e.g., "North East"
+        bearing: bearingDeg !== null ? Math.round(bearingDeg) : null // e.g., 45
     };
-}
+  }
 
 // Convert NGR to easting and northing
 function convertNGR(location) {
