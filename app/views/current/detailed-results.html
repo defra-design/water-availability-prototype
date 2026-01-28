@@ -33,13 +33,12 @@
 
   
   <p class="govuk-body">
-      {% if (data['new-existing'] == "existing")%}  
-         This report shows surface water and groundwater availability 
-        for your local area and explains how to make changes to your 
-        water abstraction licence.
+      {% if (data['watertype'] == "surface")%}  
+         This report shows surface water availability for your 
+         local area and explains next steps when applying for a water abstraction licence.
       {% else %}
-       This report shows surface water and groundwater availability for your local area 
-        and explains next steps when applying for a water abstraction licence.
+       This report shows groundwater availability for your 
+         local area and explains next steps when applying for a water abstraction licence.
       {% endif %}
   </p>
 
@@ -233,8 +232,9 @@ the <b>{{data.riverCatchmentData[data.sid].properties.MNCAT_NAME}}</b> (subject 
   Good availability</strong></h2>
 
 <p class="govuk-body-s"><i>Last updated: 25 October 2025</i></p>
-<p class="govuk-body">Local Groundwater Management Catchment: <b>{{data.groundwaterCatchmentData[data.gid].properties.MNCAT_NAME}}</b></p>
-<p class="govuk-body">Local Groundwater Body: <b>{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}</b></p>
+
+<p class="govuk-body">Groundwater is available in the <b>{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}</b> area of 
+the <b>{{data.groundwaterCatchmentData[data.gid].properties.MNCAT_NAME}}</b> (subject to restrictions, see below for more information).</p>
 
 <p class="govuk-body">Restrictions may apply where availability is limited or to protect the environment.</p>
 
