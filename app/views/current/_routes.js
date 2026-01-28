@@ -16,7 +16,127 @@ proj4.defs('EPSG:27700', OSGB_PROJ);
 
 
 // /////// Helper Functions /////////
+/**
+ * Calculates the distance between two points (Haversine formula)
+ */
+function getDistance(point1, point2) {
+    if (!point1 || !point2) return Infinity;
+    const [lon1, lat1] = point1;
+    const [lon2, lat2] = point2;
 
+    const R = 6371; // km
+    const dLat = (lat2 - lat1) * (Math.PI / 180);
+    const dLon = (lon2 - lon1) * (Math.PI / 180);
+    const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+              Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c;
+}
+
+/**
+ * Ray Casting algorithm to check if point is inside a polygon ring
+ */
+function isPointInPolygon(point, vs) {
+    if (!vs || !Array.isArray(vs) || vs.length === 0) return false;
+    const x = point[0], y = point[1];
+    let inside = false;
+    for (let i = 0, j = vs.length - 1; i < vs.length; j = i++) {
+        const xi = vs[i][0], yi = vs[i][1];
+        const xj = vs[j][0], yj = vs[j][1];
+        const intersect = ((yi > y) !== (yj > y)) &&
+            (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+        if (intersect) inside = !inside;
+    }
+    return inside;
+}
+
+/**
+ * Calculates shortest distance from point P to line segment AB
+ */
+function distToSegment(p, a, b) {
+    const x = p[0], y = p[1];
+    const x1 = a[0], y1 = a[1];
+    const x2 = b[0], y2 = b[1];
+
+    const dx = x2 - x1;
+    const dy = y2 - y1;
+
+    if (dx === 0 && dy === 0) return getDistance(p, a);
+
+    // Calculate projection of p onto line segment ab
+    let t = ((x - x1) * dx + (y - y1) * dy) / (dx * dx + dy * dy);
+    t = Math.max(0, Math.min(1, t)); // Clamp t to the range [0, 1]
+
+    const closestPoint = [x1 + t * dx, y1 + t * dy];
+    return getDistance(p, closestPoint);
+}
+
+/**
+ * Normalizes geometry to a MultiPolygon-style array [[[ring1], [hole1]], [[ring2]]]
+ */
+function normalizeToPolygons(data) {
+    if (!Array.isArray(data) || data.length === 0) return [];
+
+    // Check depth of the first element
+    // depth 1: [lon, lat]
+    // depth 2: [[lon, lat], ...] (A Ring)
+    // depth 3: [[[lon, lat], ...]] (A Polygon)
+    // depth 4: [[[[lon, lat], ...]]] (A MultiPolygon)
+    
+    const getDepth = (arr) => Array.isArray(arr) ? 1 + getDepth(arr[0]) : 0;
+    const depth = getDepth(data);
+
+    if (depth === 3) return [data]; // Wrap single polygon in an array
+    if (depth === 4) return data;    // Already a list of polygons
+    return [];
+}
+
+/**
+ * Main Function
+ */
+function findClosestWithHoles(targetPoint, data) {
+    const polygons = normalizeToPolygons(data);
+    let minDistance = Infinity;
+
+    for (let pIdx = 0; pIdx < polygons.length; pIdx++) {
+        const rings = polygons[pIdx];
+        if (!rings || rings.length === 0) continue;
+
+        // 1. Check if inside outer ring
+        const isInsideOuter = isPointInPolygon(targetPoint, rings[0]);
+        
+        let isInsideHole = false;
+        if (isInsideOuter) {
+            // Check if it's inside any holes
+            for (let h = 1; h < rings.length; h++) {
+                if (isPointInPolygon(targetPoint, rings[h])) {
+                    isInsideHole = true;
+                    break;
+                }
+            }
+        }
+
+        // If inside the polygon and NOT in a hole
+        if (isInsideOuter && !isInsideHole) {
+            return { inside: true, distanceKm: 0, polygonIndex: pIdx };
+        }
+
+        // 2. If not inside, calculate distance to nearest edge
+        rings.forEach(ring => {
+            for (let i = 0; i < ring.length - 1; i++) {
+                const d = distToSegment(targetPoint, ring[i], ring[i+1]);
+                if (d < minDistance) {
+                    minDistance = d;
+                }
+            }
+        });
+    }
+
+    return {
+        inside: false,
+        distanceKm: minDistance === Infinity ? null : Number(minDistance.toFixed(4))
+    };
+}
 
 // Convert NGR to easting and northing
 function convertNGR(location) {
@@ -381,6 +501,10 @@ router.get(folder + 'location', function (request, response) {
 router.post('/location', async function (request, response) {
     request.session.data.error = "";
     console.log("Input Location:", request.session.data.location);
+    
+    //Clear any previous data
+    request.session.data.riverCatchmentData = []
+    request.session.data.groundwaterCatchmentData = []
 
     let eastingNorthing = {}; // Object {easting: x, northing: y}
     let latLon = [];
@@ -425,16 +549,38 @@ router.post('/location', async function (request, response) {
         const catchmentResults = await getCatchmentData(geometry, searchRadius);
         
         // Process Surface Water
-        const surfaceFeatures = catchmentResults.surfaceWater.features;
+        let surfaceFeatures = catchmentResults.surfaceWater.features;
         if (surfaceFeatures && surfaceFeatures.length > 0) {
+             
+            for (const surfaceFeature of surfaceFeatures) {
+             let target = [latLon[0], latLon[1]]
+             let  pointsList = surfaceFeature.geometry.coordinates
+             const result = findClosestWithHoles(target, pointsList);
+            surfaceFeature.nearestPoint = result;
+            console.log(result)
+            }
+            surfaceFeatures = surfaceFeatures.sort((a, b) => {
+  return a.nearestPoint.distanceKm - b.nearestPoint.distanceKm;
+});
             request.session.data.riverCatchmentData = surfaceFeatures;
         } else {
             console.log("Error - Surface water body not modelled for that location");
         }
 
         // Process Groundwater
-        const groundFeatures = catchmentResults.groundWater.features;
+        let groundFeatures = catchmentResults.groundWater.features;
         if (groundFeatures && groundFeatures.length > 0) {
+            request.session.data.groundwaterCatchmentData = groundFeatures;
+            for (const groundFeature of groundFeatures) {
+             let target = [latLon[0], latLon[1]]
+             let  pointsListGW = groundFeature.geometry.coordinates
+             const resultGW = findClosestWithHoles(target, pointsListGW); 
+            groundFeature.nearestPoint = resultGW;
+                 console.log(resultGW)
+            }
+                        groundFeatures = groundFeatures.sort((a, b) => {
+  return a.nearestPoint.distanceKm - b.nearestPoint.distanceKm;
+});
             request.session.data.groundwaterCatchmentData = groundFeatures;
         } else {
             console.log("Error - Groundwater body not modelled for that location");
