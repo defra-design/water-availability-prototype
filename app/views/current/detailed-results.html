@@ -90,11 +90,20 @@ the <b>{{data.riverCatchmentData[data.sid].properties.MNCAT_NAME}}</b> (subject 
   for local licence holders when the water flow rate is lower than the 
   environment can sustain.</p> -->
 
+  {% if data.sid == "1"%} 
+
+    <h3 class="govuk-heading-s">Summer
+  <strong class="govuk-tag govuk-tag--green" aria-hidden="true">
+  Good availability</strong></h3>
   
+    {% else %}
+
 <h3 class="govuk-heading-s">Summer
   <strong class="govuk-tag govuk-tag--yellow" aria-hidden="true">
-  Restricted</strong>
-</h3>
+  Restricted</strong></h3>
+
+{% endif %}
+
 
 <p class="govuk-body">March - September</p>
 <p class="govuk-body-s"><i>Last updated: 25 October 2025</i></p>
@@ -228,8 +237,19 @@ the <b>{{data.riverCatchmentData[data.sid].properties.MNCAT_NAME}}</b> (subject 
 
 
 {% set groundwaterHtml %}
-<h2 class="govuk-heading-m">Groundwater  <strong class="govuk-tag govuk-tag--green" aria-hidden="true">
-  Good availability</strong></h2>
+<h2 class="govuk-heading-m">Groundwater</h2>
+
+    <h3 class="govuk-heading-s">Summer
+  <strong class="govuk-tag govuk-tag--yellow" aria-hidden="true">
+  Restricted</strong></h3>
+
+  <p class="govuk-body">March - September</p>
+
+      <h3 class="govuk-heading-s">Winter
+  <strong class="govuk-tag govuk-tag--green" aria-hidden="true">
+  Good availability</strong></h3>
+  
+  <p class="govuk-body">October - February</p>
 
 <p class="govuk-body-s"><i>Last updated: 25 October 2025</i></p>
 
