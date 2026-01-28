@@ -144,7 +144,7 @@ New licences can be considered depending on local and downstream impacts.",
 {% elseif (data['location'] == "postCode") %}
     postcode
       {% endif %}
-    is <b>within</b> this surface water body</p>
+    is <b>within</b> this surface water body.</p>
 
       <p class="govuk-body">Summer: {{tagsrestrictedHTML | safe}}</p>   
    <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p> 
@@ -154,14 +154,7 @@ New licences can be considered depending on local and downstream impacts.",
 
       <h3 class="govuk-heading-s"><a href="detailed-results?nowater=falso&sid={{loop.index0}}&watertype=surface">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.OPCAT_NAME}} catchment</a></h3>
  
-    <p class="govuk-body">96 metres from centre of {% if (data['location'] == "gridRef") %}
-        national grid reference
-{% elseif (data['location'] == "fieldParcel") %}
-    field parcel
-{% elseif (data['location'] == "postCode") %}
-    postcode
-      {% endif %}
-    </p>
+    <p class="govuk-body">96 metres from centre of {% if (data['location'] == "gridRef") %}national grid reference{% elseif (data['location'] == "fieldParcel") %}field parcel{% elseif (data['location'] == "postCode") %}postcode{% endif %}.</p>
 
       <p class="govuk-body">Summer: {{tagsgoodHTML | safe}}</p>   
    <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p> 
@@ -170,14 +163,8 @@ New licences can be considered depending on local and downstream impacts.",
 
       <h3 class="govuk-heading-s"><a href="detailed-results?nowater=true&sid={{loop.index0}}&watertype=surface">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.OPCAT_NAME}} catchment</a></h3>
  
-    <p class="govuk-body">188 metres from centre of {% if (data['location'] == "gridRef") %}
-        national grid reference
-{% elseif (data['location'] == "fieldParcel") %}
-    field parcel
-{% elseif (data['location'] == "postCode") %}
-    postcode
-      {% endif %}
-     </p>
+        <p class="govuk-body">188 metres from centre of {% if (data['location'] == "gridRef") %}national grid reference{% elseif (data['location'] == "fieldParcel") %}field parcel{% elseif (data['location'] == "postCode") %}postcode{% endif %}.</p>
+
 
       <p class="govuk-body">Summer: {{tagsnowaterHTML | safe}}</p>   
    <p class="govuk-body">Winter: {{tagsnowaterHTML | safe}}</p> 
@@ -186,14 +173,8 @@ New licences can be considered depending on local and downstream impacts.",
 
       <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&sid={{loop.index0}}&watertype=surface">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.OPCAT_NAME}} catchment</a></h3>
  
- <p class="govuk-body">323 metres from centre of {% if (data['location'] == "gridRef") %}
-        national grid reference
-{% elseif (data['location'] == "fieldParcel") %}
-    field parcel
-{% elseif (data['location'] == "postCode") %}
-    postcode
-      {% endif %}
-     </p>
+     <p class="govuk-body">323 metres from centre of {% if (data['location'] == "gridRef") %}national grid reference{% elseif (data['location'] == "fieldParcel") %}field parcel{% elseif (data['location'] == "postCode") %}postcode{% endif %}.</p>
+
       
       <p class="govuk-body">Summer: {{tagsrestrictedHTML | safe}}</p>   
    <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p> 
@@ -256,7 +237,7 @@ New licences can be considered depending on local and downstream impacts.",
 {% elseif (data['location'] == "postCode") %}
     postcode
       {% endif %}
-     is <b>within</b> this groundwater body</p>
+     is <b>within</b> this groundwater body.</p>
      <p class="govuk-body">Summer: {{tagsrestrictedHTML | safe}}</p>   
    <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p> 
 
@@ -266,14 +247,9 @@ New licences can be considered depending on local and downstream impacts.",
   
   <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&gid={{loop.index0}}&watertype=ground">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.MNCAT_NAME}} catchment</a></h3>
   
-  <p class="govuk-body">54 metres from centre of {% if (data['location'] == "gridRef") %}
-        national grid reference
-{% elseif (data['location'] == "fieldParcel") %}
-    field parcel
-{% elseif (data['location'] == "postCode") %}
-    postcode
-      {% endif %}
-     </p>
+      <p class="govuk-body">54 metres from centre of {% if (data['location'] == "gridRef") %}national grid reference{% elseif (data['location'] == "fieldParcel") %}field parcel{% elseif (data['location'] == "postCode") %}postcode{% endif %}.</p>
+
+
      <p class="govuk-body">Summer: {{tagsrestrictedHTML | safe}}</p>   
    <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p> 
 
@@ -283,14 +259,8 @@ New licences can be considered depending on local and downstream impacts.",
   
   <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&gid={{loop.index0}}&watertype=ground">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.MNCAT_NAME}} catchment</a></h3>
   
-  <p class="govuk-body">199 metres from centre of {% if (data['location'] == "gridRef") %}
-        national grid reference
-{% elseif (data['location'] == "fieldParcel") %}
-    field parcel
-{% elseif (data['location'] == "postCode") %}
-    postcode
-      {% endif %}
-     </p>
+    <p class="govuk-body">199 metres from centre of {% if (data['location'] == "gridRef") %}national grid reference{% elseif (data['location'] == "fieldParcel") %}field parcel{% elseif (data['location'] == "postCode") %}postcode{% endif %}.</p>
+
      <p class="govuk-body">Summer: {{tagsrestrictedHTML | safe}}</p>   
    <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p> 
 
@@ -298,14 +268,8 @@ New licences can be considered depending on local and downstream impacts.",
 {% else %}
  <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&gid={{loop.index0}}&watertype=ground">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.MNCAT_NAME}} catchment</a></h3>
   
-  <p class="govuk-body">401 metres from centre of {% if (data['location'] == "gridRef") %}
-        national grid reference
-{% elseif (data['location'] == "fieldParcel") %}
-    field parcel
-{% elseif (data['location'] == "postCode") %}
-    postcode
-      {% endif %}
-     </p>
+     <p class="govuk-body">401 metres from centre of {% if (data['location'] == "gridRef") %}national grid reference{% elseif (data['location'] == "fieldParcel") %}field parcel{% elseif (data['location'] == "postCode") %}postcode{% endif %}.</p>
+
      <p class="govuk-body">Summer: {{tagsrestrictedHTML | safe}}</p>   
    <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p> 
 

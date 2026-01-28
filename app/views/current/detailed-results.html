@@ -31,6 +31,7 @@
   {% else %}
   <h1 class="govuk-heading-l">Your water availability report</h1>
 
+  
   <p class="govuk-body">
       {% if (data['new-existing'] == "existing")%}  
          This report shows surface water and groundwater availability 
@@ -76,7 +77,7 @@ the <b>{{data.riverCatchmentData[data.sid].properties.MNCAT_NAME}}</b> (subject 
 <details class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
-      Hands Off Flow
+      What are Hands Off Flow restrictions?
     </span>
   </summary>
   <div class="govuk-details__text">
