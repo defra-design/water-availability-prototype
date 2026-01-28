@@ -113,7 +113,7 @@ New licences can be considered depending on local and downstream impacts.",
 
    {% else %}
 
-  <p class="govuk-body">The 
+  <p class="govuk-body">Listed below are the closest surface water bodies for the  
   
   {% if (data['location'] == "gridRef") %}
         national grid reference
@@ -123,9 +123,10 @@ New licences can be considered depending on local and downstream impacts.",
     postcode
       {% endif %}
       
-      you have provided covers multiple surface water
-  bodies. Choose from the options below to view a full availability 
-  report for each surface water body.</p>
+      you have provided. Use the links to view a 
+      full surface water availability report for each water body.</p>
+
+
 
 {% endif %}
 
@@ -134,16 +135,16 @@ New licences can be considered depending on local and downstream impacts.",
 
   {% if loop.index0 == 0 %} 
   
-      <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&sid={{loop.index0}}&watertype=surface">{{waterBody.properties.WB_NAME}}</a> in the {{waterBody.properties.OPCAT_NAME}} catchment</h3>
+      <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&sid={{loop.index0}}&watertype=surface">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.OPCAT_NAME}} catchment</a></h3>
   
-  <p class="govuk-body">0 metres from centre of {% if (data['location'] == "gridRef") %}
+  <p class="govuk-body">The centre of your {% if (data['location'] == "gridRef") %}
         national grid reference
 {% elseif (data['location'] == "fieldParcel") %}
     field parcel
 {% elseif (data['location'] == "postCode") %}
     postcode
       {% endif %}
-     </p>
+    is <b>within</b> this surface water body</p>
 
       <p class="govuk-body">Summer: {{tagsrestrictedHTML | safe}}</p>   
    <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p> 
@@ -151,7 +152,7 @@ New licences can be considered depending on local and downstream impacts.",
   
   {% elif loop.index0 == 1 %}
 
-      <h3 class="govuk-heading-s"><a href="detailed-results?nowater=falso&sid={{loop.index0}}&watertype=surface">{{waterBody.properties.WB_NAME}}</a> in the {{waterBody.properties.OPCAT_NAME}} catchment</h3>
+      <h3 class="govuk-heading-s"><a href="detailed-results?nowater=falso&sid={{loop.index0}}&watertype=surface">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.OPCAT_NAME}} catchment</a></h3>
  
     <p class="govuk-body">96 metres from centre of {% if (data['location'] == "gridRef") %}
         national grid reference
@@ -167,7 +168,7 @@ New licences can be considered depending on local and downstream impacts.",
    <hr>
    {% elif loop.index0 == 2 %}
 
-      <h3 class="govuk-heading-s"><a href="detailed-results?nowater=true&sid={{loop.index0}}&watertype=surface">{{waterBody.properties.WB_NAME}}</a> in the {{waterBody.properties.OPCAT_NAME}} catchment</h3>
+      <h3 class="govuk-heading-s"><a href="detailed-results?nowater=true&sid={{loop.index0}}&watertype=surface">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.OPCAT_NAME}} catchment</a></h3>
  
     <p class="govuk-body">188 metres from centre of {% if (data['location'] == "gridRef") %}
         national grid reference
@@ -183,7 +184,7 @@ New licences can be considered depending on local and downstream impacts.",
    <hr>
    {% else %}
 
-      <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&sid={{loop.index0}}&watertype=surface">{{waterBody.properties.WB_NAME}}</a> in the {{waterBody.properties.OPCAT_NAME}} catchment</h3>
+      <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&sid={{loop.index0}}&watertype=surface">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.OPCAT_NAME}} catchment</a></h3>
  
  <p class="govuk-body">323 metres from centre of {% if (data['location'] == "gridRef") %}
         national grid reference
@@ -227,7 +228,7 @@ New licences can be considered depending on local and downstream impacts.",
 </p>
 
   {% else %}
-  <p class="govuk-body">The 
+  <p class="govuk-body">Listed below are the closest groundwater bodies for the  
   
   {% if (data['location'] == "gridRef") %}
         national grid reference
@@ -237,25 +238,25 @@ New licences can be considered depending on local and downstream impacts.",
     postcode
       {% endif %}
       
-      you have provided covers multiple groundwater 
-  bodies. Choose from the options below to view a full availability 
-  report for each groundwater body.</p>
+       you have provided. Use the links to view a 
+      full groundwater availability report for each water body.</p>
+
 
   {% endif %}
   
 {% for waterBody in data.groundwaterCatchmentData%}
   {% if loop.index0 == 0 %}
 
-  <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&gid={{loop.index0}}&watertype=ground">{{waterBody.properties.WB_NAME}}</a> in the {{waterBody.properties.MNCAT_NAME}} catchment</h3>
+  <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&gid={{loop.index0}}&watertype=ground">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.MNCAT_NAME}} catchment</a></h3>
   
-  <p class="govuk-body">0 metres from centre of {% if (data['location'] == "gridRef") %}
+  <p class="govuk-body">The centre of your {% if (data['location'] == "gridRef") %}
         national grid reference
 {% elseif (data['location'] == "fieldParcel") %}
     field parcel
 {% elseif (data['location'] == "postCode") %}
     postcode
       {% endif %}
-     </p>
+     is <b>within</b> this groundwater body</p>
      <p class="govuk-body">Summer: {{tagsrestrictedHTML | safe}}</p>   
    <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p> 
 
@@ -263,7 +264,7 @@ New licences can be considered depending on local and downstream impacts.",
 
   {% elif loop.index0 == 1 %}
   
-  <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&gid={{loop.index0}}&watertype=ground">{{waterBody.properties.WB_NAME}}</a> in the {{waterBody.properties.MNCAT_NAME}} catchment</h3>
+  <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&gid={{loop.index0}}&watertype=ground">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.MNCAT_NAME}} catchment</a></h3>
   
   <p class="govuk-body">54 metres from centre of {% if (data['location'] == "gridRef") %}
         national grid reference
@@ -280,7 +281,7 @@ New licences can be considered depending on local and downstream impacts.",
 
   {% elif loop.index0 == 2 %}
   
-  <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&gid={{loop.index0}}&watertype=ground">{{waterBody.properties.WB_NAME}}</a> in the {{waterBody.properties.MNCAT_NAME}} catchment</h3>
+  <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&gid={{loop.index0}}&watertype=ground">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.MNCAT_NAME}} catchment</a></h3>
   
   <p class="govuk-body">199 metres from centre of {% if (data['location'] == "gridRef") %}
         national grid reference
@@ -295,7 +296,7 @@ New licences can be considered depending on local and downstream impacts.",
 
   <hr>
 {% else %}
- <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&gid={{loop.index0}}&watertype=ground">{{waterBody.properties.WB_NAME}}</a> in the {{waterBody.properties.MNCAT_NAME}} catchment</h3>
+ <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&gid={{loop.index0}}&watertype=ground">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.MNCAT_NAME}} catchment</a></h3>
   
   <p class="govuk-body">401 metres from centre of {% if (data['location'] == "gridRef") %}
         national grid reference
