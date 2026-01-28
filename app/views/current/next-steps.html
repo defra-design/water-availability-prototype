@@ -17,11 +17,18 @@
     <div class="govuk-grid-column-two-thirds">
 
     <h1 class="govuk-heading-l">Other options and next steps</h1>
-
-    <p class="govuk-body">Learn more about applying for a licence and 
+{% if (data['nowater'] == "true") %} 
+<p class="govuk-body">Learn more about your options are for sourcing water. Read further details by selecting from the sections below.</p>
+{% else %}
+ <p class="govuk-body">Learn more about applying for a licence and 
       what your other options are for sourcing water. Read further details by 
       selecting from the sections below.</p>
+{% endif %}
+
+   
 <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-with-summary-sections">
+  
+  {% if (data['nowater'] == "false") %} 
   <div class="govuk-accordion__section--expanded">
     <div class="govuk-accordion__section-header">
       <h2 class="govuk-accordion__section-heading">
@@ -85,7 +92,9 @@
 
     </div>
   </div>
+{% else %}
 
+{% endif %}
 
   <div class="govuk-accordion__section">
     <div class="govuk-accordion__section-header">
