@@ -498,7 +498,7 @@ router.get(folder + 'exemption', function (request, response) {
 
 router.post('/exemption', function (request, response) {
 var eXemption = request.session.data['exemption']
-	if (eXemption == "yes") {
+	if (eXemption == "no") {
 		response.redirect(folder + "exempt-results")
 	} else {
         response.redirect(folder + "usage-category")

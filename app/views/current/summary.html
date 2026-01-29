@@ -42,7 +42,8 @@
 {% endset %}
 
 <h1 class="govuk-heading-l">Your local water availability summary</h1>
- <p class="govuk-body">This page shows a summary with an overall indication of water 
+
+<p class="govuk-body">This page shows a summary with an overall indication of water 
   availability for your local area.</p>
 
   <details class="govuk-details">
@@ -91,6 +92,7 @@ New licences can be considered depending on local and downstream impacts.",
 }) }}
   </div>
 </details>
+
  
 <!-- SURFACE WATER-->
  {% if (data['watertype'] == "both" or data['watertype'] == "dontknow" or data['watertype'] == "surface") %} 
@@ -183,7 +185,8 @@ New licences can be considered depending on local and downstream impacts.",
 
 {% endfor %}
 {% else %}
-<p class="govuk-body">No surface water body data is available for this area. <a href="https://www.gov.uk/government/organisations/environment-agency#org-contacts" class="govuk-link">Contact the Environment Agency</a> for more information on surface water licencing in your area.</p>
+<p class="govuk-body">No surface water body data is available for this area.</p>
+<p><a href="https://www.gov.uk/government/organisations/environment-agency#org-contacts" class="govuk-link">Contact the Environment Agency</a> for more information on surface water licencing in your area.</p>
 {% endif %}
 </div>
 {% endif %}
@@ -278,7 +281,8 @@ New licences can be considered depending on local and downstream impacts.",
 {% endfor %}
 
 {% else %}
-<p class="govuk-body">No groundwater body data is available for this area. <a href="https://www.gov.uk/government/organisations/environment-agency#org-contacts" class="govuk-link">Contact the Environment Agency</a> for more information on groundwater licencing in your area.</p>
+<p class="govuk-body">No groundwater body data is available for this area.</p>
+<p><a href="https://www.gov.uk/government/organisations/environment-agency#org-contacts" class="govuk-link">Contact the Environment Agency</a> for more information on groundwater licencing in your area.</p>
 {% endif %}
 </div>
 

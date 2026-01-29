@@ -42,9 +42,9 @@
       {% endif %}
   </p>
 
+  {% endif %}
 
-
-
+    {% if (data.nowater == "false") %} 
 
       <div class="govuk-inset-text">
          
@@ -60,18 +60,36 @@
         <!-- <p class="govuk-body"><b>Duration:</b> {{ data['duration'] }}</p> -->
       </div>
 
-  <h2 class="govuk-heading-m">Seasonal availability and restrictions</h2>
+ {% if (data['watertype'] == "surface")%}     
+{{ govukDetails({
+  summaryText: "How often is this information updated?",
+  html: "<p class='govuk-body'>"+"Last updated: 25 October 2025"+"</p>"+
+"<p class='govuk-body'>"+"Licensing strategy for "+data.riverCatchmentData[data.sid].properties.WB_NAME+" due for review: January 2027"+"</p>"+
 
+"<p class='govuk-body'>"+"The Environment Agency make licensing decisions based on strategy 
+for your local area, which is reviewed every six years."+"</p>"+
 
+ "<p class='govuk-body'>"+"Licensing decisions will vary depending on your chosen 
+ abstraction point, the number of other abstractors in the area 
+ and other factors such as environmental concerns."+"</p>"
+}) }}
 
-{% set surfacewaterHtml %}
-<h2 class="govuk-heading-m">Surface water</h2>
+{% elseif (data['watertype'] == "ground") %}
+{{ govukDetails({
+  summaryText: "How often is this information updated?",
+  html: "<p class='govuk-body'>"+"<i>"+"Last updated: 25 October 2025"+"</i>"+"</p>"+
+"<p class='govuk-body'>"+"<i>"+"Licensing strategy for "+data.groundwaterCatchmentData[data.gid].properties.WB_NAME+" due for review: January 2027"+"</i>"+"</p>"+
 
+"<p class='govuk-body'>"+"The Environment Agency make licensing decisions based on strategy 
+for your local area, which is reviewed every six years."+"</p>"+
 
-<p class="govuk-body">Surface water is available in the <b>{{data.riverCatchmentData[data.sid].properties.WB_NAME}}</b> area of 
-the <b>{{data.riverCatchmentData[data.sid].properties.MNCAT_NAME}}</b> (subject to restrictions, see below for more information).</p>
+ "<p class='govuk-body'>"+"Licensing decisions will vary depending on your chosen 
+ abstraction point, the number of other abstractors in the area 
+ and other factors such as environmental concerns."+"</p>"
+}) }}
 
-<!-- <p class="govuk-body">View a <a href="https://environment.data.gov.uk/catchment-planning/WaterBody/{{data.riverCatchmentData.properties.WB_ID}}">map of your local area and the {{data.opCatchment}} from {{data.waterBody}}</a>.</p> -->
+{% endif %}
+
 
 <details class="govuk-details">
   <summary class="govuk-details__summary">
@@ -86,9 +104,15 @@ the <b>{{data.riverCatchmentData[data.sid].properties.MNCAT_NAME}}</b> (subject 
   </div>
 </details>
 
-<!-- <p class="govuk-body">'Hands Off Flow' restrictions can limit abstraction 
-  for local licence holders when the water flow rate is lower than the 
-  environment can sustain.</p> -->
+{% endif %}
+
+ {% if (data.nowater == "false")%} 
+ {% if (data['watertype'] == "surface") %} 
+
+  <h2 class="govuk-heading-m">Surface water availability and seasonal restrictions</h2>
+
+<p class="govuk-body">Surface water is available in the <b>{{data.riverCatchmentData[data.sid].properties.WB_NAME}}</b> area of 
+the <b>{{data.riverCatchmentData[data.sid].properties.MNCAT_NAME}}</b>.</p>
 
   {% if data.sid == "1"%} 
 
@@ -106,7 +130,6 @@ the <b>{{data.riverCatchmentData[data.sid].properties.MNCAT_NAME}}</b> (subject 
 
 
 <p class="govuk-body">March - September</p>
-<p class="govuk-body-s"><i>Last updated: 25 October 2025</i></p>
 <p class="govuk-body">Water is available to abstract at up to 10000 
   cubic metres per day subject to Hands Off Flow restrictions.</p>
 
@@ -183,7 +206,6 @@ the <b>{{data.riverCatchmentData[data.sid].properties.MNCAT_NAME}}</b> (subject 
 </h3>
 
 <p class="govuk-body">October - February</p>
-<p class="govuk-body-s"><i>Last updated: 25 October 2025</i></p>
 <p class="govuk-body">Water is available to abstract at up to 25000 
   cubic metres per day subject to Hands Off Flow restrictions.</p>
 
@@ -233,11 +255,11 @@ the <b>{{data.riverCatchmentData[data.sid].properties.MNCAT_NAME}}</b> (subject 
 }) }}
 
 
-{% endset -%}
+{% endif -%}
 
 
-{% set groundwaterHtml %}
-<h2 class="govuk-heading-m">Groundwater</h2>
+ {% if (data['watertype'] == "ground")%} 
+  <h2 class="govuk-heading-m">Groundwater availability and seasonal restrictions</h2>
 
     <h3 class="govuk-heading-s">Summer
   <strong class="govuk-tag govuk-tag--yellow" aria-hidden="true">
@@ -248,13 +270,11 @@ the <b>{{data.riverCatchmentData[data.sid].properties.MNCAT_NAME}}</b> (subject 
       <h3 class="govuk-heading-s">Winter
   <strong class="govuk-tag govuk-tag--green" aria-hidden="true">
   Good availability</strong></h3>
-  
+
   <p class="govuk-body">October - February</p>
 
-<p class="govuk-body-s"><i>Last updated: 25 October 2025</i></p>
-
 <p class="govuk-body">Groundwater is available in the <b>{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}</b> area of 
-the <b>{{data.groundwaterCatchmentData[data.gid].properties.MNCAT_NAME}}</b> (subject to restrictions, see below for more information).</p>
+the <b>{{data.groundwaterCatchmentData[data.gid].properties.MNCAT_NAME}}</b>.</p>
 
 <p class="govuk-body">Restrictions may apply where availability is limited or to protect the environment.</p>
 
@@ -262,59 +282,19 @@ the <b>{{data.groundwaterCatchmentData[data.gid].properties.MNCAT_NAME}}</b> (su
 
 <!-- <p class="govuk-body"><a href="{{data.groundwaterCatchmentData.properties.WB_DETAIL}}">View a map of existing the local groundwater body</a>.</p> -->
 
-{% endset -%}
+{% endif -%}
+{% endif -%}
 
 
-{% if (data['watertype'] == "both" or data['watertype'] == "dontknow") %} 
-
-
-{% from "govuk/components/accordion/macro.njk" import govukAccordion %}
-
-{{ govukAccordion({
-  id: "accordion-default",
-  items: [
-    {
-      heading: {
-        text: "Surface water"
-      },
-      content: {
-        html: surfacewaterHtml
-      }
-    },
-    {
-      heading: {
-        text: "Groundwater"
-      },
-      content: {
-        html: groundwaterHtml
-      }
-    }  
-  ]
-}) }}
-
-{% elseif (data['watertype'] == "surface") %}
-<div class="border govuk-!-margin-bottom-3">
-{{ surfacewaterHtml | safe }}
-</div>
-
-{% elseif (data['watertype'] == "ground") %}
-<div class="border govuk-!-margin-bottom-3">
-{{ groundwaterHtml | safe }}
-</div>
-
-{% else %}
-
-
-{% endif %}
+  {% if (data.nowater == "false") %}
 
 <h2 class="govuk-heading-m">Other options and next steps</h2>
 <p class="govuk-body">Find out more about applying for a licence 
   and your other options for sourcing water, such as trading abstraction 
   rights, desalination and water recycling.</p>
 
-{% endif %}
+{% else %}
 
-  {% if (data.nowater == "true") %} 
 <h2 class="govuk-heading-m">Other options and next steps</h2>
 <p class="govuk-body">You may still be able to obtain water in a different way to licenced abstraction. Find out your alternative options.</p>
 
