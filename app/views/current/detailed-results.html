@@ -114,7 +114,28 @@ for your local area, which is reviewed every six years."+"</p>"+
 <p class="govuk-body">Surface water is available in the <b>{{data.riverCatchmentData[data.sid].properties.WB_NAME}}</b> area of 
 the <b>{{data.riverCatchmentData[data.sid].properties.MNCAT_NAME}}</b>.</p>
 
-  {% if data.sid == "1"%} 
+<table class="govuk-table">
+ <!-- <caption class="govuk-table__caption govuk-table__caption--m">Dates and amounts</caption> -->
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Summer</th>
+      <td class="govuk-table__cell">April - October</td>
+         {% if data.sid == "1"%} 
+         <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--green" aria-hidden="true">
+  Good availability</strong></td>
+
+  {% else %}
+  <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--yellow" aria-hidden="true">
+  Restricted</strong></td>
+{% endif %}
+
+    </tr>
+    
+  </tbody>
+</table>
+
+
+ <!-- {% if data.sid == "1"%} 
 
     <h3 class="govuk-heading-s">Summer
   <strong class="govuk-tag govuk-tag--green" aria-hidden="true">
@@ -126,10 +147,10 @@ the <b>{{data.riverCatchmentData[data.sid].properties.MNCAT_NAME}}</b>.</p>
   <strong class="govuk-tag govuk-tag--yellow" aria-hidden="true">
   Restricted</strong></h3>
 
-{% endif %}
+{% endif %} 
 
 
-<p class="govuk-body">March - September</p>
+<p class="govuk-body">March - September</p> -->
 <p class="govuk-body">Water is available to abstract at up to 10000 
   cubic metres per day subject to Hands Off Flow restrictions.</p>
 
@@ -200,12 +221,26 @@ the <b>{{data.riverCatchmentData[data.sid].properties.MNCAT_NAME}}</b>.</p>
 }) }}
 
 
-<h3 class="govuk-heading-s">Winter
+<table class="govuk-table">
+ <!-- <caption class="govuk-table__caption govuk-table__caption--m">Dates and amounts</caption> -->
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Winter</th>
+      <td class="govuk-table__cell">November - March</td>    
+         <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--green" aria-hidden="true">
+  Good availability</strong></td>
+
+    </tr>
+    
+  </tbody>
+</table>
+
+<!-- <h3 class="govuk-heading-s">Winter
   <strong class="govuk-tag govuk-tag--green" aria-hidden="true">
   Good availability</strong>
 </h3>
 
-<p class="govuk-body">October - February</p>
+<p class="govuk-body">October - February</p> -->
 <p class="govuk-body">Water is available to abstract at up to 25000 
   cubic metres per day subject to Hands Off Flow restrictions.</p>
 
@@ -265,20 +300,20 @@ the <b>{{data.riverCatchmentData[data.sid].properties.MNCAT_NAME}}</b>.</p>
   <strong class="govuk-tag govuk-tag--yellow" aria-hidden="true">
   Restricted</strong></h3>
 
-  <p class="govuk-body">March - September</p>
+  <p class="govuk-body">April - October</p>
 
       <h3 class="govuk-heading-s">Winter
   <strong class="govuk-tag govuk-tag--green" aria-hidden="true">
   Good availability</strong></h3>
 
-  <p class="govuk-body">October - February</p>
+  <p class="govuk-body">November - March</p>
 
 <p class="govuk-body">Groundwater is available in the <b>{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}</b> area of 
 the <b>{{data.groundwaterCatchmentData[data.gid].properties.MNCAT_NAME}}</b>.</p>
 
 <p class="govuk-body">Restrictions may apply where availability is limited or to protect the environment.</p>
 
-<p class="govuk-body">A pump test will most likely be needed to determine availability for your specific abstraction point.</p>
+<p class="govuk-body">A <a href="https://www.gov.uk/government/publications/apply-for-consent-to-investigate-a-groundwater-source/apply-for-consent-to-investigate-a-groundwater-source" class="govuk-link">pump test</a> will most likely be needed to determine availability for your specific abstraction point.</p>
 
 <!-- <p class="govuk-body"><a href="{{data.groundwaterCatchmentData.properties.WB_DETAIL}}">View a map of existing the local groundwater body</a>.</p> -->
 
