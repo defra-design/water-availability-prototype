@@ -29,34 +29,18 @@
   could have a negative impact on the local environment.</p>
 </div>
   {% else %}
+  <h1 class="govuk-heading-l">Your water availability report</h1>
 
-   {% if (data['watertype'] == "surface")%}  
-  <h1 class="govuk-heading-l">Your surface water availability report</h1>
- {% else %}
-  <h1 class="govuk-heading-l">Your groundwater availability report</h1>
-{% endif %}
- 
-{% if (data['watertype'] == "surface") %}   
+  
   <p class="govuk-body">
+      {% if (data['watertype'] == "surface")%}  
          This report shows surface water availability for your 
-         local area and explains next steps when applying for a water abstraction licence.</p>
-
-      {% elseif (data['watertype'] == "ground") %}
-       <p class="govuk-body">
-         This report shows groundwater availability for your 
-         local area and explains next steps when applying for a water abstraction licence.</p>
+         local area and explains next steps when applying for a water abstraction licence.
+      {% else %}
+       This report shows groundwater availability for your 
+         local area and explains next steps when applying for a water abstraction licence.
       {% endif %}
-
-
-   {% if (data['watertype'] == "surface") %} 
-  <p class="govuk-body">Surface water is available in the <b>{{data.riverCatchmentData[data.sid].properties.WB_NAME}}</b> area of 
-the <b>{{data.riverCatchmentData[data.sid].properties.MNCAT_NAME}}</b>.</p>
- {% elseif (data['watertype'] == "ground") %}
-
-<p class="govuk-body">Groundwater is available in the <b>{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}</b> area of 
-the <b>{{data.groundwaterCatchmentData[data.gid].properties.MNCAT_NAME}}</b>.</p>
-
-   {% endif %}
+  </p>
 
   {% endif %}
 
@@ -125,15 +109,16 @@ for your local area, which is reviewed every six years."+"</p>"+
  {% if (data.nowater == "false")%} 
  {% if (data['watertype'] == "surface") %} 
 
-  <h2 class="govuk-heading-m">Summer water availability and restrictions</h2>
+  <h2 class="govuk-heading-m">Surface water availability and seasonal restrictions</h2>
 
-
+<p class="govuk-body">Surface water is available in the <b>{{data.riverCatchmentData[data.sid].properties.WB_NAME}}</b> area of 
+the <b>{{data.riverCatchmentData[data.sid].properties.MNCAT_NAME}}</b>.</p>
 
  <!-- <h2 class="govuk-heading-m">Summer</h2> -->
 
-<!-- <table class="govuk-table"> -->
+<table class="govuk-table">
  <!-- <caption class="govuk-table__caption govuk-table__caption--m">Dates and amounts</caption> -->
-  <!-- <tbody class="govuk-table__body">
+  <tbody class="govuk-table__body">
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Summer</th>
       <td class="govuk-table__cell">April - October</td>
@@ -149,29 +134,29 @@ for your local area, which is reviewed every six years."+"</p>"+
     </tr>
     
   </tbody>
-</table> -->
+</table>
 
 
- {% if data.sid == "1"%} 
+ <!-- {% if data.sid == "1"%} 
 
-    <p class="govuk-body">March - September
+    <h3 class="govuk-heading-s">Summer
   <strong class="govuk-tag govuk-tag--green" aria-hidden="true">
-  Good availability</strong></p>
+  Good availability</strong></h3>
   
     {% else %}
 
-<p class="govuk-body">March - September
+<h3 class="govuk-heading-s">Summer
   <strong class="govuk-tag govuk-tag--yellow" aria-hidden="true">
-  Restricted</strong></p3>
+  Restricted</strong></h3>
 
 {% endif %} 
 
 
-<!-- <p class="govuk-body">March - September</p>
+<p class="govuk-body">March - September</p> -->
 <p class="govuk-body">Water is available to abstract at up to 10000 
-  cubic metres per day subject to Hands Off Flow restrictions.</p> -->
+  cubic metres per day subject to Hands Off Flow restrictions.</p>
 
-<h3 class="govuk-heading-s">Previous summer restrictions</h3>
+<h3 class="govuk-heading-s">Previous restrictions</h3>
 
 
 <p class="govuk-body">Restrictions were imposed in <b>3 out of the last 10</b> years.</p>
@@ -238,11 +223,10 @@ for your local area, which is reviewed every six years."+"</p>"+
 }) }}
 
  <!-- <h2 class="govuk-heading-m">Winter</h2> -->
-  <h2 class="govuk-heading-m">Winter water availability and restrictions</h2>
 
-<!-- <table class="govuk-table"> -->
+<table class="govuk-table">
  <!-- <caption class="govuk-table__caption govuk-table__caption--m">Dates and amounts</caption> -->
- <!--  <tbody class="govuk-table__body">
+  <tbody class="govuk-table__body">
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Winter</th>
       <td class="govuk-table__cell">November - March</td>    
@@ -252,19 +236,19 @@ for your local area, which is reviewed every six years."+"</p>"+
     </tr>
     
   </tbody>
-</table> -->
+</table>
 
-<p class="govuk-body">October - February
+<!-- <h3 class="govuk-heading-s">Winter
   <strong class="govuk-tag govuk-tag--green" aria-hidden="true">
   Good availability</strong>
-  </p>
+</h3>
 
-<!-- <p class="govuk-body">October - February</p>-->
+<p class="govuk-body">October - February</p> -->
 <p class="govuk-body">Water is available to abstract at up to 25000 
   cubic metres per day subject to Hands Off Flow restrictions.</p>
 
 
-<h3 class="govuk-heading-s">Previous winter restrictions</h3>
+<h3 class="govuk-heading-s">Previous restrictions</h3>
 
 
 <p class="govuk-body">Restrictions were imposed in <b>1 out of the last 10</b> years.</p>
@@ -329,6 +313,8 @@ for your local area, which is reviewed every six years."+"</p>"+
 
   <p class="govuk-body">November - March</p> -->
 
+<p class="govuk-body">Groundwater is available in the <b>{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}</b> area of 
+the <b>{{data.groundwaterCatchmentData[data.gid].properties.MNCAT_NAME}}</b>.</p>
 
 
 <table class="govuk-table">
