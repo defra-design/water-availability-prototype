@@ -296,7 +296,9 @@ the <b>{{data.riverCatchmentData[data.sid].properties.MNCAT_NAME}}</b>.</p>
  {% if (data['watertype'] == "ground")%} 
   <h2 class="govuk-heading-m">Groundwater availability and seasonal restrictions</h2>
 
-    <h3 class="govuk-heading-s">Summer
+
+  
+ <!--   <h3 class="govuk-heading-s">Summer
   <strong class="govuk-tag govuk-tag--yellow" aria-hidden="true">
   Restricted</strong></h3>
 
@@ -306,10 +308,34 @@ the <b>{{data.riverCatchmentData[data.sid].properties.MNCAT_NAME}}</b>.</p>
   <strong class="govuk-tag govuk-tag--green" aria-hidden="true">
   Good availability</strong></h3>
 
-  <p class="govuk-body">November - March</p>
+  <p class="govuk-body">November - March</p> -->
 
 <p class="govuk-body">Groundwater is available in the <b>{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}</b> area of 
 the <b>{{data.groundwaterCatchmentData[data.gid].properties.MNCAT_NAME}}</b>.</p>
+
+
+<table class="govuk-table">
+ <!-- <caption class="govuk-table__caption govuk-table__caption--m">Dates and amounts</caption> -->
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Summer</th>
+      <td class="govuk-table__cell">April - October</td>    
+         <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--yellow" aria-hidden="true">
+  Restricted</strong></td>
+
+    </tr>
+
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Winter</th>
+      <td class="govuk-table__cell">November - March</td>    
+         <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--green" aria-hidden="true">
+  Good availability</strong></td>
+
+    </tr>
+    
+  </tbody>
+</table>
+
 
 <p class="govuk-body">Restrictions may apply where availability is limited or to protect the environment.</p>
 
