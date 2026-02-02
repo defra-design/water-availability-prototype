@@ -47,11 +47,15 @@
   availability for your local area.</p>
 
 
-{% if data.riverCatchmentData.length %}
-{% if data.groundwaterCatchmentData.length %}
+<!--{% if data.riverCatchmentData.length %}
+{% if data.groundwaterCatchmentData.length %}-->
 
-{% if data.riverCatchmentData.length > 0 or data.groundwaterCatchmentData.length > 0 %}
+{{data.riverCatchmentData}}
+{{data.groundwaterCatchmentData}}
 
+{% if (data.riverCatchmentData.length==undefined) and (data.groundwaterCatchmentData.length==undefined) %}
+
+{% else %}
 <details class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
@@ -99,11 +103,11 @@ New licences can be considered depending on local and downstream impacts.",
   </div>
 </details>
 
-{% else %}
+
   
 {% endif %}
-{% endif %}
-{% endif %}
+<!--{% endif %}
+{% endif %}-->
 
  
 <!-- SURFACE WATER-->
@@ -299,5 +303,7 @@ New licences can be considered depending on local and downstream impacts.",
 </div>
 
 {% endif %}
+
+<!-- {{data|dump}} -->
 
 {% endblock %}
