@@ -46,7 +46,7 @@
 <p class="govuk-body">This page shows a summary with an overall indication of water 
   availability for your local area.</p>
 
-{% if data.riverCatchmentData.length or data.groundwaterCatchmentData.length %}
+{% if (data.riverCatchmentData.length and (data['watertype'] == "both" or data['watertype'] == "surface" or data['watertype'] == "dontknow")) or (data.groundwaterCatchmentData.length and (data['watertype'] == "both" or data['watertype'] == "ground" or data['watertype'] == "dontknow")) %}
 
 
 <details class="govuk-details">
