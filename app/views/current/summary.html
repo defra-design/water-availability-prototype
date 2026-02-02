@@ -48,13 +48,7 @@
 
 <p class="govuk-body">BLAH</p>
 
-{% if data.riverCatchmentData.length %}
-
-{% if data.groundwaterCatchmentData.length %}
-
-{% if data.riverCatchmentData.length==0 and data.groundwaterCatchmentData.length==0 %}
-
-{% else %}
+{% if data.riverCatchmentData.length==0 or data.groundwaterCatchmentData.length==0 %}
 
 <details class="govuk-details">
   <summary class="govuk-details__summary">
@@ -87,8 +81,6 @@ New licences can be considered depending on local and downstream impacts.</td>
 </div>
 </details>
 
-{% endif %}
-{% endif %}
 {% endif %}
 
 <p class="govuk-body">FOOBAR</p>
@@ -286,5 +278,6 @@ New licences can be considered depending on local and downstream impacts.</td>
 </div>
 
 {% endif %}
+
 
 {% endblock %}
