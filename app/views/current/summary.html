@@ -46,9 +46,8 @@
 <p class="govuk-body">This page shows a summary with an overall indication of water 
   availability for your local area.</p>
 
-<p class="govuk-body">BLAH</p>
+{% if data.riverCatchmentData.length or data.groundwaterCatchmentData.length %}
 
-{% if data.riverCatchmentData.length==0 or data.groundwaterCatchmentData.length==0 %}
 
 <details class="govuk-details">
   <summary class="govuk-details__summary">
@@ -83,10 +82,11 @@ New licences can be considered depending on local and downstream impacts.</td>
 
 {% endif %}
 
-<p class="govuk-body">FOOBAR</p>
+
+
  
 <!-- SURFACE WATER-->
- {% if (data['watertype'] == "both" or data['watertype'] == "dontknow" or data['watertype'] == "surface") %} 
+ {% if (data['watertype'] == "both" or data['watertype'] == "dontknow" or data['watertype'] == "surface" or data['watertype'] == "") %} 
 <div class="govuk-body">
   <h2 class="govuk-heading-m">Your surface water availability</h2>
 
@@ -179,16 +179,19 @@ New licences can be considered depending on local and downstream impacts.</td>
 <p class="govuk-body">No surface water body data is available for this area.</p>
 <p><a href="https://www.gov.uk/government/organisations/environment-agency#org-contacts" class="govuk-link">Contact the Environment Agency</a> for more information on surface water licencing in your area.</p>
 {% endif %}
+
+
 </div>
 {% endif %}
 
 <!-- GROUNDWATER-->
-  {% if (data['watertype'] == "both" or data['watertype'] == "dontknow" or data['watertype'] == "ground") %} 
+  {% if (data['watertype'] == "both" or data['watertype'] == "dontknow" or data['watertype'] == "ground" or data['watertype'] == "") %} 
 <div class="govuk-body">
 <h2 class="govuk-heading-m">Your groundwater availability</h2>
  
 
   {% if data.groundwaterCatchmentData.length %}
+
 
   {% if data.groundwaterCatchmentData.length==1 %}
 
@@ -269,6 +272,7 @@ New licences can be considered depending on local and downstream impacts.</td>
 
   <hr>
  {% endif %}
+ 
 {% endfor %}
 
 {% else %}

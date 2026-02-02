@@ -552,6 +552,7 @@ router.post('/location', async function (request, response) {
     //Clear any previous data
     request.session.data.riverCatchmentData = []
     request.session.data.groundwaterCatchmentData = []
+    request.session.data.watertype = ""
 
     let eastingNorthing = {}; // Object {easting: x, northing: y}
     let latLon = [];
