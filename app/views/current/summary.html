@@ -46,16 +46,16 @@
 <p class="govuk-body">This page shows a summary with an overall indication of water 
   availability for your local area.</p>
 
+<p class="govuk-body">BLAH</p>
 
-<!--{% if data.riverCatchmentData.length %}
-{% if data.groundwaterCatchmentData.length %}-->
+{% if data.riverCatchmentData.length %}
 
-{{data.riverCatchmentData}}
-{{data.groundwaterCatchmentData}}
+{% if data.groundwaterCatchmentData.length %}
 
-{% if (data.riverCatchmentData.length==undefined) and (data.groundwaterCatchmentData.length==undefined) %}
+{% if data.riverCatchmentData.length==0 and data.groundwaterCatchmentData.length==0 %}
 
 {% else %}
+
 <details class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
@@ -63,52 +63,35 @@
     </span>
   </summary>
   <div class="govuk-details__text">
-  {{ govukTable({
-  rows: [
-    
-    [
-      {
-         html: tagsgoodHTML,
-          classes: "govuk-!-width-one-half"
-      },
-       {
-        text: "There is more water than required to meet the needs of the environment.
-New licences can be considered depending on local and downstream impacts.",
-        classes: "govuk-!-width-one-half" 
-      }    
-    ],
-    [
-      {
-         html: tagsrestrictedHTML,
-          classes: "govuk-!-width-one-half"
-      },
-       {
-        text: "Some licences are available. Water abstraction in this area is limited due to low flows and/or environment concerns.",
-        classes: "govuk-!-width-one-half" 
-      }   
-    ],
-    [
-      {
-         html: tagsnowaterHTML,
-          classes: "govuk-!-width-one-half"
-      },
-       {
-        text: "No water is available for new licences due to low flows, environmental concerns and/or too many existing abstractors in the area. Existing licences are restricted, however there may be opportunities to trade water with existing abstractors.",
-        classes: "govuk-!-width-one-half" 
-      }   
-    ]
-   
-  ]
-}) }}
-  </div>
+ <table class="govuk-table">
+
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header govuk-!-width-one-half"><strong class="govuk-tag govuk-tag--green" aria-hidden="true">
+  Good availability</strong></th>
+      <td class="govuk-table__cell">There is more water than required to meet the needs of the environment.
+New licences can be considered depending on local and downstream impacts.</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header govuk-!-width-one-half"><strong class="govuk-tag govuk-tag--yellow" aria-hidden="true">
+  Restricted</strong></th>
+      <td class="govuk-table__cell">Some licences are available. Water abstraction in this area is limited due to low flows and/or environment concerns.</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header govuk-!-width-one-half"><strong class="govuk-tag govuk-tag--red" aria-hidden="true">
+ Water not available</strong></th>
+      <td class="govuk-table__cell">No water is available for new licences due to low flows, environmental concerns and/or too many existing abstractors in the area. Existing licences are restricted, however there may be opportunities to trade water with existing abstractors.</td>
+    </tr>
+  </tbody>
+</table>  
+</div>
 </details>
 
-
-  
 {% endif %}
-<!--{% endif %}
-{% endif %}-->
+{% endif %}
+{% endif %}
 
+<p class="govuk-body">FOOBAR</p>
  
 <!-- SURFACE WATER-->
  {% if (data['watertype'] == "both" or data['watertype'] == "dontknow" or data['watertype'] == "surface") %} 
@@ -303,7 +286,5 @@ New licences can be considered depending on local and downstream impacts.",
 </div>
 
 {% endif %}
-
-<!-- {{data|dump}} -->
 
 {% endblock %}
