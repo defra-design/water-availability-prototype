@@ -11,14 +11,14 @@
 {% set htmlButton1 %}
 {{ govukButton({
   text: "Continue",
-  href: "start?availability=both"
+  href: "start"
 }) }}
 {% endset %}
 
 {% set htmlButton2 %}
 {{ govukButton({
   text: "Continue",
-  href: "start?availability=both"
+  href: "start"
 }) }}
 {% endset %}
 
@@ -32,7 +32,7 @@
         text: "Participant 1"
       },
       content: {
-        html: '<p class="govuk-body">You need water for your business and you started doing some research online and reached the following page. Please can you use the following neighbouring postcode to you: BA7 7NJ.</p>'   
+        html: '<p class="govuk-body">Your organisation already has a licence to abstract water. You need more water than you are licenced for. You would like to find out if there is more water available from a new abstraction point at the Woodcote Park golf course.</p>'   
        +htmlButton1
               }
   
@@ -44,7 +44,7 @@
         text: "Participant 2"
       },
       content: {
-        html: '<p class="govuk-body">You need water for your business and you started doing some research online and reached the following page.</p>'   
+        html: '<p class="govuk-body">The Ratcliffe-on-Soar power station already has a licence to abstract water. You need more water than you are licenced for. You would like to find out if there is more water available from a new abstraction point at the Ratcliffe-on-Soar power station.</p>'   
        +htmlButton1
               }
   
@@ -56,7 +56,7 @@
         text: "Participant 3"
       },
       content: {
-        html: '<p class="govuk-body">You need water for your business and you started doing some research online and reached the following page.</p>'   
+        html: '<p class="govuk-body">Your organisation already has a licence to abstract water. You need more water than you are licenced for. You would like to find out if there is more water available from a new abstraction point at the water meadows at Rose Cottage.</p>'   
        +htmlButton1
               }
   
@@ -67,7 +67,7 @@
         text: "Participant 4"
       },
       content: {
-        html: '<p class="govuk-body">You need water for your business and you started doing some research online and reached the following page. Please can you use the following neighbouring postcode to you: SN4 9NW.</p>'   
+        html: '<p class="govuk-body">Your organisation is looking to expand to a new site. You would like to find out if there is water available for licencing. The site is located at the following grid reference: TF064046</p>'   
        +htmlButton1
               }
   
@@ -78,8 +78,8 @@
         text: "Participant 5"
       },
       content: {
-        html: '<p class="govuk-body">You need water for your business and you started doing some research online and reached the following page. Please can you use the following neighbouring postcode to you: BN27 4HG.</p>'   
-    +htmlButton2
+        html: '<p class="govuk-body">Your organisation is looking to expand to a new site. You would like to find out if there is water available for licencing. The site is located at the following postcode: ME18 5AF</p>'   
+    +htmlButton1
              }
     }
    
