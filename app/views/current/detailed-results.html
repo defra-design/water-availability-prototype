@@ -79,9 +79,8 @@ the <b>{{data.groundwaterCatchmentData[data.gid].properties.MNCAT_NAME}}</b>.</p
  {% if (data['watertype'] == "surface") %} 
 
 {{ govukDetails({
-  summaryText: "How often is this information updated?",
-  html: "<p class='govuk-body'>"+"Last updated: 25 October 2025"+"</p>"+
-"<p class='govuk-body'>"+"Licensing strategy for "+data.riverCatchmentData[data.sid].properties.WB_NAME+" due for review: January 2027"+"</p>"+
+  summaryText: "Licensing strategies explained",
+  html:"<p class='govuk-body'>"+"Licensing strategy for "+data.riverCatchmentData[data.sid].properties.WB_NAME+" due for review: January 2027"+"</p>"+
 
 "<p class='govuk-body'>"+"The Environment Agency make licensing decisions based on strategy 
 for your local area, which is reviewed every six years."+"</p>"+
@@ -93,9 +92,8 @@ for your local area, which is reviewed every six years."+"</p>"+
 
 {% elseif (data['watertype'] == "ground") %}
 {{ govukDetails({
-  summaryText: "How often is this information updated?",
-  html: "<p class='govuk-body'>"+"<i>"+"Last updated: 25 October 2025"+"</i>"+"</p>"+
-"<p class='govuk-body'>"+"<i>"+"Licensing strategy for "+data.groundwaterCatchmentData[data.gid].properties.WB_NAME+" due for review: January 2027"+"</i>"+"</p>"+
+  summaryText: "Licensing strategies explained",
+  html:"<p class='govuk-body'>"+"<i>"+"Licensing strategy for "+data.groundwaterCatchmentData[data.gid].properties.WB_NAME+" due for review: January 2027"+"</i>"+"</p>"+
 
 "<p class='govuk-body'>"+"The Environment Agency make licensing decisions based on strategy 
 for your local area, which is reviewed every six years."+"</p>"+
@@ -127,7 +125,7 @@ for your local area, which is reviewed every six years."+"</p>"+
  {% if (data['watertype'] == "surface" and data['nowater'] == "false") %} 
 
   <h2 class="govuk-heading-m">Summer water availability and restrictions</h2>
-
+<p class='govuk-body'><i>This data was last updated: 25 October 2025</i></p>
 
 
  <!-- <h2 class="govuk-heading-m">Summer</h2> -->
@@ -254,6 +252,7 @@ for your local area, which is reviewed every six years."+"</p>"+
     
   </tbody>
 </table> -->
+<p class='govuk-body'><i>This data was last updated: 25 October 2025</i></p>
 
 <p class="govuk-body">October - February
   <strong class="govuk-tag govuk-tag--green" aria-hidden="true">
@@ -315,7 +314,7 @@ for your local area, which is reviewed every six years."+"</p>"+
 
  {% if (data['watertype'] == "ground")%} 
   <h2 class="govuk-heading-m">Groundwater availability and seasonal restrictions</h2>
-
+<p class="govuk-body"><i>This data was last updated: 25 October 2025</i></p>
 
   
  <!--   <h3 class="govuk-heading-s">Summer
