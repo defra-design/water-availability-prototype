@@ -1,0 +1,65 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  {{ "Set prototype variables to see different outcomes" }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form class="form" method="post">
+
+        {{ govukRadios({
+          name: "watertype",
+          value: data['watertype'],
+          fieldset: {
+            legend: {
+            text: "Do you want information about surface or groundwater?",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+            }
+          },
+          items: [
+            {
+              value: "both",
+              text: "Both surface and groundwater"
+            },
+            {
+              value: "surface",
+              text: "Surface water"
+            },
+            {
+              value: "ground",
+              text: "Groundwater"
+            }, 
+            
+            {
+              value: "dontknow",
+              text: "I don't know"
+            }
+            
+          ],
+          hint: {
+    text: "Surface water can be taken from rivers (and their tributaries), canals, lakes, reservoirs and coastal waters. Groundwater lies underground in layers of porous rock, sand or gravel and can be reached using boreholes and wells."
+  }
+        }) }}
+        
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+        
+        </form>
+
+    </div>
+  </div>
+
+{% endblock %}

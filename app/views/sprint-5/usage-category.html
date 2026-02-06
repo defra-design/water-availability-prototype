@@ -1,0 +1,82 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  {{ serviceName }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+
+     <form class="form" method="post">
+
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{{ govukRadios({
+  name: "usage-category",
+  value: data['usage-category'],
+  fieldset: {
+    legend: {
+      text: "What do you want to use the water for?",
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--l"
+     
+    }
+  },
+  items: [
+    {
+      value: "farming",
+      text: "Farming and agriculture"
+    },
+     {
+      value: "industrial",
+      text: "Industrial, commercial and construction"
+    },
+     {
+      value: "energy",
+      text: "Cooling, heating and energy systems"
+    },
+     {
+      value: "conservation",
+      text: "Conservation, gardening, ponds, throughflows and fisheries"
+    },
+     {
+      value: "domestic",
+      text: "Domestic, drinking and everyday use"
+    },
+    {
+      value: "storage",
+      text: "Water transfers and storage"
+    }
+  ],
+  hint: {
+    text: "Choose a category which best describes how you will use the water"
+  }
+
+}) }}    
+
+{{ govukDetails({
+  summaryText: "I have more than one intended use",
+  text: "We can only provide water availability based on one type of use. We recommend you select your main intended use from the options on the list."
+}) }}
+
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

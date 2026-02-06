@@ -1,0 +1,140 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+ {{ "Identify your local water bodies" }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <form class="form" method="post">
+
+<h1 class="govuk-heading-l">Water availability for your area</h1>
+<p class="govuk-body">The Environment Agency split the country up into areas called 'water bodies' in 
+  order to assess and regulate water. Each water body has a status indicating water availability.</p>
+ 
+<p class="govuk-body">Data from local assessment points is used to monitor water levels 
+  and make decisions about licencing and restrictions.</p>
+ 
+ <!-- <h2 class="govuk-heading-m">Surface and groundwater bodies</h2>
+      
+  <p class="govuk-body">Surface water bodies cover a defined area of land around 
+    sections of rivers (and their tributaries), canals, lakes, reservoirs and coastal waters.</p> 
+
+<p class="govuk-body">Groundwater bodies usually cover part of an aquifer - a natural 
+  underground layer of porous rock, sand or gravel that holds significant quantities of water.</p>-->
+
+
+<!-- {% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/input/macro.njk" import govukInput %} -->
+{% set postCodeHtml %}
+{{ govukInput({
+  id: "postCode",
+  name: "postCode",
+  classes: "govuk-input--width-10",
+  hint: {
+    text: "For example, BS48 3NA"
+  }
+}) }}
+{% endset -%}
+
+{% set gridrefHtml %}
+{{ govukInput({
+  id: "gridRef",
+  name: "gridRef",
+  classes: "govuk-input--width-20",
+  hint: {
+    text: "For example, SE 05246 70347"
+  }
+}) }}
+{% endset -%}
+
+{% set fieldparcelHtml %}
+{{ govukInput({
+  id: "fieldParcel",
+  name: "fieldParcel",
+  classes: "govuk-input--width-10",
+  hint: {
+    text: "These can usually be found in your Rural Payment Agency account - for example, ST 4864 4784"
+  }
+}) }}
+{% endset -%}
+
+
+
+{{ govukRadios({
+  name: "location",
+  fieldset: {
+    legend: {
+      text: "Check availability for your local water bodies",
+      classes: "govuk-fieldset__legend--m"
+    }
+  },
+
+  hint: {
+    text: "Tell us where you want to take or use water so we can give you a water availability report for your surface and groundwater bodies"
+  },
+
+  items: [
+     {
+      value: "postCode",
+      text: "Postcode",
+      conditional: {
+        html: postCodeHtml
+      }
+    },
+    {
+      value: "gridRef",
+      text: "National grid reference",
+      
+      conditional: {
+        html: gridrefHtml
+      }
+    },
+    {
+      value: "fieldParcel",
+      text: "Field parcel",
+      conditional: {
+        html: fieldparcelHtml
+      }
+    }
+   
+   
+  ]
+}) }}        
+
+<!--{{ govukInput({
+  label: {
+    text: "What's the national grid reference for the site?",
+    classes: "govuk-label--l govuk-input--width-14",
+    isPageHeading: true
+  },
+  hint: {
+    text: "For example, SE 05246 70347"
+  },
+  name: "gridRef"
+}) }} -->
+
+
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+
+    </div>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  {{ serviceName }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+
+     <form class="form" method="post">
+
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{{ govukRadios({
+  id: "water-use",
+  name: "usage-energy",
+  value: data['usage-energy'],
+  fieldset: {
+    legend: {
+      text: "Select a cooling, heating or energy systems use for your water",
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--l"
+     
+    }
+  },
+  items: [
+
+     {
+      value: "Evaporative cooling",
+      text: "Evaporative cooling"
+    },
+     {
+      value: "Heat pump",
+      text: "Heat pump"
+    },
+     {
+      value: "Hydroelectric power generation",
+      text: "Hydroelectric power generation"
+    },
+     {
+      value: "Milling and water power other than generating electricity",
+      text: "Milling and water power other than generating electricity"
+    },
+     {
+      value: "Non-evaporative cooling",
+      text: "Non-evaporative cooling"
+    },
+     {
+      value: "Water wheels not used for power",
+      text: "Water wheels not used for power"
+    }
+  ],
+  hint: {
+    text: "Choose an option that best describes how you will use the water"
+  }
+}) }}    
+
+{{ govukDetails({
+  summaryText: "I have more than one intended use",
+  text: "We can only provide water availability based on one type of use. We recommend you select your main intended use from the options on the list."
+}) }}
+
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

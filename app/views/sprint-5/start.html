@@ -1,0 +1,62 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  {{ "Start" }}
+{% endblock %}
+
+{% block header %}
+  <!-- Blank header with no service name for the start page -->
+  {{ govukHeader() }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-xl">
+        {{ serviceName }}
+      </h1>
+      
+ <p class="govuk-body">The Environment Agency grants licences for water abstraction.</p>     
+<p class="govuk-body">Water abstraction is the removal of water from natural sources 
+  such as rivers, lakes and groundwater to use in agriculture, industry and public supply.</p>
+  
+
+      <h3 class="govuk-heading-s">Use this service to:</h3>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>check water availability in your local area</li>
+          <li>help to decide whether to apply for a water abstraction licence</li>
+          <li>find out the range of water supply options available to you</li>
+        </ul>
+
+       <h3 class="govuk-heading-s">You cannot use this service to:</h3>
+          <ul class="govuk-list govuk-list--bullet">
+            <li>check water availability for an exact location</li>
+            <li>find the best point in your area to take water</li>
+            <li>get a definite answer about whether you will be granted a licence</li>
+            <li>apply for a licence</li>
+          </ul>
+
+        <h3 class="govuk-heading-s">Before you start,  
+          you will need one of the following:</h3>
+           <ul class="govuk-list govuk-list--bullet">
+            <li>postcode</li>
+            <li>national grid reference</li>
+            <li>field parcel number</li>
+            <li>existing licence number (if you plan to take more water 
+           from an existing abstraction point)</li>
+           </ul>
+
+<form class="form" method="post">
+      {{ govukButton({
+        text: "Start now",
+        isStartButton: true
+      }) }}
+</form>
+
+</div>
+
+  </div>
+
+{% endblock %}
