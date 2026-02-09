@@ -56,7 +56,41 @@
     </span>
   </summary>
   <div class="govuk-details__text">
- <table class="govuk-table">
+ 
+
+{{ govukSummaryList({
+  rows: [
+    {
+      key: {
+        html:"<strong class='govuk-tag govuk-tag--green' aria-hidden='true'>"+"Good availability"+"</strong>"
+      },
+      value: {
+        text: "There is more water than required to meet the needs of the environment.
+New licences can be considered depending on local and downstream impacts."
+      }
+      
+    },
+    {
+      key: {
+        html:"<strong class='govuk-tag govuk-tag--yellow' aria-hidden='true'>"+"Restricted"+"</strong>"
+      },
+      value: {
+        text: "Some licences are available. Water abstraction in this area is limited due to low flows and/or environment concerns."
+      }
+    },
+    {
+      key: {
+         html:"<strong class='govuk-tag govuk-tag--red' aria-hidden='true'>"+"Water not available"+"</strong>"
+      },
+      value: {
+        text: "No water is available for new licences due to low flows, environmental concerns and/or too many existing abstractors in the area. Existing licences are restricted, however there may be opportunities to trade water with existing abstractors."
+      }
+    }
+  ]
+}) }}
+
+
+ <!--   <table class="govuk-table">
 
   <tbody class="govuk-table__body">
     <tr class="govuk-table__row">
@@ -76,7 +110,9 @@ New licences can be considered depending on local and downstream impacts.</td>
       <td class="govuk-table__cell govuk-!-width-three-quarters">No water is available for new licences due to low flows, environmental concerns and/or too many existing abstractors in the area. Existing licences are restricted, however there may be opportunities to trade water with existing abstractors.</td>
     </tr>
   </tbody>
-</table>  
+</table>  -->
+
+
 </div>
 </details>
 
