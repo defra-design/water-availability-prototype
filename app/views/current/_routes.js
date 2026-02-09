@@ -359,6 +359,10 @@ const waterUses = {
     label: 'Water bottling',
     type: 'Consumptive'
   },
+  'My usage is not listed': {
+    label: 'My usage is not listed',
+    type: 'Consumptive'
+  },
 
   // NON-CONSUMPTIVE
   'Creating and maintaining water meadows': {
