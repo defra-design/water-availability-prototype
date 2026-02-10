@@ -148,8 +148,11 @@ for your local area, which is reviewed every six years."+"</p>"+
   
     {% else %}
 
-<p class="govuk-body">March - September
-  {{tagsrestrictedHTML | safe}}</p3>
+ {% if data['water-use-type'] == "Non-consumptive" %}   
+    <p class="govuk-body">Summer: {{tagsrestrictedHTML | safe}}</p> 
+    {% elseif data['water-use-type'] == "Consumptive" %}
+     <p class="govuk-body">Summer: {{tagsnowaterHTML | safe}}</p> 
+     {% endif %}
 
 {% endif %} 
 
@@ -304,27 +307,17 @@ for your local area, which is reviewed every six years."+"</p>"+
 <p class="govuk-body"><i>This data was last updated: 25 October 2025</i></p>
 
   
- <!--   <h3 class="govuk-heading-s">Summer
-  <strong class="govuk-tag govuk-tag--yellow" aria-hidden="true">
-  Restricted</strong></h3>
-
-  <p class="govuk-body">April - October</p>
-
-      <h3 class="govuk-heading-s">Winter
-  <strong class="govuk-tag govuk-tag--green" aria-hidden="true">
-  Good availability</strong></h3>
-
-  <p class="govuk-body">November - March</p> -->
-
-
-
 <table class="govuk-table">
  <!-- <caption class="govuk-table__caption govuk-table__caption--m">Dates and amounts</caption> -->
   <tbody class="govuk-table__body">
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Summer</th>
       <td class="govuk-table__cell">March - September</td>    
-         <td class="govuk-table__cell">{{tagsrestrictedHTML | safe}}</td>
+         {% if data['water-use-type'] == "Non-consumptive" %}   
+    <td class="govuk-table__cell">Summer: {{tagsrestrictedHTML | safe}}</td> 
+    {% elseif data['water-use-type'] == "Consumptive" %}
+     <td class="govuk-table__cell">Summer: {{tagsnowaterHTML | safe}}</td> 
+     {% endif %}
 
     </tr>
 

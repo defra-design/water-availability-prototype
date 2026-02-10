@@ -44,9 +44,7 @@
 <h1 class="govuk-heading-l">Your local water licence availability</h1>
 
 <p class="govuk-body">This page shows a summary with an overall indication of water 
-  availability for licensing in your local area. You have given us the following information which affects your results:</p>
-
-    {% if (data.nowater == "false") %} 
+  availability for licensing in your local area. You have given us the following information which affect your results:</p>
 
       <div class="govuk-inset-text">
          
@@ -54,13 +52,15 @@
               <p class="govuk-body">               
                  <b>Licence number:</b> {{ data.licenceNumber | default("100/22/33/0123", true) | safe }}            
                 </p>
-            {% endif %}
 
+                </div>
+            {% else %}
 
+<div class="govuk-inset-text">
         <p class="govuk-body"><b>Use:</b> {{ data['water-use-label'] }}</p>
         <p class="govuk-body"><b>Consumption type:</b> {{ data['water-use-type'] }}</p>
       </div>
-      {% endif %}
+{% endif %}
 
 {% if (data.riverCatchmentData.length and (data['watertype'] == "both" or data['watertype'] == "surface" or data['watertype'] == "dontknow")) or (data.groundwaterCatchmentData.length and (data['watertype'] == "both" or data['watertype'] == "ground" or data['watertype'] == "dontknow")) %}
 
@@ -169,7 +169,11 @@ New licences can be considered depending on local and downstream impacts.
       {% endif %}
     is <b>within</b> this surface water body.</p>
 
-      <p class="govuk-body">Summer: {{tagsrestrictedHTML | safe}}</p>   
+   {% if data['water-use-type'] == "Non-consumptive" %}   
+    <p class="govuk-body">Summer: {{tagsrestrictedHTML | safe}}</p> 
+    {% elseif data['water-use-type'] == "Consumptive" %}
+     <p class="govuk-body">Summer: {{tagsnowaterHTML | safe}}</p> 
+     {% endif %}
    <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p> 
   <hr>
   
@@ -199,7 +203,11 @@ New licences can be considered depending on local and downstream impacts.
      <p class="govuk-body">{{waterBody.nearestPoint.distanceKm | round(2)}} kilometres {{waterBody.nearestPoint.direction}} of the centre of the {% if (data['location'] == "gridRef") %}national grid reference{% elseif (data['location'] == "fieldParcel") %}field parcel{% elseif (data['location'] == "postCode") %}postcode{% endif %}.</p>
 
       
-      <p class="govuk-body">Summer: {{tagsrestrictedHTML | safe}}</p>   
+    {% if data['water-use-type'] == "Non-consumptive" %}   
+    <p class="govuk-body">Summer: {{tagsrestrictedHTML | safe}}</p> 
+    {% elseif data['water-use-type'] == "Consumptive" %}
+     <p class="govuk-body">Summer: {{tagsnowaterHTML | safe}}</p> 
+     {% endif %}
    <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p> 
      <hr>
    {% endif %}
@@ -265,7 +273,7 @@ New licences can be considered depending on local and downstream impacts.
     postcode
       {% endif %}
      is <b>within</b> this groundwater body.</p>
-     <p class="govuk-body">Summer: {{tagsrestrictedHTML | safe}}</p>   
+     <p class="govuk-body">Summer: {{tagsgoodHTML | safe}}</p>   
    <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p> 
 
   <hr>
@@ -277,7 +285,11 @@ New licences can be considered depending on local and downstream impacts.
       <p class="govuk-body">{{waterBody.nearestPoint.distanceKm | round(2)}} kilometres {{waterBody.nearestPoint.direction}} of the centre of the {% if (data['location'] == "gridRef") %}national grid reference{% elseif (data['location'] == "fieldParcel") %}field parcel{% elseif (data['location'] == "postCode") %}postcode{% endif %}.</p>
 
 
-     <p class="govuk-body">Summer: {{tagsrestrictedHTML | safe}}</p>   
+     {% if data['water-use-type'] == "Non-consumptive" %}   
+    <p class="govuk-body">Summer: {{tagsrestrictedHTML | safe}}</p> 
+    {% elseif data['water-use-type'] == "Consumptive" %}
+     <p class="govuk-body">Summer: {{tagsnowaterHTML | safe}}</p> 
+     {% endif %}
    <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p> 
 
   <hr>
@@ -288,7 +300,11 @@ New licences can be considered depending on local and downstream impacts.
   
     <p class="govuk-body">{{waterBody.nearestPoint.distanceKm | round(2)}} kilometres {{waterBody.nearestPoint.direction}} of the centre of the {% if (data['location'] == "gridRef") %}national grid reference{% elseif (data['location'] == "fieldParcel") %}field parcel{% elseif (data['location'] == "postCode") %}postcode{% endif %}.</p>
 
-     <p class="govuk-body">Summer: {{tagsrestrictedHTML | safe}}</p>   
+    {% if data['water-use-type'] == "Non-consumptive" %}   
+    <p class="govuk-body">Summer: {{tagsrestrictedHTML | safe}}</p> 
+    {% elseif data['water-use-type'] == "Consumptive" %}
+     <p class="govuk-body">Summer: {{tagsnowaterHTML | safe}}</p> 
+     {% endif %}
    <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p> 
 
   <hr>
@@ -297,7 +313,11 @@ New licences can be considered depending on local and downstream impacts.
   
      <p class="govuk-body">{{waterBody.nearestPoint.distanceKm | round(2)}} kilometres {{waterBody.nearestPoint.direction}} of the centre of the {% if (data['location'] == "gridRef") %}national grid reference{% elseif (data['location'] == "fieldParcel") %}field parcel{% elseif (data['location'] == "postCode") %}postcode{% endif %}.</p>
 
-     <p class="govuk-body">Summer: {{tagsrestrictedHTML | safe}}</p>   
+    {% if data['water-use-type'] == "Non-consumptive" %}   
+    <p class="govuk-body">Summer: {{tagsrestrictedHTML | safe}}</p> 
+    {% elseif data['water-use-type'] == "Consumptive" %}
+     <p class="govuk-body">Summer: {{tagsnowaterHTML | safe}}</p> 
+     {% endif %}
    <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p> 
 
   <hr>
