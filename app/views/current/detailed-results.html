@@ -11,7 +11,36 @@
   }) }}
 {% endblock %}
 
+
+
 {% block content %}
+
+{% set tagsnowaterHTML %}
+
+{{ govukTag({
+  text: "No licences",
+  classes: "govuk-tag--red"
+}) }}
+
+{% endset %}
+
+
+{% set tagsrestrictedHTML %}
+{{ govukTag({
+  text: "Some licences",
+  classes: "govuk-tag--yellow"
+}) }}
+
+{% endset %}
+
+{% set tagsgoodHTML %}
+
+{{ govukTag({
+  text: "Licences available",
+  classes: "govuk-tag--green"
+}) }}
+
+{% endset %}
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
@@ -60,22 +89,7 @@ the <b>{{data.groundwaterCatchmentData[data.gid].properties.MNCAT_NAME}}</b>.</p
 
   {% endif %}
 
-    {% if (data.nowater == "false") %} 
-
-      <div class="govuk-inset-text">
-         
-             {% if (data['new-existing'] == "existing") %}
-              <p class="govuk-body">               
-                 <b>Licence number:</b> {{ data.licenceNumber | default("100/22/33/0123", true) | safe }}            
-                </p>
-            {% endif %}
-
-
-        <p class="govuk-body"><b>Use:</b> {{ data['water-use-label'] }}</p>
-        <p class="govuk-body"><b>Consumption type:</b> {{ data['water-use-type'] }}</p>
-        <!-- <p class="govuk-body"><b>Duration:</b> {{ data['duration'] }}</p> -->
-      </div>
-
+   
  {% if (data['watertype'] == "surface") %} 
 
 {{ govukDetails({
@@ -119,7 +133,6 @@ for your local area, which is reviewed every six years."+"</p>"+
   </div>
 </details>
 
-{% endif %}
 
 
  {% if (data['watertype'] == "surface" and data['nowater'] == "false") %} 
@@ -128,40 +141,15 @@ for your local area, which is reviewed every six years."+"</p>"+
 <p class='govuk-body'><i>This data was last updated: 25 October 2025</i></p>
 
 
- <!-- <h2 class="govuk-heading-m">Summer</h2> -->
-
-<!-- <table class="govuk-table"> -->
- <!-- <caption class="govuk-table__caption govuk-table__caption--m">Dates and amounts</caption> -->
-  <!-- <tbody class="govuk-table__body">
-    <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">Summer</th>
-      <td class="govuk-table__cell">April - October</td>
-         {% if data.sid == "1"%} 
-         <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--green" aria-hidden="true">
-  Good availability</strong></td>
-
-  {% else %}
-  <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--yellow" aria-hidden="true">
-  Restricted</strong></td>
-{% endif %}
-
-    </tr>
-    
-  </tbody>
-</table> -->
-
-
  {% if data.sid == "1"%} 
 
     <p class="govuk-body">March - September
-  <strong class="govuk-tag govuk-tag--green" aria-hidden="true">
-  Good availability</strong></p>
+  {{tagsgoodHTML | safe}}</p>
   
     {% else %}
 
 <p class="govuk-body">March - September
-  <strong class="govuk-tag govuk-tag--yellow" aria-hidden="true">
-  Restricted</strong></p3>
+  {{tagsrestrictedHTML | safe}}</p3>
 
 {% endif %} 
 
@@ -255,8 +243,7 @@ for your local area, which is reviewed every six years."+"</p>"+
 <p class='govuk-body'><i>This data was last updated: 25 October 2025</i></p>
 
 <p class="govuk-body">October - February
-  <strong class="govuk-tag govuk-tag--green" aria-hidden="true">
-  Good availability</strong>
+  {{tagsgoodHTML | safe}}
   </p>
 
 <!-- <p class="govuk-body">October - February</p>
@@ -337,16 +324,14 @@ for your local area, which is reviewed every six years."+"</p>"+
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Summer</th>
       <td class="govuk-table__cell">March - September</td>    
-         <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--yellow" aria-hidden="true">
-  Restricted</strong></td>
+         <td class="govuk-table__cell">{{tagsrestrictedHTML | safe}}</td>
 
     </tr>
 
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Winter</th>
       <td class="govuk-table__cell">October - February</td>    
-         <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--green" aria-hidden="true">
-  Good availability</strong></td>
+         <td class="govuk-table__cell">{{tagsgoodHTML | safe}}</td>
 
     </tr>
     
