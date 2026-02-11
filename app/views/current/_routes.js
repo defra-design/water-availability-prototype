@@ -481,7 +481,6 @@ router.post('/start', function (request, response) {
 
 
 //Existing licence holder
-//Set variables page
 router.get(folder + 'licence-holder', function (request, response) {
 	response.render(folder + 'licence-holder')
 })
@@ -518,12 +517,23 @@ router.get(folder + 'new-or-existing-abstraction', function (request, response) 
 router.post('/new-or-existing-abstraction', function (request, response) {
 var newExisting = request.session.data['new-existing']
 	if (newExisting == "new") {
-		response.redirect(folder + "exemption")
+		response.redirect(folder + "existing-licence-buffer")
 	} else if (newExisting == "existing") {
 		response.redirect(folder + "licence-number")
 	}
 
 })
+
+//existing-licence-buffer page
+router.get(folder + 'existing-licence-buffer', function (request, response) {
+	response.render(folder + 'existing-licence-buffer')
+})
+
+router.post('/existing-licence-buffer', function (request, response) {
+	response.redirect(folder + 'exemption')
+})
+
+
 
 //licence number page
 router.get(folder + 'licence-number', function (request, response) {
