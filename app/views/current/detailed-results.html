@@ -149,9 +149,9 @@ for your local area, which is reviewed every six years."+"</p>"+
     {% else %}
 
  {% if data['water-use-type'] == "Non-consumptive" %}   
-    <p class="govuk-body">Summer: {{tagsrestrictedHTML | safe}}</p> 
+    <p class="govuk-body">March - September: {{tagsrestrictedHTML | safe}}</p> 
     {% elseif data['water-use-type'] == "Consumptive" %}
-     <p class="govuk-body">Summer: {{tagsnowaterHTML | safe}}</p> 
+     <p class="govuk-body">March - September: {{tagsnowaterHTML | safe}}</p> 
      {% endif %}
 
 {% endif %} 
