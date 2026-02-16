@@ -1,0 +1,83 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+ Overall percentage of days “X” happened
+{% endblock %}
+
+{% block content %}
+
+
+ <span class="govuk-caption-l">Figure 1</span>
+ <h1 class="govuk-heading-l">Overall percentage of days “X” happened</h1>
+
+ {# --- Accessible data table (source of truth) --- #}
+ <table class="govuk-table" id="monthly-data">
+   <caption class="govuk-table__caption govuk-table__caption--m">
+     Days per month when “X” happened vs didn't happen
+   </caption>
+   <thead class="govuk-table__head">
+     <tr class="govuk-table__row">
+       <th scope="col" class="govuk-table__header">Month</th>
+       <th scope="col" class="govuk-table__header govuk-table__header--numeric">Happened</th>
+       <th scope="col" class="govuk-table__header govuk-table__header--numeric">Didn't happen</th>
+     </tr>
+   </thead>
+   <tbody class="govuk-table__body">
+     {# Example data — replace with your real rows #}
+     <tr class="govuk-table__row">
+       <th scope="row" class="govuk-table__header">January</th>
+       <td class="govuk-table__cell govuk-table__cell--numeric">01</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">30</td>
+     </tr>
+     <tr class="govuk-table__row">
+       <th scope="row" class="govuk-table__header">February</th>
+       <td class="govuk-table__cell govuk-table__cell--numeric">10</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">18</td>
+     </tr>
+     <tr class="govuk-table__row">
+       <th scope="row" class="govuk-table__header">March</th>
+       <td class="govuk-table__cell govuk-table__cell--numeric">17</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">14</td>
+     </tr>
+     <tr class="govuk-table__row">
+       <th scope="row" class="govuk-table__header">April</th>
+       <td class="govuk-table__cell govuk-table__cell--numeric">16</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">14</td>
+     </tr>
+     <tr class="govuk-table__row">
+       <th scope="row" class="govuk-table__header">May</th>
+       <td class="govuk-table__cell govuk-table__cell--numeric">19</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">12</td>
+     </tr>
+     <tr class="govuk-table__row">
+       <th scope="row" class="govuk-table__header">June</th>
+       <td class="govuk-table__cell govuk-table__cell--numeric">15</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">15</td>
+     </tr>
+   </tbody>
+ </table>
+
+ {# --- Chart wrapper (progressive enhancement) --- #}
+ <figure class="app-chart" id="summary-chart" aria-labelledby="chart-title">
+   <h2 class="govuk-heading-m" id="chart-title">Overall (all months combined)</h2>
+
+   <div class="app-chart__bar" role="img" aria-label="">
+     <span class="app-chart__segment app-chart__segment--happened" style="width:0%">
+       <span class="app-chart__label">X happened 0%</span>
+     </span>
+     <span class="app-chart__segment app-chart__segment--not" style="width:0%">
+       <span class="app-chart__label">Didn't happen 0%</span>
+     </span>
+   </div>
+
+   <figcaption class="govuk-visually-hidden" id="chart-desc"></figcaption>
+
+   <button
+     class="govuk-link app-chart__toggle"
+     type="button"
+     aria-controls="monthly-data"
+     aria-expanded="false">
+     Change to table view
+   </button>
+ </figure>
+{% endblock %}

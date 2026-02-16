@@ -9,3 +9,22 @@
 padding: 30px 20px;
 }
 
+.app-chart { margin-block: 20px 30px; }
+.app-chart__bar {
+ display: flex;
+ block-size: 44px; /* tall enough to read labels */
+ border: 1px solid #B1B4B6; /* govuk border grey */
+ background: #F3F2F1;     /* govuk light grey */
+}
+.app-chart__segment {
+ display: flex; align-items: center; justify-content: center;
+ color: #0B0C0C; white-space: nowrap; font-weight: 700;
+ min-inline-size: 0; /* allow tiny segments */
+}
+.app-chart__segment--happened { background-color: #1D70B8; color: #FFFFFF; } /* GOV.UK blue */
+.app-chart__segment--not     { background-color: #B1B4B6; color: #0B0C0C; } /* mid-grey for contrast */
+
+.app-chart__label { padding-inline: 8px; font-size: 16px; line-height: 1; }
+@media (prefers-reduced-motion: no-preference) {
+ .app-chart__segment { transition: inline-size .6s ease; }
+}

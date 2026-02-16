@@ -6,6 +6,8 @@ https://prototype-kit.service.gov.uk/docs/how-to-use-layouts
 {% extends "govuk-prototype-kit/layouts/govuk-branded.njk" %}
 {% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
 
+<script src="/public/javascripts/tabular-stacked-bar.js"></script>
+
 {% block header %}
 
     {{ govukHeader() }}
@@ -31,7 +33,7 @@ https://prototype-kit.service.gov.uk/docs/how-to-use-layouts
       },
       
       {
-        href: "manage-prototype",
+        href: "../manage-prototype",
         text: "Manage"
       },
 
