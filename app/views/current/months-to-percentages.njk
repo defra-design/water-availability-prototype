@@ -7,19 +7,46 @@
 {% block content %}
 
 
- <span class="govuk-caption-l">Figure 1</span>
- <h1 class="govuk-heading-l">Overall percentage of days “X” happened</h1>
+ <!-- <span class="govuk-caption-l">Figure 1</span> -->
+ <h2 class="govuk-heading-m">Historical availability at 123ml/d HoF</h2>
 
+
+  {# --- Chart wrapper (progressive enhancement) --- #}
+ <figure class="app-chart" id="summary-chart" aria-labelledby="chart-title">
+ 
+   <button
+     class="govuk-link app-chart__toggle"
+     type="button"
+     aria-controls="monthly-data"
+     aria-expanded="false">
+     Summer
+   </button>
+   
+  <!--  <h2 class="govuk-heading-m" id="chart-title">Overall (all months combined)</h2> -->
+
+   <div class="app-chart__bar" role="img" aria-label="">
+     <span class="app-chart__segment app-chart__segment--happened" style="width:0%">
+       <span class="app-chart__label">Days water would have been available 0%</span>
+     </span>
+     <span class="app-chart__segment app-chart__segment--not" style="width:0%">
+       <span class="app-chart__label">Days water would not have been available 0%</span>
+     </span>
+   </div>
+
+   <figcaption class="govuk-visually-hidden" id="chart-desc"></figcaption>
+
+ </figure>
+ 
  {# --- Accessible data table (source of truth) --- #}
  <table class="govuk-table" id="monthly-data">
-   <caption class="govuk-table__caption govuk-table__caption--m">
-     Days per month when “X” happened vs didn't happen
+   <caption class="govuk-table__caption govuk-table__caption--s">
+    
    </caption>
    <thead class="govuk-table__head">
      <tr class="govuk-table__row">
        <th scope="col" class="govuk-table__header">Month</th>
-       <th scope="col" class="govuk-table__header govuk-table__header--numeric">Happened</th>
-       <th scope="col" class="govuk-table__header govuk-table__header--numeric">Didn't happen</th>
+       <th scope="col" class="govuk-table__header govuk-table__header--numeric">Days water would have been available</th>
+       <th scope="col" class="govuk-table__header govuk-table__header--numeric">Days water would not have been available</th>
      </tr>
    </thead>
    <tbody class="govuk-table__body">
@@ -57,27 +84,5 @@
    </tbody>
  </table>
 
- {# --- Chart wrapper (progressive enhancement) --- #}
- <figure class="app-chart" id="summary-chart" aria-labelledby="chart-title">
-   <h2 class="govuk-heading-m" id="chart-title">Overall (all months combined)</h2>
 
-   <div class="app-chart__bar" role="img" aria-label="">
-     <span class="app-chart__segment app-chart__segment--happened" style="width:0%">
-       <span class="app-chart__label">X happened 0%</span>
-     </span>
-     <span class="app-chart__segment app-chart__segment--not" style="width:0%">
-       <span class="app-chart__label">Didn't happen 0%</span>
-     </span>
-   </div>
-
-   <figcaption class="govuk-visually-hidden" id="chart-desc"></figcaption>
-
-   <button
-     class="govuk-link app-chart__toggle"
-     type="button"
-     aria-controls="monthly-data"
-     aria-expanded="false">
-     Change to table view
-   </button>
- </figure>
 {% endblock %}

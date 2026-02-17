@@ -50,13 +50,13 @@ window.GOVUKPrototypeKit.documentReady(() => {
    // Labels
    const labelH = segH.querySelector('.app-chart__label');
    const labelN = segN.querySelector('.app-chart__label');
-   labelH.textContent = `X happened ${formatPct(pH)}%`;
-   labelN.textContent = `Didn’t happen ${formatPct(pN)}%`;
+   labelH.textContent = `Days water would have been available ${formatPct(pH)}%`;
+   labelN.textContent = `Days water would not have been available ${formatPct(pN)}%`;
 
    // ARIA text (and screen-reader figcaption)
    const sr = chart.querySelector('#chart-desc');
    const months = rows.length;
-   const aria = `Across ${months} months (${total} days in total), X happened on ${happened} days (${formatPct(pH)}%) and didn’t happen on ${didnt} days (${formatPct(pN)}%).`;
+   const aria = `Across ${months} months (${total} days in total), X happened on ${happened} days (${formatPct(pH)}%) and didn't happen on ${didnt} days (${formatPct(pN)}%).`;
    sr.textContent = aria;
    chart.querySelector('.app-chart__bar').setAttribute('aria-label', aria);
 
@@ -71,7 +71,7 @@ window.GOVUKPrototypeKit.documentReady(() => {
      const nowHidden = !tableWrapper.hidden;
      tableWrapper.hidden = nowHidden;
      toggle.setAttribute('aria-expanded', String(!nowHidden));
-     toggle.textContent = nowHidden ? 'Change to chart view' : 'Change to table view';
+     toggle.textContent = nowHidden ? 'Summer' : 'Summer';
      // Keep focus visible
      toggle.focus();
    });
