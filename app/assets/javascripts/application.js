@@ -50,8 +50,8 @@ window.GOVUKPrototypeKit.documentReady(() => {
    // Labels
    const labelH = segH.querySelector('.app-chart__label');
    const labelN = segN.querySelector('.app-chart__label');
-   labelH.textContent = `Days water would have been available ${formatPct(pH)}%`;
-   labelN.textContent = `Days water would not have been available ${formatPct(pN)}%`;
+   labelH.textContent = `Available ${formatPct(pH)}%`;
+   labelN.textContent = `Not available ${formatPct(pN)}%`;
 
    // ARIA text (and screen-reader figcaption)
    const sr = chart.querySelector('#chart-desc');
