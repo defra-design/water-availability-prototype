@@ -89,56 +89,106 @@ the <b>{{data.groundwaterCatchmentData[data.gid].properties.MNCAT_NAME}}</b>.</p
 
   {% endif %}
 
-   
- {% if (data['watertype'] == "surface") %} 
+  <p class='govuk-body-s'><i>This data was last updated: 25 October 2025</i></p>
 
-{{ govukDetails({
-  summaryText: "Licensing strategies explained",
-  html:"<p class='govuk-body'>"+"Licensing strategy for "+data.riverCatchmentData[data.sid].properties.WB_NAME+" due for review: January 2027"+"</p>"+
+  <details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      How are licencing decisions made?
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+  The Environment Agency make licensing decisions 
+  based on strategy for your local area, which is reviewed every 
+  six years on the 'common end date'.</br></br>
+  Common end date for {{data.riverCatchmentData[data.sid].properties.WB_NAME}}: January 2027</br></br>
+  Licensing decisions will vary on a case-by-case 
+  basis depending on your chosen abstraction point, what you will 
+  use the water for, the number of other abstractors in the area 
+  and other factors such as environmental concerns.
 
-"<p class='govuk-body'>"+"The Environment Agency make licensing decisions based on strategy 
-for your local area, which is reviewed every six years."+"</p>"+
-
- "<p class='govuk-body'>"+"Licensing decisions will vary depending on your chosen 
- abstraction point, the number of other abstractors in the area 
- and other factors such as environmental concerns."+"</p>"
-}) }}
-
-{% elseif (data['watertype'] == "ground") %}
-{{ govukDetails({
-  summaryText: "Licensing strategies explained",
-  html:"<p class='govuk-body'>"+"<i>"+"Licensing strategy for "+data.groundwaterCatchmentData[data.gid].properties.WB_NAME+" due for review: January 2027"+"</i>"+"</p>"+
-
-"<p class='govuk-body'>"+"The Environment Agency make licensing decisions based on strategy 
-for your local area, which is reviewed every six years."+"</p>"+
-
- "<p class='govuk-body'>"+"Licensing decisions will vary depending on your chosen 
- abstraction point, the number of other abstractors in the area 
- and other factors such as environmental concerns."+"</p>"
-}) }}
-
-{% endif %}
-
+</div>
+</details>
 
 <details class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
-      What are Hands Off Flow restrictions?
+       How we monitor and protect water levels
     </span>
   </summary>
   <div class="govuk-details__text">
-  'Hands Off Flow' restrictions can limit abstraction 
-  for local licence holders when the water flow rate is lower than the 
-  environment can sustain.
-  </div>
+  The Environment Agency monitor water levels 
+  for your area at your local assessment point.</br></br>
+  All licences have restrictions on how much 
+  water you can abstract. There are also 'Hands-off Flow' (HoF) 
+  conditions which stop licence holders from taking water when the 
+  flow rate is critically low.</br></br>
+  HoFs are organised into bands. Each band 
+  has a certain amount of licences available until there is not 
+  enough water left at that band to sustain abstraction. 
+  At that point, the HoF for that assessment point drops 
+  down into the next band below, which will have tighter 
+  restrictions on how much water can be taken. In reality, 
+  this means more chance of days where you can't take water.
+
+</div>
 </details>
 
 
+<table class="govuk-table">
+  <caption class="govuk-table__caption govuk-table__caption--m">Current HoF situation at your local assessment point</caption>
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">HoF&nbsp;Bands</th>
+      <th scope="col" class="govuk-table__header govuk-table__header--numeric">Hof Restriction: When flows are above this value you can take water</th>
+      <th scope="col" class="govuk-table__header govuk-table__header--numeric">Amount of water remaining at this HoF band that can be taken per day</th>
+      <th scope="col" class="govuk-table__header govuk-table__header--numeric">Current status</th>
+   </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Band 1</th>
+      <td class="govuk-table__cell govuk-table__cell--numeric">0ml/d</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">0ml/d</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">All water licenced</td>
+   </tr>
+     <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Band 2</th>
+      <td class="govuk-table__cell govuk-table__cell--numeric">55ml/d</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">0ml/d</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">All water licenced</td>
+  </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Band 3</th>
+      <td class="govuk-table__cell govuk-table__cell--numeric">90ml/d</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">0ml/d</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">All water licenced</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Band 4</th>
+      <td class="govuk-table__cell govuk-table__cell--numeric">135ml/d</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">45ml/d</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">The current HoF for this assessment point is 135ml/d. Some licences currently available</td>
+    </tr>
+     <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Band 5</th>
+      <td class="govuk-table__cell govuk-table__cell--numeric">175ml/d</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">131ml/d</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">Licences currently available</td>
+    </tr>
+     <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Band 6</th>
+      <td class="govuk-table__cell govuk-table__cell--numeric">200ml/d</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">0ml/d</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">No licences available as it would breach the environmental thresholds</td>
+    </tr>
+  </tbody>
+</table>
 
  {% if (data['watertype'] == "surface" and data['nowater'] == "false") %} 
 
-  <h2 class="govuk-heading-m">Summer water availability and restrictions</h2>
-<p class='govuk-body'><i>This data was last updated: 25 October 2025</i></p>
+  
+
 
 
  {% if data.sid == "1"%} 
@@ -161,143 +211,247 @@ for your local area, which is reviewed every six years."+"</p>"+
 <p class="govuk-body">Water is available to abstract at up to 10000 
   cubic metres per day subject to Hands Off Flow restrictions.</p> -->
 
-<h3 class="govuk-heading-s">Previous summer restrictions</h3>
+<h2 class="govuk-heading-m">Historical availability at 123ml/d HoF</h2>
 
+<h3 class="govuk-heading-s">2024-2025</h3>
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Summer: 59%
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+ 
 
-<p class="govuk-body">Restrictions were imposed in <b>3 out of the last 10</b> years.</p>
-
-{{ govukTable({
-  head: [
-    {
-      text: "Years restricted"
-    },
-    {
-      text: "Dates no water available"
-    }
-  ],
-  rows: [
-    [
-      {
-      text: "2018"
-    },
-    {
-      text: "24th to 31st July"
-    }
-    ],
-    [
-      {
-      text: ""
-    }, 
-    {
-      text: "1st August to 2nd September"
-    }
-    ],
-    [
-      {
-      text: ""
-    }, 
-    {
-      text: "6th to 22nd September"
-    }
-    ],
-    [
-      {
-      text: "2020"
-    }, 
-    {
-      text: "4th to 25th September"
-    }
-    ],
-    [
-      {
-      text: "2024"
-    },  
-    {
-      text: "10th to 30th September"
-    }
-    ],
-    [
-      {
-      text: ""
-    },
-    {
-      text: "1st to 4th October"
-    }
-    ] 
-  ]
-}) }}
-
- <!-- <h2 class="govuk-heading-m">Winter</h2> -->
-  <h2 class="govuk-heading-m">Winter water availability and restrictions</h2>
-
-<!-- <table class="govuk-table"> -->
- <!-- <caption class="govuk-table__caption govuk-table__caption--m">Dates and amounts</caption> -->
- <!--  <tbody class="govuk-table__body">
-    <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">Winter</th>
-      <td class="govuk-table__cell">November - March</td>    
-         <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--green" aria-hidden="true">
-  Good availability</strong></td>
-
-    </tr>
+ <table class="govuk-table" id="monthly-data">
+   <caption class="govuk-table__caption govuk-table__caption--s">
     
-  </tbody>
-</table> -->
-<p class='govuk-body'><i>This data was last updated: 25 October 2025</i></p>
+   </caption>
+   <thead class="govuk-table__head">
+     <tr class="govuk-table__row">
+       <th scope="col" class="govuk-table__header">Month</th>
+       <th scope="col" class="govuk-table__header govuk-table__header--numeric">Days water would have been available</th>
+       <th scope="col" class="govuk-table__header govuk-table__header--numeric">Days water would not have been available</th>
+     </tr>
+   </thead>
+   <tbody class="govuk-table__body">
+     {# Example data — replace with your real rows #}
+     <tr class="govuk-table__row">
+       <th scope="row" class="govuk-table__header">March</th>
+       <td class="govuk-table__cell govuk-table__cell--numeric">10</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">21</td>
+     </tr>
+     <tr class="govuk-table__row">
+       <th scope="row" class="govuk-table__header">April</th>
+       <td class="govuk-table__cell govuk-table__cell--numeric">23</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">07</td>
+     </tr>
+     <tr class="govuk-table__row">
+       <th scope="row" class="govuk-table__header">May</th>
+       <td class="govuk-table__cell govuk-table__cell--numeric">25</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">06</td>
+     </tr>
+     <tr class="govuk-table__row">
+       <th scope="row" class="govuk-table__header">June</th>
+       <td class="govuk-table__cell govuk-table__cell--numeric">19</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">11</td>
+     </tr>
+     <tr class="govuk-table__row">
+       <th scope="row" class="govuk-table__header">July</th>
+       <td class="govuk-table__cell govuk-table__cell--numeric">22</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">09</td>
+     </tr>
+     <tr class="govuk-table__row">
+       <th scope="row" class="govuk-table__header">August</th>
+       <td class="govuk-table__cell govuk-table__cell--numeric">15</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">16</td>
+     </tr>
+      <tr class="govuk-table__row">
+       <th scope="row" class="govuk-table__header">September</th>
+       <td class="govuk-table__cell govuk-table__cell--numeric">15</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">15</td>
+     </tr>
+   </tbody>
+ </table>
+   </div>
+</details>
 
-<p class="govuk-body">October - February
-  {{tagsgoodHTML | safe}}
-  </p>
+ <details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Winter: 71%
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+ 
 
-<!-- <p class="govuk-body">October - February</p>
-<p class="govuk-body">Water is available to abstract at up to 25000 
-  cubic metres per day subject to Hands Off Flow restrictions.</p> -->
-
-
-<h3 class="govuk-heading-s">Previous winter restrictions</h3>
-
-
-<p class="govuk-body">Restrictions were imposed in <b>1 out of the last 10</b> years.</p>
-
-{{ govukTable({
-  head: [
-    {
-      text: "Years restricted"
-    },
-    {
-      text: "Dates no water available"
-    }
-  ],
-  rows: [
-    [
-      {
-      text: "2025-2026"
-    },
-    {
-      text: "12th to 13th December"
-    }
-    ],
-
-     [
-      {
-      text: ""
-    },
-    {
-      text: "24th to 31st December"
-    }
-    ],
-     [
-      {
-      text: ""
-    },
-    {
-      text: "1st January"
-    }
-    ]
+ <table class="govuk-table" id="monthly-data">
+   <caption class="govuk-table__caption govuk-table__caption--s">
     
-  ]
-}) }}
+   </caption>
+   <thead class="govuk-table__head">
+     <tr class="govuk-table__row">
+       <th scope="col" class="govuk-table__header">Month</th>
+       <th scope="col" class="govuk-table__header govuk-table__header--numeric">Days water would have been available</th>
+       <th scope="col" class="govuk-table__header govuk-table__header--numeric">Days water would not have been available</th>
+     </tr>
+   </thead>
+   <tbody class="govuk-table__body">
+     {# Example data — replace with your real rows #}
+     <tr class="govuk-table__row">
+       <th scope="row" class="govuk-table__header">October</th>
+       <td class="govuk-table__cell govuk-table__cell--numeric">10</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">21</td>
+     </tr>
+     <tr class="govuk-table__row">
+       <th scope="row" class="govuk-table__header">November</th>
+       <td class="govuk-table__cell govuk-table__cell--numeric">23</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">07</td>
+     </tr>
+     <tr class="govuk-table__row">
+       <th scope="row" class="govuk-table__header">December</th>
+       <td class="govuk-table__cell govuk-table__cell--numeric">25</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">06</td>
+     </tr>
+     <tr class="govuk-table__row">
+       <th scope="row" class="govuk-table__header">January</th>
+       <td class="govuk-table__cell govuk-table__cell--numeric">19</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">11</td>
+     </tr>
+     <tr class="govuk-table__row">
+       <th scope="row" class="govuk-table__header">February</th>
+       <td class="govuk-table__cell govuk-table__cell--numeric">22</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">09</td>
+     </tr>
+    
+   </tbody>
+ </table>
 
+
+
+
+   </div>
+</details>
+
+<h3 class="govuk-heading-s">2023-2024</h3>
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Summer: 76%
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+ 
+
+ <table class="govuk-table" id="monthly-data">
+   <caption class="govuk-table__caption govuk-table__caption--s">
+    
+   </caption>
+   <thead class="govuk-table__head">
+     <tr class="govuk-table__row">
+       <th scope="col" class="govuk-table__header">Month</th>
+       <th scope="col" class="govuk-table__header govuk-table__header--numeric">Days water would have been available</th>
+       <th scope="col" class="govuk-table__header govuk-table__header--numeric">Days water would not have been available</th>
+     </tr>
+   </thead>
+   <tbody class="govuk-table__body">
+     {# Example data — replace with your real rows #}
+     <tr class="govuk-table__row">
+       <th scope="row" class="govuk-table__header">March</th>
+       <td class="govuk-table__cell govuk-table__cell--numeric">10</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">21</td>
+     </tr>
+     <tr class="govuk-table__row">
+       <th scope="row" class="govuk-table__header">April</th>
+       <td class="govuk-table__cell govuk-table__cell--numeric">23</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">07</td>
+     </tr>
+     <tr class="govuk-table__row">
+       <th scope="row" class="govuk-table__header">May</th>
+       <td class="govuk-table__cell govuk-table__cell--numeric">25</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">06</td>
+     </tr>
+     <tr class="govuk-table__row">
+       <th scope="row" class="govuk-table__header">June</th>
+       <td class="govuk-table__cell govuk-table__cell--numeric">19</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">11</td>
+     </tr>
+     <tr class="govuk-table__row">
+       <th scope="row" class="govuk-table__header">July</th>
+       <td class="govuk-table__cell govuk-table__cell--numeric">22</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">09</td>
+     </tr>
+     <tr class="govuk-table__row">
+       <th scope="row" class="govuk-table__header">August</th>
+       <td class="govuk-table__cell govuk-table__cell--numeric">15</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">16</td>
+     </tr>
+      <tr class="govuk-table__row">
+       <th scope="row" class="govuk-table__header">September</th>
+       <td class="govuk-table__cell govuk-table__cell--numeric">15</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">15</td>
+     </tr>
+   </tbody>
+ </table>
+   </div>
+</details>
+
+ <details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Winter: 82%
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+ 
+
+ <table class="govuk-table" id="monthly-data">
+   <caption class="govuk-table__caption govuk-table__caption--s">
+    
+   </caption>
+   <thead class="govuk-table__head">
+     <tr class="govuk-table__row">
+       <th scope="col" class="govuk-table__header">Month</th>
+       <th scope="col" class="govuk-table__header govuk-table__header--numeric">Days water would have been available</th>
+       <th scope="col" class="govuk-table__header govuk-table__header--numeric">Days water would not have been available</th>
+     </tr>
+   </thead>
+   <tbody class="govuk-table__body">
+     {# Example data — replace with your real rows #}
+     <tr class="govuk-table__row">
+       <th scope="row" class="govuk-table__header">October</th>
+       <td class="govuk-table__cell govuk-table__cell--numeric">10</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">21</td>
+     </tr>
+     <tr class="govuk-table__row">
+       <th scope="row" class="govuk-table__header">November</th>
+       <td class="govuk-table__cell govuk-table__cell--numeric">23</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">07</td>
+     </tr>
+     <tr class="govuk-table__row">
+       <th scope="row" class="govuk-table__header">December</th>
+       <td class="govuk-table__cell govuk-table__cell--numeric">25</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">06</td>
+     </tr>
+     <tr class="govuk-table__row">
+       <th scope="row" class="govuk-table__header">January</th>
+       <td class="govuk-table__cell govuk-table__cell--numeric">19</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">11</td>
+     </tr>
+     <tr class="govuk-table__row">
+       <th scope="row" class="govuk-table__header">February</th>
+       <td class="govuk-table__cell govuk-table__cell--numeric">22</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">09</td>
+     </tr>
+    
+   </tbody>
+ </table>
+
+
+
+
+   </div>
+</details>
 
 {% endif -%}
 
@@ -308,7 +462,7 @@ for your local area, which is reviewed every six years."+"</p>"+
 
   
 <table class="govuk-table">
- <!-- <caption class="govuk-table__caption govuk-table__caption--m">Dates and amounts</caption> -->
+<caption class="govuk-table__caption govuk-table__caption--m">Dates and amounts</caption>
   <tbody class="govuk-table__body">
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Summer</th>

@@ -65,7 +65,7 @@ window.GOVUKPrototypeKit.documentReady(() => {
    const tableWrapper = table;
    // Start with chart visible and table visible (you decide). Here we show both;
    // If you prefer chart-only by default: set table.hidden = true below.
-   // tableWrapper.hidden = true;
+   tableWrapper.hidden = true;
 
    toggle.addEventListener('click', () => {
      const nowHidden = !tableWrapper.hidden;
