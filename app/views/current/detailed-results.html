@@ -135,6 +135,7 @@ the <b>{{data.groundwaterCatchmentData[data.gid].properties.MNCAT_NAME}}</b>.</p
 </details>
 
 
+
 <table class="govuk-table">
   <caption class="govuk-table__caption govuk-table__caption--m">Current HoF situation at your local assessment point</caption>
   <thead class="govuk-table__head">
@@ -187,24 +188,32 @@ the <b>{{data.groundwaterCatchmentData[data.gid].properties.MNCAT_NAME}}</b>.</p
 
  {% if (data['watertype'] == "surface" and data['nowater'] == "false") %} 
 
-  
-
-
-
- {% if data.sid == "1"%} 
-
+  {% if data.sid == "1"%} 
+<h2 class="govuk-heading-m">Summer availability</h2>
     <p class="govuk-body">March - September
   {{tagsgoodHTML | safe}}</p>
-  
+
     {% else %}
 
  {% if data['water-use-type'] == "Non-consumptive" %}   
-    <p class="govuk-body">March - September: {{tagsrestrictedHTML | safe}}</p> 
+ <h2 class="govuk-heading-m">Summer availability</h2>  
+ <p class="govuk-body">March - September: {{tagsrestrictedHTML | safe}}</p> 
     {% elseif data['water-use-type'] == "Consumptive" %}
      <p class="govuk-body">March - September: {{tagsnowaterHTML | safe}}</p> 
+
+
      {% endif %}
 
+
+    
 {% endif %} 
+
+
+   <h2 class="govuk-heading-m">Winter availability</h2>
+    <p class="govuk-body">October - February
+  {{tagsgoodHTML | safe}}</p>
+
+ 
 
 
 <!-- <p class="govuk-body">March - September</p>
