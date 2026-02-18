@@ -110,34 +110,39 @@ the <b>{{data.groundwaterCatchmentData[data.gid].properties.MNCAT_NAME}}</b>.</p
 </div>
 </details>
 
-<details class="govuk-details">
-  <summary class="govuk-details__summary">
-    <span class="govuk-details__summary-text">
+<h2 class="govuk-heading-m">
        How we monitor and protect water levels
-    </span>
-  </summary>
-  <div class="govuk-details__text">
-  The Environment Agency monitor water levels 
-  for your area at your local assessment point.</br></br>
-  All licences have restrictions on how much 
+</h2>
+  
+  <p class="govuk-body">The Environment Agency monitor water levels 
+  for your area at your local assessment point.</p>
+
+  <p class="govuk-body">All licences have restrictions on how much 
   water you can abstract. There are also 'Hands-off Flow' (HoF) 
   conditions which stop licence holders from taking water when the 
-  flow rate is critically low.</br></br>
-  HoFs are organised into bands. Each band 
+  flow rate is critically low.</p>
+
+ <!--  <p class="govuk-body">HoFs are organised into bands. Each band 
   has a certain amount of licences available until there is not 
   enough water left at that band to sustain abstraction. 
   At that point, the HoF for that assessment point drops 
   down into the next band below, which will have tighter 
   restrictions on how much water can be taken. In reality, 
-  this means more chance of days where you can't take water.
+  this means more chance of days where you can't take water.</p>-->
 
-</div>
-</details>
+ <h3 class="govuk-heading-s">Current HoF situation at your local assessment point</h3>
+<p class="govuk-body">The table below shows the flow rate in megalitres per day (ml/d) 
+  for HoF conditions on new licences in your area. The current HoF for this assessment 
+  point is 135ml/d.</p>
 
-
+  <p class="govuk-body">
+The table below also shows which 'band' the current HoF falls into and how much 
+water is available for licensing. This gives an indication of how much water 
+is left for licensing in your area. Band 1 has the most water available and 
+no restrictions, while Band 6 is the most water stressed with no water available 
+left for licensing.</p>
 
 <table class="govuk-table">
-  <caption class="govuk-table__caption govuk-table__caption--m">Current HoF situation at your local assessment point</caption>
   <thead class="govuk-table__head">
     <tr class="govuk-table__row">
       <th scope="col" class="govuk-table__header">HoF&nbsp;Bands</th>
@@ -185,6 +190,7 @@ the <b>{{data.groundwaterCatchmentData[data.gid].properties.MNCAT_NAME}}</b>.</p
     </tr>
   </tbody>
 </table>
+
 
  {% if (data['watertype'] == "surface" and data['nowater'] == "false") %} 
 
