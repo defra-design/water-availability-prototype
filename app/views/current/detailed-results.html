@@ -66,11 +66,11 @@
  
 {% if (data['watertype'] == "surface") %}   
   <p class="govuk-body">
-         This page shows licence availability and restrictions for surface water abstraction from the <b>{{data.riverCatchmentData[data.sid].properties.MNCAT_NAME}} from {{data.riverCatchmentData[data.sid].properties.WB_NAME}}</b> water body.</p>
+         This page shows licence availability and restrictions for surface water abstraction from the water body '<b>{{data.riverCatchmentData[data.sid].properties.WB_NAME}}</b>'.</p>
 
       {% elseif (data['watertype'] == "ground") %}
        <p class="govuk-body">
-         This page shows licence availability and restrictions for groundwater abstraction from the <b>{{data.groundwaterCatchmentData[data.gid].properties.MNCAT_NAME}} from {{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}</b> water body.</p>
+         This page shows licence availability and restrictions for groundwater abstraction from the water body '<b>{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}</b>'.</p>
       {% endif %}
 
 
@@ -125,7 +125,7 @@ New licences can be considered depending on local and downstream impacts.</p>
 <p class="govuk-body"><b>The current HoF for this assessment point is 135ml/d.</b></p> 
 
 
-<h2 class="govuk-heading-m">
+<!-- <h2 class="govuk-heading-m">
        How Hands-off Flow is set
 </h2>
   
@@ -136,19 +136,29 @@ New licences can be considered depending on local and downstream impacts.</p>
 <p class="govuk-body"><b>HoF conditions in your area have reached band 4.</b></p>
 
 <p class="govuk-body">Band 1 has the most water available and no restrictions, 
-  while Band 6 is the most water stressed with no water available left for licensing.</p>
+  while Band 6 is the most water stressed with no water available left for licensing.</p>-->
 
 
 
  <details class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
-       HoF bands and water levels in your area
+      How Hands-off Flow is set
     </span>
   </summary>
   <div class="govuk-details__text">
+    <p class="govuk-body">Hands-off Flow conditions are grouped into bands. 
+    As more and more water is licenced, the HoF level moves 
+    into the next band up and there is less water available to abstract.</p>
+
+<p class="govuk-body"><b>HoF conditions in your area have reached band 4.</b></p>
+
+<p class="govuk-body">Band 1 has the most water available and no restrictions, 
+  while Band 6 is the most water stressed with no water available left for licensing.</p>
+
   <table class="govuk-table">
   <thead class="govuk-table__head">
+    <h2 class="govuk-heading-m"> HoF bands and water levels in your area</h2>
     <tr class="govuk-table__row">
       <th scope="col" class="govuk-table__header">HoF&nbsp;Bands</th>
       <th scope="col" class="govuk-table__header govuk-table__header--numeric">Hof Restriction: When flows are above this value you can take water</th>
@@ -494,8 +504,28 @@ New licences can be considered depending on local and downstream impacts.</p>
 
 <!-- <p class="govuk-body"><a href="{{data.groundwaterCatchmentData.properties.WB_DETAIL}}">View a map of existing the local groundwater body</a>.</p> -->
 
-{% endif -%}
+{% endif %}
 
+
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Common end date (licensing strategy review period)
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+ <p class="govuk-body">{% if (data['watertype'] == "ground")%}
+ Common end date for {{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}: <b>January 2027</b>.
+  {% elseif (data['watertype'] == "surface")%}
+   Common end date for {{data.riverCatchmentData[data.sid].properties.WB_NAME}}: <b>January 2027</b>.
+{% endif %}</p>
+
+<p class="govuk-body">The 'common end date' indicates when the licensing strategy 
+  for this area is due for review. The Environment Agency review each local 
+  licensing strategy every 6 years.</p>
+
+  </div>
+</details>
 
 
   {% if (data.nowater == "false") %}
