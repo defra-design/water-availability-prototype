@@ -27,7 +27,7 @@
 
 {% set tagsrestrictedHTML %}
 {{ govukTag({
-  text: "Some licences",
+  text: "Limited licences",
   classes: "govuk-tag--yellow"
 }) }}
 
@@ -49,8 +49,7 @@
   
     <h1 class="govuk-heading-l">Your water availability report</h1>
 <div class="border govuk-!-margin-bottom-3">
-  <h2 class="govuk-heading-m">Year round availability <strong class="govuk-tag govuk-tag--red" aria-hidden="true">
-  No water available</strong></h2>
+  <h2 class="govuk-heading-m">Year round availability {{tagsnowaterHTML | safe}}</h2>
 <p class="govuk-body">No water is available for licencing at any time in this water body.</p>
 
 <p class="govuk-body">This can be due to low flow rates and a high number of other abstractors. 
@@ -60,89 +59,95 @@
   {% else %}
 
    {% if (data['watertype'] == "surface")%}  
-  <h1 class="govuk-heading-l">Your surface water availability report</h1>
+  <h1 class="govuk-heading-l">Your surface water availability</h1>
  {% else %}
-  <h1 class="govuk-heading-l">Your groundwater availability report</h1>
+  <h1 class="govuk-heading-l">Your groundwater availability</h1>
 {% endif %}
  
 {% if (data['watertype'] == "surface") %}   
   <p class="govuk-body">
-         This report shows surface water availability for your 
-         local area and explains next steps when applying for a water abstraction licence.</p>
+         This page shows licence availability and restrictions for surface water abstraction from the <b>{{data.riverCatchmentData[data.sid].properties.MNCAT_NAME}} from {{data.riverCatchmentData[data.sid].properties.WB_NAME}}</b> water body.</p>
 
       {% elseif (data['watertype'] == "ground") %}
        <p class="govuk-body">
-         This report shows groundwater availability for your 
-         local area and explains next steps when applying for a water abstraction licence.</p>
+         This page shows licence availability and restrictions for groundwater abstraction from the <b>{{data.groundwaterCatchmentData[data.gid].properties.MNCAT_NAME}} from {{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}</b> water body.</p>
       {% endif %}
 
 
-   {% if (data['watertype'] == "surface") %} 
-  <p class="govuk-body">Surface water is available in the <b>{{data.riverCatchmentData[data.sid].properties.WB_NAME}}</b> area of 
-the <b>{{data.riverCatchmentData[data.sid].properties.MNCAT_NAME}}</b>.</p>
- {% elseif (data['watertype'] == "ground") %}
-
-<p class="govuk-body">Groundwater is available in the <b>{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}</b> area of 
-the <b>{{data.groundwaterCatchmentData[data.gid].properties.MNCAT_NAME}}</b>.</p>
-
-   {% endif %}
+  
+  <p class="govuk-body">Licencing decisions will vary on a case-by-case basis depending on your chosen abstraction point, what you will use the water for, how many other abstractors are in the area and other factors such as environmental concerns.</p>
 
   {% endif %}
 
-  <p class='govuk-body-s'><i>This data was last updated: 25 October 2025</i></p>
+  <p class='govuk-body-s'><i>This page was last updated: 25 October 2025</i></p>
 
-  <details class="govuk-details">
+<h2 class="govuk-heading-m">Availability status</h2>
+
+{% if (data['watertype'] == "surface" and data['nowater'] == "false") %} 
+
+  {% if data.sid == "1"%} 
+    <p class="govuk-body">Summer availability: {{tagsgoodHTML | safe}}</p>
+<p class="govuk-body">There is more water than required to meet the needs of the environment.
+New licences can be considered depending on local and downstream impacts.</p>
+    {% else %}
+
+ {% if data['water-use-type'] == "Non-consumptive" %}   
+ <p class="govuk-body">Summer availability: {{tagsrestrictedHTML | safe}}</p>
+ <p class="govuk-body">Water abstraction in this area is limited due to low 
+  flows and/or environmental concerns. No new consumptive licences 
+  will be granted. Non-consumptive licences may be available.</p>
+    {% elseif data['water-use-type'] == "Consumptive" %}
+     <p class="govuk-body">Summer availability: {{tagsnowaterHTML | safe}}</p> 
+<p class="govuk-body">No water is available for new licences due to low flows, 
+  environmental concerns and/or too many existing abstractors in the area. 
+  Existing licences are restricted, however there may be opportunities to 
+  trade water with existing abstractors.</p>
+
+     {% endif %}
+   
+{% endif %} 
+
+    <p class="govuk-body">Winter availability: {{tagsgoodHTML | safe}}</p>
+<p class="govuk-body">There is more water than required to meet the needs of the environment.
+New licences can be considered depending on local and downstream impacts.</p>
+
+
+<h2 class="govuk-heading-m">Restrictions on abstraction</h2>
+
+<p class="govuk-body">The Environment Agency monitor water levels 
+  for your area at your local assessment point.</p>
+
+<p class="govuk-body">All licences have restrictions on how much 
+  water you can abstract. There are also 'Hands-off Flow' (HoF) 
+  conditions which stop licence holders from taking water 
+  when the flow rate is critically low.</p>
+
+<p class="govuk-body"><b>The current HoF for this assessment point is 135ml/d.</b></p> 
+
+
+<h2 class="govuk-heading-m">
+       How Hands-off Flow is set
+</h2>
+  
+  <p class="govuk-body">Hands-off Flow conditions are grouped into bands. 
+    As more and more water is licenced, the HoF level moves 
+    into the next band up and there is less water available to abstract.</p>
+
+<p class="govuk-body"><b>HoF conditions in your area have reached band 4.</b></p>
+
+<p class="govuk-body">Band 1 has the most water available and no restrictions, 
+  while Band 6 is the most water stressed with no water available left for licensing.</p>
+
+
+
+ <details class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
-      How are licencing decisions made?
+       HoF bands and water levels in your area
     </span>
   </summary>
   <div class="govuk-details__text">
-  The Environment Agency make licensing decisions 
-  based on strategy for your local area, which is reviewed every 
-  six years on the 'common end date'.</br></br>
-  Common end date for {{data.riverCatchmentData[data.sid].properties.WB_NAME}}: January 2027</br></br>
-  Licensing decisions will vary on a case-by-case 
-  basis depending on your chosen abstraction point, what you will 
-  use the water for, the number of other abstractors in the area 
-  and other factors such as environmental concerns.
-
-</div>
-</details>
-
-<h2 class="govuk-heading-m">
-       How we monitor and protect water levels
-</h2>
-  
-  <p class="govuk-body">The Environment Agency monitor water levels 
-  for your area at your local assessment point.</p>
-
-  <p class="govuk-body">All licences have restrictions on how much 
-  water you can abstract. There are also 'Hands-off Flow' (HoF) 
-  conditions which stop licence holders from taking water when the 
-  flow rate is critically low.</p>
-
- <!--  <p class="govuk-body">HoFs are organised into bands. Each band 
-  has a certain amount of licences available until there is not 
-  enough water left at that band to sustain abstraction. 
-  At that point, the HoF for that assessment point drops 
-  down into the next band below, which will have tighter 
-  restrictions on how much water can be taken. In reality, 
-  this means more chance of days where you can't take water.</p>-->
-
- <h3 class="govuk-heading-s">Current HoF situation at your local assessment point</h3>
-<p class="govuk-body">The table below shows the flow rate in megalitres per day (ml/d) 
-  for HoF conditions on new licences in your area. The current HoF for this assessment 
-  point is 135ml/d.</p>
-
-  <p class="govuk-body">
-The table below also shows which 'band' the current HoF falls into and how much 
-water is available for licensing. This gives an indication of how much water 
-is left for licensing in your area. Band 1 has the most water available and 
-no restrictions, while Band 6 is the most water stressed with no water available 
-left for licensing.</p>
-
-<table class="govuk-table">
+  <table class="govuk-table">
   <thead class="govuk-table__head">
     <tr class="govuk-table__row">
       <th scope="col" class="govuk-table__header">HoF&nbsp;Bands</th>
@@ -190,43 +195,25 @@ left for licensing.</p>
     </tr>
   </tbody>
 </table>
+</div>
+</details>
 
 
- {% if (data['watertype'] == "surface" and data['nowater'] == "false") %} 
+<h2 class="govuk-heading-m">Water availability in previous years</h2>
 
-  {% if data.sid == "1"%} 
-<h2 class="govuk-heading-m">Summer availability</h2>
-    <p class="govuk-body">March - September
-  {{tagsgoodHTML | safe}}</p>
+<p class="govuk-body">Water availability is usually better in winter 
+  because rainfall and water flow rates tend to be higher. In summer, 
+  water availability is often more restricted because it usually 
+  rains less which means flow rates are lower.</p>
 
-    {% else %}
+<p class="govuk-body">At times flow rates can drop so low that 
+  they fall below the HoF level. When this happens you will be 
+  issued an alert and you are not allowed to abstract.</p>
 
- {% if data['water-use-type'] == "Non-consumptive" %}   
- <h2 class="govuk-heading-m">Summer availability</h2>  
- <p class="govuk-body">March - September: {{tagsrestrictedHTML | safe}}</p> 
-    {% elseif data['water-use-type'] == "Consumptive" %}
-     <p class="govuk-body">March - September: {{tagsnowaterHTML | safe}}</p> 
-
-
-     {% endif %}
-
-
-    
-{% endif %} 
-
-
-   <h2 class="govuk-heading-m">Winter availability</h2>
-    <p class="govuk-body">October - February
-  {{tagsgoodHTML | safe}}</p>
-
- 
-
-
-<!-- <p class="govuk-body">March - September</p>
-<p class="govuk-body">Water is available to abstract at up to 10000 
-  cubic metres per day subject to Hands Off Flow restrictions.</p> -->
-
-<h2 class="govuk-heading-m">Historical availability at 123ml/d HoF</h2>
+<p class="govuk-body">The information below summarises how often 
+  the flow level at your local assessment point has previously 
+  fallen below the current HoF level 1.35 ml/d. This means you 
+  would not be allowed to take water on those days.</p>
 
 <h3 class="govuk-heading-s">2024-2025</h3>
 <details class="govuk-details">
