@@ -50,7 +50,7 @@
     <h1 class="govuk-heading-l">Your water availability report</h1>
 <div class="border govuk-!-margin-bottom-3">
   <h2 class="govuk-heading-m">Year round availability {{tagsnowaterHTML | safe}}</h2>
-<p class="govuk-body">No water is available for licencing at any time in this water body.</p>
+<p class="govuk-body">No water is available for licensing at any time in this water body.</p>
 
 <p class="govuk-body">This can be due to low flow rates and a high number of other abstractors. 
   The area is likely to be water stressed meaning more abstraction 
@@ -63,6 +63,8 @@
  {% else %}
   <h1 class="govuk-heading-l">Your groundwater availability</h1>
 {% endif %}
+
+  <p class='govuk-body-s'><i>This page was last updated: 25 October 2025</i></p>
  
 {% if (data['watertype'] == "surface") %}   
   <p class="govuk-body">
@@ -75,15 +77,37 @@
 
 
   
-  <p class="govuk-body">Licencing decisions will vary on a case-by-case basis depending on your chosen abstraction point, what you will use the water for, how many other abstractors are in the area and other factors such as environmental concerns.</p>
+  <!-- <p class="govuk-body">Licensing decisions will vary on a case-by-case basis depending on your chosen abstraction point, what you will use the water for, how many other abstractors are in the area and other factors such as environmental concerns.</p>
+       -->
+  <details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Common end date (licensing strategy review period)
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+ <p class="govuk-body">{% if (data['watertype'] == "ground")%}
+ Common end date for {{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}: <b>January 2027</b>.
+  {% elseif (data['watertype'] == "surface")%}
+   Common end date for {{data.riverCatchmentData[data.sid].properties.WB_NAME}}: <b>January 2027</b>.
+{% endif %}</p>
+
+<p class="govuk-body">The 'common end date' indicates when the licensing strategy 
+  for this area is due for review. The Environment Agency review each local 
+  licensing strategy every six years.</p>
+
+  </div>
+</details>
+
+
+<!-- <div class="border govuk-!-margin-bottom-3">
+<h2 class="govuk-heading-m">Availability status</h2> -->
 
   {% endif %}
 
-  <p class='govuk-body-s'><i>This page was last updated: 25 October 2025</i></p>
 
-<h2 class="govuk-heading-m">Availability status</h2>
 
-{% if (data['watertype'] == "surface" and data['nowater'] == "false") %} 
+<!-- {% if (data['watertype'] == "surface" and data['nowater'] == "false") %} 
 
   {% if data.sid == "1"%} 
     <p class="govuk-body">Summer availability: {{tagsgoodHTML | safe}}</p>
@@ -104,13 +128,17 @@ New licences can be considered depending on local and downstream impacts.</p>
   trade water with existing abstractors.</p>
 
      {% endif %}
-   
+  
+     
 {% endif %} 
+
 
     <p class="govuk-body">Winter availability: {{tagsgoodHTML | safe}}</p>
 <p class="govuk-body">There is more water than required to meet the needs of the environment.
 New licences can be considered depending on local and downstream impacts.</p>
 
+
+</div> -->
 
 <h2 class="govuk-heading-m">Restrictions on abstraction</h2>
 
@@ -224,6 +252,8 @@ New licences can be considered depending on local and downstream impacts.</p>
   the flow level at your local assessment point has previously 
   fallen below the current HoF level 1.35 ml/d. This means you 
   would not be allowed to take water on those days.</p>
+
+  
 
 <h3 class="govuk-heading-s">2024-2025</h3>
 <details class="govuk-details">
@@ -507,25 +537,7 @@ New licences can be considered depending on local and downstream impacts.</p>
 {% endif %}
 
 
-<details class="govuk-details">
-  <summary class="govuk-details__summary">
-    <span class="govuk-details__summary-text">
-      Common end date (licensing strategy review period)
-    </span>
-  </summary>
-  <div class="govuk-details__text">
- <p class="govuk-body">{% if (data['watertype'] == "ground")%}
- Common end date for {{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}: <b>January 2027</b>.
-  {% elseif (data['watertype'] == "surface")%}
-   Common end date for {{data.riverCatchmentData[data.sid].properties.WB_NAME}}: <b>January 2027</b>.
-{% endif %}</p>
 
-<p class="govuk-body">The 'common end date' indicates when the licensing strategy 
-  for this area is due for review. The Environment Agency review each local 
-  licensing strategy every 6 years.</p>
-
-  </div>
-</details>
 
 
   {% if (data.nowater == "false") %}
