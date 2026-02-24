@@ -28,3 +28,12 @@ padding: 30px 20px;
 @media (prefers-reduced-motion: no-preference) {
  .app-chart__segment { transition: inline-size .6s ease; }
 }
+
+//class for floating content
+.float-left {
+    float:left;
+}
+
+.width-100 {
+    width: 100%;
+}
