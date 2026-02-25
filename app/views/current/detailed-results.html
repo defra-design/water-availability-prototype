@@ -1,7 +1,7 @@
 {% extends "layouts/main.html" %}
 
 {% block pageTitle %}
-  {{ "Your water availability report" }}
+  {{ "Your water availability" }}
 {% endblock %}
 
 {% block beforeContent %}
@@ -47,15 +47,18 @@
 
   {% if (data.nowater == "true") %} 
   
-    <h1 class="govuk-heading-l">Your water availability report</h1>
-<div class="border govuk-!-margin-bottom-3">
-  <h2 class="govuk-heading-m">Year round availability {{tagsnowaterHTML | safe}}</h2>
+    <h1 class="govuk-heading-l">Your water availability</h1>
+    <div class="border govuk-!-margin-bottom-3">
+      <h2 class="govuk-heading-m">Availability status</h2>
+  <p class="govuk-body">Summer: {{tagsnowaterHTML | safe}}</p>
+    <p class="govuk-body">Winter: {{tagsnowaterHTML | safe}}</p>
 <p class="govuk-body">No water is available for licensing at any time in this water body.</p>
 
 <p class="govuk-body">This can be due to low flow rates and a high number of other abstractors. 
   The area is likely to be water stressed meaning more abstraction 
   could have a negative impact on the local environment.</p>
-</div>
+
+  </div>
   {% else %}
 
    {% if (data['watertype'] == "surface")%}  
@@ -101,7 +104,12 @@
 
 
 <div class="border govuk-!-margin-bottom-3">
+
+   {% if (data['watertype'] == "surface" and data['nowater'] == "false") %}
+
 <h2 class="govuk-heading-m">Availability status</h2> 
+  {% else %}
+  {% endif %}
 
   {% endif %}
 
@@ -110,18 +118,18 @@
  {% if (data['watertype'] == "surface" and data['nowater'] == "false") %} 
 
   {% if data.sid == "1"%} 
-    <p class="govuk-body">Summer availability: {{tagsgoodHTML | safe}}</p>
+    <p class="govuk-body">Summer: {{tagsgoodHTML | safe}}</p>
 <p class="govuk-body">There is more water than required to meet the needs of the environment.
 New licences can be considered depending on local and downstream impacts.</p>
     {% else %}
 
  {% if data['water-use-type'] == "Non-consumptive" %}   
- <p class="govuk-body">Summer availability: {{tagsrestrictedHTML | safe}}</p>
+ <p class="govuk-body">Summer: {{tagsrestrictedHTML | safe}}</p>
  <p class="govuk-body">Water abstraction in this area is limited due to low 
   flows and/or environmental concerns. No new consumptive licences 
   will be granted. Non-consumptive licences may be available.</p>
     {% elseif data['water-use-type'] == "Consumptive" %}
-     <p class="govuk-body">Summer availability: {{tagsnowaterHTML | safe}}</p> 
+     <p class="govuk-body">Summer: {{tagsnowaterHTML | safe}}</p> 
 <p class="govuk-body">No water is available for new licences due to low flows, 
   environmental concerns and/or too many existing abstractors in the area. 
   Existing licences are restricted, however there may be opportunities to 
@@ -133,7 +141,7 @@ New licences can be considered depending on local and downstream impacts.</p>
 {% endif %} 
 
 
-    <p class="govuk-body">Winter availability: {{tagsgoodHTML | safe}}</p>
+    <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p>
 <p class="govuk-body">There is more water than required to meet the needs of the environment.
 New licences can be considered depending on local and downstream impacts.</p>
 
@@ -256,6 +264,10 @@ New licences can be considered depending on local and downstream impacts.</p>
   
 
 <h3 class="govuk-heading-s">2024-2025</h3>
+
+  {% if data.sid == "0" and data['water-use-type'] == "Consumptive"%} 
+
+  {% else %}
 <details class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
@@ -317,6 +329,7 @@ New licences can be considered depending on local and downstream impacts.</p>
  </table>
    </div>
 </details>
+{% endif %}
 
  <details class="govuk-details">
   <summary class="govuk-details__summary">
@@ -376,6 +389,10 @@ New licences can be considered depending on local and downstream impacts.</p>
 </details>
 
 <h3 class="govuk-heading-s">2023-2024</h3>
+
+  {% if data.sid == "0" and data['water-use-type'] == "Consumptive"%} 
+
+  {% else %}
 <details class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
@@ -438,6 +455,8 @@ New licences can be considered depending on local and downstream impacts.</p>
    </div>
 </details>
 
+{% endif %}
+
  <details class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
@@ -498,21 +517,19 @@ New licences can be considered depending on local and downstream impacts.</p>
 {% endif -%}
 
 
- {% if (data['watertype'] == "ground")%} 
-  <h2 class="govuk-heading-m">Groundwater availability and seasonal restrictions</h2>
-<p class="govuk-body"><i>This data was last updated: 25 October 2025</i></p>
+ {% if (data['watertype'] == "ground" and data['nowater'] == "false")%} 
 
   
 <table class="govuk-table">
-<caption class="govuk-table__caption govuk-table__caption--m">Dates and amounts</caption>
+<caption class="govuk-table__caption govuk-table__caption--m">Availability status</caption>
   <tbody class="govuk-table__body">
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Summer</th>
       <td class="govuk-table__cell">March - September</td>    
          {% if data['water-use-type'] == "Non-consumptive" %}   
-    <td class="govuk-table__cell">Summer: {{tagsrestrictedHTML | safe}}</td> 
+    <td class="govuk-table__cell">{{tagsrestrictedHTML | safe}}</td> 
     {% elseif data['water-use-type'] == "Consumptive" %}
-     <td class="govuk-table__cell">Summer: {{tagsnowaterHTML | safe}}</td> 
+     <td class="govuk-table__cell">{{tagsnowaterHTML | safe}}</td> 
      {% endif %}
 
     </tr>
@@ -533,7 +550,7 @@ New licences can be considered depending on local and downstream impacts.</p>
 <p class="govuk-body">A <a href="https://www.gov.uk/government/publications/apply-for-consent-to-investigate-a-groundwater-source/apply-for-consent-to-investigate-a-groundwater-source" class="govuk-link">pump test</a> will most likely be needed to determine availability for your specific abstraction point.</p>
 
 <!-- <p class="govuk-body"><a href="{{data.groundwaterCatchmentData.properties.WB_DETAIL}}">View a map of existing the local groundwater body</a>.</p> -->
-
+</div>
 {% endif %}
 
 
