@@ -137,14 +137,14 @@ factors such as environmental concerns.</strong>
 
 {% if data.riverCatchmentData.length==1 %}
 
-   <p class="govuk-body">View a full surface water availability report for your   
+   <p class="govuk-body">The information below shows the surface water body for the    
   {% if (data['location'] == "gridRef") %}
         national grid reference
 {% elseif (data['location'] == "fieldParcel") %}
     field parcel
 {% elseif (data['location'] == "postCode") %}
     postcode
-      {% endif %} using the link below. 
+      {% endif %} you have provided. Use the link to view restrictions and previous availability for this water body. 
 </p>
 
    {% else %}
@@ -159,8 +159,8 @@ factors such as environmental concerns.</strong>
     postcode
       {% endif %}
       
-      you have provided. Use the links to view a 
-      full surface water availability report for each water body.</p>
+      you have provided. Use the links to view 
+      restrictions and previous availability information for each water body.</p>
 
 
 
@@ -246,14 +246,14 @@ factors such as environmental concerns.</strong>
 
   {% if data.groundwaterCatchmentData.length==1 %}
 
-   <p class="govuk-body">View a full groundwater availability report for your   
+   <p class="govuk-body">The information below shows the groundwater body for the   
   {% if (data['location'] == "gridRef") %}
         national grid reference
 {% elseif (data['location'] == "fieldParcel") %}
     field parcel
 {% elseif (data['location'] == "postCode") %}
     postcode
-      {% endif %} using the link below. 
+      {% endif %} you have provided. Use the link to view restrictions and previous availability for this water body. 
 </p>
 
   {% else %}
@@ -267,8 +267,8 @@ factors such as environmental concerns.</strong>
     postcode
       {% endif %}
       
-       you have provided. Use the links to view a 
-      full groundwater availability report for each water body.</p>
+       you have provided. Use the links to view restrictions and 
+       previous availability information for each water body.</p>
 
 
   {% endif %}
