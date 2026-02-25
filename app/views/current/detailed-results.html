@@ -48,6 +48,41 @@
   {% if (data.nowater == "true") %} 
   
     <h1 class="govuk-heading-l">Your water availability</h1>
+    <p class='govuk-body-s'><i>This page was last updated: 25 October 2025</i></p>
+ 
+{% if (data['watertype'] == "surface") %}   
+  <p class="govuk-body">
+         This page shows licence availability and restrictions for surface water abstraction from the water body '<b>{{data.riverCatchmentData[data.sid].properties.WB_NAME}}</b>'.</p>
+
+      {% elseif (data['watertype'] == "ground") %}
+       <p class="govuk-body">
+         This page shows licence availability and restrictions for groundwater abstraction from the water body '<b>{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}</b>'.</p>
+      {% endif %}
+
+
+  
+  <!-- <p class="govuk-body">Licensing decisions will vary on a case-by-case basis depending on your chosen abstraction point, what you will use the water for, how many other abstractors are in the area and other factors such as environmental concerns.</p>
+       -->
+  <details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Common end date (licensing strategy review period)
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+ <p class="govuk-body">{% if (data['watertype'] == "ground")%}
+ Common end date for {{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}: <b>January 2027</b>.
+  {% elseif (data['watertype'] == "surface")%}
+   Common end date for {{data.riverCatchmentData[data.sid].properties.WB_NAME}}: <b>January 2027</b>.
+{% endif %}</p>
+
+<p class="govuk-body">The 'common end date' indicates when the licensing strategy 
+  for this area is due for review. The Environment Agency review each local 
+  licensing strategy every six years.</p>
+
+  </div>
+</details>
+
     <div class="border govuk-!-margin-bottom-3">
       <h2 class="govuk-heading-m">Availability status</h2>
   <p class="govuk-body">Summer: {{tagsnowaterHTML | safe}}</p>
@@ -524,12 +559,25 @@ New licences can be considered depending on local and downstream impacts.</p>
 <caption class="govuk-table__caption govuk-table__caption--m">Availability status</caption>
   <tbody class="govuk-table__body">
     <tr class="govuk-table__row">
+
+      {% if (data.gid == "0" )%} 
+      <th scope="row" class="govuk-table__header">Summer</th>
+      <td class="govuk-table__cell">March - September</td>    
+        
+    <td class="govuk-table__cell">{{tagsgoodHTML | safe}}</td> 
+   
+     {% endif %}
+
+     {% if (data.gid == "1" )%} 
+     
       <th scope="row" class="govuk-table__header">Summer</th>
       <td class="govuk-table__cell">March - September</td>    
          {% if data['water-use-type'] == "Non-consumptive" %}   
     <td class="govuk-table__cell">{{tagsrestrictedHTML | safe}}</td> 
     {% elseif data['water-use-type'] == "Consumptive" %}
      <td class="govuk-table__cell">{{tagsnowaterHTML | safe}}</td> 
+     {% endif %}
+
      {% endif %}
 
     </tr>
