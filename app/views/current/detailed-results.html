@@ -550,55 +550,73 @@ New licences can be considered depending on local and downstream impacts.</p>
 </details>
 
 {% endif -%}
+<div class="govuk-body">
 
+ {% if (data['watertype'] == "ground" and data['nowater'] == "false") %} 
 
- {% if (data['watertype'] == "ground" and data['nowater'] == "false")%} 
+  {% if data.gid == "0"%} 
+    <p class="govuk-body">Summer: {{tagsgoodHTML | safe}}</p>
+<p class="govuk-body">There is more water than required to meet the needs of the environment.
+New licences can be considered depending on local and downstream impacts.</p>
+    {% else %}
 
-  
-<table class="govuk-table">
-<caption class="govuk-table__caption govuk-table__caption--m">Availability status</caption>
-  <tbody class="govuk-table__body">
-    <tr class="govuk-table__row">
-
-      {% if (data.gid == "0" )%} 
-      <th scope="row" class="govuk-table__header">Summer</th>
-      <td class="govuk-table__cell">March - September</td>    
-        
-    <td class="govuk-table__cell">{{tagsgoodHTML | safe}}</td> 
-   
-     {% endif %}
-
-     {% if (data.gid == "1" )%} 
-     
-      <th scope="row" class="govuk-table__header">Summer</th>
-      <td class="govuk-table__cell">March - September</td>    
-         {% if data['water-use-type'] == "Non-consumptive" %}   
-    <td class="govuk-table__cell">{{tagsrestrictedHTML | safe}}</td> 
+ {% if data['water-use-type'] == "Non-consumptive" %}   
+ <p class="govuk-body">Summer: {{tagsrestrictedHTML | safe}}</p>
+ <p class="govuk-body">Water abstraction in this area is limited due to low 
+  flows and/or environmental concerns. No new consumptive licences 
+  will be granted. Non-consumptive licences may be available.</p>
     {% elseif data['water-use-type'] == "Consumptive" %}
-     <td class="govuk-table__cell">{{tagsnowaterHTML | safe}}</td> 
-     {% endif %}
+     <p class="govuk-body">Summer: {{tagsnowaterHTML | safe}}</p> 
+<p class="govuk-body">No water is available for new licences due to low flows, 
+  environmental concerns and/or too many existing abstractors in the area. 
+  Existing licences are restricted, however there may be opportunities to 
+  trade water with existing abstractors.</p>
 
      {% endif %}
-
-    </tr>
-
-    <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">Winter</th>
-      <td class="govuk-table__cell">October - February</td>    
-         <td class="govuk-table__cell">{{tagsgoodHTML | safe}}</td>
-
-    </tr>
-    
-  </tbody>
-</table>
+  
+     
+{% endif %} 
 
 
+    <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p>
+<p class="govuk-body">There is more water than required to meet the needs of the environment.
+New licences can be considered depending on local and downstream impacts.</p>
+
+<div class="govuk-warning-text">
+  <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+  <strong class="govuk-warning-text__text">
+    <span class="govuk-visually-hidden">Warning</span>
+    Groundwater bodies cover large areas with varied geology. The information 
+    above is only indicative of the overall status of the water body.
+  </strong>
+</div>
+
+</div> 
+
+ </div>
+
+<h2 class="govuk-heading-m">Restrictions on abstraction</h2>
 <p class="govuk-body">Restrictions may apply where availability is limited or to protect the environment.</p>
 
-<p class="govuk-body">A <a href="https://www.gov.uk/government/publications/apply-for-consent-to-investigate-a-groundwater-source/apply-for-consent-to-investigate-a-groundwater-source" class="govuk-link">pump test</a> will most likely be needed to determine availability for your specific abstraction point.</p>
+<p class="govuk-body">Water availability will depend on the location and depth of abstraction. A <a href="https://www.gov.uk/government/publications/apply-for-consent-to-investigate-a-groundwater-source/apply-for-consent-to-investigate-a-groundwater-source" class="govuk-link">pump test</a> will most likely be needed to determine availability for your specific abstraction point.</p>
+
 
 <!-- <p class="govuk-body"><a href="{{data.groundwaterCatchmentData.properties.WB_DETAIL}}">View a map of existing the local groundwater body</a>.</p> -->
-</div>
+
+<h2 class="govuk-heading-m">Get advice on groundwater availability and licensing</h2>
+<p class="govuk-body">Contact the Environment Agency for more information on groundwater availability and licensing.</p>
+<p class="govuk-body">National Customer Contact Centre
+<br>PO Box 544
+<br>Rotherham
+<br>S60 1BY</p>
+
+<p class="govuk-body">Email <a href="mailto:enquiries@environment-agency.gov.uk" class="govuk-link">enquiries@environment-agency.gov.uk</a></p>
+
+<p class="govuk-body">Telephone 03708 506 506</p>
+<p class="govuk-body">Monday to Friday, 8am to 6pm.</p>
+<p class="govuk-body">Telephone from outside the UK (Monday to Friday, 
+8am to 6pm GMT) +44 (0) 114 282 5312</p>
+
 {% endif %}
 
 
