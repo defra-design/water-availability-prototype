@@ -519,7 +519,7 @@ var newExisting = request.session.data['new-existing']
 	if (newExisting == "new") {
 		response.redirect(folder + "existing-licence-buffer")
 	} else if (newExisting == "existing") {
-		response.redirect(folder + "licence-number")
+		response.redirect(folder + "usage-category")
 	}
 
 })
@@ -714,11 +714,9 @@ router.post('/usage-farming', function (request, response) {
 
   // Redirect to whatever page you want next
   
-  if (newExisting == "new" || licenceHolder == "no") {
+
 	response.redirect(folder + "location")
-	} else if (newExisting == "existing") {
-		response.redirect(folder + "summary")
-	}
+
 		
 	
 });
@@ -746,11 +744,9 @@ router.post('/usage-industrial', function (request, response) {
 
   // Redirect to whatever page you want next
   
-	if (newExisting == "new" || licenceHolder == "no") {
+
 	response.redirect(folder + "location")
-	} else if (newExisting == "existing") {
-		response.redirect(folder + "summary")
-	}
+
 	
 });
 
@@ -777,11 +773,9 @@ router.post('/usage-conservation', function (request, response) {
 
   // Redirect to whatever page you want next
   
-	if (newExisting == "new" || licenceHolder == "no") {
+
 	response.redirect(folder + "location")
-	} else if (newExisting == "existing") {
-		response.redirect(folder + "summary")
-	}
+
 	
 });
 
@@ -808,11 +802,9 @@ router.post('/usage-domestic', function (request, response) {
 
   // Redirect to whatever page you want next
   
-	if (newExisting == "new" || licenceHolder == "no") {
+
 	response.redirect(folder + "location")
-	} else if (newExisting == "existing") {
-		response.redirect(folder + "summary")
-	}
+
 	
 });
 
@@ -839,11 +831,9 @@ router.post('/usage-energy', function (request, response) {
 
   // Redirect to whatever page you want next
   
-	if (newExisting == "new" || licenceHolder == "no") {
+
 	response.redirect(folder + "location")
-	} else if (newExisting == "existing") {
-		response.redirect(folder + "summary")
-	}
+	
 	
 });
 
@@ -870,11 +860,9 @@ router.post('/usage-storage', function (request, response) {
 
   // Redirect to whatever page you want next
   
-	if (newExisting == "new" || licenceHolder == "no") {
+
 	response.redirect(folder + "location")
-	} else if (newExisting == "existing") {
-		response.redirect(folder + "summary")
-	}
+	
 	
 });
 

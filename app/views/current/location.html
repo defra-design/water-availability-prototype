@@ -13,6 +13,14 @@
 
 {% block content %}
 
+{% set hintText = "" %} 
+{% if (data.new-existing == "existing") %}
+ {% set hintText = "Tell us where your existing abstraction point is so we can give you availability information for your surface and groundwater bodies"%}
+  {% else %}
+{% set hintText = "Tell us where you want to take or use water so we can give you availability information for your surface and groundwater bodies" %}
+  {% endif %}
+
+
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
@@ -81,8 +89,8 @@
     }
   },
 
-  hint: {
-    text: "Tell us where you want to take or use water so we can give you availability information for your surface and groundwater bodies"
+hint: {
+    text: hintText
   },
 
   items: [
@@ -125,7 +133,9 @@
   name: "gridRef"
 }) }} -->
 
-
+{{(data['new-existing'] == "existing") and (data['licence-holder'] == "yes")}}
+{{data['new-existing']}}
+{{data['licence-holder']}}
 
         {{ govukButton({
           text: "Continue"
@@ -137,4 +147,5 @@
     </div>
   </div>
 
+{{data|dump}}
 {% endblock %}
