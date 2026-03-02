@@ -18,8 +18,8 @@
 {% set tagsnowaterHTML %}
 
 {{ govukTag({
-  text: "No licences",
- classes: "govuk-tag--grey"
+  text: "73% restricted",
+ classes: "govuk-tag--yellow"
 }) }}
 
 {% endset %}
@@ -85,8 +85,8 @@
 
     <div class="border govuk-!-margin-bottom-3">
       <h2 class="govuk-heading-m">Availability status</h2>
-  <p class="govuk-body">Summer: {{tagsnowaterHTML | safe}}</p>
-    <p class="govuk-body">Winter: {{tagsnowaterHTML | safe}}</p>
+  <p class="govuk-body">{{tagsnowaterHTML | safe}}</p>
+   <!-- <p class="govuk-body">Winter: {{tagsnowaterHTML | safe}}</p>-->
 <p class="govuk-body">No water is available for licensing at any time in this water body.</p>
 
 <p class="govuk-body">This can be due to low flow rates and a high number of other abstractors. 
@@ -153,18 +153,18 @@
  {% if (data['watertype'] == "surface" and data['nowater'] == "false") %} 
 
   {% if data.sid == "1"%} 
-    <p class="govuk-body">Summer: {{tagsgoodHTML | safe}}</p>
+    <p class="govuk-body">{{tagsgoodHTML | safe}}</p>
 <p class="govuk-body">There is more water than required to meet the needs of the environment.
 New licences can be considered depending on local and downstream impacts.</p>
     {% else %}
 
  {% if data['water-use-type'] == "Non-consumptive" %}   
- <p class="govuk-body">Summer: {{tagsrestrictedHTML | safe}}</p>
+ <p class="govuk-body">{{tagsrestrictedHTML | safe}}</p>
  <p class="govuk-body">Water abstraction in this area is limited due to low 
   flows and/or environmental concerns. No new consumptive licences 
   will be granted. Non-consumptive licences may be available.</p>
     {% elseif data['water-use-type'] == "Consumptive" %}
-     <p class="govuk-body">Summer: {{tagsnowaterHTML | safe}}</p> 
+     <p class="govuk-body">{{tagsnowaterHTML | safe}}</p> 
 <p class="govuk-body">No water is available for new licences due to low flows, 
   environmental concerns and/or too many existing abstractors in the area. 
   Existing licences are restricted, however there may be opportunities to 
@@ -176,9 +176,9 @@ New licences can be considered depending on local and downstream impacts.</p>
 {% endif %} 
 
 
-    <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p>
+   <!-- <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p>
 <p class="govuk-body">There is more water than required to meet the needs of the environment.
-New licences can be considered depending on local and downstream impacts.</p>
+New licences can be considered depending on local and downstream impacts.</p>-->
 
 
 </div> 
@@ -306,7 +306,7 @@ New licences can be considered depending on local and downstream impacts.</p>
 <details class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
-      Summer: 59% water available
+      Summer: <span class="govuk-!-margin-left-3">{{tagsnowaterHTML | safe}}</span>
     </span>
   </summary>
   <div class="govuk-details__text">
@@ -555,18 +555,18 @@ New licences can be considered depending on local and downstream impacts.</p>
  {% if (data['watertype'] == "ground" and data['nowater'] == "false") %} 
 
   {% if data.gid == "0"%} 
-    <p class="govuk-body">Summer: {{tagsgoodHTML | safe}}</p>
+    <p class="govuk-body">{{tagsgoodHTML | safe}}</p>
 <p class="govuk-body">There is more water than required to meet the needs of the environment.
 New licences can be considered depending on local and downstream impacts.</p>
     {% else %}
 
  {% if data['water-use-type'] == "Non-consumptive" %}   
- <p class="govuk-body">Summer: {{tagsrestrictedHTML | safe}}</p>
+ <p class="govuk-body">{{tagsrestrictedHTML | safe}}</p>
  <p class="govuk-body">Water abstraction in this area is limited due to low 
   flows and/or environmental concerns. No new consumptive licences 
   will be granted. Non-consumptive licences may be available.</p>
     {% elseif data['water-use-type'] == "Consumptive" %}
-     <p class="govuk-body">Summer: {{tagsnowaterHTML | safe}}</p> 
+     <p class="govuk-body">{{tagsnowaterHTML | safe}}</p> 
 <p class="govuk-body">No water is available for new licences due to low flows, 
   environmental concerns and/or too many existing abstractors in the area. 
   Existing licences are restricted, however there may be opportunities to 
@@ -578,9 +578,9 @@ New licences can be considered depending on local and downstream impacts.</p>
 {% endif %} 
 
 
-    <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p>
+ <!--   <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p>
 <p class="govuk-body">There is more water than required to meet the needs of the environment.
-New licences can be considered depending on local and downstream impacts.</p>
+New licences can be considered depending on local and downstream impacts.</p>-->
 
 <div class="govuk-warning-text">
   <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
