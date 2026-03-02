@@ -1,0 +1,59 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+{{ "You may not need a licence to abstract water" }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">
+        Make sure you do not need a licence before abstracting water
+      </h1>
+
+      <p class="govuk-body">It's important you comply with water and environmental regulations. 
+ Make sure you are definitely exempt from licensing and consider whether you need any 
+ other <a href="https://www.gov.uk/guidance/check-if-you-need-an-environmental-permit" class="govuk-link">environmental permits</a> or 
+ <a href="https://www.gov.uk/browse/housing-local-services/planning-permission-regulations-information" class="govuk-link">planning permissions</a> before you abstract water.</p>
+
+<p class="govuk-body"><a href="https://www.gov.uk/guidance/check-if-you-need-a-licence-to-abstract-water#when-you-do-not-need-an-abstraction-licence" class="govuk-link">Check if your intended water use is listed as an exemption.</a></p>
+
+<p class="govuk-body">The Environment Agency carry out site inspections to 
+  check compliance. If you commit an offence they may take enforcement action. 
+  More information on fines and convictions are listed in 
+  the <a href="https://www.gov.uk/government/publications/offence-response-options-environment-agency/water-resources-offences" class="govuk-link">water resources offence response</a> options.</p>
+
+  <p class="govuk-body">If you are unsure and need further guidance on 
+    whether you need a licence, contact the Environment Agency.</p>
+
+ <h2 class="govuk-heading-m">Contact the Environment Agency</h2>
+
+  <h3 class="govuk-heading-s">General enquiries</h3>
+
+<p class="govuk-body">National Customer Contact Centre
+<br>PO Box 544
+<br>Rotherham
+<br>S60 1BY</p>
+
+<p class="govuk-body">Email <a href="mailto:enquiries@environment-agency.gov.uk" class="govuk-link">enquiries@environment-agency.gov.uk</a></p>
+
+<p class="govuk-body">Telephone 03708 506 506</p>
+<p class="govuk-body">Monday to Friday, 8am to 6pm.</p>
+<p class="govuk-body">Telephone from outside the UK (Monday to Friday, 
+8am to 6pm GMT) +44 (0) 114 282 5312</p>
+
+
+
+    </div>
+  </div>
+
+{% endblock %}

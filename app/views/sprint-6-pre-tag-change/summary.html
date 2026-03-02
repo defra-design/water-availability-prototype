@@ -18,7 +18,7 @@
 
 {{ govukTag({
   text: "No licences",
-  classes: "govuk-tag--grey"
+  classes: "govuk-tag--red"
 }) }}
 
 {% endset %}
@@ -26,8 +26,8 @@
 
 {% set tagsrestrictedHTML %}
 {{ govukTag({
-  text: "Licences available",
-  classes: "govuk-tag--grey"
+  text: "Limited licences",
+  classes: "govuk-tag--yellow"
 }) }}
 
 {% endset %}
@@ -36,7 +36,7 @@
 
 {{ govukTag({
   text: "Licences available",
-  classes: "govuk-tag--grey"
+  classes: "govuk-tag--green"
 }) }}
 
 {% endset %}
@@ -80,15 +80,15 @@
 New licences can be considered depending on local and downstream impacts.
     </dd>
    
-</div>
-    <!-- <div class="govuk-summary-list__row">
+  </div>
+  <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
       {{tagsrestrictedHTML | safe}}
     </dt>
     <dd class="govuk-summary-list__value">
      Water abstraction in this area is limited due to low flows and/or environmental concerns. No new consumptive licences will be granted. Non-consumptive licences may be available.</dd>
     
-  </div> -->
+  </div>
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
       {{tagsnowaterHTML | safe}}
@@ -178,11 +178,11 @@ factors such as environmental concerns.</strong>
     is <b>within</b> this surface water body.</p>
 
    {% if data['water-use-type'] == "Non-consumptive" %}   
-    <p class="govuk-body">{{tagsrestrictedHTML | safe}}</p> 
+    <p class="govuk-body">Summer: {{tagsrestrictedHTML | safe}}</p> 
     {% elseif data['water-use-type'] == "Consumptive" %}
-     <p class="govuk-body">{{tagsnowaterHTML | safe}}</p> 
+     <p class="govuk-body">Summer: {{tagsnowaterHTML | safe}}</p> 
      {% endif %}
-  <!-- <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p> --> 
+   <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p> 
   <hr>
   
   {% elif loop.index0 == 1 %}
@@ -191,8 +191,8 @@ factors such as environmental concerns.</strong>
  
     <p class="govuk-body">{{waterBody.nearestPoint.distanceKm | round(2)}} kilometres {{waterBody.nearestPoint.direction}} of the centre of the {% if (data['location'] == "gridRef") %}national grid reference{% elseif (data['location'] == "fieldParcel") %}field parcel{% elseif (data['location'] == "postCode") %}postcode{% endif %}.</p>
 
-      <p class="govuk-body">{{tagsgoodHTML | safe}}</p>   
-   <!-- <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p> -->
+      <p class="govuk-body">Summer: {{tagsgoodHTML | safe}}</p>   
+   <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p> 
    <hr>
    {% elif loop.index0 == 2 %}
 
@@ -201,8 +201,8 @@ factors such as environmental concerns.</strong>
         <p class="govuk-body">{{waterBody.nearestPoint.distanceKm | round(2)}} kilometres {{waterBody.nearestPoint.direction}} of the centre of the {% if (data['location'] == "gridRef") %}national grid reference{% elseif (data['location'] == "fieldParcel") %}field parcel{% elseif (data['location'] == "postCode") %}postcode{% endif %}.</p>
 
 
-      <p class="govuk-body">{{tagsnowaterHTML | safe}}</p>   
-   <!-- <p class="govuk-body">Winter: {{tagsnowaterHTML | safe}}</p> -->
+      <p class="govuk-body">Summer: {{tagsnowaterHTML | safe}}</p>   
+   <p class="govuk-body">Winter: {{tagsnowaterHTML | safe}}</p> 
    <hr>
    {% else %}
 
@@ -212,11 +212,11 @@ factors such as environmental concerns.</strong>
 
       
     {% if data['water-use-type'] == "Non-consumptive" %}   
-    <p class="govuk-body">{{tagsrestrictedHTML | safe}}</p> 
+    <p class="govuk-body">Summer: {{tagsrestrictedHTML | safe}}</p> 
     {% elseif data['water-use-type'] == "Consumptive" %}
-     <p class="govuk-body">{{tagsnowaterHTML | safe}}</p> 
+     <p class="govuk-body">Summer: {{tagsnowaterHTML | safe}}</p> 
      {% endif %}
- <!--  <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p> -->
+   <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p> 
      <hr>
    {% endif %}
 
@@ -281,8 +281,8 @@ factors such as environmental concerns.</strong>
     postcode
       {% endif %}
      is <b>within</b> this groundwater body.</p>
-     <p class="govuk-body">{{tagsgoodHTML | safe}}</p>   
-  <!-- <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p> -->
+     <p class="govuk-body">Summer: {{tagsgoodHTML | safe}}</p>   
+   <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p> 
 
   <hr>
 
@@ -294,11 +294,11 @@ factors such as environmental concerns.</strong>
 
 
      {% if data['water-use-type'] == "Non-consumptive" %}   
-    <p class="govuk-body">{{tagsrestrictedHTML | safe}}</p> 
+    <p class="govuk-body">Summer: {{tagsrestrictedHTML | safe}}</p> 
     {% elseif data['water-use-type'] == "Consumptive" %}
-     <p class="govuk-body">{{tagsnowaterHTML | safe}}</p> 
+     <p class="govuk-body">Summer: {{tagsnowaterHTML | safe}}</p> 
      {% endif %}
-  <!-- <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p> -->
+   <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p> 
 
   <hr>
 
@@ -309,11 +309,11 @@ factors such as environmental concerns.</strong>
     <p class="govuk-body">{{waterBody.nearestPoint.distanceKm | round(2)}} kilometres {{waterBody.nearestPoint.direction}} of the centre of the {% if (data['location'] == "gridRef") %}national grid reference{% elseif (data['location'] == "fieldParcel") %}field parcel{% elseif (data['location'] == "postCode") %}postcode{% endif %}.</p>
 
     {% if data['water-use-type'] == "Non-consumptive" %}   
-    <p class="govuk-body">{{tagsrestrictedHTML | safe}}</p> 
+    <p class="govuk-body">Summer: {{tagsrestrictedHTML | safe}}</p> 
     {% elseif data['water-use-type'] == "Consumptive" %}
-     <p class="govuk-body">{{tagsnowaterHTML | safe}}</p> 
+     <p class="govuk-body">Summer: {{tagsnowaterHTML | safe}}</p> 
      {% endif %}
-  <!-- <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p> -->
+   <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p> 
 
   <hr>
 {% else %}
@@ -322,11 +322,11 @@ factors such as environmental concerns.</strong>
      <p class="govuk-body">{{waterBody.nearestPoint.distanceKm | round(2)}} kilometres {{waterBody.nearestPoint.direction}} of the centre of the {% if (data['location'] == "gridRef") %}national grid reference{% elseif (data['location'] == "fieldParcel") %}field parcel{% elseif (data['location'] == "postCode") %}postcode{% endif %}.</p>
 
     {% if data['water-use-type'] == "Non-consumptive" %}   
-    <p class="govuk-body">{{tagsrestrictedHTML | safe}}</p> 
+    <p class="govuk-body">Summer: {{tagsrestrictedHTML | safe}}</p> 
     {% elseif data['water-use-type'] == "Consumptive" %}
-     <p class="govuk-body">{{tagsnowaterHTML | safe}}</p> 
+     <p class="govuk-body">Summer: {{tagsnowaterHTML | safe}}</p> 
      {% endif %}
-  <!-- <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p> -->
+   <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p> 
 
   <hr>
  {% endif %}

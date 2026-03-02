@@ -1,0 +1,370 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+ Overall percentage of days “X” happened
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+ <!-- <span class="govuk-caption-l">Figure 1</span> -->
+ <h2 class="govuk-heading-m">Historical availability at 123ml/d HoF</h2>
+ <h3 class="govuk-heading-m">2025</h3>
+
+
+ <h3 class="govuk-heading-m">V3</h3>
+
+  {% set availableWidth = "60" %}
+  {% set notAvailableWidth = 100 - availableWidth %}
+
+
+{% set barChart2 %}
+
+<div style="width:100%; position: relative;">
+  <div style="width: {{availableWidth}}%; ">
+<strong class="govuk-tag " style="width: 100%; max-width:100%; overflow-wrap: unset;">
+         {{availableWidth}}%&nbsp;Available
+</strong>
+</div>
+<div  style="width: {{notAvailableWidth}}%; overflow-wrap: unset;">
+<strong class="govuk-tag govuk-tag--grey govuk-!-margin-top-1" style="width: 100%; max-width:100%; overflow-wrap: unset;" >
+        {{notAvailableWidth}}%&nbsp;Not&nbsp;available
+</strong>
+</div>
+</div>
+
+{% endset %}
+
+
+
+{% set dataTableHTML2 %}
+
+{{ govukTable({
+  caption: "Summer availability",
+  captionClasses: "govuk-table__caption--m",
+  firstCellIsHeader: true,
+  classes: "govuk-!-margin-top-6",
+  head: [
+    {
+      text: "Month"
+    },
+    {
+      text: "Days water would have been available",
+      format: "numeric"
+    },
+    {
+      text: "Days water would not have been available",
+      format: "numeric"
+    }
+  ],
+  rows: [
+        [
+      {
+        text: "April"
+      },
+      {
+        text: "23",
+        format: "numeric"
+      },
+      {
+        text: "07",
+        format: "numeric"
+      }
+    ],
+            [
+      {
+        text: "May"
+      },
+      {
+        text: "25",
+        format: "numeric"
+      },
+      {
+        text: "06",
+        format: "numeric"
+      }
+    ],
+    [
+      {
+        text: "June"
+      },
+      {
+        text: "19",
+        format: "numeric"
+      },
+      {
+        text: "11",
+        format: "numeric"
+      }
+    ],
+        [
+      {
+        text: "July"
+      },
+      {
+        text: "22",
+        format: "numeric"
+      },
+      {
+        text: "09",
+        format: "numeric"
+      }
+    ],
+            [
+      {
+        text: "August"
+      },
+      {
+        text: "15",
+        format: "numeric"
+      },
+      {
+        text: "16",
+        format: "numeric"
+      }
+    ],
+                [
+      {
+        text: "September"
+      },
+      {
+        text: "15",
+        format: "numeric"
+      },
+      {
+        text: "15",
+        format: "numeric"
+      }
+    ],
+                    [
+      {
+        text: "October"
+      },
+      {
+        text: "28",
+        format: "numeric"
+      },
+      {
+        text: "03",
+        format: "numeric"
+      }
+    ]
+
+  ]
+}) }}
+
+{% endset %}
+
+ <div class="govuk-grid-column-two-thirds" style="float:right;">
+
+  {{barChart2|safe}}
+
+  </div>
+
+
+  <div class="govuk-grid-column-one-third" style="float:left;">
+<details class="govuk-details">
+  <summary class="govuk-details__summary width-100">
+    <span class="govuk-details__summary-text">
+      Summer
+      </span>      
+  </summary>
+
+  <div class="govuk-details__text" style="    width: max-content;">
+   {{dataTableHTML2|safe}}
+  </div>
+</details>
+</div>
+
+
+</div>
+</div>
+
+
+
+
+
+
+
+<div class="govuk-grid-row" style="margin-top:100px">
+    <div class="govuk-grid-column-two-thirds" style="margin-top:100px">
+       <h3 class="govuk-heading-m">V2</h3>
+ 
+ {% set barChart %}
+
+<div style="display:inline-block; width:100%; position: relative;">
+  <div class="float-left"  style="width: {{availableWidth}}%; padding:0; margin:0;">
+<strong class="govuk-tag " style="width: 100%; max-width:100%;">
+         Available {{availableWidth}}%
+</strong>
+</div>
+<div class="float-left"  style="width: {{notAvailableWidth}}%; padding:0; margin:0;">
+<strong class="govuk-tag govuk-tag--grey" style="width: 100%; max-width:100%;" >
+         Not available {{notAvailableWidth}}%
+</strong>
+</div>
+</div>
+
+{% endset %}
+
+
+
+{% set dataTableHTML %}
+
+{{ govukTable({
+  caption: "Dates and amounts",
+  captionClasses: "govuk-table__caption--m",
+  firstCellIsHeader: true,
+  head: [
+    {
+      text: "Month"
+    },
+    {
+      text: "Days water would have been available"
+    },
+    {
+      text: "Days water would not have been available"
+    }
+  ],
+  rows: [
+        [
+      {
+        text: "April"
+      },
+      {
+        text: "23"
+      },
+      {
+        text: "07"
+      }
+    ],
+            [
+      {
+        text: "May"
+      },
+      {
+        text: "25"
+      },
+      {
+        text: "06"
+      }
+    ],
+    [
+      {
+        text: "June"
+      },
+      {
+        text: "19"
+      },
+      {
+        text: "11"
+      }
+    ],
+        [
+      {
+        text: "July"
+      },
+      {
+        text: "22"
+      },
+      {
+        text: "09"
+      }
+    ],
+            [
+      {
+        text: "August"
+      },
+      {
+        text: "15"
+      },
+      {
+        text: "16"
+      }
+    ],
+                [
+      {
+        text: "September"
+      },
+      {
+        text: "15"
+      },
+      {
+        text: "15"
+      }
+    ],
+                    [
+      {
+        text: "October"
+      },
+      {
+        text: "28"
+      },
+      {
+        text: "03"
+      }
+    ]
+
+  ]
+}) }}
+
+{% endset %}
+
+
+
+
+<details class="govuk-details">
+  <summary class="govuk-details__summary width-100">
+    <span class="govuk-details__summary-text">
+      Summer
+      </span>      
+  </summary>
+  {{barChart|safe}}
+  <div class="govuk-details__text">
+   {{dataTableHTML|safe}}
+  </div>
+</details>
+
+
+</div>
+</div>
+
+
+
+
+<div class="govuk-grid-row" style="margin-top:100px">
+    <div class="govuk-grid-column-two-thirds" style="margin-top:100px">
+ <h3 class="govuk-heading-m">V1</h3>
+
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Summer
+      </span>
+  </summary>
+  
+  <div class="govuk-details__text">
+   {{dataTableHTML|safe}}
+  </div>
+</details>
+
+<div class="float-left" style="width:inherit; position: relative;">
+  <div class="float-left"  style="width: {{availableWidth}}%; padding:0; margin:0;">
+<strong class="govuk-tag " style="width: 100%; max-width:100%;">
+         Available {{availableWidth}}%
+</strong>
+</div>
+<div class="float-left"  style="width: {{notAvailableWidth}}%; padding:0; margin:0;">
+<strong class="govuk-tag govuk-tag--grey" style="width: 100%; max-width:100%;" >
+         Not available {{notAvailableWidth}}%
+</strong>
+</div>
+</div>
+
+
+
+</div>
+</div>
+{% endblock %}

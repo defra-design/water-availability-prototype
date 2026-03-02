@@ -1,0 +1,90 @@
+{% extends "govuk-prototype-kit/layouts/unbranded.html" %}
+
+<!-- {% block pageTitle %}
+  {{ serviceName }}
+{% endblock %} -->
+
+{% block content %}
+
+<p class="govuk-body">Please do not press Continue until your researcher tells you to.</p>
+
+{% set htmlButton1 %}
+{{ govukButton({
+  text: "Continue",
+  href: "start"
+}) }}
+{% endset %}
+
+{% set htmlButton2 %}
+{{ govukButton({
+  text: "Continue",
+  href: "start"
+}) }}
+{% endset %}
+
+{{ govukAccordion({
+  id: "accordion-default",
+  rememberExpanded: false,
+  items: [
+    {
+      
+      heading: {
+        text: "Participant 1"
+      },
+      content: {
+        html: '<p class="govuk-body">Your organisation already has a licence to abstract water. You need more water than you are licenced for. You would like to find out if there is more water available from a new abstraction point at the Woodcote Park golf course.</p>'   
+       +htmlButton1
+              }
+  
+    },
+
+    {
+      
+      heading: {
+        text: "Participant 2"
+      },
+      content: {
+        html: '<p class="govuk-body">The Ratcliffe-on-Soar power station already has a licence to abstract water. You need more water than you are licenced for. You would like to find out if there is more water available from a new abstraction point at the Ratcliffe-on-Soar power station.</p>'   
+       +htmlButton1
+              }
+  
+    },
+
+    {
+      
+      heading: {
+        text: "Participant 3"
+      },
+      content: {
+        html: '<p class="govuk-body">Your organisation already has a licence to abstract water. You need more water than you are licenced for. You would like to find out if there is more water available from a new abstraction point at the water meadows at Rose Cottage.</p>'   
+       +htmlButton1
+              }
+  
+    },
+    {
+      
+      heading: {
+        text: "Participant 4"
+      },
+      content: {
+        html: '<p class="govuk-body">Your organisation is looking to expand to a new site. You would like to find out if there is water available for licencing. The site is located at the following grid reference: TF064046</p>'   
+       +htmlButton1
+              }
+  
+    },
+
+    {
+      heading: {
+        text: "Participant 5"
+      },
+      content: {
+        html: '<p class="govuk-body">Your organisation is looking to expand to a new site. You would like to find out if there is water available for licencing. The site is located at the following postcode: ME18 5AF</p>'   
+    +htmlButton1
+             }
+    }
+   
+  ]
+}) }}
+
+
+{% endblock %}
