@@ -18,26 +18,26 @@
 {% set tagsnowaterHTML %}
 
 {{ govukTag({
-  text: "73% restricted",
- classes: "govuk-tag--yellow"
+  text: "xxx% available",
+ classes: "govuk-tag--red"
 }) }}
 
 {% endset %}
 
 
-{% set tagsrestrictedHTML %}
+{% set tagsrestrictedwaterHTML %}
 {{ govukTag({
-  text: "Licences available",
-  classes: "govuk-tag--grey"
+  text: "xxx% available",
+  classes: "govuk-tag--yellow"
 }) }}
 
 {% endset %}
 
-{% set tagsgoodHTML %}
+{% set tagsgoodwaterHTML %}
 
 {{ govukTag({
-  text: "Licences available",
-  classes: "govuk-tag--grey"
+  text: "xxx% available",
+  classes: "govuk-tag--green"
 }) }}
 
 {% endset %}
@@ -83,17 +83,17 @@
   </div>
 </details>
 
-    <div class="border govuk-!-margin-bottom-3">
+    <!--    <div class="border govuk-!-margin-bottom-3">
       <h2 class="govuk-heading-m">Availability status</h2>
   <p class="govuk-body">{{tagsnowaterHTML | safe}}</p>
-   <!-- <p class="govuk-body">Winter: {{tagsnowaterHTML | safe}}</p>-->
+<p class="govuk-body">Winter: {{tagsnowaterHTML | safe}}</p>
 <p class="govuk-body">No water is available for licensing at any time in this water body.</p>
 
 <p class="govuk-body">This can be due to low flow rates and a high number of other abstractors. 
   The area is likely to be water stressed meaning more abstraction 
   could have a negative impact on the local environment.</p>
 
-  </div>
+  </div>-->
   {% else %}
 
    {% if (data['watertype'] == "surface")%}  
@@ -138,19 +138,19 @@
 </details>
 
 
-<div class="border govuk-!-margin-bottom-3">
+ <!--<div class="border govuk-!-margin-bottom-3"> -->
 
-   {% if (data['watertype'] == "surface" and data['nowater'] == "false") %}
+ <!--  {% if (data['watertype'] == "surface" and data['nowater'] == "false") %}
 
 <h2 class="govuk-heading-m">Availability status</h2> 
   {% else %}
-  {% endif %}
+  {% endif %}-->
 
   {% endif %}
 
 
 
- {% if (data['watertype'] == "surface" and data['nowater'] == "false") %} 
+ <!--{% if (data['watertype'] == "surface" and data['nowater'] == "false") %} 
 
   {% if data.sid == "1"%} 
     <p class="govuk-body">{{tagsgoodHTML | safe}}</p>
@@ -173,7 +173,7 @@ New licences can be considered depending on local and downstream impacts.</p>
      {% endif %}
   
      
-{% endif %} 
+{% endif %} -->
 
 
    <!-- <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p>
@@ -181,7 +181,7 @@ New licences can be considered depending on local and downstream impacts.</p>
 New licences can be considered depending on local and downstream impacts.</p>-->
 
 
-</div> 
+<!--</div> -->
 
 <h2 class="govuk-heading-m">Restrictions on abstraction</h2>
 
@@ -193,7 +193,8 @@ New licences can be considered depending on local and downstream impacts.</p>-->
   conditions which stop licence holders from taking water 
   when the flow rate is critically low.</p>
 
-<p class="govuk-body"><b>The current HoF for this assessment point is 135 Megalitres per day (Ml/d).</b></p> 
+<p class="govuk-body"><b>The current HoF for this assessment point is 
+  135 Megalitres per day (Ml/d).</b></p> 
 
 
 <!-- <h2 class="govuk-heading-m">
@@ -306,7 +307,7 @@ New licences can be considered depending on local and downstream impacts.</p>-->
 <details class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
-      Summer: <span class="govuk-!-margin-left-3">{{tagsnowaterHTML | safe}}</span>
+      Summer: <span class="govuk-!-margin-left-3">{{tagsrestrictedwaterHTML | safe}}</span>
     </span>
   </summary>
   <div class="govuk-details__text">
@@ -321,7 +322,8 @@ New licences can be considered depending on local and downstream impacts.</p>-->
        <th scope="col" class="govuk-table__header">Month</th>
        <th scope="col" class="govuk-table__header govuk-table__header--numeric">Days water would have been available</th>
        <th scope="col" class="govuk-table__header govuk-table__header--numeric">Days water would not have been available</th>
-     </tr>
+      <th scope="col" class="govuk-table__header govuk-table__header--numeric">Overall percentage water would have been available</th>
+  </tr>
    </thead>
    <tbody class="govuk-table__body">
      {# Example data — replace with your real rows #}
@@ -329,36 +331,43 @@ New licences can be considered depending on local and downstream impacts.</p>-->
        <th scope="row" class="govuk-table__header">March</th>
        <td class="govuk-table__cell govuk-table__cell--numeric">10</td>
        <td class="govuk-table__cell govuk-table__cell--numeric">21</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric"><span class="govuk-!-margin-left-3">{{tagsnowaterHTML | safe}}</span></td>
      </tr>
      <tr class="govuk-table__row">
        <th scope="row" class="govuk-table__header">April</th>
        <td class="govuk-table__cell govuk-table__cell--numeric">23</td>
        <td class="govuk-table__cell govuk-table__cell--numeric">07</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"><span class="govuk-!-margin-left-3">{{tagsgoodwaterHTML | safe}}</span></td>
      </tr>
      <tr class="govuk-table__row">
        <th scope="row" class="govuk-table__header">May</th>
        <td class="govuk-table__cell govuk-table__cell--numeric">25</td>
        <td class="govuk-table__cell govuk-table__cell--numeric">06</td>
-     </tr>
+       <td class="govuk-table__cell govuk-table__cell--numeric"><span class="govuk-!-margin-left-3">{{tagsgoodwaterHTML | safe}}</span></td>
+    </tr>
      <tr class="govuk-table__row">
        <th scope="row" class="govuk-table__header">June</th>
        <td class="govuk-table__cell govuk-table__cell--numeric">19</td>
        <td class="govuk-table__cell govuk-table__cell--numeric">11</td>
-     </tr>
+        <td class="govuk-table__cell govuk-table__cell--numeric"><span class="govuk-!-margin-left-3">{{tagsrestrictedwaterHTML | safe}}</span></td>
+   </tr>
      <tr class="govuk-table__row">
        <th scope="row" class="govuk-table__header">July</th>
-       <td class="govuk-table__cell govuk-table__cell--numeric">22</td>
-       <td class="govuk-table__cell govuk-table__cell--numeric">09</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">12</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">19</td>
+        <td class="govuk-table__cell govuk-table__cell--numeric"><span class="govuk-!-margin-left-3">{{tagsrestrictedwaterHTML | safe}}</span></td>
      </tr>
      <tr class="govuk-table__row">
        <th scope="row" class="govuk-table__header">August</th>
-       <td class="govuk-table__cell govuk-table__cell--numeric">15</td>
-       <td class="govuk-table__cell govuk-table__cell--numeric">16</td>
-     </tr>
+       <td class="govuk-table__cell govuk-table__cell--numeric">5</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">26</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric"><span class="govuk-!-margin-left-3">{{tagsnowaterHTML | safe}}</span></td>
+    </tr>
       <tr class="govuk-table__row">
        <th scope="row" class="govuk-table__header">September</th>
-       <td class="govuk-table__cell govuk-table__cell--numeric">15</td>
-       <td class="govuk-table__cell govuk-table__cell--numeric">15</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">5</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">25</td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"><span class="govuk-!-margin-left-3">{{tagsnowaterHTML | safe}}</span></td>
      </tr>
    </tbody>
  </table>
