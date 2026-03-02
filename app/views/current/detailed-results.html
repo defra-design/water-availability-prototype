@@ -83,17 +83,17 @@
   </div>
 </details>
 
-    <!--    <div class="border govuk-!-margin-bottom-3">
+  <div class="border govuk-!-margin-bottom-3">
       <h2 class="govuk-heading-m">Availability status</h2>
-  <p class="govuk-body">{{tagsnowaterHTML | safe}}</p>
-<p class="govuk-body">Winter: {{tagsnowaterHTML | safe}}</p>
+  <!--<p class="govuk-body">{{tagsnowaterHTML | safe}}</p>-->
 <p class="govuk-body">No water is available for licensing at any time in this water body.</p>
 
 <p class="govuk-body">This can be due to low flow rates and a high number of other abstractors. 
   The area is likely to be water stressed meaning more abstraction 
   could have a negative impact on the local environment.</p>
 
-  </div>-->
+  </div>
+
   {% else %}
 
    {% if (data['watertype'] == "surface")%}  
@@ -114,9 +114,6 @@
       {% endif %}
 
 
-  
-  <!-- <p class="govuk-body">Licensing decisions will vary on a case-by-case basis depending on your chosen abstraction point, what you will use the water for, how many other abstractors are in the area and other factors such as environmental concerns.</p>
-       -->
   <details class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
@@ -138,50 +135,13 @@
 </details>
 
 
- <!--<div class="border govuk-!-margin-bottom-3"> -->
-
- <!--  {% if (data['watertype'] == "surface" and data['nowater'] == "false") %}
-
-<h2 class="govuk-heading-m">Availability status</h2> 
-  {% else %}
-  {% endif %}-->
 
   {% endif %}
 
 
 
- <!--{% if (data['watertype'] == "surface" and data['nowater'] == "false") %} 
+{% if (data['watertype'] == "surface" and data['nowater'] == "false") %} 
 
-  {% if data.sid == "1"%} 
-    <p class="govuk-body">{{tagsgoodHTML | safe}}</p>
-<p class="govuk-body">There is more water than required to meet the needs of the environment.
-New licences can be considered depending on local and downstream impacts.</p>
-    {% else %}
-
- {% if data['water-use-type'] == "Non-consumptive" %}   
- <p class="govuk-body">{{tagsrestrictedHTML | safe}}</p>
- <p class="govuk-body">Water abstraction in this area is limited due to low 
-  flows and/or environmental concerns. No new consumptive licences 
-  will be granted. Non-consumptive licences may be available.</p>
-    {% elseif data['water-use-type'] == "Consumptive" %}
-     <p class="govuk-body">{{tagsnowaterHTML | safe}}</p> 
-<p class="govuk-body">No water is available for new licences due to low flows, 
-  environmental concerns and/or too many existing abstractors in the area. 
-  Existing licences are restricted, however there may be opportunities to 
-  trade water with existing abstractors.</p>
-
-     {% endif %}
-  
-     
-{% endif %} -->
-
-
-   <!-- <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p>
-<p class="govuk-body">There is more water than required to meet the needs of the environment.
-New licences can be considered depending on local and downstream impacts.</p>-->
-
-
-<!--</div> -->
 
 <h2 class="govuk-heading-m">Restrictions on abstraction</h2>
 
@@ -195,21 +155,6 @@ New licences can be considered depending on local and downstream impacts.</p>-->
 
 <p class="govuk-body"><b>The current HoF for this assessment point is 
   135 Megalitres per day (Ml/d).</b></p> 
-
-
-<!-- <h2 class="govuk-heading-m">
-       How Hands-off Flow is set
-</h2>
-  
-  <p class="govuk-body">Hands-off Flow conditions are grouped into bands. 
-    As more and more water is licenced, the HoF level moves 
-    into the next band up and there is less water available to abstract.</p>
-
-<p class="govuk-body"><b>HoF conditions in your area have reached band 4.</b></p>
-
-<p class="govuk-body">Band 1 has the most water available and no restrictions, 
-  while Band 6 is the most water stressed with no water available left for licensing.</p>-->
-
 
 
  <details class="govuk-details">
@@ -288,9 +233,6 @@ New licences can be considered depending on local and downstream impacts.</p>-->
   water availability is often more restricted because it usually 
   rains less which means flow rates are lower.</p>
 
-<!-- <p class="govuk-body">At times flow rates can drop so low that 
-  they fall below the HoF level. When this happens you will be 
-  issued an alert and you are not allowed to abstract.</p> -->
 
 <p class="govuk-body">The information below summarises how often 
   the flow rate at your local assessment point has previously 
@@ -307,7 +249,7 @@ New licences can be considered depending on local and downstream impacts.</p>-->
 <details class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
-      Summer: <span class="govuk-!-margin-left-3">{{tagsrestrictedwaterHTML | safe}}</span>
+      Summer: <span class="govuk-!-margin-left-3">{{tagsnowaterHTML | safe}}</span>
     </span>
   </summary>
   <div class="govuk-details__text">
@@ -378,13 +320,13 @@ New licences can be considered depending on local and downstream impacts.</p>-->
  <details class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
-      Winter: 71% water available
+      Winter: <span class="govuk-!-margin-left-3">{{tagsgoodwaterHTML | safe}}
     </span>
   </summary>
   <div class="govuk-details__text">
  
 
- <table class="govuk-table" id="monthly-data">
+ <!--<table class="govuk-table" id="monthly-data">
    <caption class="govuk-table__caption govuk-table__caption--s">
     
    </caption>
@@ -424,7 +366,7 @@ New licences can be considered depending on local and downstream impacts.</p>-->
      </tr>
     
    </tbody>
- </table>
+ </table>-->
 
 
 
@@ -440,13 +382,12 @@ New licences can be considered depending on local and downstream impacts.</p>-->
 <details class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
-      Summer: 76% water available
-    </span>
+      Summer: <span class="govuk-!-margin-left-3">{{tagsrestrictedwaterHTML | safe}}</span>
   </summary>
   <div class="govuk-details__text">
  
 
- <table class="govuk-table" id="monthly-data">
+<!-- <table class="govuk-table" id="monthly-data">
    <caption class="govuk-table__caption govuk-table__caption--s">
     
    </caption>
@@ -495,7 +436,7 @@ New licences can be considered depending on local and downstream impacts.</p>-->
        <td class="govuk-table__cell govuk-table__cell--numeric">15</td>
      </tr>
    </tbody>
- </table>
+ </table>-->
    </div>
 </details>
 
@@ -504,13 +445,13 @@ New licences can be considered depending on local and downstream impacts.</p>-->
  <details class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
-      Winter: 82% water available
+      Winter: <span class="govuk-!-margin-left-3">{{tagsgoodwaterHTML | safe}}</span>
     </span>
   </summary>
   <div class="govuk-details__text">
  
 
- <table class="govuk-table" id="monthly-data">
+ <!--<table class="govuk-table" id="monthly-data">
    <caption class="govuk-table__caption govuk-table__caption--s">
     
    </caption>
@@ -550,7 +491,7 @@ New licences can be considered depending on local and downstream impacts.</p>-->
      </tr>
     
    </tbody>
- </table>
+ </table>-->
 
 
 
@@ -563,7 +504,7 @@ New licences can be considered depending on local and downstream impacts.</p>-->
 
  {% if (data['watertype'] == "ground" and data['nowater'] == "false") %} 
 
-  {% if data.gid == "0"%} 
+  <!--{% if data.gid == "0"%} 
     <p class="govuk-body">{{tagsgoodHTML | safe}}</p>
 <p class="govuk-body">There is more water than required to meet the needs of the environment.
 New licences can be considered depending on local and downstream impacts.</p>
@@ -584,25 +525,24 @@ New licences can be considered depending on local and downstream impacts.</p>
      {% endif %}
   
      
-{% endif %} 
+{% endif %} -->
 
 
  <!--   <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p>
 <p class="govuk-body">There is more water than required to meet the needs of the environment.
 New licences can be considered depending on local and downstream impacts.</p>-->
 
-<div class="govuk-warning-text">
+<!--<div class="govuk-warning-text">
   <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
   <strong class="govuk-warning-text__text">
     <span class="govuk-visually-hidden">Warning</span>
     Groundwater bodies cover large areas with varied geology. The information 
     above is only indicative of the overall status of the water body.
   </strong>
-</div>
+</div>-->
 
 </div> 
 
- </div>
 
 <h2 class="govuk-heading-m">Restrictions on abstraction</h2>
 <p class="govuk-body">Restrictions may apply where availability is limited or to protect the environment.</p>
