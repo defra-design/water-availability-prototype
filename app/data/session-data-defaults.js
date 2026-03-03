@@ -8,8 +8,8 @@ module.exports = {
 "summerAvail": [
   {
   "month": "march",
-  "daysAvail": 5,
-  "daysUnavail": 26,
+  "daysAvail": 14,
+  "daysUnavail": 17,
 },
  {
   "month": "april",
@@ -18,28 +18,28 @@ module.exports = {
 },
  {
   "month": "may",
-  "daysAvail": 25,
-  "daysUnavail": 6,
+  "daysAvail": 19,
+  "daysUnavail": 12,
 },
  {
   "month": "june",
-  "daysAvail": 19,
-  "daysUnavail": 11,
+  "daysAvail": 8,
+  "daysUnavail": 22,
 },
  {
   "month": "july",
-  "daysAvail": 12,
-  "daysUnavail": 19,
+  "daysAvail": 6,
+  "daysUnavail": 25,
 },
  {
   "month": "august",
-  "daysAvail": 5,
-  "daysUnavail": 26,
+  "daysAvail": 9,
+  "daysUnavail": 22,
 },
  {
   "month": "september",
-  "daysAvail": 5,
-  "daysUnavail": 25,
+  "daysAvail": 10,
+  "daysUnavail": 20,
 },
 ],
 
@@ -47,12 +47,12 @@ module.exports = {
 "winterAvail": [
   {
   "month": "october",
-  "daysAvail": 10,
-  "daysUnavail": 21,
+  "daysAvail": 20,
+  "daysUnavail": 10,
 },
  {
   "month": "november",
-  "daysAvail": 23,
+  "daysAvail": 28,
   "daysUnavail": 7,
 },
  {
@@ -67,8 +67,8 @@ module.exports = {
 },
  {
   "month": "february",
-  "daysAvail": 22,
-  "daysUnavail": 9,
+  "daysAvail": 15,
+  "daysUnavail": 13,
 }
 ]
 
