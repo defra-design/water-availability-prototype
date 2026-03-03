@@ -18,7 +18,7 @@
 {% set tagsnowaterHTML %}
 
 {{ govukTag({
-  text: "xxx% available",
+  text: 0|percentAvail(10,21) | round +"% available",
  classes: "govuk-tag--red"
 }) }}
 
@@ -27,7 +27,7 @@
 
 {% set tagsrestrictedwaterHTML %}
 {{ govukTag({
-  text: "xxx% available",
+  text: 0|percentAvail(10,21) | round +"% available",
   classes: "govuk-tag--yellow"
 }) }}
 
@@ -36,7 +36,7 @@
 {% set tagsgoodwaterHTML %}
 
 {{ govukTag({
-  text: "xxx% available",
+  text: 0|percentAvail(10,21) | round +"% available",
   classes: "govuk-tag--green"
 }) }}
 
@@ -249,7 +249,10 @@
 <details class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
-      Summer: <span class="govuk-!-margin-left-3">{{tagsnowaterHTML | safe}}</span>
+      Summer: <span class="govuk-!-margin-left-3">{{ govukTag({
+  text: "% available",
+ classes: 0|percentAvail(data.summerWaterAvail[loop.index0].daysAvail,data.summerWaterAvail[loop.index0].daysUnavail) | availColour
+}) }}</span>
     </span>
   </summary>
   <div class="govuk-details__text">
@@ -268,49 +271,18 @@
   </tr>
    </thead>
    <tbody class="govuk-table__body">
-     {# Example data — replace with your real rows #}
-     <tr class="govuk-table__row">
-       <th scope="row" class="govuk-table__header">March</th>
-       <td class="govuk-table__cell govuk-table__cell--numeric">10</td>
-       <td class="govuk-table__cell govuk-table__cell--numeric">21</td>
-       <td class="govuk-table__cell govuk-table__cell--numeric"><span class="govuk-!-margin-left-3">{{tagsnowaterHTML | safe}}</span></td>
+
+     {% for months in data.summerAvail %}
+     <tr class="govuk-table__row">    
+       <th scope="row" class="govuk-table__header">{{data.summerWaterAvail[loop.index0].month|capitalize}}</th>
+       <td class="govuk-table__cell govuk-table__cell--numeric">{{data.summerWaterAvail[loop.index0].daysAvail}}</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">{{data.summerWaterAvail[loop.index0].daysUnavail}}</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric"><span class="govuk-!-margin-left-3">{{ govukTag({
+  text: 0|percentAvail(data.summerWaterAvail[loop.index0].daysAvail,data.summerWaterAvail[loop.index0].daysUnavail) | round +"% available",
+ classes: 0|percentAvail(data.summerWaterAvail[loop.index0].daysAvail,data.summerWaterAvail[loop.index0].daysUnavail) | availColour
+}) }}</span></td>
      </tr>
-     <tr class="govuk-table__row">
-       <th scope="row" class="govuk-table__header">April</th>
-       <td class="govuk-table__cell govuk-table__cell--numeric">23</td>
-       <td class="govuk-table__cell govuk-table__cell--numeric">07</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric"><span class="govuk-!-margin-left-3">{{tagsgoodwaterHTML | safe}}</span></td>
-     </tr>
-     <tr class="govuk-table__row">
-       <th scope="row" class="govuk-table__header">May</th>
-       <td class="govuk-table__cell govuk-table__cell--numeric">25</td>
-       <td class="govuk-table__cell govuk-table__cell--numeric">06</td>
-       <td class="govuk-table__cell govuk-table__cell--numeric"><span class="govuk-!-margin-left-3">{{tagsgoodwaterHTML | safe}}</span></td>
-    </tr>
-     <tr class="govuk-table__row">
-       <th scope="row" class="govuk-table__header">June</th>
-       <td class="govuk-table__cell govuk-table__cell--numeric">19</td>
-       <td class="govuk-table__cell govuk-table__cell--numeric">11</td>
-        <td class="govuk-table__cell govuk-table__cell--numeric"><span class="govuk-!-margin-left-3">{{tagsrestrictedwaterHTML | safe}}</span></td>
-   </tr>
-     <tr class="govuk-table__row">
-       <th scope="row" class="govuk-table__header">July</th>
-       <td class="govuk-table__cell govuk-table__cell--numeric">12</td>
-       <td class="govuk-table__cell govuk-table__cell--numeric">19</td>
-        <td class="govuk-table__cell govuk-table__cell--numeric"><span class="govuk-!-margin-left-3">{{tagsrestrictedwaterHTML | safe}}</span></td>
-     </tr>
-     <tr class="govuk-table__row">
-       <th scope="row" class="govuk-table__header">August</th>
-       <td class="govuk-table__cell govuk-table__cell--numeric">5</td>
-       <td class="govuk-table__cell govuk-table__cell--numeric">26</td>
-       <td class="govuk-table__cell govuk-table__cell--numeric"><span class="govuk-!-margin-left-3">{{tagsnowaterHTML | safe}}</span></td>
-    </tr>
-      <tr class="govuk-table__row">
-       <th scope="row" class="govuk-table__header">September</th>
-       <td class="govuk-table__cell govuk-table__cell--numeric">5</td>
-       <td class="govuk-table__cell govuk-table__cell--numeric">25</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric"><span class="govuk-!-margin-left-3">{{tagsnowaterHTML | safe}}</span></td>
-     </tr>
+     {% endfor %}
    </tbody>
  </table>
    </div>
