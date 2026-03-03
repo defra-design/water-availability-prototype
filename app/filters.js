@@ -26,10 +26,13 @@ addFilter('availColour', function(x) {
     return x;
 });
 
-addFilter('PercentAvailAgg', function(x) {
+addFilter('percentAvailAgg', function(x) {
+    
+    percentages = []
     for(months of x) {
-        month
-
+        percentage = (months.daysAvail/(months.daysAvail+months.daysUnavail))*100
+        percentages.push(percentage)
     };
-    return x;
+    return percentages.reduce((a, b) => a + b, 0) / percentages.length;
+
 });

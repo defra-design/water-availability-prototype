@@ -41,7 +41,39 @@ module.exports = {
   "daysAvail": 5,
   "daysUnavail": 25,
 },
+],
+
+
+"winterAvail": [
+  {
+  "month": "october",
+  "daysAvail": 10,
+  "daysUnavail": 21,
+},
+ {
+  "month": "november",
+  "daysAvail": 23,
+  "daysUnavail": 7,
+},
+ {
+  "month": "december",
+  "daysAvail": 25,
+  "daysUnavail": 6,
+},
+ {
+  "month": "january",
+  "daysAvail": 19,
+  "daysUnavail": 11,
+},
+ {
+  "month": "february",
+  "daysAvail": 22,
+  "daysUnavail": 9,
+}
 ]
+
+
+
 
 }
 
