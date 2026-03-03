@@ -2,8 +2,8 @@
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
       Summer: <span class="govuk-!-margin-left-3">{{ govukTag({
-  text: data.summerAvail | percentAvailAgg | round  +"% available",
- classes: data.summerAvail | percentAvailAgg | availColour
+  text: data.summerAvail[year] | percentAvailAgg | round  +"% available",
+ classes: data.summerAvail[year] | percentAvailAgg | availColour
 }) }}
 
 
@@ -27,14 +27,14 @@
    </thead>
    <tbody class="govuk-table__body">
 
-     {% for months in data.summerAvail %}
+     {% for months in data.summerAvail[year] %}
      <tr class="govuk-table__row">    
-       <th scope="row" class="govuk-table__header">{{data.summerAvail[loop.index0].month|capitalize}}</th>
-       <td class="govuk-table__cell govuk-table__cell--numeric">{{data.summerAvail[loop.index0].daysAvail}}</td>
-       <td class="govuk-table__cell govuk-table__cell--numeric">{{data.summerAvail[loop.index0].daysUnavail}}</td>
+       <th scope="row" class="govuk-table__header">{{months.month|capitalize}}</th>
+       <td class="govuk-table__cell govuk-table__cell--numeric">{{months.daysAvail}}</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">{{months.daysUnavail}}</td>
        <td class="govuk-table__cell govuk-table__cell--numeric"><span class="govuk-!-margin-left-3">{{ govukTag({
-  text: 0|percentAvail(data.summerAvail[loop.index0].daysAvail,data.summerAvail[loop.index0].daysUnavail) | round +"% available",
- classes: 0|percentAvail(data.summerAvail[loop.index0].daysAvail,data.summerAvail[loop.index0].daysUnavail) | availColour
+  text: 0|percentAvail(months.daysAvail,months.daysUnavail) | round +"% available",
+ classes: 0|percentAvail(months.daysAvail,months.daysUnavail) | availColour
 }) }}</span></td>
      </tr>
      {% endfor %}

@@ -2,8 +2,8 @@
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
       Winter: <span class="govuk-!-margin-left-3">{{ govukTag({
-  text: data.winterAvail | percentAvailAgg | round  +"% available",
- classes: data.winterAvail | percentAvailAgg | availColour
+  text: data.winterAvail[year] | percentAvailAgg | round  +"% available",
+ classes: data.winterAvail[year] | percentAvailAgg | availColour
 }) }}
 
 
@@ -27,14 +27,14 @@
    </thead>
    <tbody class="govuk-table__body">
 
-     {% for months in data.winterAvail %}
+     {% for months in data.winterAvail[year] %}
      <tr class="govuk-table__row">    
-       <th scope="row" class="govuk-table__header">{{data.winterAvail[loop.index0].month|capitalize}}</th>
-       <td class="govuk-table__cell govuk-table__cell--numeric">{{data.winterAvail[loop.index0].daysAvail}}</td>
-       <td class="govuk-table__cell govuk-table__cell--numeric">{{data.winterAvail[loop.index0].daysUnavail}}</td>
+       <th scope="row" class="govuk-table__header">{{months.month|capitalize}}</th>
+       <td class="govuk-table__cell govuk-table__cell--numeric">{{months.daysAvail}}</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">{{months.daysUnavail}}</td>
        <td class="govuk-table__cell govuk-table__cell--numeric"><span class="govuk-!-margin-left-3">{{ govukTag({
-  text: 0|percentAvail(data.winterAvail[loop.index0].daysAvail,data.winterAvail[loop.index0].daysUnavail) | round +"% available",
- classes: 0|percentAvail(data.winterAvail[loop.index0].daysAvail,data.winterAvail[loop.index0].daysUnavail) | availColour
+  text: 0|percentAvail(months.daysAvail,months.daysUnavail) | round +"% available",
+ classes: 0|percentAvail(months.daysAvail,months.daysUnavail) | availColour
 }) }}</span></td>
      </tr>
      {% endfor %}
