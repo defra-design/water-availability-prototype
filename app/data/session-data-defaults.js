@@ -235,28 +235,28 @@ module.exports = {
 [ {
     //year 4
   "month": "october",
-  "daysAvail": 25,
-  "daysUnavail": 6,
+  "daysAvail": 31,
+  "daysUnavail": 0,
 },
  {
   "month": "november",
-  "daysAvail": 28,
-  "daysUnavail": 7,
+  "daysAvail": 30,
+  "daysUnavail": 0,
 },
  {
   "month": "december",
-  "daysAvail": 24,
-  "daysUnavail": 7,
+  "daysAvail": 31,
+  "daysUnavail": 0,
 },
  {
   "month": "january",
-  "daysAvail": 20,
-  "daysUnavail": 11,
+  "daysAvail": 27,
+  "daysUnavail": 4,
 },
  {
   "month": "february",
-  "daysAvail": 15,
-  "daysUnavail": 13,
+  "daysAvail": 25,
+  "daysUnavail": 33,
 }]
 ]
 
