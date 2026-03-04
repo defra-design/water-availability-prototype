@@ -7,9 +7,46 @@ module.exports = {
 
 "summerAvail": [
 [ {
+  //year 1
   "month": "march",
-  "daysAvail": 14,
-  "daysUnavail": 17,
+  "daysAvail": 15,
+  "daysUnavail": 15,
+},
+ {
+  "month": "april",
+  "daysAvail": 18,
+  "daysUnavail": 12,
+},
+ {
+  "month": "may",
+  "daysAvail": 13,
+  "daysUnavail": 12,
+},
+ {
+  "month": "june",
+  "daysAvail": 8,
+  "daysUnavail": 22,
+},
+ {
+  "month": "july",
+  "daysAvail": 6,
+  "daysUnavail": 25,
+},
+ {
+  "month": "august",
+  "daysAvail": 4,
+  "daysUnavail": 27,
+},
+ {
+  "month": "september",
+  "daysAvail": 0,
+  "daysUnavail": 30,
+},],
+ [ {
+    //year 2
+  "month": "march",
+  "daysAvail": 20,
+  "daysUnavail": 11,
 },
  {
   "month": "april",
@@ -18,53 +55,18 @@ module.exports = {
 },
  {
   "month": "may",
-  "daysAvail": 19,
-  "daysUnavail": 12,
+  "daysAvail": 27,
+  "daysUnavail": 4,
 },
  {
   "month": "june",
-  "daysAvail": 8,
-  "daysUnavail": 22,
-},
- {
-  "month": "july",
-  "daysAvail": 6,
-  "daysUnavail": 25,
-},
- {
-  "month": "august",
-  "daysAvail": 9,
-  "daysUnavail": 22,
-},
- {
-  "month": "september",
-  "daysAvail": 10,
-  "daysUnavail": 20,
-},],
- [ {
-  "month": "2march",
   "daysAvail": 14,
-  "daysUnavail": 17,
-},
- {
-  "month": "2april",
-  "daysAvail": 23,
-  "daysUnavail": 7,
-},
- {
-  "month": "may",
-  "daysAvail": 19,
-  "daysUnavail": 12,
-},
- {
-  "month": "june",
-  "daysAvail": 8,
-  "daysUnavail": 22,
+  "daysUnavail": 16,
 },
  {
   "month": "july",
-  "daysAvail": 6,
-  "daysUnavail": 25,
+  "daysAvail": 12,
+  "daysUnavail": 19,
 },
  {
   "month": "august",
@@ -73,18 +75,19 @@ module.exports = {
 },
  {
   "month": "september",
-  "daysAvail": 10,
-  "daysUnavail": 20,
+  "daysAvail": 17,
+  "daysUnavail": 13,
 },],
 [ {
-  "month": "3march",
-  "daysAvail": 14,
-  "daysUnavail": 17,
+    //year 3
+  "month": "march",
+  "daysAvail": 25,
+  "daysUnavail": 6,
 },
  {
-  "month": "2april",
-  "daysAvail": 23,
-  "daysUnavail": 7,
+  "month": "april",
+  "daysAvail": 20,
+  "daysUnavail": 10,
 },
  {
   "month": "may",
@@ -93,72 +96,74 @@ module.exports = {
 },
  {
   "month": "june",
-  "daysAvail": 8,
-  "daysUnavail": 22,
+  "daysAvail": 18,
+  "daysUnavail": 12,
 },
  {
   "month": "july",
-  "daysAvail": 6,
-  "daysUnavail": 25,
+  "daysAvail": 16,
+  "daysUnavail": 15,
 },
  {
   "month": "august",
-  "daysAvail": 9,
-  "daysUnavail": 22,
+  "daysAvail": 17,
+  "daysUnavail": 14,
 },
  {
   "month": "september",
-  "daysAvail": 10,
-  "daysUnavail": 20,
+  "daysAvail": 19,
+  "daysUnavail": 11,
 },],
 [ {
-  "month": "4march",
-  "daysAvail": 14,
-  "daysUnavail": 17,
+    //year 4
+  "month": "march",
+  "daysAvail": 26,
+  "daysUnavail": 5,
 },
  {
-  "month": "4april",
-  "daysAvail": 23,
-  "daysUnavail": 7,
+  "month": "april",
+  "daysAvail": 21,
+  "daysUnavail": 9,
 },
  {
   "month": "may",
-  "daysAvail": 19,
-  "daysUnavail": 12,
+  "daysAvail": 22,
+  "daysUnavail": 9,
 },
  {
   "month": "june",
-  "daysAvail": 8,
-  "daysUnavail": 22,
+  "daysAvail": 27,
+  "daysUnavail": 3,
 },
  {
   "month": "july",
-  "daysAvail": 6,
-  "daysUnavail": 25,
+  "daysAvail": 25,
+  "daysUnavail": 6,
 },
  {
   "month": "august",
-  "daysAvail": 9,
-  "daysUnavail": 22,
+  "daysAvail": 26,
+  "daysUnavail": 5,
 },
  {
   "month": "september",
-  "daysAvail": 10,
-  "daysUnavail": 20,
+  "daysAvail": 21,
+  "daysUnavail": 9,
 },],
 ],
 
 
 "winterAvail": [
   [{
-  "month": "1october",
-  "daysAvail": 20,
-  "daysUnavail": 10,
+      //year 1
+  "month": "october",
+  "daysAvail": 3,
+  "daysUnavail": 28,
 },
  {
   "month": "november",
-  "daysAvail": 28,
-  "daysUnavail": 7,
+  "daysAvail": 17,
+  "daysUnavail": 13,
 },
  {
   "month": "december",
@@ -176,14 +181,15 @@ module.exports = {
   "daysUnavail": 13,
 },],
 [ {
-  "month": "2october",
-  "daysAvail": 20,
-  "daysUnavail": 10,
+    //year 2
+  "month": "october",
+  "daysAvail": 26,
+  "daysUnavail": 5,
 },
  {
   "month": "november",
-  "daysAvail": 28,
-  "daysUnavail": 7,
+  "daysAvail": 30,
+  "daysUnavail": 0,
 },
  {
   "month": "december",
@@ -192,8 +198,8 @@ module.exports = {
 },
  {
   "month": "january",
-  "daysAvail": 19,
-  "daysUnavail": 11,
+  "daysAvail": 18,
+  "daysUnavail": 12,
 },
  {
   "month": "february",
@@ -201,9 +207,10 @@ module.exports = {
   "daysUnavail": 13,
 }],
 [ {
-  "month": "3october",
-  "daysAvail": 20,
-  "daysUnavail": 10,
+    //year 3
+  "month": "october",
+  "daysAvail": 22,
+  "daysUnavail": 8,
 },
  {
   "month": "november",
@@ -212,23 +219,24 @@ module.exports = {
 },
  {
   "month": "december",
-  "daysAvail": 25,
-  "daysUnavail": 6,
+  "daysAvail": 29,
+  "daysUnavail": 2,
 },
  {
   "month": "january",
-  "daysAvail": 19,
-  "daysUnavail": 11,
+  "daysAvail": 29,
+  "daysUnavail": 2,
 },
  {
   "month": "february",
-  "daysAvail": 15,
-  "daysUnavail": 13,
+  "daysAvail": 28,
+  "daysUnavail": 0,
 }],
 [ {
-  "month": "4october",
-  "daysAvail": 20,
-  "daysUnavail": 10,
+    //year 4
+  "month": "october",
+  "daysAvail": 25,
+  "daysUnavail": 6,
 },
  {
   "month": "november",
@@ -237,12 +245,12 @@ module.exports = {
 },
  {
   "month": "december",
-  "daysAvail": 25,
-  "daysUnavail": 6,
+  "daysAvail": 24,
+  "daysUnavail": 7,
 },
  {
   "month": "january",
-  "daysAvail": 19,
+  "daysAvail": 20,
   "daysUnavail": 11,
 },
  {

@@ -18,24 +18,27 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-  {% if (data.nowater == "true" or data['water-use-type'] == "Consumptive") %} 
-  
-    <h1 class="govuk-heading-l">Your water availability</h1>
-    <p class='govuk-body-s'><i>This page was last updated: 25 October 2025</i></p>
- 
-{% if (data['watertype'] == "surface") %}   
-  <p class="govuk-body">
-         This page shows restrictions and previous availability information for surface water abstraction from the water body '<b>{{data.riverCatchmentData[data.sid].properties.WB_NAME}}</b>'.</p>
-
-      {% elseif (data['watertype'] == "ground") %}
-       <p class="govuk-body">
-         This page shows restrictions and previous availability information for groundwater abstraction from the water body '<b>{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}</b>'.</p>
+      <div class="govuk-body">
+      {% if (data['watertype'] == "surface") %}  
+        <h1 class="govuk-heading-l">Your surface water availability</h1>
+      
+        {% elseif (data['watertype'] == "ground") %}
+        <h1 class="govuk-heading-l">Your groundwater availability</h1>
       {% endif %}
 
-
+  <p class='govuk-body-s'><i>This page was last updated: 25 October 2025</i></p>
+ 
+    {% if (data['watertype'] == "surface") %}   
+      <p class="govuk-body">This page shows restrictions and previous availability 
+        information for surface water abstraction from the water 
+        body '<b>{{data.riverCatchmentData[data.sid].properties.WB_NAME}}</b>'.</p>
+    
+        {% elseif (data['watertype'] == "ground") %}
+       <p class="govuk-body">This page shows restrictions and previous availability 
+        information for groundwater abstraction from the water 
+        body '<b>{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}</b>'.</p>
+    {% endif %}
   
-  <!-- <p class="govuk-body">Licensing decisions will vary on a case-by-case basis depending on your chosen abstraction point, what you will use the water for, how many other abstractors are in the area and other factors such as environmental concerns.</p>
-       -->
   <details class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
@@ -43,11 +46,13 @@
     </span>
   </summary>
   <div class="govuk-details__text">
- <p class="govuk-body">{% if (data['watertype'] == "ground")%}
- Common end date for {{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}: <b>January 2027</b>.
-  {% elseif (data['watertype'] == "surface")%}
-   Common end date for {{data.riverCatchmentData[data.sid].properties.WB_NAME}}: <b>January 2027</b>.
-{% endif %}</p>
+ <p class="govuk-body">
+    {% if (data['watertype'] == "ground")%}
+      Common end date for {{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}: <b>January 2027</b>.
+  
+    {% elseif (data['watertype'] == "surface")%}
+      Common end date for {{data.riverCatchmentData[data.sid].properties.WB_NAME}}: <b>January 2027</b>.
+    {% endif %}</p>
 
 <p class="govuk-body">The 'common end date' indicates when the licensing strategy 
   for this area is due for review. The Environment Agency review each local 
@@ -55,65 +60,27 @@
 
   </div>
 </details>
+</div>
+
+  {% if (data.nowater == "true" or (data['water-use-type'] == "Consumptive" and data.sid == "0") or (data['water-use-type'] == "Consumptive" and data.gid == "1")) %} 
 
   <div class="border govuk-!-margin-bottom-3">
-      <h2 class="govuk-heading-m">Availability status</h2>
-  <!--<p class="govuk-body">{{tagsnowaterHTML | safe}}</p>-->
-<p class="govuk-body">No water is available for licensing at any time in this water body.</p>
-
-<p class="govuk-body">This can be due to low flow rates and a high number of other abstractors. 
-  The area is likely to be water stressed meaning more abstraction 
-  could have a negative impact on the local environment.</p>
-
+    <h2 class="govuk-heading-m">Availability status</h2>
+    <p class="govuk-body">No water is available for licensing at any time in this water body.</p>
+    <p class="govuk-body">This can be due to low flow rates and a high number 
+      of other abstractors. The area is likely to be water stressed meaning 
+      more abstraction could have a negative impact on the local environment.</p>
   </div>
 
   {% else %}
 
-   {% if (data['watertype'] == "surface") %}  
-  <h1 class="govuk-heading-l">Your surface water availability</h1>
- {% else %}
-  <h1 class="govuk-heading-l">Your groundwater availability</h1>
-{% endif %}
-
-  <p class='govuk-body-s'><i>This page was last updated: 25 October 2025</i></p>
- 
-{% if (data['watertype'] == "surface") %}   
-  <p class="govuk-body">
-         This page shows restrictions and previous availability information for surface water abstraction from the water body '<b>{{data.riverCatchmentData[data.sid].properties.WB_NAME}}</b>'.</p>
-
-      {% elseif (data['watertype'] == "ground") %}
-       <p class="govuk-body">
-         This page shows restrictions and previous availability information for surface water abstraction from the water body'<b>{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}</b>'.</p>
-      {% endif %}
-
-
-  <details class="govuk-details">
-  <summary class="govuk-details__summary">
-    <span class="govuk-details__summary-text">
-      Common end date (licensing strategy review period)
-    </span>
-  </summary>
-  <div class="govuk-details__text">
- <p class="govuk-body">{% if (data['watertype'] == "ground")%}
- Common end date for {{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}: <b>January 2027</b>.
-  {% elseif (data['watertype'] == "surface")%}
-   Common end date for {{data.riverCatchmentData[data.sid].properties.WB_NAME}}: <b>January 2027</b>.
-{% endif %}</p>
-
-<p class="govuk-body">The 'common end date' indicates when the licensing strategy 
-  for this area is due for review. The Environment Agency review each local 
-  licensing strategy every six years.</p>
-
-  </div>
-</details>
-
-
-
   {% endif %}
 
+{% if (data['watertype'] == "surface") %} 
+  {% if (data.nowater == "true" or (data['water-use-type'] == "Consumptive" and data.sid == "0")) %} 
 
 
-{% if (data['watertype'] == "surface" and data['nowater'] == "false") %} 
+{% else %}
 
 
 <h2 class="govuk-heading-m">Restrictions on abstraction</h2>
@@ -212,8 +179,6 @@
   fallen below the current HoF of 135 Ml/d. This means you 
   would not have been allowed to take water on those days.</p>
 
-  
-{% if data['water-use-type'] == "Non-consumptive"%} 
 
 <h3 class="govuk-heading-s">2024-2025</h3>
 
@@ -244,13 +209,15 @@
 
  {% include "_includes/winterAvailTable.html" %}
 
-{% else %}
-
 {% endif %}
 {% endif %}
 
+  {% if data['watertype'] == "ground" %}
 
- {% if (data['watertype'] == "ground" and data['nowater'] == "false") %} 
+  {% if data.nowater == "true" or (data['water-use-type'] == "Consumptive" and data.gid == "1") %} 
+
+
+ {% else %}
 
 
 
@@ -277,19 +244,20 @@
 8am to 6pm GMT) +44 (0) 114 282 5312</p>
 
 {% endif %}
+{% endif %}
 
 
-  {% if (data.nowater == "false") %}
+ <h2 class="govuk-heading-m">Other options and next steps</h2>
 
-<h2 class="govuk-heading-m">Other options and next steps</h2>
-<p class="govuk-body">Find out more about applying for a licence 
-  and your other options for sourcing water, such as trading abstraction 
-  rights, desalination and water recycling.</p>
+  {% if (data.nowater == "true" or (data['water-use-type'] == "Consumptive" and data.sid == "0") or (data['water-use-type'] == "Consumptive" and data.gid == "1")) %} 
+
+<p class="govuk-body">You may still be able to obtain water in a different way to licenced abstraction. Find out your alternative options.</p>
 
 {% else %}
 
-<h2 class="govuk-heading-m">Other options and next steps</h2>
-<p class="govuk-body">You may still be able to obtain water in a different way to licenced abstraction. Find out your alternative options.</p>
+<p class="govuk-body">Find out more about applying for a licence 
+  and your other options for sourcing water, such as trading abstraction 
+  rights, desalination and water recycling.</p>
 
   {% endif %}
 
