@@ -95,7 +95,7 @@
 
 {% if data.sid == "1" %}
 <p class="govuk-body"><b>The current HoF for this assessment point is 
-  0 Megalitres per day (Ml/d).</b></p> 
+  12 Megalitres per day (Ml/d).</b></p> 
   {% else %}
 <p class="govuk-body"><b>The current HoF for this assessment point is 
   135 Megalitres per day (Ml/d).</b></p> 
@@ -135,7 +135,7 @@
   <tbody class="govuk-table__body">
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Band&nbsp;1</th>
-      <td class="govuk-table__cell govuk-table__cell--numeric"><strong>0&nbsp;Ml/d</strong></td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"><strong>12&nbsp;Ml/d</strong></td>
       <td class="govuk-table__cell govuk-table__cell--numeric"><strong>56&nbsp;Ml/d</strong></td>
       <td class="govuk-table__cell govuk-table__cell--numeric"><strong>Current band and HoF level for new licences</strong></td>
    </tr>
@@ -237,15 +237,16 @@
   rains less which means flow rates are lower.</p>
 
    {% if data.sid == "1" %}
-<p class="govuk-body">The information below summarises how often 
-  the flow rate at your local assessment point has previously 
-  fallen below the current HoF of 0 Ml/d. This means you 
-  would not have been allowed to take water on those days.</p>
+<p class="govuk-body">  <p class="govuk-body">The information below summarises how often 
+    the flow rate at your local assessment point was above the current 
+    HoF of 12 Ml/d. This indicates how often water would have been 
+    available for abstraction and how often restrictions would have prevented abstraction.</p>
+</p>
 {% else %}
   <p class="govuk-body">The information below summarises how often 
-  the flow rate at your local assessment point has previously 
-  fallen below the current HoF of 135 Ml/d. This means you 
-  would not have been allowed to take water on those days.</p>
+    the flow rate at your local assessment point was above the current 
+    HoF of 135 Ml/d. This indicates how often water would have been 
+    available for abstraction and how often restrictions would have prevented abstraction.</p>
   {% endif %}
 
    {% if data.sid == "1" %}
