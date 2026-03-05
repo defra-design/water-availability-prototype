@@ -1,0 +1,44 @@
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Winter: <span class="govuk-!-margin-left-3">{{ govukTag({
+  text: data.winterAvail2[year] | percentAvailAgg | round  +"% available",
+ classes: data.winterAvail2[year] | percentAvailAgg | availColour
+}) }}
+
+
+</span>
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+ 
+
+ <table class="govuk-table" id="monthly-data">
+   <caption class="govuk-table__caption govuk-table__caption--s">
+    
+   </caption>
+   <thead class="govuk-table__head">
+     <tr class="govuk-table__row">
+       <th scope="col" class="govuk-table__header">Month</th>
+       <th scope="col" class="govuk-table__header govuk-table__header--numeric">Days water would have been available</th>
+       <th scope="col" class="govuk-table__header govuk-table__header--numeric">Days water would not have been available</th>
+      <th scope="col" class="govuk-table__header govuk-table__header--numeric">Overall percentage water would have been available</th>
+  </tr>
+   </thead>
+   <tbody class="govuk-table__body">
+
+     {% for months in data.winterAvail2[year] %}
+     <tr class="govuk-table__row">    
+       <th scope="row" class="govuk-table__header">{{months.month|capitalize}}</th>
+       <td class="govuk-table__cell govuk-table__cell--numeric">{{months.daysAvail}}</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">{{months.daysUnavail}}</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric"><span class="govuk-!-margin-left-3">{{ govukTag({
+  text: 0|percentAvail(months.daysAvail,months.daysUnavail) | round +"% available",
+ classes: 0|percentAvail(months.daysAvail,months.daysUnavail) | availColour
+}) }}</span></td>
+     </tr>
+     {% endfor %}
+   </tbody>
+ </table>
+   </div>
+</details>

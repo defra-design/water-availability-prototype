@@ -248,36 +248,54 @@
   would not have been allowed to take water on those days.</p>
   {% endif %}
 
+   {% if data.sid == "1" %}
+
   <div class="border govuk-!-margin-bottom-3">
 <h3 class="govuk-heading-s">2024-2025</h3>
-
 {% set year=0 %}
-  {% include "_includes/summerAvailTable.html" %}
-
-{% include "_includes/winterAvailTable.html" %}
-
+  {% include "_includes/summerAvailTable2.html" %}
+{% include "_includes/winterAvailTable2.html" %}
 
 <h3 class="govuk-heading-s">2023-2024</h3>
+{% set year=1 %}
+  {% include "_includes/summerAvailTable2.html" %}
+ {% include "_includes/winterAvailTable2.html" %}
 
+ <h3 class="govuk-heading-s">2022-2023</h3>
+{% set year=2 %}
+  {% include "_includes/summerAvailTable2.html" %}
+ {% include "_includes/winterAvailTable2.html" %}
+
+ <h3 class="govuk-heading-s">2021-2022</h3>
+{% set year=3 %}
+  {% include "_includes/summerAvailTable2.html" %}
+ {% include "_includes/winterAvailTable2.html" %}
+ </div>
+
+ {% else %}
+ <div class="border govuk-!-margin-bottom-3">
+<h3 class="govuk-heading-s">2024-2025</h3>
+{% set year=0 %}
+  {% include "_includes/summerAvailTable.html" %}
+{% include "_includes/winterAvailTable.html" %}
+
+<h3 class="govuk-heading-s">2023-2024</h3>
 {% set year=1 %}
   {% include "_includes/summerAvailTable.html" %}
-
  {% include "_includes/winterAvailTable.html" %}
 
  <h3 class="govuk-heading-s">2022-2023</h3>
-
 {% set year=2 %}
   {% include "_includes/summerAvailTable.html" %}
-
  {% include "_includes/winterAvailTable.html" %}
 
  <h3 class="govuk-heading-s">2021-2022</h3>
-
 {% set year=3 %}
   {% include "_includes/summerAvailTable.html" %}
-
  {% include "_includes/winterAvailTable.html" %}
  </div>
+
+ {% endif %}
 
 {% endif %}
 {% endif %}

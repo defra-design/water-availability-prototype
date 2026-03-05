@@ -9,7 +9,7 @@ module.exports = {
 [ {
   //year 1
   "month": "march",
-  "daysAvail": 15,
+  "daysAvail": 16,
   "daysUnavail": 15,
 },
  {
@@ -20,7 +20,7 @@ module.exports = {
  {
   "month": "may",
   "daysAvail": 13,
-  "daysUnavail": 12,
+  "daysUnavail": 18,
 },
  {
   "month": "june",
@@ -147,8 +147,8 @@ module.exports = {
 },
  {
   "month": "september",
-  "daysAvail": 21,
-  "daysUnavail": 9,
+  "daysAvail": 27,
+  "daysUnavail": 3,
 },],
 ],
 
@@ -199,7 +199,7 @@ module.exports = {
  {
   "month": "january",
   "daysAvail": 18,
-  "daysUnavail": 12,
+  "daysUnavail": 13,
 },
  {
   "month": "february",
@@ -210,12 +210,12 @@ module.exports = {
     //year 3
   "month": "october",
   "daysAvail": 22,
-  "daysUnavail": 8,
+  "daysUnavail": 9,
 },
  {
   "month": "november",
   "daysAvail": 28,
-  "daysUnavail": 7,
+  "daysUnavail": 2,
 },
  {
   "month": "december",
@@ -256,12 +256,268 @@ module.exports = {
  {
   "month": "february",
   "daysAvail": 25,
-  "daysUnavail": 33,
+  "daysUnavail": 3,
+}]
+],
+
+
+//alt historical hof
+
+"summerAvail2": [
+[ {
+  //year 1
+  "month": "march",
+  "daysAvail": 29,
+  "daysUnavail": 2,
+},
+ {
+  "month": "april",
+  "daysAvail": 28,
+  "daysUnavail": 2,
+},
+ {
+  "month": "may",
+  "daysAvail": 30,
+  "daysUnavail": 1,
+},
+ {
+  "month": "june",
+  "daysAvail": 26,
+  "daysUnavail": 4,
+},
+ {
+  "month": "july",
+  "daysAvail": 25,
+  "daysUnavail": 6,
+},
+ {
+  "month": "august",
+  "daysAvail": 24,
+  "daysUnavail": 7,
+},
+ {
+  "month": "september",
+  "daysAvail": 22,
+  "daysUnavail": 8,
+},],
+ [ {
+    //year 2
+  "month": "march",
+  "daysAvail": 26,
+  "daysUnavail": 5,
+},
+ {
+  "month": "april",
+  "daysAvail": 29,
+  "daysUnavail": 1,
+},
+ {
+  "month": "may",
+  "daysAvail": 27,
+  "daysUnavail": 4,
+},
+ {
+  "month": "june",
+  "daysAvail": 24,
+  "daysUnavail": 6,
+},
+ {
+  "month": "july",
+  "daysAvail": 25,
+  "daysUnavail": 6,
+},
+ {
+  "month": "august",
+  "daysAvail": 25,
+  "daysUnavail": 6,
+},
+ {
+  "month": "september",
+  "daysAvail": 28,
+  "daysUnavail": 2,
+},],
+[ {
+    //year 3
+  "month": "march",
+  "daysAvail": 27,
+  "daysUnavail": 4,
+},
+ {
+  "month": "april",
+  "daysAvail": 28,
+  "daysUnavail": 2,
+},
+ {
+  "month": "may",
+  "daysAvail": 28,
+  "daysUnavail": 3,
+},
+ {
+  "month": "june",
+  "daysAvail": 27,
+  "daysUnavail": 3,
+},
+ {
+  "month": "july",
+  "daysAvail": 26,
+  "daysUnavail": 5,
+},
+ {
+  "month": "august",
+  "daysAvail": 26,
+  "daysUnavail": 5,
+},
+ {
+  "month": "september",
+  "daysAvail": 28,
+  "daysUnavail": 2,
+},],
+[ {
+    //year 4
+  "month": "march",
+  "daysAvail": 31,
+  "daysUnavail": 0,
+},
+ {
+  "month": "april",
+  "daysAvail": 29,
+  "daysUnavail": 1,
+},
+ {
+  "month": "may",
+  "daysAvail": 28,
+  "daysUnavail": 3,
+},
+ {
+  "month": "june",
+  "daysAvail": 27,
+  "daysUnavail": 3,
+},
+ {
+  "month": "july",
+  "daysAvail": 27,
+  "daysUnavail": 4,
+},
+ {
+  "month": "august",
+  "daysAvail": 26,
+  "daysUnavail": 5,
+},
+ {
+  "month": "september",
+  "daysAvail": 29,
+  "daysUnavail": 1,
+},],
+],
+
+
+"winterAvail2": [
+  [{
+      //year 1
+  "month": "october",
+  "daysAvail": 23,
+  "daysUnavail": 8,
+},
+ {
+  "month": "november",
+  "daysAvail": 25,
+  "daysUnavail": 5,
+},
+ {
+  "month": "december",
+  "daysAvail": 25,
+  "daysUnavail": 6,
+},
+ {
+  "month": "january",
+  "daysAvail": 27,
+  "daysUnavail": 4,
+},
+ {
+  "month": "february",
+  "daysAvail": 26,
+  "daysUnavail": 2,
+},],
+[ {
+    //year 2
+  "month": "october",
+  "daysAvail": 27,
+  "daysUnavail": 4,
+},
+ {
+  "month": "november",
+  "daysAvail": 30,
+  "daysUnavail": 0,
+},
+ {
+  "month": "december",
+  "daysAvail": 31,
+  "daysUnavail": 0,
+},
+ {
+  "month": "january",
+  "daysAvail": 28,
+  "daysUnavail": 3,
+},
+ {
+  "month": "february",
+  "daysAvail": 28,
+  "daysUnavail": 0,
+}],
+
+[ {
+    //year 3
+  "month": "october",
+  "daysAvail": 28,
+  "daysUnavail": 3,
+},
+ {
+  "month": "november",
+  "daysAvail": 29,
+  "daysUnavail": 1,
+},
+ {
+  "month": "december",
+  "daysAvail": 29,
+  "daysUnavail": 2,
+},
+ {
+  "month": "january",
+  "daysAvail": 31,
+  "daysUnavail": 0,
+},
+ {
+  "month": "february",
+  "daysAvail": 27,
+  "daysUnavail": 1,
+}],
+[ {
+    //year 4
+  "month": "october",
+  "daysAvail": 31,
+  "daysUnavail": 0,
+},
+ {
+  "month": "november",
+  "daysAvail": 30,
+  "daysUnavail": 0,
+},
+ {
+  "month": "december",
+  "daysAvail": 31,
+  "daysUnavail": 0,
+},
+ {
+  "month": "january",
+  "daysAvail": 30,
+  "daysUnavail": 1,
+},
+ {
+  "month": "february",
+  "daysAvail": 28,
+  "daysUnavail": 0,
 }]
 ]
-
-
-
 
 }
 
