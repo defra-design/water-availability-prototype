@@ -28,7 +28,9 @@
    
 <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-with-summary-sections">
   
-  {% if (data['nowater'] == "false") %} 
+{% if (data.nowater == "true" or (data['water-use-type'] == "Consumptive" and data.gid == "1")) %} 
+
+  {% else %}
   <div class="govuk-accordion__section--expanded">
     <div class="govuk-accordion__section-header">
       <h2 class="govuk-accordion__section-heading">
@@ -60,9 +62,6 @@
 
     </div>
   </div>
-
-  {% else %}
-
 {% endif %}
 
   <div class="govuk-accordion__section">
