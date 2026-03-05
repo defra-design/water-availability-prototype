@@ -251,6 +251,16 @@
    {% if data.sid == "1" %}
 
   <div class="border govuk-!-margin-bottom-3">
+
+      <div class="govuk-body">
+<h3 class="govuk-heading-s">Days when water would have been available to abstract:</h3>
+          <p class="govuk-body"><strong class="govuk-tag govuk-tag--green">66% and above</strong></p>
+          <p class="govuk-body"><strong class="govuk-tag govuk-tag--yellow">33% to 66%</strong></p>
+          <p class="govuk-body"><strong class="govuk-tag govuk-tag--red">0% to 33%</strong></p>
+          <hr>
+</div>
+
+
 <h3 class="govuk-heading-s">2024-2025</h3>
 {% set year=0 %}
   {% include "_includes/summerAvailTable2.html" %}
@@ -274,6 +284,15 @@
 
  {% else %}
  <div class="border govuk-!-margin-bottom-3">
+
+    <div class="govuk-body">
+<h3 class="govuk-heading-s">Days when water would have been available to abstract:</h3>
+          <p class="govuk-body"><strong class="govuk-tag govuk-tag--green">66% and above</strong>
+          <strong class="govuk-tag govuk-tag--yellow">33% to 66%</strong>
+          <strong class="govuk-tag govuk-tag--red">0% to 33%</strong></p>
+          <hr>
+</div>
+
 <h3 class="govuk-heading-s">2024-2025</h3>
 {% set year=0 %}
   {% include "_includes/summerAvailTable.html" %}
