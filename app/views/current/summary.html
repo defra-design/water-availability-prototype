@@ -39,8 +39,9 @@
 
 <h1 class="govuk-heading-l">Your local water licence availability</h1>
 
-<p class="govuk-body">This page shows a summary with an overall indication of water 
-  availability for licensing in your local area. You have given us the following information which affects your results:</p>
+<p class="govuk-body">This page shows a summary with an overall 
+  indication of water licence availability in your local area. </p>
+  <p class="govuk-body">You have given us the following information which affects your results:</p>
 
  <div class="govuk-inset-text">
          
@@ -68,8 +69,9 @@
       {{tagsgoodlicHTML | safe}}
     </dt>
     <dd class="govuk-summary-list__value">
-      There is more water than required to meet the needs of the environment.
-New licences can be considered depending on local and downstream impacts.
+      New licences may be granted depending on volume of water required, 
+      duration of abstraction, and local and downstream impacts. 
+      Licences will come with restrictions and conditions.
     </dd>
    
 </div>
@@ -79,8 +81,10 @@ New licences can be considered depending on local and downstream impacts.
       {{tagsnolicHTML | safe}}
     </dt>
     <dd class="govuk-summary-list__value">
-      No water is available for new licences due to low flows, environmental concerns and/or too many existing abstractors in the area. Existing licences are restricted, however there may be opportunities to trade water with existing abstractors.
-    </dd>
+ No water is available for new licences due to low flows, 
+ environmental concerns and/or too many existing abstractors 
+ in the area. There may be opportunities to trade water with 
+ existing abstractors.</dd>
     
   </div>
   
@@ -168,12 +172,9 @@ factors such as environmental concerns.</strong>
       <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&sid={{loop.index0}}&watertype=surface">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.OPCAT_NAME}} catchment</a></h3>
  
     <p class="govuk-body">{{waterBody.nearestPoint.distanceKm | round(2)}} kilometres {{waterBody.nearestPoint.direction}} of the centre of the {% if (data['location'] == "gridRef") %}national grid reference{% elseif (data['location'] == "fieldParcel") %}field parcel{% elseif (data['location'] == "postCode") %}postcode{% endif %}.</p>
-
-      {% if data['water-use-type'] == "Non-consumptive" %}   
+  
     <p class="govuk-body">{{tagsgoodlicHTML | safe}}</p> 
-    {% elseif data['water-use-type'] == "Consumptive" %}
-     <p class="govuk-body">{{tagsnolicHTML | safe}}</p> 
-     {% endif %}
+
    <!-- <p class="govuk-body">Winter: {{tagsgoodlicHTML | safe}}</p> -->
    <hr>
    {% elif loop.index0 == 2 %}
