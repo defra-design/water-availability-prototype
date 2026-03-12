@@ -1,0 +1,97 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+ Overall percentage of days “X” happened
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+ <!-- <span class="govuk-caption-l">Figure 1</span> -->
+ <h2 class="govuk-heading-m">Historical availability at 123ml/d HoF</h2>
+ <h3 class="govuk-heading-m">2025</h3>
+
+  {# --- Chart wrapper (progressive enhancement) --- #}
+ <figure class="app-chart" id="summary-chart" aria-labelledby="chart-title">
+ 
+   <button
+     class="govuk-link app-chart__toggle"
+     type="button"
+     aria-controls="monthly-data"
+     aria-expanded="false">
+     Summer
+   </button>
+   
+  <!--  <h2 class="govuk-heading-m" id="chart-title">Overall (all months combined)</h2> -->
+
+   <div class="app-chart__bar" role="img" aria-label="">
+     <span class="app-chart__segment app-chart__segment--happened" style="width:0%">
+       <span class="app-chart__label">Days water would have been available 0%</span>
+     </span>
+     <span class="app-chart__segment app-chart__segment--not" style="width:0%">
+       <span class="app-chart__label">Days water would not have been available 0%</span>
+     </span>
+   </div>
+
+   <figcaption class="govuk-visually-hidden" id="chart-desc"></figcaption>
+
+ </figure>
+ 
+ {# --- Accessible data table (source of truth) --- #}
+ <table class="govuk-table" id="monthly-data">
+   <caption class="govuk-table__caption govuk-table__caption--s">
+    
+   </caption>
+   <thead class="govuk-table__head">
+     <tr class="govuk-table__row">
+       <th scope="col" class="govuk-table__header">Month</th>
+       <th scope="col" class="govuk-table__header govuk-table__header--numeric">Days water would have been available</th>
+       <th scope="col" class="govuk-table__header govuk-table__header--numeric">Days water would not have been available</th>
+     </tr>
+   </thead>
+   <tbody class="govuk-table__body">
+     {# Example data — replace with your real rows #}
+     <tr class="govuk-table__row">
+       <th scope="row" class="govuk-table__header">March</th>
+       <td class="govuk-table__cell govuk-table__cell--numeric">10</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">21</td>
+     </tr>
+     <tr class="govuk-table__row">
+       <th scope="row" class="govuk-table__header">April</th>
+       <td class="govuk-table__cell govuk-table__cell--numeric">23</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">07</td>
+     </tr>
+     <tr class="govuk-table__row">
+       <th scope="row" class="govuk-table__header">May</th>
+       <td class="govuk-table__cell govuk-table__cell--numeric">25</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">06</td>
+     </tr>
+     <tr class="govuk-table__row">
+       <th scope="row" class="govuk-table__header">June</th>
+       <td class="govuk-table__cell govuk-table__cell--numeric">19</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">11</td>
+     </tr>
+     <tr class="govuk-table__row">
+       <th scope="row" class="govuk-table__header">July</th>
+       <td class="govuk-table__cell govuk-table__cell--numeric">22</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">09</td>
+     </tr>
+     <tr class="govuk-table__row">
+       <th scope="row" class="govuk-table__header">August</th>
+       <td class="govuk-table__cell govuk-table__cell--numeric">15</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">16</td>
+     </tr>
+      <tr class="govuk-table__row">
+       <th scope="row" class="govuk-table__header">September</th>
+       <td class="govuk-table__cell govuk-table__cell--numeric">15</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">15</td>
+     </tr>
+   </tbody>
+ </table>
+ 
+
+</div>
+</div>
+{% endblock %}

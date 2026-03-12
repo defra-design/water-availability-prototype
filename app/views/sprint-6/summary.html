@@ -1,0 +1,324 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  {{ "Your local water availability summary" }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+
+{% set tagsnolicHTML %}
+
+{{ govukTag({
+  text: "No licences",
+  classes: "govuk-tag--grey"
+}) }}
+
+{% endset %}
+
+
+{% set tagsgoodlicHTML %}
+
+{{ govukTag({
+  text: "Licences available",
+  classes: "govuk-tag--grey"
+}) }}
+
+{% endset %}
+
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+<h1 class="govuk-heading-l">Your local water licence availability</h1>
+
+<p class="govuk-body">This page shows a summary with an overall 
+  indication of water licence availability in your local area. </p>
+  <p class="govuk-body">You have given us the following information which affects your results:</p>
+
+ <div class="govuk-inset-text">
+         
+ 
+    <p class="govuk-body"><b>Use:</b> {{ data['water-use-label'] }}</p>
+    <p class="govuk-body"><b>Consumption type:</b> {{ data['water-use-type'] }}</p>
+
+</div>
+
+{% if (data.riverCatchmentData.length and (data['watertype'] == "both" or data['watertype'] == "surface" or data['watertype'] == "dontknow")) or (data.groundwaterCatchmentData.length and (data['watertype'] == "both" or data['watertype'] == "ground" or data['watertype'] == "dontknow")) %}
+
+
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Licence availability explained
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+ 
+
+    <dl class="govuk-summary-list">
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      {{tagsgoodlicHTML | safe}}
+    </dt>
+    <dd class="govuk-summary-list__value">
+      New licences may be granted depending on volume of water required, 
+      duration of abstraction, and local and downstream impacts. 
+      Licences will come with restrictions and conditions.
+    </dd>
+   
+</div>
+  
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      {{tagsnolicHTML | safe}}
+    </dt>
+    <dd class="govuk-summary-list__value">
+ No water is available for new licences due to low flows, 
+ environmental concerns and/or too many existing abstractors 
+ in the area. There may be opportunities to trade water with 
+ existing abstractors.</dd>
+    
+  </div>
+  
+</dl>
+
+
+<div class="govuk-warning-text">
+  <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+  <strong class="govuk-warning-text__text">
+    <span class="govuk-visually-hidden">Warning</span>
+Licensing decisions will vary on a case-by-case basis depending on your 
+chosen abstraction point, water use, other local licences and additional 
+factors such as environmental concerns.</strong>
+</div>
+
+</div>
+</details>
+
+{% endif %}
+
+
+
+ 
+<!-- SURFACE WATER-->
+ {% if (data['watertype'] == "both" or data['watertype'] == "dontknow" or data['watertype'] == "surface" or data['watertype'] == "") %} 
+<div class="govuk-body">
+  <h2 class="govuk-heading-m">Your surface water availability</h2>
+
+{% if data.riverCatchmentData.length %}
+
+{% if data.riverCatchmentData.length==1 %}
+
+   <p class="govuk-body">The information below shows the surface water body for the    
+  {% if (data['location'] == "gridRef") %}
+        national grid reference
+{% elseif (data['location'] == "fieldParcel") %}
+    field parcel
+{% elseif (data['location'] == "postCode") %}
+    postcode
+      {% endif %} you have provided. Use the link to view restrictions and previous availability for this water body. 
+</p>
+
+   {% else %}
+
+  <p class="govuk-body">Listed below are the closest surface water bodies for the  
+  
+  {% if (data['location'] == "gridRef") %}
+        national grid reference
+{% elseif (data['location'] == "fieldParcel") %}
+    field parcel
+{% elseif (data['location'] == "postCode") %}
+    postcode
+      {% endif %}
+      
+      you have provided. Use the links to view 
+      restrictions and previous availability information for each water body.</p>
+
+
+
+{% endif %}
+
+{% for waterBody in data.riverCatchmentData%}
+
+
+  {% if loop.index0 == 0 %} 
+  
+      <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&sid={{loop.index0}}&watertype=surface">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.OPCAT_NAME}} catchment</a></h3>
+  
+  <p class="govuk-body">The centre of the {% if (data['location'] == "gridRef") %}
+        national grid reference
+{% elseif (data['location'] == "fieldParcel") %}
+    field parcel
+{% elseif (data['location'] == "postCode") %}
+    postcode
+      {% endif %}
+    is <b>within</b> this surface water body.</p>
+
+     <p class="govuk-body">{{tagsgoodlicHTML | safe}}</p> 
+
+  <!-- <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p> --> 
+  <hr>
+  
+  {% elif loop.index0 == 1 %}
+
+      <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&sid={{loop.index0}}&watertype=surface">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.OPCAT_NAME}} catchment</a></h3>
+ 
+    <p class="govuk-body">{{waterBody.nearestPoint.distanceKm | round(2)}} kilometres {{waterBody.nearestPoint.direction}} of the centre of the {% if (data['location'] == "gridRef") %}national grid reference{% elseif (data['location'] == "fieldParcel") %}field parcel{% elseif (data['location'] == "postCode") %}postcode{% endif %}.</p>
+  
+    <p class="govuk-body">{{tagsgoodlicHTML | safe}}</p> 
+
+   <!-- <p class="govuk-body">Winter: {{tagsgoodlicHTML | safe}}</p> -->
+   <hr>
+   {% elif loop.index0 == 2 %}
+
+      <h3 class="govuk-heading-s"><a href="detailed-results?nowater=true&sid={{loop.index0}}&watertype=surface">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.OPCAT_NAME}} catchment</a></h3>
+ 
+        <p class="govuk-body">{{waterBody.nearestPoint.distanceKm | round(2)}} kilometres {{waterBody.nearestPoint.direction}} of the centre of the {% if (data['location'] == "gridRef") %}national grid reference{% elseif (data['location'] == "fieldParcel") %}field parcel{% elseif (data['location'] == "postCode") %}postcode{% endif %}.</p>
+
+
+      <p class="govuk-body">{{tagsnolicHTML | safe}}</p>   
+   <!-- <p class="govuk-body">Winter: {{tagsnolicHTML | safe}}</p> -->
+   <hr>
+   {% else %}
+
+      <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&sid={{loop.index0}}&watertype=surface">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.OPCAT_NAME}} catchment</a></h3>
+ 
+     <p class="govuk-body">{{waterBody.nearestPoint.distanceKm | round(2)}} kilometres {{waterBody.nearestPoint.direction}} of the centre of the {% if (data['location'] == "gridRef") %}national grid reference{% elseif (data['location'] == "fieldParcel") %}field parcel{% elseif (data['location'] == "postCode") %}postcode{% endif %}.</p>
+
+      
+
+    <p class="govuk-body">{{tagsgoodlicHTML | safe}}</p> 
+
+ <!--  <p class="govuk-body">Winter: {{tagsgoodlicHTML | safe}}</p> -->
+     <hr>
+   {% endif %}
+
+{% endfor %}
+{% else %}
+<p class="govuk-body">No surface water body data is available for this area.</p>
+<p><a href="https://www.gov.uk/government/organisations/environment-agency#org-contacts" class="govuk-link">Contact the Environment Agency</a> for more information on surface water licencing in your area.</p>
+{% endif %}
+
+
+</div>
+{% endif %}
+
+<!-- GROUNDWATER-->
+  {% if (data['watertype'] == "both" or data['watertype'] == "dontknow" or data['watertype'] == "ground" or data['watertype'] == "") %} 
+<div class="govuk-body">
+<h2 class="govuk-heading-m">Your groundwater availability</h2>
+ 
+
+  {% if data.groundwaterCatchmentData.length %}
+
+
+  {% if data.groundwaterCatchmentData.length==1 %}
+
+   <p class="govuk-body">The information below shows the groundwater body for the   
+  {% if (data['location'] == "gridRef") %}
+        national grid reference
+{% elseif (data['location'] == "fieldParcel") %}
+    field parcel
+{% elseif (data['location'] == "postCode") %}
+    postcode
+      {% endif %} you have provided. Use the link to view restrictions and previous availability for this water body. 
+</p>
+
+  {% else %}
+  <p class="govuk-body">Listed below are the closest groundwater bodies for the  
+  
+  {% if (data['location'] == "gridRef") %}
+        national grid reference
+{% elseif (data['location'] == "fieldParcel") %}
+    field parcel
+{% elseif (data['location'] == "postCode") %}
+    postcode
+      {% endif %}
+      
+       you have provided. Use the links to view restrictions and 
+       previous availability information for each water body.</p>
+
+
+  {% endif %}
+  
+{% for waterBody in data.groundwaterCatchmentData%}
+  {% if loop.index0 == 0 %}
+
+  <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&gid={{loop.index0}}&watertype=ground">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.MNCAT_NAME}} catchment</a></h3>
+  
+  <p class="govuk-body">The centre of the {% if (data['location'] == "gridRef") %}
+        national grid reference
+{% elseif (data['location'] == "fieldParcel") %}
+    field parcel
+{% elseif (data['location'] == "postCode") %}
+    postcode
+      {% endif %}
+     is <b>within</b> this groundwater body.</p>
+     <p class="govuk-body">{{tagsgoodlicHTML | safe}}</p>   
+  <!-- <p class="govuk-body">Winter: {{tagsgoodlicHTML | safe}}</p> -->
+
+  <hr>
+
+  {% elif loop.index0 == 1 %}
+  
+  <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&gid={{loop.index0}}&watertype=ground">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.MNCAT_NAME}} catchment</a></h3>
+  
+      <p class="govuk-body">{{waterBody.nearestPoint.distanceKm | round(2)}} kilometres {{waterBody.nearestPoint.direction}} of the centre of the {% if (data['location'] == "gridRef") %}national grid reference{% elseif (data['location'] == "fieldParcel") %}field parcel{% elseif (data['location'] == "postCode") %}postcode{% endif %}.</p>
+
+    {% if data['water-use-type'] == "Non-consumptive" %}   
+    <p class="govuk-body">{{tagsgoodlicHTML | safe}}</p> 
+    {% elseif data['water-use-type'] == "Consumptive" %}
+     <p class="govuk-body">{{tagsnolicHTML | safe}}</p> 
+     {% endif %}
+
+  <!-- <p class="govuk-body">Winter: {{tagsgoodlicHTML | safe}}</p> -->
+
+  <hr>
+
+  {% elif loop.index0 == 2 %}
+  
+  <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&gid={{loop.index0}}&watertype=ground">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.MNCAT_NAME}} catchment</a></h3>
+  
+    <p class="govuk-body">{{waterBody.nearestPoint.distanceKm | round(2)}} kilometres {{waterBody.nearestPoint.direction}} of the centre of the {% if (data['location'] == "gridRef") %}national grid reference{% elseif (data['location'] == "fieldParcel") %}field parcel{% elseif (data['location'] == "postCode") %}postcode{% endif %}.</p>
+
+    {% if data['water-use-type'] == "Non-consumptive" %}   
+    <p class="govuk-body">{{tagsgoodlicHTML | safe}}</p> 
+    {% elseif data['water-use-type'] == "Consumptive" %}
+     <p class="govuk-body">{{tagsnolicHTML | safe}}</p> 
+     {% endif %}
+  <!-- <p class="govuk-body">Winter: {{tagsgoodlicHTML | safe}}</p> -->
+
+  <hr>
+{% else %}
+ <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&gid={{loop.index0}}&watertype=ground">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.MNCAT_NAME}} catchment</a></h3>
+  
+     <p class="govuk-body">{{waterBody.nearestPoint.distanceKm | round(2)}} kilometres {{waterBody.nearestPoint.direction}} of the centre of the {% if (data['location'] == "gridRef") %}national grid reference{% elseif (data['location'] == "fieldParcel") %}field parcel{% elseif (data['location'] == "postCode") %}postcode{% endif %}.</p>
+ 
+    <p class="govuk-body">{{tagsgoodlicHTML | safe}}</p> 
+
+  <!-- <p class="govuk-body">Winter: {{tagsgoodlicHTML | safe}}</p> -->
+
+  <hr>
+ {% endif %}
+ 
+{% endfor %}
+
+{% else %}
+<p class="govuk-body">No groundwater body data is available for this area.</p>
+<p><a href="https://www.gov.uk/government/organisations/environment-agency#org-contacts" class="govuk-link">Contact the Environment Agency</a> for more information on groundwater licencing in your area.</p>
+{% endif %}
+</div>
+
+{% endif %}
+</div>
+</div>
+
+{% endblock %}

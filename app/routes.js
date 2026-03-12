@@ -13,6 +13,7 @@ const router = govukPrototypeKit.requests.setupRouter()
 // END TABLE STUFF
 
 // Start folder specific routes
+router.use('/sprint-6', require('./views/sprint-6/_routes'));
 router.use('/sprint-5', require('./views/sprint-5/_routes'));
 router.use('/sprint-4', require('./views/sprint-4/_routes'));
 router.use('/sprint-3', require('./views/sprint-3/_routes'));

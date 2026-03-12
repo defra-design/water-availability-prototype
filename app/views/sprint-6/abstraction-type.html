@@ -1,0 +1,76 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  {{ serviceName }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+
+{%- from "govuk/components/button/macro.njk" import govukButton -%}
+{%- from "govuk/components/date-input/macro.njk" import govukDateInput -%}
+{%- from "govuk/components/fieldset/macro.njk" import govukFieldset -%}
+{%- from "govuk/components/input/macro.njk" import govukInput -%}
+{%- from "govuk/components/textarea/macro.njk" import govukTextarea -%}
+
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+<div data-module="moj-add-another">
+
+  <h2 class="govuk-heading-l moj-add-another__heading" tabindex="-1">Where are you licenced to abstract?</h2>
+
+  <form method="post">
+
+    {% call govukFieldset({
+      classes: "moj-add-another__item"
+    }) %}
+
+    {{ govukInput({
+      id: "person[0][first_name]",
+      name: "person[0][first_name]",
+      label: {
+        html: "National grid reference",
+        classes: "govuk-!-font-weight-bold"
+      },
+      hint: {
+        text: "For example, SE 05246 70347"
+      },
+      attributes: {
+        "data-name": "person[%index%][first_name]",
+        "data-id": "person[%index%][first_name]"
+      }
+    }) }}
+
+   
+
+    {% endcall %}
+
+    <div class="moj-button-action">
+      {{ govukButton({
+        text: "Add another national grid reference",
+        classes: "govuk-button--secondary moj-add-another__add-button govuk-!-margin-bottom-4"
+      }) }}
+    </div>
+
+    <div class="moj-button-action">
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+    </div>
+
+  </form>
+
+</div>
+
+    </div>
+  </div>
+
+{% endblock %}
