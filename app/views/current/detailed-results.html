@@ -252,7 +252,6 @@
 
    {% if data.sid == "1" %}
 
-  <div class="border govuk-!-margin-bottom-3">
 
       <div class="govuk-body">
 <h3 class="govuk-heading-s">Percentage of days when water would have been available:</h3>
@@ -262,23 +261,63 @@
           <hr>
 </div>
 
+<div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
+  <div class="govuk-accordion__section">
+    <div class="govuk-accordion__section-header">
+      <h3 class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button" id="accordion-default-heading-1">
+          {% set year=0 %}
+          {% include "_includes/table2Year0.html" %}
+          </span>
+      </h3>
+    </div>
+    <div id="accordion-default-content-1" class="govuk-accordion__section-content">
+        
+  {% include "_includes/annualAvailTable2.html" %}
+    </div>
+  </div>
+  <div class="govuk-accordion__section">
+    <div class="govuk-accordion__section-header">
+      <h3 class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button" id="accordion-default-heading-2">
+         {% set year=1 %}
+          {% include "_includes/table2Year1.html" %}
+        </span>
+      </h3>
+    </div>
+    <div id="accordion-default-content-2" class="govuk-accordion__section-content">
+     {% include "_includes/annualAvailTable2.html" %}
+    </div>
+  </div>
+  <div class="govuk-accordion__section">
+    <div class="govuk-accordion__section-header">
+      <h3 class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button" id="accordion-default-heading-3">
+          {% set year=2 %}
+          {% include "_includes/table2Year2.html" %}
+        </span>
+      </h3>
+    </div>
+    <div id="accordion-default-content-3" class="govuk-accordion__section-content">
+     {% include "_includes/annualAvailTable2.html" %}
+    </div>
+  </div>
+  <div class="govuk-accordion__section">
+    <div class="govuk-accordion__section-header">
+      <h3 class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button" id="accordion-default-heading-4">
+           {% set year=3 %}
+          {% include "_includes/table2Year3.html" %}
+        </span>
+      </h3>
+    </div>
+    <div id="accordion-default-content-4" class="govuk-accordion__section-content">
+     {% include "_includes/annualAvailTable2.html" %}
+    </div>
+  </div>
+</div>
 
-<h3 class="govuk-heading-s">2025</h3>
-{% set year=0 %}
-  {% include "_includes/seasonAvailTable2.html" %}
 
-<h3 class="govuk-heading-s">2024</h3>
-{% set year=1 %}
-  {% include "_includes/seasonAvailTable2.html" %}
-
- <h3 class="govuk-heading-s">2023</h3>
-{% set year=2 %}
-  {% include "_includes/seasonAvailTable2.html" %}
-
- <h3 class="govuk-heading-s">2022</h3>
-{% set year=3 %}
-  {% include "_includes/seasonAvailTable2.html" %}
- </div>
 
  {% else %}
  <div class="border govuk-!-margin-bottom-3">
@@ -293,19 +332,19 @@
 
 <h3 class="govuk-heading-s">2025</h3>
 {% set year=0 %}
-  {% include "_includes/seasonAvailTable.html" %}
+  {% include "_includes/annualAvailTable.html" %}
 
 <h3 class="govuk-heading-s">2024</h3>
 {% set year=1 %}
-  {% include "_includes/seasonAvailTable.html" %}
+  {% include "_includes/annualAvailTable.html" %}
 
  <h3 class="govuk-heading-s">2023</h3>
 {% set year=2 %}
-  {% include "_includes/seasonAvailTable.html" %}
+  {% include "_includes/annualAvailTable.html" %}
 
  <h3 class="govuk-heading-s">2022</h3>
 {% set year=3 %}
-  {% include "_includes/seasonAvailTable.html" %}
+  {% include "_includes/annualAvailTable.html" %}
  </div>
 
  {% endif %}

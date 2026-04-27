@@ -1,0 +1,5 @@
+ 2025:<span class="govuk-!-margin-left-3">{{ govukTag({
+  text: data.annualAvail2[year] | percentAvailAgg | round  +"% available",
+ classes: data.annualAvail2[year] | percentAvailAgg | availColour
+}) }}
+</span> 

@@ -5,7 +5,7 @@ module.exports = {
 "groundwaterCatchmentData":[],
 "watertype" : "",
 
-"seasonAvail": [
+"annualAvail": [
 [ {
     //year 1
   "month": "january",
@@ -255,7 +255,7 @@ module.exports = {
 
 //alt historical hof
 
-"seasonAvail2": [
+"annualAvail2": [
 [ {
     //year 1
   "month": "january",
@@ -301,6 +301,21 @@ module.exports = {
   "month": "september",
   "daysAvail": 22,
   "daysUnavail": 8,
+},
+{
+  "month": "october",
+  "daysAvail": 25,
+  "daysUnavail": 6,
+},
+ {
+  "month": "november",
+  "daysAvail": 29,
+  "daysUnavail": 1,
+},
+ {
+  "month": "december",
+  "daysAvail": 31,
+  "daysUnavail": 0,
 }
 ],
  [ {
