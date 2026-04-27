@@ -1,9 +1,9 @@
 <details class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
-      Winter: <span class="govuk-!-margin-left-3">{{ govukTag({
-  text: data.winterAvail[year] | percentAvailAgg | round  +"% available",
- classes: data.winterAvail[year] | percentAvailAgg | availColour
+      Historical availability: <span class="govuk-!-margin-left-3">{{ govukTag({
+  text: data.seasonAvail[year] | percentAvailAgg | round  +"% available",
+ classes: data.seasonAvail[year] | percentAvailAgg | availColour
 }) }}
 
 
@@ -27,7 +27,7 @@
    </thead>
    <tbody class="govuk-table__body">
 
-     {% for months in data.winterAvail[year] %}
+     {% for months in data.seasonAvail[year] %}
      <tr class="govuk-table__row">    
        <th scope="row" class="govuk-table__header">{{months.month|capitalize}}</th>
        <td class="govuk-table__cell govuk-table__cell--numeric">{{months.daysAvail}}</td>
