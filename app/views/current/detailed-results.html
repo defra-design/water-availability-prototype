@@ -267,13 +267,13 @@
       <h3 class="govuk-accordion__section-heading">
         <span class="govuk-accordion__section-button" id="accordion-default-heading-1">
           {% set year=0 %}
-          {% include "_includes/table2Year0.html" %}
+          {% include "_includes/current/table2Year0.html" %}
           </span>
       </h3>
     </div>
     <div id="accordion-default-content-1" class="govuk-accordion__section-content">
         
-  {% include "_includes/annualAvailTable2.html" %}
+  {% include "_includes/current/annualAvailTable2.html" %}
     </div>
   </div>
   <div class="govuk-accordion__section">
@@ -281,12 +281,12 @@
       <h3 class="govuk-accordion__section-heading">
         <span class="govuk-accordion__section-button" id="accordion-default-heading-2">
          {% set year=1 %}
-          {% include "_includes/table2Year1.html" %}
+          {% include "_includes/current/table2Year1.html" %}
         </span>
       </h3>
     </div>
     <div id="accordion-default-content-2" class="govuk-accordion__section-content">
-     {% include "_includes/annualAvailTable2.html" %}
+     {% include "_includes/current/annualAvailTable2.html" %}
     </div>
   </div>
   <div class="govuk-accordion__section">
@@ -294,12 +294,12 @@
       <h3 class="govuk-accordion__section-heading">
         <span class="govuk-accordion__section-button" id="accordion-default-heading-3">
           {% set year=2 %}
-          {% include "_includes/table2Year2.html" %}
+          {% include "_includes/current/table2Year2.html" %}
         </span>
       </h3>
     </div>
     <div id="accordion-default-content-3" class="govuk-accordion__section-content">
-     {% include "_includes/annualAvailTable2.html" %}
+     {% include "_includes/current/annualAvailTable2.html" %}
     </div>
   </div>
   <div class="govuk-accordion__section">
@@ -307,12 +307,12 @@
       <h3 class="govuk-accordion__section-heading">
         <span class="govuk-accordion__section-button" id="accordion-default-heading-4">
            {% set year=3 %}
-          {% include "_includes/table2Year3.html" %}
+          {% include "_includes/current/table2Year3.html" %}
         </span>
       </h3>
     </div>
     <div id="accordion-default-content-4" class="govuk-accordion__section-content">
-     {% include "_includes/annualAvailTable2.html" %}
+     {% include "_includes/current/annualAvailTable2.html" %}
     </div>
   </div>
 </div>
@@ -332,19 +332,19 @@
 
 <h3 class="govuk-heading-s">2025</h3>
 {% set year=0 %}
-  {% include "_includes/annualAvailTable.html" %}
+  {% include "_includes/current/annualAvailTable.html" %}
 
 <h3 class="govuk-heading-s">2024</h3>
 {% set year=1 %}
-  {% include "_includes/annualAvailTable.html" %}
+  {% include "_includes/current/annualAvailTable.html" %}
 
  <h3 class="govuk-heading-s">2023</h3>
 {% set year=2 %}
-  {% include "_includes/annualAvailTable.html" %}
+  {% include "_includes/current/annualAvailTable.html" %}
 
  <h3 class="govuk-heading-s">2022</h3>
 {% set year=3 %}
-  {% include "_includes/annualAvailTable.html" %}
+  {% include "_includes/current/annualAvailTable.html" %}
  </div>
 
  {% endif %}
