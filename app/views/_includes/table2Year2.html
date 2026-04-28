@@ -1,5 +1,5 @@
- 2023: <span class="govuk-!-margin-left-3">{{ govukTag({
+  <span class="govuk-!-font-size-19">2023:</span>
+{{ govukTag({
   text: data.annualAvail2[year] | percentAvailAgg | round  +"% available",
  classes: data.annualAvail2[year] | percentAvailAgg | availColour
 }) }}
-</span> 
