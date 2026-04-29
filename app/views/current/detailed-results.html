@@ -96,9 +96,16 @@
 {% if data.sid == "1" %}
 <p class="govuk-body"><b>The current HoF for this assessment point is 
   12 Megalitres per day (Ml/d).</b></p> 
+
+  <p class="govuk-body"><b>There is approximately 97Ml/d of water 
+    available for licencing in this band.</b></p>
+
   {% else %}
 <p class="govuk-body"><b>The current HoF for this assessment point is 
   135 Megalitres per day (Ml/d).</b></p> 
+
+    <p class="govuk-body"><b>There is approximately 45Ml/d of water 
+    available for licencing in this band.</b></p>
   {% endif %}
 
  <details class="govuk-details">
@@ -128,7 +135,6 @@
     <tr class="govuk-table__row">
       <th scope="col" class="govuk-table__header"></th>
       <th scope="col" class="govuk-table__header govuk-table__header--numeric">Hof&nbsp;level</th>
-      <th scope="col" class="govuk-table__header govuk-table__header--numeric">Volume of water available for abstraction</th>
       <th scope="col" class="govuk-table__header govuk-table__header--numeric">Licensing availability</th>
    </tr>
   </thead>
@@ -136,38 +142,32 @@
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Band&nbsp;1</th>
       <td class="govuk-table__cell govuk-table__cell--numeric"><strong>12&nbsp;Ml/d</strong></td>
-      <td class="govuk-table__cell govuk-table__cell--numeric"><strong>56&nbsp;Ml/d</strong></td>
-      <td class="govuk-table__cell govuk-table__cell--numeric"><strong>Current band and HoF level for new licences</strong></td>
+       <td class="govuk-table__cell govuk-table__cell--numeric"><strong>Current band and HoF level for new licences</strong></td>
    </tr>
      <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Band&nbsp;2</th>
       <td class="govuk-table__cell govuk-table__cell--numeric">35 Ml/d</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">87 Ml/d</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">This band has not yet been reached</td>
+        <td class="govuk-table__cell govuk-table__cell--numeric">This band has not yet been reached</td>
   </tr>
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Band&nbsp;3</th>
       <td class="govuk-table__cell govuk-table__cell--numeric">61 Ml/d</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">102 Ml/d</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">This band has not yet been reached</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">This band has not yet been reached</td>
     </tr>
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Band&nbsp;4</th>
       <td class="govuk-table__cell govuk-table__cell--numeric">93 Ml/d</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">138 Ml/d</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">This band has not yet been reached</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">This band has not yet been reached</td>
     </tr>
      <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Band&nbsp;5</th>
       <td class="govuk-table__cell govuk-table__cell--numeric">122 Ml/d</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">155 Ml/d</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">This band has not yet been reached</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">This band has not yet been reached</td>
     </tr>
      <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Band&nbsp;6</th>
       <td class="govuk-table__cell govuk-table__cell--numeric">152 Ml/d</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">187 Ml/d</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">This band has not yet been reached</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">This band has not yet been reached</td>
     </tr>
   </tbody>
 </table>
@@ -181,46 +181,39 @@
       <tr class="govuk-table__row">
       <th scope="col" class="govuk-table__header"></th>
       <th scope="col" class="govuk-table__header govuk-table__header--numeric">Hof&nbsp;level</th>
-      <th scope="col" class="govuk-table__header govuk-table__header--numeric">Volume of water available for abstraction</th>
-      <th scope="col" class="govuk-table__header govuk-table__header--numeric">Licensing availability</th>
+        <th scope="col" class="govuk-table__header govuk-table__header--numeric">Licensing availability</th>
    </tr>
   </thead>
   <tbody class="govuk-table__body">
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Band&nbsp;1</th>
       <td class="govuk-table__cell govuk-table__cell--numeric">0 Ml/d</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">0 Ml/d</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">No more licences available at this band</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">No more licences available at this band</td>
    </tr>
      <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Band&nbsp;2</th>
       <td class="govuk-table__cell govuk-table__cell--numeric">55 Ml/d</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">0 Ml/d</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">No more licences available at this band</td>
+        <td class="govuk-table__cell govuk-table__cell--numeric">No more licences available at this band</td>
   </tr>
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Band&nbsp;3</th>
       <td class="govuk-table__cell govuk-table__cell--numeric">90 Ml/d</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">0 Ml/d</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">No more licences available at this band</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">No more licences available at this band</td>
     </tr>
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Band&nbsp;4</th>
       <td class="govuk-table__cell govuk-table__cell--numeric"><strong>135&nbsp;Ml/d</strong></td>
-      <td class="govuk-table__cell govuk-table__cell--numeric"><strong>45 Ml/d</strong></td>
-      <td class="govuk-table__cell govuk-table__cell--numeric"><strong>Current band and HoF level for new licences</strong></td>
+        <td class="govuk-table__cell govuk-table__cell--numeric"><strong>Current band and HoF level for new licences</strong></td>
     </tr>
      <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Band&nbsp;5</th>
       <td class="govuk-table__cell govuk-table__cell--numeric">175 Ml/d</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">131 Ml/d</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">This band has not yet been reached</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">This band has not yet been reached</td>
     </tr>
      <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Band&nbsp;6</th>
       <td class="govuk-table__cell govuk-table__cell--numeric">200 Ml/d</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">150 Ml/d</td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">This band has not yet been reached</td>
+       <td class="govuk-table__cell govuk-table__cell--numeric">This band has not yet been reached</td>
     </tr>
   </tbody>
 </table>
