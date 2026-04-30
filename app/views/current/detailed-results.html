@@ -28,12 +28,12 @@
 
   <p class='govuk-body-s'><i>This page was last updated: 25 October 2025</i></p>
  
-    {% if (data['watertype'] == "surface") %}   
+    {% if (data['watertype'] == "surface" and data.nowater == "false") %}   
       <p class="govuk-body">This page shows restrictions and previous availability 
         information for surface water abstraction from the water 
         body <b>{{data.riverCatchmentData[data.sid].properties.WB_NAME}}</b>.</p>
     
-        {% elseif (data['watertype'] == "ground") %}
+        {% elseif (data['watertype'] == "ground" and data.nowater == "false") %}
        <p class="govuk-body">This page shows restrictions and previous availability 
         information for groundwater abstraction from the water 
         body <b>{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}</b>.</p>
