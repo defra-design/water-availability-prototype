@@ -19,6 +19,7 @@
     <div class="govuk-grid-column-two-thirds">
 
       <div class="govuk-body">
+
       {% if (data['watertype'] == "surface") %}  
         <h1 class="govuk-heading-l">Your surface water availability</h1>
       
@@ -28,6 +29,8 @@
 
   <p class='govuk-body-s'><i>This page was last updated: 25 October 2025</i></p>
  
+
+
     {% if (data['watertype'] == "surface" and data.nowater == "false") %}   
       <p class="govuk-body">This page shows restrictions and previous availability 
         information for surface water abstraction from the water 
@@ -97,7 +100,7 @@
 <p class="govuk-body"><b>The current HoF for this assessment point is 
   12 Megalitres per day (Ml/d).</b></p> 
 
-  <p class="govuk-body"><b>There is approximately 97Ml/d of water 
+  <p class="govuk-body"><b>There is approximately 34Ml/d of water 
     available for licencing in this band.</b></p>
 
   {% else %}
@@ -383,6 +386,8 @@
 {% endif %}
 {% endif %}
 
+<!--GROUNDWATER-->
+
   {% if data['watertype'] == "ground" %}
 
   {% if data.nowater == "true" or (data['water-use-type'] == "Consumptive" and data.gid == "1") %} 
@@ -418,13 +423,34 @@
 {% endif %}
 
 
+
+
  <h2 class="govuk-heading-m">Other options and next steps</h2>
+
+  
 
   {% if (data.nowater == "true" or (data['water-use-type'] == "Consumptive" and data.gid == "1")) %} 
 
 <p class="govuk-body">You may still be able to obtain water in a different way to licenced abstraction. Find out your alternative options.</p>
 
+  {% elseif (data['nowater'] == "false" and data['newExisting'] == "existing") %} 
+
+ <p class="govuk-body">If you have an existing water abstraction licence, 
+  you can apply to the Environmental Agency to make a change to your licence. 
+  This is called a variation.</p>
+
+<p class="govuk-body">Examples of variations include:</p>
+
+<ul class="govuk-list govuk-list--bullet">
+  <li>adding or changing an abstraction purpose (use)</li>
+  <li>adding or changing an abstraction point</li>
+  <li>increasing the volume of water to be abstracted, hourly, daily or annually</li>
+  <li>changing a gauging station or observation borehole referred to in a licence condition</li>
+  <li>changing the lining in an abstraction borehole referred to in a licence condition</li>
+</ul>
+
 {% else %}
+
 
 <p class="govuk-body">Find out more about applying for a licence 
   and your other options for sourcing water, such as trading abstraction 

@@ -19,6 +19,11 @@
     <h1 class="govuk-heading-l">Other options and next steps</h1>
 {% if (data['nowater'] == "true") %} 
 <p class="govuk-body">Learn more about your options for sourcing water. Read further details by selecting from the sections below.</p>
+
+{% elseif (data['nowater'] == "false" and data['newExisting'] == "existing") %} 
+<p class="govuk-body">Learn more about varying your licence and 
+      what your other options are for sourcing water. Read further details by 
+      selecting from the sections below.</p>
 {% else %}
  <p class="govuk-body">Learn more about applying for a licence and 
       what your other options are for sourcing water. Read further details by 
@@ -29,6 +34,24 @@
 <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-with-summary-sections">
   
 {% if (data.nowater == "true" or (data['water-use-type'] == "Consumptive" and data.gid == "1")) %} 
+
+{% elseif (data['nowater'] == "false" and data['newExisting'] == "existing") %} 
+
+
+  <div class="govuk-accordion__section--expanded">
+    <div class="govuk-accordion__section-header">
+      <h2 class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button" id="accordion-with-summary-sections-heading-1">
+          Varying your licence
+        </span>
+      </h2>
+    </div>
+    <div id="accordion-with-summary-sections-content-1" class="govuk-accordion__section-content">
+      
+        <p class="govuk-body">To vary your licence, you will need to use the 
+  relevant <a href="">water resource application forms and form guidance notes</a>.</p>
+    </div>
+  </div>
 
   {% else %}
   <div class="govuk-accordion__section--expanded">

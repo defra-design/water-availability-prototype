@@ -486,7 +486,7 @@ router.get(folder + 'licence-holder', function (request, response) {
 })
 
 router.post('/licence-holder', function (request, response) {
-var licenceHolder = request.session.data['licence-holder']
+var licenceHolder = request.session.data['licenceHolder']
 	if (licenceHolder == "yes") {
 		response.redirect(folder + "new-or-existing-abstraction")
 	} else if (licenceHolder == "no") {
@@ -515,7 +515,7 @@ router.get(folder + 'new-or-existing-abstraction', function (request, response) 
 })
 
 router.post('/new-or-existing-abstraction', function (request, response) {
-var newExisting = request.session.data['new-existing']
+var newExisting = request.session.data['newExisting']
 	if (newExisting == "new") {
 		response.redirect(folder + "existing-licence-buffer")
 	} else if (newExisting == "existing") {
@@ -693,8 +693,8 @@ router.post('/usage-category', function (request, response) {
 
 // Handle POST from the usage farming page
 router.post('/usage-farming', function (request, response) {
-	var newExisting = request.session.data['new-existing']
-	var licenceHolder = request.session.data['licence-holder']
+	var newExisting = request.session.data['newExisting']
+	var licenceHolder = request.session.data['licenceHolder']
 
   const key = request.session.data['usage-farming']; // from the select
     console.log(key)
@@ -723,8 +723,8 @@ router.post('/usage-farming', function (request, response) {
 
 // Handle POST from the usage industrial page
 router.post('/usage-industrial', function (request, response) {
-	var newExisting = request.session.data['new-existing']
-	var licenceHolder = request.session.data['licence-holder']
+	var newExisting = request.session.data['newExisting']
+	var licenceHolder = request.session.data['licenceHolder']
 
   const key = request.session.data['usage-industrial']; // from the select
     console.log(key)
@@ -752,8 +752,8 @@ router.post('/usage-industrial', function (request, response) {
 
 // Handle POST from the usage conservation page
 router.post('/usage-conservation', function (request, response) {
-	var newExisting = request.session.data['new-existing']
-	var licenceHolder = request.session.data['licence-holder']
+	var newExisting = request.session.data['newExisting']
+	var licenceHolder = request.session.data['licenceHolder']
 
   const key = request.session.data['usage-conservation']; // from the select
     console.log(key)
@@ -781,8 +781,8 @@ router.post('/usage-conservation', function (request, response) {
 
 // Handle POST from the usage domestic page
 router.post('/usage-domestic', function (request, response) {
-	var newExisting = request.session.data['new-existing']
-	var licenceHolder = request.session.data['licence-holder']
+	var newExisting = request.session.data['newExisting']
+	var licenceHolder = request.session.data['licenceHolder']
 
   const key = request.session.data['usage-domestic']; // from the select
     console.log(key)
@@ -810,8 +810,8 @@ router.post('/usage-domestic', function (request, response) {
 
 // Handle POST from the usage energy page
 router.post('/usage-energy', function (request, response) {
-	var newExisting = request.session.data['new-existing']
-	var licenceHolder = request.session.data['licence-holder']
+	var newExisting = request.session.data['newExisting']
+	var licenceHolder = request.session.data['licenceHolder']
 
   const key = request.session.data['usage-energy']; // from the select
     console.log(key)
@@ -839,8 +839,8 @@ router.post('/usage-energy', function (request, response) {
 
 // Handle POST from the usage storage page
 router.post('/usage-storage', function (request, response) {
-	var newExisting = request.session.data['new-existing']
-	var licenceHolder = request.session.data['licence-holder']
+	var newExisting = request.session.data['newExisting']
+	var licenceHolder = request.session.data['licenceHolder']
 
   const key = request.session.data['usage-storage']; // from the select
     console.log(key)
