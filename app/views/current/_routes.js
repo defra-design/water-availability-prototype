@@ -684,6 +684,8 @@ router.post('/usage-category', function (request, response) {
 		response.redirect(folder + "usage-energy")
 	} else if (usageCategory == "storage") {
 		response.redirect(folder + "usage-storage")
+  } else if (usageCategory == "sport") {
+		response.redirect(folder + "usage-sport")
 	}
 })
 
@@ -863,6 +865,35 @@ router.post('/usage-storage', function (request, response) {
 
 	response.redirect(folder + "location")
 	
+	
+});
+
+// Handle POST from the usage sport page
+router.post('/usage-sport', function (request, response) {
+	var newExisting = request.session.data['newExisting']
+	var licenceHolder = request.session.data['licenceHolder']
+
+  const key = request.session.data['usage-sport']; // from the select
+    console.log(key)
+
+  const info = waterUses[key];
+
+    console.log(info)
+
+  if (info) {
+    request.session.data['water-use-label'] = info.label;
+    request.session.data['water-use-type'] = info.type;
+  } else {
+    // Optional: handle missing/unknown key
+    request.session.data['water-use-label'] = key;
+    request.session.data['water-use-type'] = '';
+  }
+
+  // Redirect to whatever page you want next
+  
+
+	response.redirect(folder + "location")
+
 	
 });
 

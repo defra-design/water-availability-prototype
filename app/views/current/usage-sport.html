@@ -22,50 +22,35 @@
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
 {{ govukRadios({
-  name: "usage-category",
-  value: data['usage-category'],
+  id: "water-use",
+  name: "usage-sport",
+  value: data['usage-sport'],
   fieldset: {
     legend: {
-      text: "What do you want to use the water for?",
+      text: "Select a sports related use for your water",
       isPageHeading: true,
       classes: "govuk-fieldset__legend--l"
      
     }
   },
   items: [
-    {
-      value: "farming",
-      text: "Farming and agriculture"
+
+     {
+      value: "Spray irrigation (application and/or storage)",
+      text: "Spray irrigration (application and/or storage)"
     },
      {
-      value: "industrial",
-      text: "Industrial, commercial and construction"
+      value: "Trickle irrigation (including storage)",
+      text: "Trickle irrigation (including storage)"
     },
      {
-      value: "energy",
-      text: "Cooling, heating and energy systems"
-    },
-     {
-      value: "conservation",
-      text: "Conservation, gardening, ponds, throughflows and fisheries"
-    },
-     {
-      value: "domestic",
-      text: "Domestic, drinking and everyday use"
-    },
-    {
-      value: "storage",
-      text: "Water transfers and storage"
-    },
-    {
-      value: "sport",
-      text: "Golf courses, sports grounds and pitches"
+      value: "My usage is not listed",
+      text: "My usage is not listed"
     }
   ],
   hint: {
-    text: "Choose a category which best describes how you will use the water"
+    text: "Choose an option that best describes how you will use the water"
   }
-
 }) }}    
 
 {{ govukDetails({
