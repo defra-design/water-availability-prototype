@@ -54,6 +54,29 @@
 
 {% if (data.riverCatchmentData.length and (data['watertype'] == "both" or data['watertype'] == "surface" or data['watertype'] == "dontknow")) or (data.groundwaterCatchmentData.length and (data['watertype'] == "both" or data['watertype'] == "ground" or data['watertype'] == "dontknow")) %}
 
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      What are consumptive and non-consumptive water usage types?
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+<p class="govuk-body">A consumptive licence allows an abstractor to 
+  take water without immediately returning it to the same source. 
+  Water may be evaporated, incorporated into products or used for irrigation.</p>
+
+<p class="govuk-body">A non-consumptive licence is for activities where the water 
+  is returned to the same source, often near where it was taken. There are 
+  different levels of non-consumptive licence depending on how much water is returned.</p>
+
+<p class="govuk-body">Your consumption type can affect whether you are granted a 
+  licence. In some water stressed areas, only non-consumptive licences are granted.</p>
+
+<p class="govuk-body">The licence availability results below take your consumption 
+  type into account.</p>
+    </div>
+    </details>
+
 
 <details class="govuk-details">
   <summary class="govuk-details__summary">
