@@ -57,7 +57,7 @@
 <details class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
-      What are consumptive and non-consumptive water usage types?
+      What is consumptive and non-consumptive and why does it affect abstraction licences?
     </span>
   </summary>
   <div class="govuk-details__text">
@@ -197,8 +197,8 @@ factors such as environmental concerns.</strong>
  
     <p class="govuk-body">{{waterBody.nearestPoint.distanceKm | round(2)}} kilometres {{waterBody.nearestPoint.direction}} of the centre of the {% if (data['location'] == "gridRef") %}national grid reference{% elseif (data['location'] == "fieldParcel") %}field parcel{% elseif (data['location'] == "postCode") %}postcode{% endif %}.</p>
   
-    <p class="govuk-body">{{tagsgoodlicHTML | safe}}</p> 
-    <p class="govuk-body">This water body is {{waterBody.properties.Area_m2|mToKmSquared}} km squared in size.</p>
+     <p class="govuk-body">This water body is {{waterBody.properties.Area_m2|mToKmSquared}} km squared in size.</p>
+   <p class="govuk-body">{{tagsgoodlicHTML | safe}}</p> 
 
    <!-- <p class="govuk-body">Winter: {{tagsgoodlicHTML | safe}}</p> -->
    <hr>
