@@ -49,7 +49,7 @@ addFilter('mToKmSquared', function(str) {
     // Convert to km2 (divide by 1,000,000)
     const kmSquared = metresSquared / 1000000;
 
-    // Return as a string fixed to 3 decimal places
-    return kmSquared.toFixed(3);
+    // Return as a string fixed to 2 decimal places
+    return kmSquared.toFixed(2);
 });
 
