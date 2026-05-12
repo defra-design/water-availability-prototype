@@ -36,3 +36,9 @@ addFilter('percentAvailAgg', function(x) {
     return percentages.reduce((a, b) => a + b, 0) / percentages.length;
 
 });
+
+addFilter ('stringToNumber', function stringToNumber(x) {
+let y=parseInt(x)
+    return Math.round(y)
+});
+
