@@ -37,8 +37,19 @@ addFilter('percentAvailAgg', function(x) {
 
 });
 
-addFilter ('stringToNumber', function stringToNumber(x) {
-let y=parseInt(x)
-    return Math.round(y)
+addFilter('mToKmSquared', function(str) {
+    // Convert string to number
+    const metresSquared = parseFloat(str);
+
+    // Handle cases where the input might not be a valid number
+    if (isNaN(metresSquared)) {
+        return '0.000';
+    }
+
+    // Convert to km2 (divide by 1,000,000)
+    const kmSquared = metresSquared / 1000000;
+
+    // Return as a string fixed to 3 decimal places
+    return kmSquared.toFixed(3);
 });
 
