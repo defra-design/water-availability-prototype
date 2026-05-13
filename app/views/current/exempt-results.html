@@ -16,6 +16,7 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
+            <form class="form" method="post">
       <h1 class="govuk-heading-l">
         Make sure you do not need a licence before abstracting water
       </h1>
@@ -51,8 +52,16 @@
 <p class="govuk-body">Telephone from outside the UK (Monday to Friday, 
 8am to 6pm GMT) +44 (0) 114 282 5312</p>
 
+<p class="govuk-body">You can continue below to check water availability for 
+  licensing for your area if needed.</p>
 
 
+   {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+      
     </div>
   </div>
 

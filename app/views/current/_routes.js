@@ -508,6 +508,15 @@ var eXemption = request.session.data['exemption']
     }
 })
 
+//exemption results page
+router.get(folder + 'exempt-results', function (request, response) {
+	response.render(folder + 'exempt-results')
+})
+
+router.post('/exempt-results', function (request, response) {
+		response.redirect(folder + "usage-category")
+	
+})
 
 //new or existing abstraction point page
 router.get(folder + 'new-or-existing-abstraction', function (request, response) {
