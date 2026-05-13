@@ -324,7 +324,7 @@ factors such as environmental concerns.</strong>
      <p class="govuk-body">{{tagsnolicHTML | safe}}</p> 
      {% endif %}
   <!-- <p class="govuk-body">Winter: {{tagsgoodlicHTML | safe}}</p> -->
-
+{{ waterBody.properties | dump }}
   <hr>
 {% else %}
  <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&gid={{loop.index0}}&watertype=ground">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.MNCAT_NAME}} catchment</a></h3>
@@ -349,5 +349,8 @@ factors such as environmental concerns.</strong>
 {% endif %}
 </div>
 </div>
+
+
+
 
 {% endblock %}
