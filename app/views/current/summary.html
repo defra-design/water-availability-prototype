@@ -177,6 +177,7 @@ factors such as environmental concerns.</strong>
   
       <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&sid={{loop.index0}}&watertype=surface">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.OPCAT_NAME}} catchment</a></h3>
   
+
   <p class="govuk-body">The centre of the {% if (data['location'] == "gridRef") %}
         national grid reference
 {% elseif (data['location'] == "fieldParcel") %}
@@ -186,8 +187,8 @@ factors such as environmental concerns.</strong>
       {% endif %}
     is <b>within</b> this surface water body.</p>
 
-     <p class="govuk-body">This water body is {{waterBody.properties.Area_m2|mToKmSquared}} km squared in size.</p>
-     <p class="govuk-body">{{tagsgoodlicHTML | safe}}</p> 
+      <p class="govuk-body">It covers {{waterBody.properties.Area_m2|mToKmSquared}} square km.</p>
+           <p class="govuk-body">{{tagsgoodlicHTML | safe}}</p> 
   <!-- <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p> --> 
   <hr>
   
@@ -195,9 +196,10 @@ factors such as environmental concerns.</strong>
 
       <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&sid={{loop.index0}}&watertype=surface">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.OPCAT_NAME}} catchment</a></h3>
  
-    <p class="govuk-body">{{waterBody.nearestPoint.distanceKm | round(2)}} kilometres {{waterBody.nearestPoint.direction}} of the centre of the {% if (data['location'] == "gridRef") %}national grid reference{% elseif (data['location'] == "fieldParcel") %}field parcel{% elseif (data['location'] == "postCode") %}postcode{% endif %}.</p>
-  
-     <p class="govuk-body">This water body is {{waterBody.properties.Area_m2|mToKmSquared}} km squared in size.</p>
+    <p class="govuk-body">This water body is {{waterBody.nearestPoint.distanceKm | round(2)}} km {{waterBody.nearestPoint.direction | lower}} of the centre of the 
+      {% if (data['location'] == "gridRef") %}national grid reference{% elseif (data['location'] == "fieldParcel") %}field parcel{% elseif (data['location'] == "postCode") %}postcode{% endif %}.</p>
+      <p class="govuk-body">It covers {{waterBody.properties.Area_m2|mToKmSquared}} square km.</p>
+
    <p class="govuk-body">{{tagsgoodlicHTML | safe}}</p> 
 
    <!-- <p class="govuk-body">Winter: {{tagsgoodlicHTML | safe}}</p> -->
@@ -206,9 +208,10 @@ factors such as environmental concerns.</strong>
 
       <h3 class="govuk-heading-s"><a href="detailed-results?nowater=true&sid={{loop.index0}}&watertype=surface">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.OPCAT_NAME}} catchment</a></h3>
  
-        <p class="govuk-body">{{waterBody.nearestPoint.distanceKm | round(2)}} kilometres {{waterBody.nearestPoint.direction}} of the centre of the {% if (data['location'] == "gridRef") %}national grid reference{% elseif (data['location'] == "fieldParcel") %}field parcel{% elseif (data['location'] == "postCode") %}postcode{% endif %}.</p>
-    <p class="govuk-body">This water body is {{waterBody.properties.Area_m2|mToKmSquared}} km squared in size.</p>
+    <p class="govuk-body">This water body is {{waterBody.nearestPoint.distanceKm | round(2)}} km {{waterBody.nearestPoint.direction | lower}} of the centre of the 
+      {% if (data['location'] == "gridRef") %}national grid reference{% elseif (data['location'] == "fieldParcel") %}field parcel{% elseif (data['location'] == "postCode") %}postcode{% endif %}.</p>
 
+        <p class="govuk-body">It covers {{waterBody.properties.Area_m2|mToKmSquared}} square km.</p>
 
       <p class="govuk-body">{{tagsnolicHTML | safe}}</p>   
    <!-- <p class="govuk-body">Winter: {{tagsnolicHTML | safe}}</p> -->
@@ -217,11 +220,10 @@ factors such as environmental concerns.</strong>
 
       <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&sid={{loop.index0}}&watertype=surface">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.OPCAT_NAME}} catchment</a></h3>
  
-     <p class="govuk-body">{{waterBody.nearestPoint.distanceKm | round(2)}} kilometres {{waterBody.nearestPoint.direction}} of the centre of the {% if (data['location'] == "gridRef") %}national grid reference{% elseif (data['location'] == "fieldParcel") %}field parcel{% elseif (data['location'] == "postCode") %}postcode{% endif %}.</p>
+    <p class="govuk-body">This water body is {{waterBody.nearestPoint.distanceKm | round(2)}} km {{waterBody.nearestPoint.direction | lower}} of the centre of the 
+      {% if (data['location'] == "gridRef") %}national grid reference{% elseif (data['location'] == "fieldParcel") %}field parcel{% elseif (data['location'] == "postCode") %}postcode{% endif %}.</p>
 
-      <p class="govuk-body">This water body is {{waterBody.properties.Area_m2|mToKmSquared}} km squared in size.</p>
-   
-
+      <p class="govuk-body">It covers {{waterBody.properties.Area_m2|mToKmSquared}} square km.</p>
     <p class="govuk-body">{{tagsgoodlicHTML | safe}}</p> 
 
  <!--  <p class="govuk-body">Winter: {{tagsgoodlicHTML | safe}}</p> -->
@@ -298,7 +300,7 @@ factors such as environmental concerns.</strong>
   
   <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&gid={{loop.index0}}&watertype=ground">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.MNCAT_NAME}} catchment</a></h3>
   
-      <p class="govuk-body">{{waterBody.nearestPoint.distanceKm | round(2)}} kilometres {{waterBody.nearestPoint.direction}} of the centre of the {% if (data['location'] == "gridRef") %}national grid reference{% elseif (data['location'] == "fieldParcel") %}field parcel{% elseif (data['location'] == "postCode") %}postcode{% endif %}.</p>
+      <p class="govuk-body">{{waterBody.nearestPoint.distanceKm | round(2)}} kilometres {{waterBody.nearestPoint.direction | lower}} of the centre of the {% if (data['location'] == "gridRef") %}national grid reference{% elseif (data['location'] == "fieldParcel") %}field parcel{% elseif (data['location'] == "postCode") %}postcode{% endif %}.</p>
 
     {% if data['water-use-type'] == "Non-consumptive" %}   
     <p class="govuk-body">{{tagsgoodlicHTML | safe}}</p> 
@@ -314,7 +316,7 @@ factors such as environmental concerns.</strong>
   
   <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&gid={{loop.index0}}&watertype=ground">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.MNCAT_NAME}} catchment</a></h3>
   
-    <p class="govuk-body">{{waterBody.nearestPoint.distanceKm | round(2)}} kilometres {{waterBody.nearestPoint.direction}} of the centre of the {% if (data['location'] == "gridRef") %}national grid reference{% elseif (data['location'] == "fieldParcel") %}field parcel{% elseif (data['location'] == "postCode") %}postcode{% endif %}.</p>
+    <p class="govuk-body">{{waterBody.nearestPoint.distanceKm | round(2)}} kilometres {{waterBody.nearestPoint.direction | lower}} of the centre of the {% if (data['location'] == "gridRef") %}national grid reference{% elseif (data['location'] == "fieldParcel") %}field parcel{% elseif (data['location'] == "postCode") %}postcode{% endif %}.</p>
 
     {% if data['water-use-type'] == "Non-consumptive" %}   
     <p class="govuk-body">{{tagsgoodlicHTML | safe}}</p> 
@@ -327,7 +329,7 @@ factors such as environmental concerns.</strong>
 {% else %}
  <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&gid={{loop.index0}}&watertype=ground">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.MNCAT_NAME}} catchment</a></h3>
   
-     <p class="govuk-body">{{waterBody.nearestPoint.distanceKm | round(2)}} kilometres {{waterBody.nearestPoint.direction}} of the centre of the {% if (data['location'] == "gridRef") %}national grid reference{% elseif (data['location'] == "fieldParcel") %}field parcel{% elseif (data['location'] == "postCode") %}postcode{% endif %}.</p>
+     <p class="govuk-body">{{waterBody.nearestPoint.distanceKm | round(2)}} kilometres {{waterBody.nearestPoint.direction | lower}} of the centre of the {% if (data['location'] == "gridRef") %}national grid reference{% elseif (data['location'] == "fieldParcel") %}field parcel{% elseif (data['location'] == "postCode") %}postcode{% endif %}.</p>
  
     <p class="govuk-body">{{tagsgoodlicHTML | safe}}</p> 
 
