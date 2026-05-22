@@ -1,0 +1,40 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  You will need to apply for a new licence
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+            <form class="form" method="post">
+
+      <h1 class="govuk-heading-l">
+        You will need to apply for a new licence
+      </h1>
+
+      <p class="govuk-body">You will need to apply for a new 
+        licence if you are taking water from a new abstraction point.</p>
+
+<p class="govuk-body">Continue below to see availability information for your area.</p>
+
+       {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+     
+    </div>
+  </div>
+
+{% endblock %}
