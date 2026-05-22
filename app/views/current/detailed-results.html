@@ -467,10 +467,15 @@
   licence and other options for obtaining water such as rainwater collection and 
   trading abstraction rights.</p>
 
-{% else %}
+{% elseif (data.nowater == "false" and data['watertype'] == 'surface')%}
 
 
 <p class="govuk-body">Find out more about applying for a licence 
+  and your other options for sourcing water, such as trading abstraction 
+  rights, desalination and water recycling.</p>
+
+  {% elseif (data.nowater == "false" and data['watertype'] == 'ground')%}
+  <p class="govuk-body">Find out more about applying for for consent to investigate a groundwater source 
   and your other options for sourcing water, such as trading abstraction 
   rights, desalination and water recycling.</p>
 

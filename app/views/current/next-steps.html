@@ -17,7 +17,7 @@
     <div class="govuk-grid-column-two-thirds">
 
     <h1 class="govuk-heading-l">Other options and next steps</h1>
-{% if (data['nowater'] == "true") %} 
+{% if (data['nowater'] == "true" or (data['watertype'] == 'ground' and data['newExisting'] == "new")) %} 
 <p class="govuk-body">Learn more about your options for sourcing water. Read further details by selecting from the sections below.</p>
 
 {% elseif (data['nowater'] == "false" and data['newExisting'] == "existing") %} 
@@ -71,7 +71,7 @@
     </div>
   </div>
 
-  {% else %}
+  {% elseif (data['nowater'] == "false" and data['watertype'] == 'surface') %}
   <div class="govuk-accordion__section--expanded">
     <div class="govuk-accordion__section-header">
       <h2 class="govuk-accordion__section-heading">
@@ -96,6 +96,32 @@
           data as part of your licence application. Completing an 
           enhanced pre-application will give you more information 
           about whether this is needed.</p>
+
+         <p class="govuk-body"><a href="https://www.gov.uk/guidance/water-management-apply-for-a-water-abstraction-or-impoundment-licence">Apply for a water abstraction licence</a></p>
+
+ <p class="govuk-body"><a href="https://www.gov.uk/guidance/get-advice-before-you-apply-for-a-water-abstraction-or-impounding-licence">Get advice before you apply</a></p>
+
+    </div>
+  </div>
+
+    {% elseif (data['nowater'] == "false" and (data['watertype'] == 'ground' and data['newExisting'] == "new")) %}
+  <div class="govuk-accordion__section--expanded">
+    <div class="govuk-accordion__section-header">
+      <h2 class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button" id="accordion-with-summary-sections-heading-1">
+          Apply for consent to investigate a groundwater source
+        </span>
+      </h2>
+      <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-1">
+        Find out how to apply for consent to investigate a groundwater source.
+      </div>
+    </div>
+    <div id="accordion-with-summary-sections-content-1" class="govuk-accordion__section-content">
+      
+        <p class="govuk-body">A pump test will be needed to determine availability for your 
+          specific abstraction point. You must <a href="https://www.gov.uk/government/publications/apply-for-consent-to-investigate-a-groundwater-source/apply-for-consent-to-investigate-a-groundwater-source" class="govuk-link">get consent to investigate the groundwater 
+          source</a> if you will abstract 20 cubic metres or more of water a day.</p>
+
 
          <p class="govuk-body"><a href="https://www.gov.uk/guidance/water-management-apply-for-a-water-abstraction-or-impoundment-licence">Apply for a water abstraction licence</a></p>
 
