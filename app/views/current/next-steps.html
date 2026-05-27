@@ -17,28 +17,35 @@
     <div class="govuk-grid-column-two-thirds">
 
     <h1 class="govuk-heading-l">Other options and next steps</h1>
-{% if (data['nowater'] == "true" or (data['watertype'] == 'ground' and data['newExisting'] == "new")) %} 
+{% if (data['nowater'] == "true") %} 
 <p class="govuk-body">Learn more about your options for sourcing water. Read further details by selecting from the sections below.</p>
 
-{% elseif (data['nowater'] == "false" and data['newExisting'] == "existing") %} 
+
+{% elseif (data['nowater'] == "false" and data['licenceHolder'] == 'yes' and data['newExisting'] == "existing") %} 
 <p class="govuk-body">Learn more about varying your licence and 
       what your other options are for sourcing water. Read further details by 
       selecting from the sections below.</p>
+  
 
+  {% elseif data['nowater'] == "false" and data['watertype'] == 'surface' and (data['licenceHolder'] == 'no' or data['newExisting'] == "new") %} 
 
-{% else %}
  <p class="govuk-body">Learn more about applying for a licence and 
       what your other options are for sourcing water. Read further details by 
+      selecting from the sections below.</p>   
+
+
+  {% elseif data['nowater'] == "false" and data['watertype'] == 'ground' and (data['licenceHolder'] == 'no' or data['newExisting'] == "new") %} 
+ <p class="govuk-body">Learn more about applying for consent to investigate a groundwater source 
+   and what your other options are for sourcing water. Read further details by 
       selecting from the sections below.</p>
 {% endif %}
 
    
 <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-with-summary-sections">
   
-{% if (data.nowater == "true" or (data['water-use-type'] == "Consumptive" and data.gid == "1")) %} 
+{% if (data['nowater'] == "true") %} 
 
-{% elseif (data['nowater'] == "false" and data['newExisting'] == "existing") %} 
-
+{% elseif (data['nowater'] == "false" and data['licenceHolder'] == 'yes' and data['newExisting'] == "existing") %} 
 
   <div class="govuk-accordion__section--expanded">
     <div class="govuk-accordion__section-header">
@@ -71,7 +78,7 @@
     </div>
   </div>
 
-  {% elseif (data['nowater'] == "false" and data['watertype'] == 'surface') %}
+ {% elseif data['nowater'] == "false" and data['watertype'] == 'surface' and (data['licenceHolder'] == 'no' or data['newExisting'] == "new") %} 
   <div class="govuk-accordion__section--expanded">
     <div class="govuk-accordion__section-header">
       <h2 class="govuk-accordion__section-heading">
@@ -104,7 +111,7 @@
     </div>
   </div>
 
-    {% elseif (data['nowater'] == "false" and (data['watertype'] == 'ground' and data['newExisting'] == "new")) %}
+    {% elseif data['nowater'] == "false" and data['watertype'] == 'ground' and (data['licenceHolder'] == 'no' or data['newExisting'] == "new") %} 
   <div class="govuk-accordion__section--expanded">
     <div class="govuk-accordion__section-header">
       <h2 class="govuk-accordion__section-heading">
@@ -122,14 +129,13 @@
           specific abstraction point. You must <a href="https://www.gov.uk/government/publications/apply-for-consent-to-investigate-a-groundwater-source/apply-for-consent-to-investigate-a-groundwater-source" class="govuk-link">get consent to investigate the groundwater 
           source</a> if you will abstract 20 cubic metres or more of water a day.</p>
 
-
-         <p class="govuk-body"><a href="https://www.gov.uk/guidance/water-management-apply-for-a-water-abstraction-or-impoundment-licence">Apply for a water abstraction licence</a></p>
-
- <p class="govuk-body"><a href="https://www.gov.uk/guidance/get-advice-before-you-apply-for-a-water-abstraction-or-impounding-licence">Get advice before you apply</a></p>
+<p class="govuk-body"><a href="before-you-apply.html">Before you apply</a></p>
 
     </div>
   </div>
-{% endif %}
+
+  {% endif %}
+
 
   <div class="govuk-accordion__section">
     <div class="govuk-accordion__section-header">
