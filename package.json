@@ -5,12 +5,13 @@
     "start": "govuk-prototype-kit start"
   },
   "dependencies": {
-    "@govuk-prototype-kit/common-templates": "2.0.1",
-    "@ministryofjustice/frontend": "^7.1.0",
-    "@x-govuk/govuk-prototype-components": "^5.0.2",
-    "axios": "^1.13.2",
-    "govuk-frontend": "5.12.0",
-    "govuk-prototype-kit": "13.18.1",
-    "proj4": "^2.20.2"
+    "@govuk-prototype-kit/common-templates": "3.0.0",
+    "@govuk-prototype-kit/step-by-step": "3.0.0",
+    "@ministryofjustice/frontend": "^9.0.0",
+    "@x-govuk/govuk-prototype-components": "^6.0.0",
+    "axios": "^1.16.1",
+    "govuk-frontend": "6.1.0",
+    "govuk-prototype-kit": "13.20.1",
+    "proj4": "^2.20.8"
   }
 }
