@@ -221,7 +221,36 @@
     </div>
   </div>
 
-{% if data['watertype'] == 'surface' %}
+  {% if (data['licenceHolder'] == 'yes' and data['newExisting'] == "existing") %} 
+<div class="govuk-accordion__section">
+    <div class="govuk-accordion__section-header">
+      <h2 class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button" id="accordion-default-heading-4">
+          6. Submit your licence variation application
+        </span>
+      </h2>
+    </div>
+    <div id="accordion-default-content-4" class="govuk-accordion__section-content">
+    <p class="govuk-body">If you are an existing licence holder, you can apply to the 
+  Environmental Agency to make a <a href="https://www.gov.uk/guidance/change-revoke-or-transfer-a-water-abstraction-or-impoundment-licence#how-to-apply-for-a-normal-or-substantial-variation" class="govuk-link">change to your licence</a>, also known as a 'variation'.</p>
+
+<p class="govuk-body">Examples of variations include:</p>
+<ul class="govuk-list govuk-list--bullet">
+  <li>adding or changing an abstraction purpose (use)</li>
+  <li>adding or changing an abstraction point</li>
+  <li>increasing the volume of water to be abstracted, hourly, daily or annually</li>
+  <li>changing a gauging station or observation borehole referred to in a licence condition</li>
+  <li>changing the lining in an abstraction borehole referred to in a licence condition</li>
+</ul>
+<p class="govuk-body">To vary your licence, you will need to use the relevant <a href="https://www.gov.uk/government/publications/water-abstraction-application-for-a-water-resources-licence" class="govuk-link"> 
+  water resource application forms and form guidance notes</a>.</p>
+
+<p class="govuk-body">If you do not have an existing licence, or you want to 
+  take water from a new abstraction point, <a href="https://www.gov.uk/guidance/water-management-apply-for-a-water-abstraction-or-impoundment-licence" class="govuk-link">you can apply for a new abstraction licence</a>.</p>
+
+    </div>
+  </div>
+{% elseif data['watertype'] == 'surface' and (data['licenceHolder'] == 'no' or data['newExisting'] == "new") %} 
   <div class="govuk-accordion__section">
     <div class="govuk-accordion__section-header">
       <h2 class="govuk-accordion__section-heading">
@@ -249,7 +278,7 @@
 
     </div>
   </div>
-{% elseif data['watertype'] == 'ground' %}
+   {% elseif data['watertype'] == 'ground' and (data['licenceHolder'] == 'no' or data['newExisting'] == "new") %} 
   <div class="govuk-accordion__section">
     <div class="govuk-accordion__section-header">
       <h2 class="govuk-accordion__section-heading">
