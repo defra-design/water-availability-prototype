@@ -16,20 +16,35 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
+       {% if (data['licenceHolder'] == 'yes' and data['newExisting'] == "existing") %}
+       <h1 class="govuk-heading-l">Changing your licence</h1>
+       {% else %}
       <h1 class="govuk-heading-l">How to apply</h1>
+      {% endif %}
 
+          {% if (data['licenceHolder'] == 'yes' and data['newExisting'] == "existing") %}
+      <h2 class="govuk-heading-m">Steps for changing your licence</h2>
+      {% else %}
       <h2 class="govuk-heading-m">Steps for getting a licence</h2>
-
+        {% endif %}
+  
+      {% if (data['licenceHolder'] == 'yes' and data['newExisting'] == "existing") %}
+      <p class="govuk-body">Before submitting an application to change your licence, you will need to:</p>
+      {% else %}
       <p class="govuk-body">Before submitting an application for a licence, you will need to:</p>
+      {% endif %}
 
      <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
-  <div class="govuk-accordion__section">
+           {% if (data['licenceHolder'] == 'yes' and data['newExisting'] == "existing") %}
+            {% else %}            
+      <div class="govuk-accordion__section">
     <div class="govuk-accordion__section-header">
-      <h2 class="govuk-accordion__section-heading">
+        <h2 class="govuk-accordion__section-heading">
         <span class="govuk-accordion__section-button" id="accordion-default-heading-1">
           1. Check if you're in or impacting a designated site
         </span>
       </h2>
+
     </div>
     <div id="accordion-default-content-1" class="govuk-accordion__section-content">
 <p class="govuk-body">Some areas of the country require additional environmental protection, 
@@ -68,16 +83,20 @@
   You may need to hire a consultant or ecologist to help you do this. 
   Please note that you may be asked for additional information or surveys 
   when you apply if we are not satisfied that the risk to these species, 
-  habitats and/or sites have been fully considered.</p>    
+  habitats and/or sites have been fully considered.</p>  
+ 
 </div>
-  </div>
+  </div>    
+
   <div class="govuk-accordion__section">
     <div class="govuk-accordion__section-header">
+
       <h2 class="govuk-accordion__section-heading">
         <span class="govuk-accordion__section-button" id="accordion-default-heading-2">
           2. Ensure you have rights of access
         </span>
       </h2>
+      
     </div>
     <div id="accordion-default-content-2" class="govuk-accordion__section-content">
     
@@ -98,13 +117,16 @@
 
     </div>
   </div>
+
   <div class="govuk-accordion__section">
     <div class="govuk-accordion__section-header">
+
       <h2 class="govuk-accordion__section-heading">
         <span class="govuk-accordion__section-button" id="accordion-default-heading-3">
           3. Check permits and other permissions needed
         </span>
       </h2>
+      
     </div>
     <div id="accordion-default-content-3" class="govuk-accordion__section-content">
 
@@ -135,13 +157,29 @@
 
     </div>
   </div>
+
+
+        {% endif %}
+
   <div class="govuk-accordion__section">
     <div class="govuk-accordion__section-header">
+
+        {% if (data['licenceHolder'] == 'yes' and data['newExisting'] == "existing") %} 
       <h2 class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button" id="accordion-default-heading-4">
+          1. Estimate the volume of water you will need
+        </span>
+      </h2>
+
+      {% else %}
+            <h2 class="govuk-accordion__section-heading">
         <span class="govuk-accordion__section-button" id="accordion-default-heading-4">
           4. Estimate the volume of water you will need
         </span>
       </h2>
+
+      {% endif %}
+
     </div>
     <div id="accordion-default-content-4" class="govuk-accordion__section-content">
 
@@ -172,14 +210,24 @@
   </div>
   <div class="govuk-accordion__section">
     <div class="govuk-accordion__section-header">
+        {% if (data['licenceHolder'] == 'yes' and data['newExisting'] == "existing") %} 
+        <h2 class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button" id="accordion-default-heading-3">
+          1. Check charges
+        </span>
+      </h2>
+        {% else %}
       <h2 class="govuk-accordion__section-heading">
         <span class="govuk-accordion__section-button" id="accordion-default-heading-3">
           5. Check types of licences and charges
         </span>
       </h2>
+      {% endif %}
     </div>
     <div id="accordion-default-content-3" class="govuk-accordion__section-content">
 
+{% if (data['licenceHolder'] == 'yes' and data['newExisting'] == "existing") %} 
+{% else %}
       <h3 class="govuk-heading-s">Types of water resources licence</h3>
 <p class="govuk-body">There are different types of water resources licences you can apply 
   for. They are:</p>
@@ -200,6 +248,7 @@
   months of the year. Often abstractors will store water for use in the 
   summer. In some cases, this can make a difference to whether your licence 
   application is approved.</p>
+{% endif %}
 
   <h3 class="govuk-heading-s">Charges</h3>
   <p class="govuk-body">You must pay an application charge:</p>
@@ -221,12 +270,13 @@
     </div>
   </div>
 
+
   {% if (data['licenceHolder'] == 'yes' and data['newExisting'] == "existing") %} 
 <div class="govuk-accordion__section">
     <div class="govuk-accordion__section-header">
       <h2 class="govuk-accordion__section-heading">
         <span class="govuk-accordion__section-button" id="accordion-default-heading-4">
-          6. Submit your licence variation application
+          2. How to change your licence
         </span>
       </h2>
     </div>
