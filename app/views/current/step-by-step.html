@@ -1,13 +1,14 @@
 {% extends "layouts/main.html" %}
 
 {% block pageTitle %}
-  How to apply
+  {{ "How to apply: step by step" }}
 {% endblock %}
 
-
-{% block header %}
-  {# Blank header with no service name for this page #}
-  <header>{{govukHeader()}}</header>
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
 {% endblock %}
 
 {% block pageScripts %}
@@ -16,6 +17,8 @@
     var stepByStepNavigation = new GOVUK.Modules.AppStepNav($element).init()
   </script>
 {% endblock %}
+
+
 
 {% block containerStart %}
  <!--  <div class="govuk-breadcrumbs">
