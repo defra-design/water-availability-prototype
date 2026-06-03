@@ -124,6 +124,51 @@ function normalizeToPolygons(data) {
 }
 
 /**
+ * Computes bounding box from nested coordinate arrays (Polygon or MultiPolygon)
+ * Returns { minX, minY, maxX, maxY } or null for invalid input
+ */
+function computeBoundingBox(coords) {
+  if (!coords) return null;
+
+  let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+
+  const walk = (arr) => {
+    if (!Array.isArray(arr)) return;
+    // If this element looks like a coordinate pair [x,y]
+    if (arr.length === 2 && typeof arr[0] === 'number' && typeof arr[1] === 'number') {
+      let x = arr[0], y = arr[1];
+
+      // Detect if coordinates look like lon/lat decimals (|lon|<=180, |lat|<=90)
+      // and if so, convert to BNG (easting/northing) for licence envelope queries.
+      if (Math.abs(x) <= 180 && Math.abs(y) <= 90 && Math.abs(x) < 1000) {
+        try {
+          const converted = proj4(WGS84_PROJ, 'EPSG:27700', [x, y]);
+          x = converted[0];
+          y = converted[1];
+        } catch (e) {
+          // If conversion fails, keep original values
+        }
+      }
+
+      if (x < minX) minX = x;
+      if (y < minY) minY = y;
+      if (x > maxX) maxX = x;
+      if (y > maxY) maxY = y;
+      return;
+    }
+    // Otherwise recurse deeper
+    for (let i = 0; i < arr.length; i++) {
+      walk(arr[i]);
+    }
+  };
+
+  walk(coords);
+
+  if (minX === Infinity) return null;
+  return { minX, minY, maxX, maxY };
+}
+
+/**
  * UPDATED: Main Function
  */
 function findClosestWithHoles(targetPoint, data) {
@@ -272,6 +317,85 @@ async function getCatchmentData(geometry, searchRadius = 18) {
     } catch (error) {
         console.error("Catchment API Error:", error.message);
         throw new Error("Failed to retrieve catchment data");
+    }
+}
+
+// Get abstraction licences within water body geometries
+// Returns a Promise with an array of licence features
+async function getLicencesWithinWaterBodies(waterBodies, searchRadius = 1800) {
+    console.log(`Fetching licences within water bodies`);
+
+    if (!waterBodies || (waterBodies.surfaceWater?.features?.length === 0 && waterBodies.groundWater?.features?.length === 0)) {
+        console.log("No water body features provided");
+        return { surfaceWaterLicences: [], groundWaterLicences: [] };
+    }
+
+    const licenceBaseUrl = `https://services1.arcgis.com/JZM7qJpmv7vJ0Hzx/ArcGIS/rest/services/Help_for_licence_trading_Abstraction_licence_points/FeatureServer/0/query?where=1%3D1&objectIds=&time=&geometry&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&relationParam=&returnGeodetic=false&outFields=*&returnGeometry=true&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&defaultSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnTrueCurves=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pjson&token=`;
+
+    try {
+        const requests = [];
+
+        const createConfig = (feature) => {
+            const formattedGeometry = [feature.properties.BB_MinX, feature.properties.BB_MinY, feature.properties.BB_MaxX, feature.properties.BB_MaxY];
+            console.log(formattedGeometry.toString());
+            return {
+                params: {
+                    geometry: formattedGeometry.toString()
+                }
+            };
+        };
+
+        // Query licences for each surface water body
+        if (waterBodies.surfaceWater?.features?.length > 0) {
+            waterBodies.surfaceWater.features.forEach((feature, index) => {
+                requests.push({ 
+                    type: 'surfaceWater', 
+                    featureIndex: index,
+                    promise: axios.get(licenceBaseUrl, createConfig(feature)) 
+                });
+            });
+        }
+
+        // Query licences for each ground water body
+        if (waterBodies.groundWater?.features?.length > 0) {
+            waterBodies.groundWater.features.forEach((feature, index) => {
+                requests.push({ 
+                    type: 'groundWater', 
+                    featureIndex: index,
+                    promise: axios.get(licenceBaseUrl, createConfig(feature)) 
+                });
+            });
+        }
+
+        // Execute all requests in parallel
+        const results = await Promise.all(requests.map(r => r.promise));
+
+        const surfaceWaterLicences = [];
+        const groundWaterLicences = [];
+
+        requests.forEach((request, index) => {
+            const responseData = results[index].data.features || [];
+            const entry = {
+                featureIndex: request.featureIndex,
+                licences: responseData
+            };
+
+            if (request.type === 'surfaceWater') {
+                surfaceWaterLicences.push(entry);
+            } else {
+                groundWaterLicences.push(entry);
+            }
+        });
+
+        return {
+            surfaceWaterLicences,
+            groundWaterLicences
+        };
+
+    } catch (error) {
+        console.error("Licence API Error:", error.message);
+        console.error("Error details:", error.response?.status, error.response?.data);
+        throw new Error("Failed to retrieve licence data");
     }
 }
 
@@ -616,19 +740,61 @@ router.post('/location', async function (request, response) {
         // 18m radius approx equals 1000m² area. 
         // You can increase this (e.g., 1800 = 10,000m2) if you want a wider net.
         const searchRadius = 1800;
-
         const catchmentResults = await getCatchmentData(geometry, searchRadius);
+
+        // Ensure each returned feature has a bounding-box (BB_*) properties so licence queries can use an envelope
+        if (catchmentResults?.surfaceWater?.features) {
+          catchmentResults.surfaceWater.features.forEach(f => {
+            try {
+              const bb = computeBoundingBox(f.geometry && f.geometry.coordinates);
+              f.properties = f.properties || {};
+              if (bb) {
+                f.properties.BB_MinX = bb.minX;
+                f.properties.BB_MinY = bb.minY;
+                f.properties.BB_MaxX = bb.maxX;
+                f.properties.BB_MaxY = bb.maxY;
+              }
+            } catch (e) {
+              // leave feature unchanged on failure
+            }
+          });
+        }
+
+        if (catchmentResults?.groundWater?.features) {
+          catchmentResults.groundWater.features.forEach(f => {
+            try {
+              const bb = computeBoundingBox(f.geometry && f.geometry.coordinates);
+              f.properties = f.properties || {};
+              if (bb) {
+                f.properties.BB_MinX = bb.minX;
+                f.properties.BB_MinY = bb.minY;
+                f.properties.BB_MaxX = bb.maxX;
+                f.properties.BB_MaxY = bb.maxY;
+              }
+            } catch (e) {
+              // leave feature unchanged on failure
+            }
+          });
+        }
+
+        // 3.5 Get Licences within water bodies
+        const licenceResults = await getLicencesWithinWaterBodies(catchmentResults, searchRadius);
         
         // Process Surface Water
         let surfaceFeatures = catchmentResults.surfaceWater.features;
         if (surfaceFeatures && surfaceFeatures.length > 0) {
              
-            for (const surfaceFeature of surfaceFeatures) {
-             let target = [latLon[0], latLon[1]]
-             let  pointsList = surfaceFeature.geometry.coordinates
-             const result = findClosestWithHoles(target, pointsList);
-            surfaceFeature.nearestPoint = result;
-            console.log(result)
+            for (const [featureIndex, surfaceFeature] of surfaceFeatures.entries()) {
+                let target = [latLon[0], latLon[1]];
+                let pointsList = surfaceFeature.geometry.coordinates;
+                const result = findClosestWithHoles(target, pointsList);
+                surfaceFeature.nearestPoint = result;
+
+                const entry = licenceResults.surfaceWaterLicences.find(r => r.featureIndex === featureIndex);
+                const matchingLicences = entry ? entry.licences : [];
+                surfaceFeature.properties = surfaceFeature.properties || {};
+                surfaceFeature.properties.licences = matchingLicences;
+                surfaceFeature.licences = matchingLicences;
             }
             surfaceFeatures = surfaceFeatures.sort((a, b) => {
   return a.nearestPoint.distanceKm - b.nearestPoint.distanceKm;
@@ -642,12 +808,18 @@ router.post('/location', async function (request, response) {
         let groundFeatures = catchmentResults.groundWater.features;
         if (groundFeatures && groundFeatures.length > 0) {
             request.session.data.groundwaterCatchmentData = groundFeatures;
-            for (const groundFeature of groundFeatures) {
-             let target = [latLon[0], latLon[1]]
-             let  pointsListGW = groundFeature.geometry.coordinates
-             const resultGW = findClosestWithHoles(target, pointsListGW); 
-            groundFeature.nearestPoint = resultGW;
-                 console.log(resultGW)
+            for (const [featureIndex, groundFeature] of groundFeatures.entries()) {
+                let target = [latLon[0], latLon[1]];
+                let pointsListGW = groundFeature.geometry.coordinates;
+                const resultGW = findClosestWithHoles(target, pointsListGW);
+                groundFeature.nearestPoint = resultGW;
+                console.log("groundwater results " + JSON.stringify(resultGW));
+
+                const entry = licenceResults.groundWaterLicences.find(r => r.featureIndex === featureIndex);
+                const matchingLicences = entry ? entry.licences : [];
+                groundFeature.properties = groundFeature.properties || {};
+                groundFeature.properties.licences = matchingLicences;
+                groundFeature.licences = matchingLicences;
             }
                         groundFeatures = groundFeatures.sort((a, b) => {
   return a.nearestPoint.distanceKm - b.nearestPoint.distanceKm;

@@ -175,7 +175,7 @@ factors such as environmental concerns.</strong>
 
   {% if loop.index0 == 0 %} 
   
-      <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&sid={{loop.index0}}&watertype=surface">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.OPCAT_NAME}} catchment</a></h3>
+      <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&sid={{loop.index0}}&gid=&watertype=surface">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.OPCAT_NAME}} catchment</a></h3>
   
           <p class="govuk-body">{{tagsgoodlicHTML | safe}}</p> 
 
@@ -194,7 +194,7 @@ factors such as environmental concerns.</strong>
   
   {% elif loop.index0 == 1 %}
 
-      <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&sid={{loop.index0}}&watertype=surface">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.OPCAT_NAME}} catchment</a></h3>
+      <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&sid={{loop.index0}}&gid=&watertype=surface">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.OPCAT_NAME}} catchment</a></h3>
    <p class="govuk-body">{{tagsgoodlicHTML | safe}}</p> 
 
     <p class="govuk-body">This water body is {{waterBody.nearestPoint.distanceKm | round(2)}} km {{waterBody.nearestPoint.direction | lower}} of the centre of the 
@@ -206,7 +206,7 @@ factors such as environmental concerns.</strong>
    <hr>
    {% elif loop.index0 == 2 %}
 
-      <h3 class="govuk-heading-s"><a href="detailed-results?nowater=true&sid={{loop.index0}}&watertype=surface">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.OPCAT_NAME}} catchment</a></h3>
+      <h3 class="govuk-heading-s"><a href="detailed-results?nowater=true&sid={{loop.index0}}&gid=&watertype=surface">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.OPCAT_NAME}} catchment</a></h3>
       <p class="govuk-body">{{tagsnolicHTML | safe}}</p>   
 
     <p class="govuk-body">This water body is {{waterBody.nearestPoint.distanceKm | round(2)}} km {{waterBody.nearestPoint.direction | lower}} of the centre of the 
@@ -218,7 +218,7 @@ factors such as environmental concerns.</strong>
    <hr>
    {% else %}
 
-      <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&sid={{loop.index0}}&watertype=surface">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.OPCAT_NAME}} catchment</a></h3>
+      <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&sid={{loop.index0}}&gid=&watertype=surface">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.OPCAT_NAME}} catchment</a></h3>
    <p class="govuk-body">{{tagsgoodlicHTML | safe}}</p> 
  
     <p class="govuk-body">This water body is {{waterBody.nearestPoint.distanceKm | round(2)}} km {{waterBody.nearestPoint.direction | lower}} of the centre of the 
@@ -281,7 +281,7 @@ factors such as environmental concerns.</strong>
 {% for waterBody in data.groundwaterCatchmentData%}
   {% if loop.index0 == 0 %}
 
-  <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&gid={{loop.index0}}&watertype=ground">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.MNCAT_NAME}} catchment</a></h3>
+  <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&gid={{loop.index0}}&sid=&watertype=ground">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.MNCAT_NAME}} catchment</a></h3>
     <p class="govuk-body">{{tagsgoodlicHTML | safe}}</p>   
  
   <p class="govuk-body">The centre of the {% if (data['location'] == "gridRef") %}
@@ -303,7 +303,7 @@ factors such as environmental concerns.</strong>
 
   {% elif loop.index0 == 1 %}
   
-  <h3 class="govuk-heading-s"><a href="detailed-results?nowater=true&gid={{loop.index0}}&watertype=ground">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.MNCAT_NAME}} catchment</a></h3>
+  <h3 class="govuk-heading-s"><a href="detailed-results?nowater=true&gid={{loop.index0}}&sid=&watertype=ground">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.MNCAT_NAME}} catchment</a></h3>
   
   {% if data['water-use-type'] == "Non-consumptive" %}   
     <p class="govuk-body">{{tagsgoodlicHTML | safe}}</p> 
@@ -323,7 +323,7 @@ factors such as environmental concerns.</strong>
 
   {% elif loop.index0 == 2 %}
   
-  <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&gid={{loop.index0}}&watertype=ground">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.MNCAT_NAME}} catchment</a></h3>
+  <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&gid={{loop.index0}}&sid=&watertype=ground">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.MNCAT_NAME}} catchment</a></h3>
    {% if data['water-use-type'] == "Non-consumptive" %}   
     <p class="govuk-body">{{tagsgoodlicHTML | safe}}</p> 
     {% elseif data['water-use-type'] == "Consumptive" %}
@@ -338,7 +338,7 @@ factors such as environmental concerns.</strong>
 
   <hr>
 {% else %}
- <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&gid={{loop.index0}}&watertype=ground">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.MNCAT_NAME}} catchment</a></h3>
+ <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&gid={{loop.index0}}&sid=&watertype=ground">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.MNCAT_NAME}} catchment</a></h3>
   
       <p class="govuk-body">This water body is {{waterBody.nearestPoint.distanceKm | round(2)}} km {{waterBody.nearestPoint.direction | lower}} of the centre of the {% if (data['location'] == "gridRef") %}national grid reference{% elseif (data['location'] == "fieldParcel") %}field parcel{% elseif (data['location'] == "postCode") %}postcode{% endif %}.</p>
  
