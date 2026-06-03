@@ -4,12 +4,6 @@
   {{ "How to apply: step by step" }}
 {% endblock %}
 
-{% block beforeContent %}
-  {{ govukBackLink({
-    text: "Back",
-    href: "javascript:window.history.back()"
-  }) }}
-{% endblock %}
 
 {% block pageScripts %}
   <script type="text/javascript">
@@ -21,6 +15,15 @@
 
 
 {% block containerStart %}
+
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
  <!--  <div class="govuk-breadcrumbs">
     <ol class="govuk-breadcrumbs__list">
       <li class="govuk-breadcrumbs__list-item">
@@ -81,12 +84,13 @@
   designated sites due to their special environment. These are:</p>
 
 
-            <ol class="app-step-nav__list--bullet" data-length="2">
+            <ul class="app-step-nav__list--bullet" data-length="2">
               <li >Special Areas of Conservation (SAC), which contribute to biodiversity 
                 by maintaining and restoring habitats and species</li>
               <li>Special Protection Area (SPA), which provides protection to birds and 
                 their nests, eggs and habitats</li>
-              </ol>
+              </ul>
+              <br>
 
 <p class="app-step-nav__paragraph">Government policy treats Ramsar sites (internationally 
   important wetland sites) in the same way as SACs and SPAs. Ramsars, 
@@ -134,7 +138,7 @@
           </div>
 
           <div class="app-step-nav__panel js-panel" id="step-panel-rights-of-access-2">
-           <p class="app-step-nav__paragraph">ou must have rights of access to the water body at the 
+           <p class="app-step-nav__paragraph">You must have rights of access to the water body at the 
         point where you plan to abstract. This must be valid for at least 12 months 
         from the start date of your licence (unless you only need a temporary licence 
         for less than 12 months).</p>
@@ -258,7 +262,7 @@
         <p class="app-step-nav__paragraph">There are different types of water resources licences you can apply 
   for. They are:</p>
 
-  <ol class="app-step-nav__list--bullet" data-length="4">
+  <ul class="app-step-nav__list--bullet" data-length="4">
               <li >a full abstraction licence - for most types of water abstraction over 20 
     cubic metres a day</li>
               <li>a transfer abstraction licence - to move over 20 cubic metres of water 
@@ -267,8 +271,8 @@
     of water a day over a period of less than 28 days</li>
               <li>an impounding licence - to create or alter an impoundment structure 
     such as a sluice, weir or dam</li>
-              </ol>
-
+              </ul>
+<br>
         <p class="app-step-nav__paragraph">If water levels in your area are usually low over the 
   summer period, you may prefer to apply for a licence for only certain 
   months of the year. Often abstractors will store water for use in the 
@@ -279,10 +283,11 @@
         <h3 class="app-step-nav__header-s">Charges</h3>    
         <p class="app-step-nav__paragraph">You must pay an application charge:</p>
 
-        <ol class="app-step-nav__list--bullet" data-length="4">
+        <ul class="app-step-nav__list--bullet" data-length="4">
               <li >to apply for a new licence</li>
               <li>for some changes (variations) to an existing licence</li>
-              </ol>
+              </ul>
+              <br>
 
         <p class="app-step-nav__paragraph">You will also usually need to pay an annual charge 
   (called a 'subsistence' charge) once you hold a full abstraction licence.</p>
