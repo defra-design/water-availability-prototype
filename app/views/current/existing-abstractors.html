@@ -17,7 +17,7 @@
     <div class="govuk-grid-column-two-thirds">
 
       <h1 class="govuk-heading-l">
-        Existing abstractors in this waterbody
+        Existing abstractors in this water body
       </h1>
 
 {% if (data['watertype'] == "surface") %}  
@@ -30,7 +30,7 @@
 {{licence.attributes.Purpose}}<br>
 {{licence.attributes.Max_Annual_Quantity_m3}} Annual Cubic Metres <br>
 {{licence.attributes.Postcode}}<br>
-{{licence.attributes |dump}}
+<!-- {{licence.attributes |dump}} -->
 </p>
 {% endif %}
 {% endfor %}
@@ -45,7 +45,7 @@
 {{licence.attributes.Purpose}}<br>
 {{licence.attributes.Max_Annual_Quantity_m3}} Annual Cubic Metres<br>
 {{licence.attributes.Postcode}}<br>
-{{licence.attributes |dump}}
+<!-- {{licence.attributes |dump}} -->
 </p>
 {% endif %}
 {% endfor %}
