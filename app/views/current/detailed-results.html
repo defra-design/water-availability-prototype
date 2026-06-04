@@ -485,41 +485,6 @@
   {% endif %}
 
 
-
-<!-- {% if (data['watertype'] == "surface") %}  
- <h2 class="govuk-heading-m">Other abstractions in this water body</h2>
-{% for licence in data.riverCatchmentData[data.sid].licences %}
-{% if (licence.attributes.Source_Type == "Surface water") %} 
-<p class="govuk-body">
-{{licence.attributes.Licence_Number}}<br>
-{{licence.attributes.Licence_Holder_Name}}<br>
-{{licence.attributes.Source_Type}}<br>
-{{licence.attributes.Purpose}}<br>
-{{licence.attributes.Max_Annual_Quantity_m3}} Annual Cubic Metres <br>
-{{licence.attributes.Postcode}}<br>
-{{licence.attributes |dump}}
-</p>
-{% endif %}
-{% endfor %}
-{% elseif (data['watertype'] == "ground") %}
- <h2 class="govuk-heading-m">Other abstractions in this water body</h2>
-{% for licence in data.groundwaterCatchmentData[data.gid].licences %}
-{% if (licence.attributes.Source_Type == "Groundwater") %} 
-<p class="govuk-body">
-{{licence.attributes.Licence_Number}}<br>
-{{licence.attributes.Licence_Holder_Name}}<br>
-{{licence.attributes.Source_Type}}<br>
-{{licence.attributes.Purpose}}<br>
-{{licence.attributes.Max_Annual_Quantity_m3}} Annual Cubic Metres<br>
-{{licence.attributes.Postcode}}<br>
-{{licence.attributes |dump}}
-</p>
-{% endif %}
-{% endfor %}
-{% endif %} -->
-
-
-
 <form class="form" method="post">
 
  {{ govukButton({
