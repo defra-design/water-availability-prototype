@@ -37,16 +37,28 @@
     </span>
   </summary>
   <div class="govuk-details__text">
- <b>Usage:</b> {{licence.attributes.Purpose}}<br>
- <b>Maximum annual quantity:</b> {{licence.attributes.Max_Annual_Quantity_m3}} Annual Cubic Metres<br>
- <b>Maximum daily quantity:</b> {{licence.attributes.Max_Daily_Quantity_m3}} Daily Cubic Metres<br>
- <b>Address:</b> <br>
- {{licence.attributes.Line_1}}<br>
-  {{licence.attributes.Town}}<br>
-   {{licence.attributes.County}}<br>
- {{licence.attributes.Postcode}}<br>
-  <!-- <b>Environment Agency team:</b> {{licence.attributes.EA_Area}}<br>
-  <b>Environment Agency email:</b> {{licence.attributes.Environment_Agency_e_mail}}<br> -->
+  <table class="govuk-table">
+  <caption class="govuk-table__caption govuk-table__caption--m">{{licence.attributes.Licence_Holder_Name}}</caption>
+ 
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header govuk-!-width-one-half">Usage</th>
+      <td class="govuk-table__cell">{{licence.attributes.Purpose | lower | capitalize}}</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header govuk-!-width-one-half">Maximum annual quantity</th>
+      <td class="govuk-table__cell">{{licence.attributes.Max_Annual_Quantity_m3}} cubic metres</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header govuk-!-width-one-half">Maximum daily quantity</th>
+      <td class="govuk-table__cell">{{licence.attributes.Max_Daily_Quantity_m3}} cubic metres</td>
+    </tr>
+       <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header govuk-!-width-one-half">Address</th>
+       <td class="govuk-table__cell">{{licence.attributes.Line_1 | upper}}<br>{{licence.attributes.Town | upper}}<br>{{licence.attributes.County | upper}}<br>{{licence.attributes.Postcode}}<br></td>
+   
+  </tbody>
+</table>
  </div>
 </details>
 <!-- {{licence.attributes |dump}} -->
@@ -74,16 +86,28 @@
     </span>
   </summary>
   <div class="govuk-details__text">
- <b>Usage:</b> {{licence.attributes.Purpose}}<br>
- <b>Maximum annual quantity:</b> {{licence.attributes.Max_Annual_Quantity_m3}} Annual Cubic Metres<br>
- <b>Maximum daily quantity:</b> {{licence.attributes.Max_Daily_Quantity_m3}} Daily Cubic Metres<br>
- <b>Address:</b> <br>
- {{licence.attributes.Line_1}}<br>
-  {{licence.attributes.Town}}<br>
-   {{licence.attributes.County}}<br>
- {{licence.attributes.Postcode}}<br>
-  <!-- <b>Environment Agency team:</b> {{licence.attributes.EA_Area}}<br>
-  <b>Environment Agency email:</b> {{licence.attributes.Environment_Agency_e_mail}}<br> -->
+ <table class="govuk-table">
+  <caption class="govuk-table__caption govuk-table__caption--m">{{licence.attributes.Licence_Holder_Name}}</caption>
+ 
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header govuk-!-width-one-half">Usage</th>
+      <td class="govuk-table__cell">{{licence.attributes.Purpose | lower | capitalize}}</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header govuk-!-width-one-half">Maximum annual quantity</th>
+      <td class="govuk-table__cell">{{licence.attributes.Max_Annual_Quantity_m3}} cubic metres</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header govuk-!-width-one-half">Maximum daily quantity</th>
+      <td class="govuk-table__cell">{{licence.attributes.Max_Daily_Quantity_m3}} cubic metres</td>
+    </tr>
+       <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header govuk-!-width-one-half">Address</th>
+       <td class="govuk-table__cell">{{licence.attributes.Line_1 | upper}}<br>{{licence.attributes.Town | upper}}<br>{{licence.attributes.County | upper}}<br>{{licence.attributes.Postcode}}<br></td>
+   
+  </tbody>
+</table>
  </div>
 </details>
 
