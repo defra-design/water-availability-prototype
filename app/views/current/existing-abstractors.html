@@ -16,41 +16,53 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-      <h1 class="govuk-heading-l">
-        Existing abstractors in this water body
-      </h1>
+     
 
-{% if (data['watertype'] == "surface") %}  
+{% if (data['watertype'] == "surface") %} 
+ <h1 class="govuk-heading-l">
+        Existing abstractors in this water body
+      </h1> 
 {% for licence in data.riverCatchmentData[data.sid].licences %}
 {% if (licence.attributes.Source_Type == "Surface water") %} 
-<p class="govuk-body">
-{{licence.attributes.Licence_Number}}<br>
-{{licence.attributes.Licence_Holder_Name}}<br>
-{{licence.attributes.Source_Type}}<br>
-{{licence.attributes.Purpose}}<br>
-{{licence.attributes.Max_Annual_Quantity_m3}} Annual Cubic Metres <br>
-{{licence.attributes.Postcode}}<br>
+<div class="govuk-body">
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      {{licence.attributes.Licence_Holder_Name}}
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+ <b>Usage:</b> {{licence.attributes.Purpose}}<br>
+ <b>Annual volume:</b> {{licence.attributes.Max_Annual_Quantity_m3}} Annual Cubic Metres<br>
+ <b>Address:</b> {{licence.attributes.Line_1}}, {{licence.attributes.Line_2}}, {{licence.attributes.Postcode}}<br>
+  <b>Environment Agency team:</b> {{licence.attributes.EA_Area}}<br>
+  <b>Environment Agency email:</b> {{licence.attributes.Environment_Agency_e_mail}}<br>
+ </div>
+</details>
 <!-- {{licence.attributes |dump}} -->
-</p>
+</div>
 {% endif %}
 {% endfor %}
 
 {% elseif (data['watertype'] == "ground") %}
 {% for licence in data.groundwaterCatchmentData[data.gid].licences %}
 {% if (licence.attributes.Source_Type == "Groundwater") %} 
-<p class="govuk-body">
-{{licence.attributes.Licence_Number}}<br>
-{{licence.attributes.Licence_Holder_Name}}<br>
-{{licence.attributes.Source_Type}}<br>
-{{licence.attributes.Purpose}}<br>
-{{licence.attributes.Max_Annual_Quantity_m3}} Annual Cubic Metres<br>
-{{licence.attributes.Postcode}}<br>
+<div class="govuk-body">
+<!-- {{licence.attributes.Licence_Number}}<br> -->
+Licence holder name: {{licence.attributes.Licence_Holder_Name}}<br>
+<!-- {{licence.attributes.Source_Type}}<br> -->
+Usage: {{licence.attributes.Purpose}}<br>
+Annual volume: {{licence.attributes.Max_Annual_Quantity_m3}} Annual Cubic Metres<br>
+Address: {{licence.attributes.Postcode}}<br>
 <!-- {{licence.attributes |dump}} -->
-</p>
+</div>
 {% endif %}
 {% endfor %}
 {% endif %}
 
+
+
+<!-- {{ data | dump }} -->
 
   <!--    <p>
         Read more <a href="/path/of/page">about this topic</a>.
