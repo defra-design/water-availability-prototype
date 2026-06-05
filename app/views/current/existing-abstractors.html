@@ -19,12 +19,16 @@
      
 
 {% if (data['watertype'] == "surface") %} 
- <h1 class="govuk-heading-l">
-        Existing abstractors in this water body
-      </h1> 
-{% for licence in data.riverCatchmentData[data.sid].licences %}
+ <h1 class="govuk-heading-l">Existing surface water abstractors 
+  in {{data.riverCatchmentData[data.sid].properties.WB_NAME}}</h1> 
+      <p class="govuk-body">Find a trading partner using the list below 
+        of existing surface water abstractors in your area.</p>
+
+       You can view a map of local abstractors on <a href=“https://environment.data.gov.uk/dataset/8a682192-4a1b-4e40-84d4-5671bfa5671c”>DEFRAs Help for Water Rights Trading Data</a> platform.
+
+      {% for licence in data.riverCatchmentData[data.sid].licences %}
 {% if (licence.attributes.Source_Type == "Surface water") %} 
-<div class="govuk-body">
+
 <details class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
@@ -33,29 +37,55 @@
   </summary>
   <div class="govuk-details__text">
  <b>Usage:</b> {{licence.attributes.Purpose}}<br>
- <b>Annual volume:</b> {{licence.attributes.Max_Annual_Quantity_m3}} Annual Cubic Metres<br>
- <b>Address:</b> {{licence.attributes.Line_1}}, {{licence.attributes.Line_2}}, {{licence.attributes.Postcode}}<br>
-  <b>Environment Agency team:</b> {{licence.attributes.EA_Area}}<br>
-  <b>Environment Agency email:</b> {{licence.attributes.Environment_Agency_e_mail}}<br>
+ <b>Maximum annual quantity:</b> {{licence.attributes.Max_Annual_Quantity_m3}} Annual Cubic Metres<br>
+ <b>Maximum daily quantity:</b> {{licence.attributes.Max_Daily_Quantity_m3}} Daily Cubic Metres<br>
+ <b>Address:</b> <br>
+ {{licence.attributes.Line_1}}<br>
+  {{licence.attributes.Town}}<br>
+   {{licence.attributes.County}}<br>
+ {{licence.attributes.Postcode}}<br>
+  <!-- <b>Environment Agency team:</b> {{licence.attributes.EA_Area}}<br>
+  <b>Environment Agency email:</b> {{licence.attributes.Environment_Agency_e_mail}}<br> -->
  </div>
 </details>
 <!-- {{licence.attributes |dump}} -->
-</div>
+
 {% endif %}
 {% endfor %}
 
 {% elseif (data['watertype'] == "ground") %}
+<h1 class="govuk-heading-l">Existing groundwater abstractors 
+  in {{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}</h1> 
+
+        <p class="govuk-body">Find a trading partner using the list below 
+        of existing groundwater abstractors in your area.</p>
+
+        You can view a map of local abstractors on <a href=“https://environment.data.gov.uk/dataset/8a682192-4a1b-4e40-84d4-5671bfa5671c”>DEFRAs Help for Water Rights Trading Data</a> platform.
+<!--        <p class="govuk-body">You can read more about <a href="https://www.gov.uk/guidance/trade-water-abstraction-rights">how to trade water abstraction rights on GOV.UK</a>.</p> -->
+
 {% for licence in data.groundwaterCatchmentData[data.gid].licences %}
 {% if (licence.attributes.Source_Type == "Groundwater") %} 
-<div class="govuk-body">
-<!-- {{licence.attributes.Licence_Number}}<br> -->
-Licence holder name: {{licence.attributes.Licence_Holder_Name}}<br>
-<!-- {{licence.attributes.Source_Type}}<br> -->
-Usage: {{licence.attributes.Purpose}}<br>
-Annual volume: {{licence.attributes.Max_Annual_Quantity_m3}} Annual Cubic Metres<br>
-Address: {{licence.attributes.Postcode}}<br>
-<!-- {{licence.attributes |dump}} -->
-</div>
+
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      {{licence.attributes.Licence_Holder_Name}}
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+ <b>Usage:</b> {{licence.attributes.Purpose}}<br>
+ <b>Maximum annual quantity:</b> {{licence.attributes.Max_Annual_Quantity_m3}} Annual Cubic Metres<br>
+ <b>Maximum daily quantity:</b> {{licence.attributes.Max_Daily_Quantity_m3}} Daily Cubic Metres<br>
+ <b>Address:</b> <br>
+ {{licence.attributes.Line_1}}<br>
+  {{licence.attributes.Town}}<br>
+   {{licence.attributes.County}}<br>
+ {{licence.attributes.Postcode}}<br>
+  <!-- <b>Environment Agency team:</b> {{licence.attributes.EA_Area}}<br>
+  <b>Environment Agency email:</b> {{licence.attributes.Environment_Agency_e_mail}}<br> -->
+ </div>
+</details>
+
 {% endif %}
 {% endfor %}
 {% endif %}
