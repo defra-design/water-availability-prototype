@@ -54,7 +54,11 @@
         body <b>{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}</b>.</p>
 
        {% endif %}
-  
+
+   {% if data['water-use-label'] == "impounding (non-hydropower)" %}  
+
+{% else %}
+
   <details class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
@@ -63,6 +67,7 @@
   </summary>
   <div class="govuk-details__text">
  <p class="govuk-body">
+  
     {% if (data['watertype'] == "ground")%}
       Common end date for {{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}: <b>January 2027</b>.
   
@@ -88,6 +93,7 @@
         skip to the next common end date and apply that to your licence instead.</p>
   </div>
 </details>
+ {% endif %}
 </div>
 
   {% if (data.nowater == "true" or (data['water-use-type'] == "Consumptive" and data.gid == "1")) %} 
