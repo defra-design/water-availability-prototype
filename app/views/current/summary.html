@@ -188,8 +188,9 @@ factors such as environmental concerns.</strong>
       {% endif %}
     is <b>within</b> this surface water body.</p>
 
+
       <p class="govuk-body">It covers {{waterBody.properties.Area_m2|mToKmSquared}} square km.</p>
-   <!-- <p class="govuk-body">Winter: {{tagsgoodHTML | safe}}</p> --> 
+
   <hr>
   
   {% elif loop.index0 == 1 %}
@@ -197,36 +198,36 @@ factors such as environmental concerns.</strong>
       <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&sid={{loop.index0}}&gid=&watertype=surface">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.OPCAT_NAME}} catchment</a></h3>
    <p class="govuk-body">{{tagsgoodlicHTML | safe}}</p> 
 
+
     <p class="govuk-body">This water body is {{waterBody.nearestPoint.distanceKm | round(2)}} km {{waterBody.nearestPoint.direction | lower}} of the centre of the 
       {% if (data['location'] == "gridRef") %}national grid reference{% elseif (data['location'] == "fieldParcel") %}field parcel{% elseif (data['location'] == "postCode") %}postcode{% endif %}.</p>
       <p class="govuk-body">It covers {{waterBody.properties.Area_m2|mToKmSquared}} square km.</p>
 
  
-   <!-- <p class="govuk-body">Winter: {{tagsgoodlicHTML | safe}}</p> -->
    <hr>
    {% elif loop.index0 == 2 %}
 
       <h3 class="govuk-heading-s"><a href="detailed-results?nowater=true&sid={{loop.index0}}&gid=&watertype=surface">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.OPCAT_NAME}} catchment</a></h3>
-      <p class="govuk-body">{{tagsnolicHTML | safe}}</p>   
+      <p class="govuk-body">{{tagsnolicHTML | safe}}</p> 
+
 
     <p class="govuk-body">This water body is {{waterBody.nearestPoint.distanceKm | round(2)}} km {{waterBody.nearestPoint.direction | lower}} of the centre of the 
       {% if (data['location'] == "gridRef") %}national grid reference{% elseif (data['location'] == "fieldParcel") %}field parcel{% elseif (data['location'] == "postCode") %}postcode{% endif %}.</p>
 
         <p class="govuk-body">It covers {{waterBody.properties.Area_m2|mToKmSquared}} square km.</p>
 
-    <!-- <p class="govuk-body">Winter: {{tagsnolicHTML | safe}}</p> -->
    <hr>
    {% else %}
 
       <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&sid={{loop.index0}}&gid=&watertype=surface">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.OPCAT_NAME}} catchment</a></h3>
    <p class="govuk-body">{{tagsgoodlicHTML | safe}}</p> 
+
  
     <p class="govuk-body">This water body is {{waterBody.nearestPoint.distanceKm | round(2)}} km {{waterBody.nearestPoint.direction | lower}} of the centre of the 
       {% if (data['location'] == "gridRef") %}national grid reference{% elseif (data['location'] == "fieldParcel") %}field parcel{% elseif (data['location'] == "postCode") %}postcode{% endif %}.</p>
 
       <p class="govuk-body">It covers {{waterBody.properties.Area_m2|mToKmSquared}} square km.</p>
  
- <!--  <p class="govuk-body">Winter: {{tagsgoodlicHTML | safe}}</p> -->
      <hr>
    {% endif %}
 
@@ -284,6 +285,7 @@ factors such as environmental concerns.</strong>
   <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&gid={{loop.index0}}&sid=&watertype=ground">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.MNCAT_NAME}} catchment</a></h3>
     <p class="govuk-body">{{tagsgoodlicHTML | safe}}</p>   
  
+
   <p class="govuk-body">The centre of the {% if (data['location'] == "gridRef") %}
         national grid reference
 {% elseif (data['location'] == "fieldParcel") %}
@@ -296,18 +298,16 @@ factors such as environmental concerns.</strong>
 
      <p class="govuk-body">It covers {{waterBody.properties.Shape__Area|mToKmSquared}} square km.</p>
 
-
-    <!-- <p class="govuk-body">Winter: {{tagsgoodlicHTML | safe}}</p> -->
-
   <hr>
 
   {% elif loop.index0 == 1 %}
   
   <h3 class="govuk-heading-s"><a href="detailed-results?nowater=true&gid={{loop.index0}}&sid=&watertype=ground">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.MNCAT_NAME}} catchment</a></h3>
-  
-  {% if data['water-use-type'] == "Non-consumptive" %}   
+
+
+  {% if data['water-use-type'] == 'non-consumptive' %}   
     <p class="govuk-body">{{tagsgoodlicHTML | safe}}</p> 
-    {% elseif data['water-use-type'] == "Consumptive" %}
+    {% elseif data['water-use-type'] == 'consumptive' %}
      <p class="govuk-body">{{tagsnolicHTML | safe}}</p> 
      {% endif %}
 
@@ -316,37 +316,31 @@ factors such as environmental concerns.</strong>
 
         <p class="govuk-body">It covers {{waterBody.properties.Shape__Area|mToKmSquared}} square km.</p>
 
-  
-  <!-- <p class="govuk-body">Winter: {{tagsgoodlicHTML | safe}}</p> -->
-
   <hr>
 
   {% elif loop.index0 == 2 %}
   
   <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&gid={{loop.index0}}&sid=&watertype=ground">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.MNCAT_NAME}} catchment</a></h3>
-   {% if data['water-use-type'] == "Non-consumptive" %}   
+   {% if data['water-use-type'] == "non-consumptive" %}   
     <p class="govuk-body">{{tagsgoodlicHTML | safe}}</p> 
-    {% elseif data['water-use-type'] == "Consumptive" %}
+    {% elseif data['water-use-type'] == "consumptive" %}
      <p class="govuk-body">{{tagsnolicHTML | safe}}</p> 
      {% endif %}
+
+      <!--     <p class="govuk-body">{{waterBody.properties.HMD_NAME}}</p> -->
  
        <p class="govuk-body">This water body is {{waterBody.nearestPoint.distanceKm | round(2)}} km {{waterBody.nearestPoint.direction | lower}} of the centre of the {% if (data['location'] == "gridRef") %}national grid reference{% elseif (data['location'] == "fieldParcel") %}field parcel{% elseif (data['location'] == "postCode") %}postcode{% endif %}.</p>
 
       <p class="govuk-body">It covers {{waterBody.properties.Shape__Area|mToKmSquared}} square km.</p>
 
-    <!-- <p class="govuk-body">Winter: {{tagsgoodlicHTML | safe}}</p> -->
 
   <hr>
 {% else %}
  <h3 class="govuk-heading-s"><a href="detailed-results?nowater=false&gid={{loop.index0}}&sid=&watertype=ground">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.MNCAT_NAME}} catchment</a></h3>
-  
+      <p class="govuk-body">{{tagsgoodlicHTML | safe}}</p> 
       <p class="govuk-body">This water body is {{waterBody.nearestPoint.distanceKm | round(2)}} km {{waterBody.nearestPoint.direction | lower}} of the centre of the {% if (data['location'] == "gridRef") %}national grid reference{% elseif (data['location'] == "fieldParcel") %}field parcel{% elseif (data['location'] == "postCode") %}postcode{% endif %}.</p>
  
        <p class="govuk-body">It covers {{waterBody.properties.Shape__Area|mToKmSquared}} square km.</p>
-
-    <p class="govuk-body">{{tagsgoodlicHTML | safe}}</p> 
-
-  <!-- <p class="govuk-body">Winter: {{tagsgoodlicHTML | safe}}</p> -->
 
   <hr>
  {% endif %}

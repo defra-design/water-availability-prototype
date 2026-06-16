@@ -49,40 +49,36 @@
        <p class="govuk-body">This page shows information on availability, restrictions and how to apply for a groundwater abstraction licence from the water body <b>{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}</b>.</p>
        
        {% elseif (data['watertype'] == "ground" and data.nowater == "true") %}
-       <p class="govuk-body">This page shows availability 
+       <p class="govuk-body">his page shows availability 
         information for groundwater abstraction from the water 
         body <b>{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}</b>.</p>
 
        {% endif %}
 
-<h2 class="govuk-heading-m">Restrictions for 
-
-  {% if (data['watertype'] == "ground")%}
-      {{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}
-  
-    {% elseif (data['watertype'] == "surface")%}
-      {{data.riverCatchmentData[data.sid].properties.WB_NAME}}
-    {% endif %}
-</h2>
-
    {% if data['water-use-label'] == "impounding (non-hydropower)" %}  
 
 {% else %}
 
-
   <details class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
-      Common end date: January 2027
+      Common end date (licensing strategy review period)
     </span>
-
   </summary>
   <div class="govuk-details__text">
+ <p class="govuk-body">
+  
+    {% if (data['watertype'] == "ground")%}
+      Common end date for {{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}: <b>January 2027</b>.
+  
+    {% elseif (data['watertype'] == "surface")%}
+      Common end date for {{data.riverCatchmentData[data.sid].properties.WB_NAME}}: <b>January 2027</b>.
+    {% endif %}</p>
 
 <p class="govuk-body">The 'common end date' indicates when the licensing strategy 
   for this area is due for review. The Environment Agency review each local 
   licensing strategy every 12 years.</p>
- 
+  
   
 <p class="govuk-body">Most licences expire on the common end date 
   but sometimes a shorter time limit is needed, usually due to local issues or 
@@ -98,11 +94,9 @@
   </div>
 </details>
  {% endif %}
+</div>
 
-
-
-
-{% if (data.nowater == "true" or (data['water-use-type'] == "Consumptive" and data.gid == "1")) %} 
+  {% if (data.nowater == "true" or (data['water-use-type'] == "Consumptive" and data.gid == "1")) %} 
 
   <div class="border govuk-!-margin-bottom-3">
     <h2 class="govuk-heading-m">Availability status</h2>
@@ -114,29 +108,18 @@
 
   {% else %}
 
-  {% endif %}  
+  {% endif %}
 
 {% if (data['watertype'] == "surface") %} 
   {% if (data.nowater == "true") %} 
 
 
-{% else %} 
-
-<details class="govuk-details">
-  <summary class="govuk-details__summary">
-    <span class="govuk-details__summary-text">
-      Current Hands off Flow (HoF):
-      {% if data.sid == "1" %} 12 Megalitres per day (Ml/d)
 {% else %}
-135 Megalitres per day (Ml/d)
 
-   {% endif %}
 
-    </span>
-  </summary>
-  <div class="govuk-details__text">
+<h2 class="govuk-heading-m">Restrictions on abstraction</h2>
 
- <p class="govuk-body">The Environment Agency monitor water levels 
+<p class="govuk-body">The Environment Agency monitor water levels 
   for your area at your local assessment point.</p>
 
 <p class="govuk-body">All licences have restrictions on how much 
@@ -145,24 +128,35 @@
   when the flow rate is critically low. The Environment Agency have an 
   alert system in place to warn abstractors when they can and cannot take water.</p>
 
-  </div>
-</details>
+{% if data.sid == "1" %}
+<p class="govuk-body">The current HoF for this assessment point is 
+  <b>12 Megalitres per day (Ml/d).</b></p> 
 
-  <details class="govuk-details">
+     <p class="govuk-body">Licences also specify the overall maximum volume of water you are allowed to abstract. There is approximately <b>34 Ml/d</b> of water available for licensing in this band.</p>
+
+  {% else %}
+<p class="govuk-body">The current HoF for this assessment point is 
+  <b>135 Megalitres per day (Ml/d).</b></p> 
+
+    <p class="govuk-body">Licences also specify the overall maximum volume of water you are allowed to abstract. There is approximately <b>45 Ml/d</b> of water available for licensing in this band.</p>
+  {% endif %}
+
+ <details class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
-      Current Hof band: 
-       {% if data.sid == "1" %} Band 1
-{% else %}
-Band 4
-
-   {% endif %}
+      How Hands-off Flow is set
     </span>
   </summary>
   <div class="govuk-details__text">
     <p class="govuk-body">Hands-off Flow conditions are grouped into bands. 
     As more and more water is licenced, the HoF level moves 
     into the next band up and there is less water available to abstract.</p>
+
+    {% if data.sid == "1" %}
+<p class="govuk-body"><b>HoF conditions in this area have reached band 1.</b></p>
+  {% else %}
+<p class="govuk-body"><b>HoF conditions in this area have reached band 4.</b></p>
+{% endif %}
 
 <p class="govuk-body">Band 1 has the least restrictions on days when water is available for abstraction. 
   Band 6 is the most water stressed with fewer days when water can be abstracted.</p>
@@ -260,25 +254,6 @@ Band 4
 
 </div>
 </details>
-
-<details class="govuk-details">
-  <summary class="govuk-details__summary">
-    <span class="govuk-details__summary-text">
-      Volume available for licencing at current HoF band:
-
-      {% if data.sid == "1" %} 34 Ml/d
-{% else %}
-45 Ml/d
-
-   {% endif %}
-    </span>
-  </summary>
-  <div class="govuk-details__text">
- Licences also specify the overall maximum volume of water you are allowed to abstract. Bit more in here about volumes..
-  </div>
-</details>
-
-
 
 
 <h2 class="govuk-heading-m">Water availability in previous years</h2>
