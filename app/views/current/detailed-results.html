@@ -66,10 +66,6 @@
 </h2>
 
 
-<!----------------------------------------------------------------->
-
-
-
 
    {% if data['water-use-label'] == "impounding (non-hydropower)" %}  
 {% else %}
@@ -77,7 +73,7 @@
   <details class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
-      Common end date: January 2027
+      What is a common end date?
     </span>
 
   </summary>
@@ -101,6 +97,15 @@
         skip to the next common end date and apply that to your licence instead.</p>
   </div>
 </details>
+
+
+<p class="govuk-body">Common end date for {% if (data['watertype'] == "ground")%}
+      {{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}
+  
+    {% elseif (data['watertype'] == "surface")%}
+      {{data.riverCatchmentData[data.sid].properties.WB_NAME}}
+    {% endif %}: <b>January 2027</b></p>
+
  {% endif %}
 
 
@@ -124,12 +129,7 @@
 <details class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
-      Current Hands off Flow (HoF):
-      {% if data.sid == "1" %} 12 Megalitres per day (Ml/d)
-{% else %}
-135 Megalitres per day (Ml/d)
-
-   {% endif %}
+      What is a Hands off Flow (HoF)?
 
     </span>
   </summary>
@@ -144,18 +144,40 @@
   when the flow rate is critically low. The Environment Agency have an 
   alert system in place to warn abstractors when they can and cannot take water.</p>
 
+    {% if data.sid == "1" %}
+<p class="govuk-body">  <p class="govuk-body">The information in the section below summarises how often 
+    the flow rate at your local assessment point was above the current 
+    HoF of 12 Ml/d. This indicates how often water would have been 
+    available for abstraction and how often restrictions would have prevented abstraction.</p>
+</p>
+{% else %}
+  <p class="govuk-body">The information in the section below summarises how often 
+    the flow rate at your local assessment point was above the current 
+    HoF of 135 Ml/d. This indicates how often water would have been 
+    available for abstraction and how often restrictions would have prevented abstraction.</p>
+  {% endif %}
+
+
   </div>
 </details>
+
+<p class="govuk-body">Current Hands off Flow (HoF) for {% if (data['watertype'] == "ground")%}
+      {{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}
+  
+    {% elseif (data['watertype'] == "surface")%}
+      {{data.riverCatchmentData[data.sid].properties.WB_NAME}}
+    {% endif %}:
+      <b>{% if data.sid == "1" %} 12 Megalitres per day (Ml/d)
+{% else %}
+135 Megalitres per day (Ml/d)
+
+   {% endif %}</b></p>
+
 
   <details class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
-      Current Hof band: 
-       {% if data.sid == "1" %} Band 1
-{% else %}
-Band 4
-
-   {% endif %}
+      What are HoF bands?
     </span>
   </summary>
   <div class="govuk-details__text">
@@ -259,24 +281,40 @@ Band 4
 
 </div>
 </details>
+<p class="govuk-body">Current Hof band for {% if (data['watertype'] == "ground")%}
+      {{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}
+  
+    {% elseif (data['watertype'] == "surface")%}
+      {{data.riverCatchmentData[data.sid].properties.WB_NAME}}
+    {% endif %}: 
+       <b>{% if data.sid == "1" %} Band 1
+{% else %}
+Band 4
+
+   {% endif %}</b></p>
 
 <details class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
-      Volume available for licencing at current HoF band:
-
-      {% if data.sid == "1" %} 34 Ml/d
-{% else %}
-45 Ml/d
-
-   {% endif %}
+      Volume explained
     </span>
   </summary>
   <div class="govuk-details__text">
  Licences also specify the overall maximum volume of water you are allowed to abstract. Bit more in here about volumes..
   </div>
 </details>
+<p class="govuk-body">Volume available for licencing in {% if (data['watertype'] == "ground")%}
+      {{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}
+  
+    {% elseif (data['watertype'] == "surface")%}
+      {{data.riverCatchmentData[data.sid].properties.WB_NAME}}
+    {% endif %} at current HoF band:
 
+      <b>{% if data.sid == "1" %} 34 Ml/d
+{% else %}
+45 Ml/d
+
+   {% endif %}</b></p>
 
 
 <!----------------------------------------------------------------->
@@ -288,27 +326,15 @@ Band 4
   water availability is often more restricted because it usually 
   rains less which means flow rates are lower.</p>
 
-   {% if data.sid == "1" %}
-<p class="govuk-body">  <p class="govuk-body">The information below summarises how often 
-    the flow rate at your local assessment point was above the current 
-    HoF of 12 Ml/d. This indicates how often water would have been 
-    available for abstraction and how often restrictions would have prevented abstraction.</p>
-</p>
-{% else %}
-  <p class="govuk-body">The information below summarises how often 
-    the flow rate at your local assessment point was above the current 
-    HoF of 135 Ml/d. This indicates how often water would have been 
-    available for abstraction and how often restrictions would have prevented abstraction.</p>
-  {% endif %}
-
+ 
    {% if data.sid == "1" %}
 
 
       <div class="govuk-body">
 <h3 class="govuk-heading-s">Percentage of days when water would have been available</h3>
-           <p class="govuk-body">Good to full availability: <strong class="govuk-tag govuk-tag--green">66% and above</strong></p>
+ <!--          <p class="govuk-body">Good to full availability: <strong class="govuk-tag govuk-tag--green">66% and above</strong></p>
           <p class="govuk-body">Low to good availability: <strong class="govuk-tag govuk-tag--yellow">33% to 66%</strong></p>
-          <p class="govuk-body">No to low availability: <strong class="govuk-tag govuk-tag--red">0% to 33%</strong></p>
+          <p class="govuk-body">No to low availability: <strong class="govuk-tag govuk-tag--red">0% to 33%</strong></p> -->
 
 </div>
 
@@ -373,9 +399,9 @@ Band 4
  {% else %}
      <div class="govuk-body">
 <h3 class="govuk-heading-s">Percentage of days when water would have been available</h3>
-           <p class="govuk-body">Good to full availability: <strong class="govuk-tag govuk-tag--green">66% and above</strong></p>
+  <!--         <p class="govuk-body">Good to full availability: <strong class="govuk-tag govuk-tag--green">66% and above</strong></p>
           <p class="govuk-body">Low to good availability: <strong class="govuk-tag govuk-tag--yellow">33% to 66%</strong></p>
-          <p class="govuk-body">No to low availability: <strong class="govuk-tag govuk-tag--red">0% to 33%</strong></p>
+          <p class="govuk-body">No to low availability: <strong class="govuk-tag govuk-tag--red">0% to 33%</strong></p> -->
 
 </div>
 
