@@ -65,10 +65,14 @@
     {% endif %}
 </h2>
 
+
+<!----------------------------------------------------------------->
+
+
+
+
    {% if data['water-use-label'] == "impounding (non-hydropower)" %}  
-
 {% else %}
-
 
   <details class="govuk-details">
   <summary class="govuk-details__summary">
@@ -100,8 +104,6 @@
  {% endif %}
 
 
-
-
 {% if (data.nowater == "true" or (data['water-use-type'] == "Consumptive" and data.gid == "1")) %} 
 
   <div class="border govuk-!-margin-bottom-3">
@@ -113,13 +115,10 @@
   </div>
 
   {% else %}
-
   {% endif %}  
 
 {% if (data['watertype'] == "surface") %} 
   {% if (data.nowater == "true") %} 
-
-
 {% else %} 
 
 <details class="govuk-details">
@@ -280,6 +279,7 @@ Band 4
 
 
 
+<!----------------------------------------------------------------->
 
 <h2 class="govuk-heading-m">Water availability in previous years</h2>
 
