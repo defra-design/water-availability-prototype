@@ -55,25 +55,13 @@
 
        {% endif %}
 
-<h2 class="govuk-heading-m">Restrictions for 
-
-  {% if (data['watertype'] == "ground")%}
-      {{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}
-  
-    {% elseif (data['watertype'] == "surface")%}
-      {{data.riverCatchmentData[data.sid].properties.WB_NAME}}
-    {% endif %}
-</h2>
-
-
-
-   {% if data['water-use-label'] == "impounding (non-hydropower)" %}  
+       {% if data['water-use-label'] == "impounding (non-hydropower)" %}  
 {% else %}
 
   <details class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
-      What is a common end date?
+      Common end date (licensing strategy review period)
     </span>
 
   </summary>
@@ -110,6 +98,12 @@
 
  {% endif %}
 
+<h2 class="govuk-heading-m">Restrictions and volume of water available
+</h2>
+
+<p class="govuk-body">There are restrictions in place to protect the environment 
+  and to prevent the water level getting critically low. Read through the 
+  sections below to learn more.</p>
 
 {% if (data.nowater == "true" or (data['water-use-type'] == "Consumptive" and data.gid == "1")) %} 
 
@@ -128,198 +122,99 @@
   {% if (data.nowater == "true") %} 
 {% else %} 
 
+
+
 <details class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
-      What is a Hands off Flow (HoF)?
+      Maximum volume for abstraction
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+  <p class="govuk-body">When you make your iicence application you will need to 
+    estimate the amount of water you will use. Your licence will be granted 
+    with a restriction on maximum volume you are allowed to abstract. Guidance 
+    notes are provided with the application forms to help you estimate 
+    your predicted water usage.</p>
+
+ <p class="govuk-body">
+The total estimated volume of water available for new licences in {% if (data['watertype'] == "ground")%}
+      {{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}
+  
+    {% elseif (data['watertype'] == "surface")%}
+      {{data.riverCatchmentData[data.sid].properties.WB_NAME}}
+    {% endif %} is:
+
+      <b>{% if data.sid == "1" %} 34 Megalitres per day
+{% else %}
+45 Megalitres per day
+
+   {% endif %}</b>.</p>
+  
+  </div>
+</details>
+
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Temporary restrictions (Hands-off Flow)
 
     </span>
   </summary>
   <div class="govuk-details__text">
 
- <p class="govuk-body">The Environment Agency monitor water levels 
-  for your area at your local assessment point.</p>
+ <p class="govuk-body">There are also 'Hands-off Flow' (HoF) conditions on 
+  licences. These come into effect when the flow rate is critically low.</p>
 
-<p class="govuk-body">All licences have restrictions on how much 
-  water you can abstract. There are also 'Hands-off Flow' (HoF) 
-  conditions which stop licence holders from taking water 
-  when the flow rate is critically low. The Environment Agency have an 
-  alert system in place to warn abstractors when they can and cannot take water.</p>
+ <p class="govuk-body">When this happens you will be issued an alert and 
+  you are not allowed to abstract.</p>
 
-    {% if data.sid == "1" %}
-<p class="govuk-body">  <p class="govuk-body">The information in the section below summarises how often 
-    the flow rate at your local assessment point was above the current 
-    HoF of 12 Ml/d. This indicates how often water would have been 
-    available for abstraction and how often restrictions would have prevented abstraction.</p>
-</p>
-{% else %}
-  <p class="govuk-body">The information in the section below summarises how often 
-    the flow rate at your local assessment point was above the current 
-    HoF of 135 Ml/d. This indicates how often water would have been 
-    available for abstraction and how often restrictions would have prevented abstraction.</p>
-  {% endif %}
-
-<p class="govuk-body">Current Hands off Flow (HoF) for {% if (data['watertype'] == "ground")%}
+ 
+<p class="govuk-body">The current HoF for {% if (data['watertype'] == "ground")%}
       {{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}
   
     {% elseif (data['watertype'] == "surface")%}
       {{data.riverCatchmentData[data.sid].properties.WB_NAME}}
-    {% endif %}:
-      <b>{% if data.sid == "1" %} 12 Megalitres per day (Ml/d)
+    {% endif %}is 
+      <b>{% if data.sid == "1" %} 12 Megalitres per day
 {% else %}
-135 Megalitres per day (Ml/d)
+135 Megalitres per day
 
    {% endif %}</b>.</p>
   </div>
 </details>
 
-
-
-
   <details class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
-      What are HoF bands?
+      How restricted is the water in your area?
     </span>
   </summary>
   <div class="govuk-details__text">
-    <p class="govuk-body">Hands-off Flow conditions are grouped into bands. 
-    As more and more water is licenced, the HoF level moves 
-    into the next band up and there is less water available to abstract.</p>
+    <p class="govuk-body">Hands-off Flow conditions are grouped into bands and 
+      this gives you an idea of how water stressed your local water 
+      body is. As more and more water is licenced, the HoF level moves 
+      into the next band up and there is less water available to abstract.</p>
 
-<p class="govuk-body">Band 1 has the least restrictions on days when water is available for abstraction. 
-  Band 6 is the most water stressed with fewer days when water can be abstracted.</p>
-  
- <!-- {% if data.sid == "1" %}
-    <table class="govuk-table">
-      <caption class="govuk-table__caption govuk-table__caption--m">HoF bands and water levels in this area</caption>
-  <thead class="govuk-table__head">
-    <tr class="govuk-table__row">
-      <th scope="col" class="govuk-table__header"></th>
-      <th scope="col" class="govuk-table__header govuk-table__header--numeric">Hof&nbsp;level</th>
-      <th scope="col" class="govuk-table__header govuk-table__header--numeric">Licensing availability</th>
-   </tr>
-  </thead>
-  <tbody class="govuk-table__body">
-    <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">Band&nbsp;1</th>
-      <td class="govuk-table__cell govuk-table__cell--numeric"><strong>12&nbsp;Ml/d</strong></td>
-       <td class="govuk-table__cell govuk-table__cell--numeric"><strong>Current band and HoF level for new licences</strong></td>
-   </tr>
-     <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">Band&nbsp;2</th>
-      <td class="govuk-table__cell govuk-table__cell--numeric">35 Ml/d</td>
-        <td class="govuk-table__cell govuk-table__cell--numeric">This band has not yet been reached</td>
-  </tr>
-    <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">Band&nbsp;3</th>
-      <td class="govuk-table__cell govuk-table__cell--numeric">61 Ml/d</td>
-       <td class="govuk-table__cell govuk-table__cell--numeric">This band has not yet been reached</td>
-    </tr>
-    <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">Band&nbsp;4</th>
-      <td class="govuk-table__cell govuk-table__cell--numeric">93 Ml/d</td>
-       <td class="govuk-table__cell govuk-table__cell--numeric">This band has not yet been reached</td>
-    </tr>
-     <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">Band&nbsp;5</th>
-      <td class="govuk-table__cell govuk-table__cell--numeric">122 Ml/d</td>
-       <td class="govuk-table__cell govuk-table__cell--numeric">This band has not yet been reached</td>
-    </tr>
-     <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">Band&nbsp;6</th>
-      <td class="govuk-table__cell govuk-table__cell--numeric">152 Ml/d</td>
-       <td class="govuk-table__cell govuk-table__cell--numeric">This band has not yet been reached</td>
-    </tr>
-  </tbody>
-</table>
+<p class="govuk-body">Band 1 has the most water available and no 
+  restrictions, while band 6 is the most water stressed with no water 
+  available left for licensing.</p>
 
- {% else %}
-
-  <table class="govuk-table">
-        <caption class="govuk-table__caption govuk-table__caption--m">HoF bands and water levels in this area</caption>
-
-  <thead class="govuk-table__head">
-      <tr class="govuk-table__row">
-      <th scope="col" class="govuk-table__header"></th>
-      <th scope="col" class="govuk-table__header govuk-table__header--numeric">Hof&nbsp;level</th>
-        <th scope="col" class="govuk-table__header govuk-table__header--numeric">Licensing availability</th>
-   </tr>
-  </thead>
-  <tbody class="govuk-table__body">
-    <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">Band&nbsp;1</th>
-      <td class="govuk-table__cell govuk-table__cell--numeric">0 Ml/d</td>
-       <td class="govuk-table__cell govuk-table__cell--numeric">No more licences available at this band</td>
-   </tr>
-     <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">Band&nbsp;2</th>
-      <td class="govuk-table__cell govuk-table__cell--numeric">55 Ml/d</td>
-        <td class="govuk-table__cell govuk-table__cell--numeric">No more licences available at this band</td>
-  </tr>
-    <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">Band&nbsp;3</th>
-      <td class="govuk-table__cell govuk-table__cell--numeric">90 Ml/d</td>
-       <td class="govuk-table__cell govuk-table__cell--numeric">No more licences available at this band</td>
-    </tr>
-    <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">Band&nbsp;4</th>
-      <td class="govuk-table__cell govuk-table__cell--numeric"><strong>135&nbsp;Ml/d</strong></td>
-        <td class="govuk-table__cell govuk-table__cell--numeric"><strong>Current band and HoF level for new licences</strong></td>
-    </tr>
-     <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">Band&nbsp;5</th>
-      <td class="govuk-table__cell govuk-table__cell--numeric">175 Ml/d</td>
-       <td class="govuk-table__cell govuk-table__cell--numeric">This band has not yet been reached</td>
-    </tr>
-     <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">Band&nbsp;6</th>
-      <td class="govuk-table__cell govuk-table__cell--numeric">200 Ml/d</td>
-       <td class="govuk-table__cell govuk-table__cell--numeric">This band has not yet been reached</td>
-    </tr>
-  </tbody>
-</table> 
-{% endif %} -->
-
-<p class="govuk-body">Current Hof band for {% if (data['watertype'] == "ground")%}
+<p class="govuk-body">HoF conditions in {% if (data['watertype'] == "ground")%}
       {{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}
   
     {% elseif (data['watertype'] == "surface")%}
       {{data.riverCatchmentData[data.sid].properties.WB_NAME}}
-    {% endif %}: 
-       <b>{% if data.sid == "1" %} Band 1
+    {% endif %} have reached 
+       <b>{% if data.sid == "1" %} band 1
 {% else %}
-Band 4
+band 4
 
    {% endif %}</b>.</p>
 
 </div>
 </details>
 
-
-<details class="govuk-details">
-  <summary class="govuk-details__summary">
-    <span class="govuk-details__summary-text">
-      Volume explained
-    </span>
-  </summary>
-  <div class="govuk-details__text">
-  <p class="govuk-body">Licences also specify the overall maximum volume of water you are allowed to abstract. Bit more in here about volumes..</p>
- <p class="govuk-body">Volume available for licencing in {% if (data['watertype'] == "ground")%}
-      {{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}
-  
-    {% elseif (data['watertype'] == "surface")%}
-      {{data.riverCatchmentData[data.sid].properties.WB_NAME}}
-    {% endif %} at current HoF band:
-
-      <b>{% if data.sid == "1" %} 34 Ml/d
-{% else %}
-45 Ml/d
-
-   {% endif %}</b>.</p>
-  
-  </div>
-</details>
 
 
 
@@ -328,9 +223,22 @@ Band 4
 <h2 class="govuk-heading-m">Water availability in previous years</h2>
 
 <p class="govuk-body">Water availability is usually better in winter 
-  because rainfall and water flow rates tend to be higher. In summer, 
-  water availability is often more restricted because it usually 
-  rains less which means flow rates are lower.</p>
+  because rainfall and water flow rates tend to be higher. In summer, water 
+  availability is often more restricted because it usually rains 
+  less which means flow rates are lower.</p>
+
+   {% if data.sid == "1" %}
+<p class="govuk-body">The information below summarises how often the flow 
+  level at your local assessment point has previously fallen below the 
+  current HoF level of 12 Megalitres per day. This means you would not be allowed to 
+  take water on those days.</p>
+
+{% else %}
+  <p class="govuk-body">The information below summarises how often the flow 
+    level at your local assessment point has previously fallen below the 
+    current HoF level of 135 Megalitres per day. This means you would not be allowed to 
+    take water on those days.</p>
+  {% endif %}
 
  
    {% if data.sid == "1" %}
