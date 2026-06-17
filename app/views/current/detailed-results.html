@@ -95,16 +95,18 @@
       <p class="govuk-body">If the next common end date is over 6 years away, it will apply 
         to your licence as the expiry date. If it is less than 6 years away, we will 
         skip to the next common end date and apply that to your licence instead.</p>
-  </div>
-</details>
-
+ 
 
 <p class="govuk-body">Common end date for {% if (data['watertype'] == "ground")%}
       {{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}
   
     {% elseif (data['watertype'] == "surface")%}
       {{data.riverCatchmentData[data.sid].properties.WB_NAME}}
-    {% endif %}: <b>January 2027</b></p>
+    {% endif %}: <b>January 2027</b>.</p>
+  
+  </div>
+</details>
+
 
  {% endif %}
 
@@ -157,10 +159,6 @@
     available for abstraction and how often restrictions would have prevented abstraction.</p>
   {% endif %}
 
-
-  </div>
-</details>
-
 <p class="govuk-body">Current Hands off Flow (HoF) for {% if (data['watertype'] == "ground")%}
       {{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}
   
@@ -171,7 +169,11 @@
 {% else %}
 135 Megalitres per day (Ml/d)
 
-   {% endif %}</b></p>
+   {% endif %}</b>.</p>
+  </div>
+</details>
+
+
 
 
   <details class="govuk-details">
@@ -188,7 +190,7 @@
 <p class="govuk-body">Band 1 has the least restrictions on days when water is available for abstraction. 
   Band 6 is the most water stressed with fewer days when water can be abstracted.</p>
   
-  {% if data.sid == "1" %}
+ <!-- {% if data.sid == "1" %}
     <table class="govuk-table">
       <caption class="govuk-table__caption govuk-table__caption--m">HoF bands and water levels in this area</caption>
   <thead class="govuk-table__head">
@@ -276,11 +278,9 @@
        <td class="govuk-table__cell govuk-table__cell--numeric">This band has not yet been reached</td>
     </tr>
   </tbody>
-</table>
-{% endif %}
+</table> 
+{% endif %} -->
 
-</div>
-</details>
 <p class="govuk-body">Current Hof band for {% if (data['watertype'] == "ground")%}
       {{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}
   
@@ -291,7 +291,11 @@
 {% else %}
 Band 4
 
-   {% endif %}</b></p>
+   {% endif %}</b>.</p>
+
+</div>
+</details>
+
 
 <details class="govuk-details">
   <summary class="govuk-details__summary">
@@ -300,10 +304,8 @@ Band 4
     </span>
   </summary>
   <div class="govuk-details__text">
- Licences also specify the overall maximum volume of water you are allowed to abstract. Bit more in here about volumes..
-  </div>
-</details>
-<p class="govuk-body">Volume available for licencing in {% if (data['watertype'] == "ground")%}
+  <p class="govuk-body">Licences also specify the overall maximum volume of water you are allowed to abstract. Bit more in here about volumes..</p>
+ <p class="govuk-body">Volume available for licencing in {% if (data['watertype'] == "ground")%}
       {{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}
   
     {% elseif (data['watertype'] == "surface")%}
@@ -314,7 +316,11 @@ Band 4
 {% else %}
 45 Ml/d
 
-   {% endif %}</b></p>
+   {% endif %}</b>.</p>
+  
+  </div>
+</details>
+
 
 
 <!----------------------------------------------------------------->
