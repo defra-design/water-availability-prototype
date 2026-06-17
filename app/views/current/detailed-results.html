@@ -24,10 +24,10 @@
       <div class="govuk-body">
 
       {% if (data['watertype'] == "surface") %}  
-        <h1 class="govuk-heading-l">Your surface water availability</h1>
+        <h1 class="govuk-heading-l">Restrictions and previous availability for {{data.riverCatchmentData[data.sid].properties.WB_NAME}}</h1>
       
         {% elseif (data['watertype'] == "ground") %}
-        <h1 class="govuk-heading-l">Your groundwater availability</h1>
+        <h1 class="govuk-heading-l">Restrictions and previous availability for {{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}</h1>
       {% endif %}
 
   <p class='govuk-body-s'><i>This page was last updated: 25 October 2025</i></p>
@@ -145,11 +145,12 @@ The total estimated volume of water available for new licences in {% if (data['w
       {{data.riverCatchmentData[data.sid].properties.WB_NAME}}
     {% endif %} is:
 
-      <b>{% if data.sid == "1" %} 34 Megalitres per day
-{% else %}
-45 Megalitres per day
+      {% if data.sid == "1" %}
+      <b>34 Megalitres per day</b>.
+      {% else %}
+<b>45 Megalitres per day</b>.
 
-   {% endif %}</b>.</p>
+   {% endif %}</p>
   
   </div>
 </details>
@@ -175,12 +176,12 @@ The total estimated volume of water available for new licences in {% if (data['w
   
     {% elseif (data['watertype'] == "surface")%}
       {{data.riverCatchmentData[data.sid].properties.WB_NAME}}
-    {% endif %}is 
-      <b>{% if data.sid == "1" %} 12 Megalitres per day
-{% else %}
-135 Megalitres per day
+    {% endif %} is 
+      {% if data.sid == "1" %} <b>12 Megalitres per day</b>.
+    {% else %}
+    <b>135 Megalitres per day</b>.
 
-   {% endif %}</b>.</p>
+   {% endif %}</b></p>
   </div>
 </details>
 
@@ -206,11 +207,11 @@ The total estimated volume of water available for new licences in {% if (data['w
     {% elseif (data['watertype'] == "surface")%}
       {{data.riverCatchmentData[data.sid].properties.WB_NAME}}
     {% endif %} have reached 
-       <b>{% if data.sid == "1" %} band 1
-{% else %}
-band 4
+       {% if data.sid == "1" %} <b>band 1</b>.
+    {% else %}
+       <b>band 4</b>.
 
-   {% endif %}</b>.</p>
+   {% endif %}</p>
 
 </div>
 </details>
