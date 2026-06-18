@@ -135,7 +135,7 @@ factors such as environmental concerns.</strong>
 <!-- SURFACE WATER-->
  {% if (data['watertype'] == "both" or data['watertype'] == "dontknow" or data['watertype'] == "surface" or data['watertype'] == "") %} 
 <div class="govuk-body">
-  <h2 class="govuk-heading-m">Your surface water availability</h2>
+  <h2 class="govuk-heading-m">Your local surface water bodies</h2>
 
 {% if data.riverCatchmentData.length %}
 
@@ -244,7 +244,7 @@ factors such as environmental concerns.</strong>
 <!-- GROUNDWATER-->
   {% if (data['watertype'] == "both" or data['watertype'] == "dontknow" or data['watertype'] == "ground" or data['watertype'] == "") %} 
 <div class="govuk-body">
-<h2 class="govuk-heading-m">Your groundwater availability</h2>
+<h2 class="govuk-heading-m">Your local groundwater bodies</h2>
  
 
   {% if data.groundwaterCatchmentData.length %}

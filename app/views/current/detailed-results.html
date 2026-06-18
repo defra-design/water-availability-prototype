@@ -146,9 +146,9 @@ The total estimated volume of water available for new licences in {% if (data['w
     {% endif %} is
 
       {% if data.sid == "1" %}
-      <b>34 Megalitres per day</b>.
+      <b>314 Megalitres per day</b>.
       {% else %}
-<b>45 Megalitres per day</b>.
+<b>86 Megalitres per day</b>.
 
    {% endif %}</p>
   
@@ -207,11 +207,23 @@ The total estimated volume of water available for new licences in {% if (data['w
     {% elseif (data['watertype'] == "surface")%}
       {{data.riverCatchmentData[data.sid].properties.WB_NAME}}
     {% endif %} have reached 
+       {% if data.sid == "1" %} <b>band 1</b>. There is <b>31 Megalitres per day</b> of water left for licensing in this band.
+    {% else %}
+       <b>band 4</b>.  There is <b>2 Megalitres per day</b> of water left for licensing in this band.
+
+   {% endif %}</p>
+
+  <!-- <p class="govuk-body">HoF conditions in {% if (data['watertype'] == "ground")%}
+      {{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}
+  
+    {% elseif (data['watertype'] == "surface")%}
+      {{data.riverCatchmentData[data.sid].properties.WB_NAME}}
+    {% endif %} have reached 
        {% if data.sid == "1" %} <b>band 1</b>.
     {% else %}
        <b>band 4</b>.
 
-   {% endif %}</p>
+   {% endif %}</p> -->
 
 </div>
 </details>
