@@ -650,20 +650,11 @@ router.get(folder + 'new-or-existing-abstraction', function (request, response) 
 router.post('/new-or-existing-abstraction', function (request, response) {
 var newExisting = request.session.data['newExisting']
 	if (newExisting == "new") {
-		response.redirect(folder + "existing-licence-buffer")
+		response.redirect(folder + "exemption")
 	} else if (newExisting == "existing") {
 		response.redirect(folder + "usage-category")
 	}
 
-})
-
-//existing-licence-buffer page
-router.get(folder + 'existing-licence-buffer', function (request, response) {
-	response.render(folder + 'existing-licence-buffer')
-})
-
-router.post('/existing-licence-buffer', function (request, response) {
-	response.redirect(folder + 'exemption')
 })
 
 
@@ -1115,9 +1106,28 @@ router.get(folder + 'detailed-results', function (request, response) {
 	response.render(folder + 'detailed-results')
 })
 
+
 router.post('/detailed-results', function (request, response) {
+var licenceHolder = request.session.data['licenceHolder']
+	if (licenceHolder == "yes") {
+		response.redirect(folder + "existing-licence-buffer")
+	} else if (licenceHolder == "no") {
+		response.redirect(folder + "next-steps")
+	}
+})
+
+
+//existing-licence-buffer page
+router.get(folder + 'existing-licence-buffer', function (request, response) {
+	response.render(folder + 'existing-licence-buffer')
+})
+
+router.post('/existing-licence-buffer', function (request, response) {
 	response.redirect(folder + 'next-steps')
 })
+
+
+
 
 //next steps page
 router.get(folder + 'next-steps', function (request, response) {

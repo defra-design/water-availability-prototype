@@ -21,20 +21,20 @@
 <p class="govuk-body">Learn more about your options for sourcing water. Read further details by selecting from the sections below.</p>
 
 
-{% elseif (data['nowater'] == "false" and data['licenceHolder'] == 'yes' and data['newExisting'] == "existing") %} 
+{% elseif (data['nowater'] == "false" and data['waterbodyMatch'] == 'yes') %} 
 <p class="govuk-body">Learn more about varying your licence and 
       what your other options are for sourcing water. Read further details by 
       selecting from the sections below.</p>
   
 
-  {% elseif data['nowater'] == "false" and data['watertype'] == 'surface' and (data['licenceHolder'] == 'no' or data['newExisting'] == "new") %} 
+  {% elseif data['nowater'] == "false" and data['watertype'] == 'surface' and (data['licenceHolder'] == 'no' or data['waterbodyMatch'] == 'no') %} 
 
  <p class="govuk-body">Learn more about applying for a licence and 
       what your other options are for sourcing water. Read further details by 
       selecting from the sections below.</p>   
 
 
-  {% elseif data['nowater'] == "false" and data['watertype'] == 'ground' and (data['licenceHolder'] == 'no' or data['newExisting'] == "new") %} 
+  {% elseif data['nowater'] == "false" and data['watertype'] == 'ground' and (data['licenceHolder'] == 'no' or data['waterbodyMatch'] == 'no') %} 
  <p class="govuk-body">Learn more about applying for consent to investigate a groundwater source 
    and what your other options are for sourcing water. Read further details by 
       selecting from the sections below.</p>
@@ -45,7 +45,7 @@
   
 {% if (data['nowater'] == "true") %} 
 
-{% elseif (data['nowater'] == "false" and data['licenceHolder'] == 'yes' and data['newExisting'] == "existing") %} 
+{% elseif (data['nowater'] == "false" and data['licenceHolder'] == 'yes' and data['waterbodyMatch'] == 'yes') %} 
 
   <div class="govuk-accordion__section--expanded">
     <div class="govuk-accordion__section-header">
@@ -65,7 +65,7 @@
     </div>
   </div>
 
- {% elseif data['nowater'] == "false" and data['watertype'] == 'surface' and (data['licenceHolder'] == 'no' or data['newExisting'] == "new") %} 
+ {% elseif data['nowater'] == "false" and data['watertype'] == 'surface' and (data['licenceHolder'] == 'no' or data['waterbodyMatch'] == 'no') %} 
   <div class="govuk-accordion__section--expanded">
     <div class="govuk-accordion__section-header">
       <h2 class="govuk-accordion__section-heading">
@@ -85,7 +85,7 @@
     </div>
   </div>
 
-    {% elseif data['nowater'] == "false" and data['watertype'] == 'ground' and (data['licenceHolder'] == 'no' or data['newExisting'] == "new") %} 
+    {% elseif data['nowater'] == "false" and data['watertype'] == 'ground' and (data['licenceHolder'] == 'no' or data['waterbodyMatch'] == 'no') %} 
   <div class="govuk-accordion__section--expanded">
     <div class="govuk-accordion__section-header">
       <h2 class="govuk-accordion__section-heading">

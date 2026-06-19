@@ -450,14 +450,13 @@ The total estimated volume of water available for new licences in {% if (data['w
 
 <p class="govuk-body">You may still be able to obtain water in a different way to licenced abstraction. Find out your alternative options.</p>
 
-  {% elseif (data['nowater'] == "false" and data['newExisting'] == "existing") %} 
+  {% elseif (data['nowater'] == "false" and data['licenceHolder'] == "yes") %} 
 
- <p class="govuk-body">If you have an existing water abstraction licence, you can 
+ <!--<p class="govuk-body">If you have an existing water abstraction licence, you can 
   apply to the Environmental Agency to make a change to your licence. This 
-  is called a variation.</p>
+  is called a variation.</p> -->
 
- <p class="govuk-body">Continue below to learn more about making a change to your 
-  licence and other options for obtaining water such as rainwater collection and 
+ <p class="govuk-body">Continue below to learn more about licensing and other options for obtaining water such as rainwater collection and 
   trading abstraction rights.</p>
 
 {% elseif (data.nowater == "false" and data['watertype'] == 'surface')%}
