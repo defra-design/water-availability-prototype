@@ -102,8 +102,14 @@
 </h2>
 
 <p class="govuk-body">There are restrictions in place to protect the environment 
-  and to prevent the water level getting critically low. Read through the 
-  sections below to learn more.</p>
+  and to prevent the water level getting critically low.
+ 
+  {% if (data.nowater == "true" or (data['water-use-type'] == "Consumptive" and data.gid == "1")) %} 
+  {% else %}
+  Read through the sections below to learn more.
+
+</p>
+  {% endif %} 
 
 {% if (data.nowater == "true" or (data['water-use-type'] == "Consumptive" and data.gid == "1")) %} 
 
