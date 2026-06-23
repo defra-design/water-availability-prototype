@@ -130,7 +130,7 @@
 
 
 
-<details class="govuk-details">
+<!-- <details class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
       Maximum volume for abstraction
@@ -159,7 +159,7 @@ The total estimated volume of water available for new licences in {% if (data['w
    {% endif %}</p>
   
   </div>
-</details>
+</details> -->
 
 <details class="govuk-details">
   <summary class="govuk-details__summary">
@@ -170,7 +170,7 @@ The total estimated volume of water available for new licences in {% if (data['w
   </summary>
   <div class="govuk-details__text">
 
- <p class="govuk-body">There are also 'Hands-off Flow' (HoF) conditions on 
+ <p class="govuk-body">There are 'Hands-off Flow' (HoF) conditions on 
   licences. These come into effect when the flow rate is critically low.</p>
 
  <p class="govuk-body">When this happens you will be issued an alert and 
@@ -194,16 +194,15 @@ The total estimated volume of water available for new licences in {% if (data['w
   <details class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
-      How restricted is the water in your area?
+      Hands-off Flow bands and volumes
     </span>
   </summary>
   <div class="govuk-details__text">
-    <p class="govuk-body">Hands-off Flow conditions are grouped into bands and 
+    <p class="govuk-body">Hands-off Flow (HoF) conditions are grouped into bands and 
       this gives you an idea of how water stressed your local water 
-      body is. As more and more water is licenced, the HoF level moves 
-      into the next band up and there is less water available to abstract.</p>
+      body is.</p>
 
-<p class="govuk-body">Band 1 has the most water available and no 
+<p class="govuk-body">Band 1 has the most water available and fewest 
   restrictions, while band 6 is the most water stressed with no water 
   available left for licensing.</p>
 
@@ -213,11 +212,13 @@ The total estimated volume of water available for new licences in {% if (data['w
     {% elseif (data['watertype'] == "surface")%}
       {{data.riverCatchmentData[data.sid].properties.WB_NAME}}
     {% endif %} have reached 
-       {% if data.sid == "1" %} <b>band 1</b>. There is <b>31 Megalitres per day</b> of water left for licensing in this band.
+       {% if data.sid == "1" %} <b>band 1</b>. The volume of water left for licensing in this band is <b>31 Megalitres per day</b>.
     {% else %}
-       <b>band 4</b>.  There is <b>2 Megalitres per day</b> of water left for licensing in this band.
+       <b>band 4</b>.  The volume of water left for licensing in this band is <b>2 Megalitres per day</b>.
+   {% endif %}</p>  
 
-   {% endif %}</p>
+ <p class="govuk-body">Once that water has been licensed, the water body will move into the next band up and the restrictions will increase.
+</p>
 
   <!-- <p class="govuk-body">HoF conditions in {% if (data['watertype'] == "ground")%}
       {{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}
