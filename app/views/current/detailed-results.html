@@ -97,17 +97,14 @@
 
 
  {% endif %}
-
+  {% if (data.nowater == "true" or (data['water-use-type'] == "Consumptive" or data.watertype == "ground")) %} 
+  {% else %}
 <h2 class="govuk-heading-m">Restrictions and volume of water available
 </h2>
 
 <p class="govuk-body">There are restrictions in place to protect the environment 
-  and to prevent the water level getting critically low.
- 
-  {% if (data.nowater == "true" or (data['water-use-type'] == "Consumptive" and data.gid == "1")) %} 
-  {% else %}
-  Read through the sections below to learn more.
-
+  and to prevent the water level getting critically low. 
+  Read through the sections below to learn more.  
 </p>
   {% endif %} 
 
