@@ -1,0 +1,80 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  You will need to apply for a new licence
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+            <form class="form" method="post">
+
+      <h1 class="govuk-heading-l">
+        You may be able to vary your existing licence
+      </h1>
+
+      <p class="govuk-body">If you are taking water from the same source (so a point 
+        from the same water body, in close proximity to your existing licensed 
+        abstraction point) you can usually apply for a variation to your existing 
+        licence. This is often cheaper and simpler than a new licence application.</p>
+      <p class="govuk-body">You only need to apply for a new licence if you are 
+        taking water from a new source or a different water body. This usually 
+        applies to bigger organisations working across multiple sites or on 
+        large plots of land.</p>
+      <p class="govuk-body">Choose one of the options below to see information 
+        on next steps and how to vary your licence or make a new application.</p>
+
+
+<div class="govuk-form-group">
+  <fieldset class="govuk-fieldset">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+      <h2 class="govuk-fieldset__heading">
+        Does your existing licence show 
+        
+       {% if (data['watertype'] == "surface") %}
+       {{data.riverCatchmentData[data.sid].properties.WB_NAME}}
+        {% elseif (data['watertype'] == "ground") %}
+        {{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}
+              {% endif %}
+        as the source of supply?
+      </h2>
+    </legend>
+    <div class="govuk-radios" data-module="govuk-radios">
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="waterbodyMatch-1" name="waterbodyMatch" type="radio" value="yes">
+        <label class="govuk-label govuk-radios__label" for="waterbodyMatch-1">
+          Yes
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="waterbodyMatch-2" name="waterbodyMatch" type="radio" value="no">
+        <label class="govuk-label govuk-radios__label" for="waterbodyMatch-2">
+          No
+        </label>
+      </div>
+  
+    </div>
+  </fieldset>
+</div>
+
+
+       {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+     
+    </div>
+  </div>
+
+{% endblock %}

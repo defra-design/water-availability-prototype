@@ -1,0 +1,129 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Content page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+     
+
+{% if (data['watertype'] == "surface") %} 
+ <h1 class="govuk-heading-l">Existing surface water abstractors 
+  in {{data.riverCatchmentData[data.sid].properties.WB_NAME}}</h1> 
+      <p class="govuk-body">Find a trading partner using the list below 
+        of existing surface water abstractors in your area.</p>
+
+       <p class="govuk-body">You can view a map of local abstractors 
+        on <a href=“https://environment.data.gov.uk/dataset/8a682192-4a1b-4e40-84d4-5671bfa5671c”>DEFRAs Help for Water Rights Trading Data</a> platform.</p>
+
+      {% for licence in data.riverCatchmentData[data.sid].licences %}
+{% if (licence.attributes.Source_Type == "Surface water") %} 
+
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      {{licence.attributes.Licence_Holder_Name}}
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+  <table class="govuk-table">
+  <caption class="govuk-table__caption govuk-table__caption--m">{{licence.attributes.Licence_Holder_Name}}</caption>
+ 
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header govuk-!-width-one-half">Usage</th>
+      <td class="govuk-table__cell">{{licence.attributes.Purpose | lower | capitalize}}</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header govuk-!-width-one-half">Maximum annual quantity</th>
+      <td class="govuk-table__cell">{{licence.attributes.Max_Annual_Quantity_m3}} cubic metres</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header govuk-!-width-one-half">Maximum daily quantity</th>
+      <td class="govuk-table__cell">{{licence.attributes.Max_Daily_Quantity_m3}} cubic metres</td>
+    </tr>
+       <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header govuk-!-width-one-half">Address</th>
+       <td class="govuk-table__cell">{{licence.attributes.Line_1 | upper}}<br>{{licence.attributes.Town | upper}}<br>{{licence.attributes.County | upper}}<br>{{licence.attributes.Postcode}}<br></td>
+   
+  </tbody>
+</table>
+ </div>
+</details>
+<!-- {{licence.attributes |dump}} -->
+
+{% endif %}
+{% endfor %}
+
+{% elseif (data['watertype'] == "ground") %}
+<h1 class="govuk-heading-l">Existing groundwater abstractors 
+  in {{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}</h1> 
+
+        <p class="govuk-body">Find a trading partner using the list below 
+        of existing groundwater abstractors in your area.</p>
+
+        <p class="govuk-body">You can view a map of local abstractors on <a href=“https://environment.data.gov.uk/dataset/8a682192-4a1b-4e40-84d4-5671bfa5671c”>DEFRAs Help for Water Rights Trading Data</a> platform.</p>
+<!--        <p class="govuk-body">You can read more about <a href="https://www.gov.uk/guidance/trade-water-abstraction-rights">how to trade water abstraction rights on GOV.UK</a>.</p> -->
+
+{% for licence in data.groundwaterCatchmentData[data.gid].licences %}
+{% if (licence.attributes.Source_Type == "Groundwater") %} 
+
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      {{licence.attributes.Licence_Holder_Name}}
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+ <table class="govuk-table">
+  <caption class="govuk-table__caption govuk-table__caption--m">{{licence.attributes.Licence_Holder_Name}}</caption>
+ 
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header govuk-!-width-one-half">Usage</th>
+      <td class="govuk-table__cell">{{licence.attributes.Purpose | lower | capitalize}}</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header govuk-!-width-one-half">Maximum annual quantity</th>
+      <td class="govuk-table__cell">{{licence.attributes.Max_Annual_Quantity_m3}} cubic metres</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header govuk-!-width-one-half">Maximum daily quantity</th>
+      <td class="govuk-table__cell">{{licence.attributes.Max_Daily_Quantity_m3}} cubic metres</td>
+    </tr>
+       <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header govuk-!-width-one-half">Address</th>
+       <td class="govuk-table__cell">{{licence.attributes.Line_1 | upper}}<br>{{licence.attributes.Town | upper}}<br>{{licence.attributes.County | upper}}<br>{{licence.attributes.Postcode}}<br></td>
+   
+  </tbody>
+</table>
+ </div>
+</details>
+
+{% endif %}
+{% endfor %}
+{% endif %}
+
+
+
+<!-- {{ data | dump }} -->
+
+  <!--    <p>
+        Read more <a href="/path/of/page">about this topic</a>.
+      </p> -->
+
+    </div>
+  </div>
+
+{% endblock %}
