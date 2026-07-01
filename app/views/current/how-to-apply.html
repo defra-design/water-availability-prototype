@@ -44,7 +44,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
-{% if (data['waterbodyMatch'] == 'yes') %}
+{% if (data['varyOrApply'] == 'vary') %}
     <h1 class="govuk-heading-l">
       Changing your licence: step by step
     </h1>
@@ -54,7 +54,7 @@
     </h1>
 {% endif %}
 
-{% if (data['waterbodyMatch'] == 'yes') %}
+{% if (data['varyOrApply'] == 'vary') %}
        <p class="govuk-body">Before submitting an application to change your 
         licence, you will need to:</p>
 {% else %}
@@ -70,7 +70,7 @@
     <div data-module="appstepnav"id="step-by-step-navigation" class="app-step-nav js-hidden app-step-nav--large" data-show-text="Show" data-hide-text="Hide" data-show-all-text="Show all steps" data-hide-all-text="Hide all steps">
       <ol class="app-step-nav__steps">
 
-{% if (data['waterbodyMatch'] == 'yes') %}
+{% if (data['varyOrApply'] == 'vary') %}
 {% else %}            
         <li class="app-step-nav__step js-step" id="designated-site">
           <div class="app-step-nav__header js-toggle-panel" data-position="1">
@@ -211,7 +211,7 @@
         </li>
 {% endif %}
 
-{% if (data['waterbodyMatch'] == 'yes') %}
+{% if (data['varyOrApply'] == 'vary') %}
         <li class="app-step-nav__step js-step" id="estimate-volume">
           <div class="app-step-nav__header js-toggle-panel" data-position="1">
             <h2 class="app-step-nav__title">
@@ -299,7 +299,7 @@
         </li>
 {% endif %}
 
-{% if (data['waterbodyMatch'] == 'yes') %}
+{% if (data['varyOrApply'] == 'vary') %}
         <li class="app-step-nav__step js-step" id="licences-and-charges">
           <div class="app-step-nav__header js-toggle-panel" data-position="2">
             <h2 class="app-step-nav__title">
@@ -406,7 +406,7 @@
         </li>
 {% endif %}
 
-{% if (data['waterbodyMatch'] == 'yes') %} 
+{% if (data['varyOrApply'] == 'vary') %} 
         <li class="app-step-nav__step js-step" id="apply">
           <div class="app-step-nav__header js-toggle-panel" data-position="3">
             <h2 class="app-step-nav__title">
@@ -447,7 +447,7 @@
 
         </li>
 
-{% elseif data['watertype'] == 'surface' and (data['licenceHolder'] == 'no' or data['waterbodyMatch'] == 'no') %} 
+{% elseif data['watertype'] == 'surface' and (data['licenceHolder'] == 'no' or data['varyOrApply'] == 'apply') %} 
          <li class="app-step-nav__step js-step" id="apply">
           <div class="app-step-nav__header js-toggle-panel" data-position="6">
             <h2 class="app-step-nav__title">
@@ -490,7 +490,7 @@
           </div>
 
         </li>
-{% elseif data['watertype'] == 'ground' and (data['licenceHolder'] == 'no' or data['waterbodyMatch'] == 'no') %} 
+{% elseif data['watertype'] == 'ground' and (data['licenceHolder'] == 'no' or data['varyOrApply'] == 'apply') %} 
         <li class="app-step-nav__step js-step" id="apply">
           <div class="app-step-nav__header js-toggle-panel" data-position="6">
             <h2 class="app-step-nav__title">

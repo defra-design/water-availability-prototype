@@ -38,27 +38,20 @@
   <fieldset class="govuk-fieldset">
     <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
       <h2 class="govuk-fieldset__heading">
-        Does your existing licence show 
-        
-       {% if (data['watertype'] == "surface") %}
-       {{data.riverCatchmentData[data.sid].properties.WB_NAME}}
-        {% elseif (data['watertype'] == "ground") %}
-        {{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}
-              {% endif %}
-        as the source of supply?
+        Which information would you like to view?
       </h2>
     </legend>
     <div class="govuk-radios" data-module="govuk-radios">
       <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="waterbodyMatch-1" name="waterbodyMatch" type="radio" value="yes">
-        <label class="govuk-label govuk-radios__label" for="waterbodyMatch-1">
-          Yes
+        <input class="govuk-radios__input" id="varyOrApply-1" name="varyOrApply" type="radio" value="vary">
+        <label class="govuk-label govuk-radios__label" for="varyOrApply-1">
+          How to vary your licence
         </label>
       </div>
       <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="waterbodyMatch-2" name="waterbodyMatch" type="radio" value="no">
-        <label class="govuk-label govuk-radios__label" for="waterbodyMatch-2">
-          No
+        <input class="govuk-radios__input" id="wvaryOrApply-2" name="varyOrApply" type="radio" value="apply">
+        <label class="govuk-label govuk-radios__label" for="varyOrApply-2">
+          How to apply for a new licence
         </label>
       </div>
   

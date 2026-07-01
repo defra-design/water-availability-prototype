@@ -102,21 +102,22 @@
 <h2 class="govuk-heading-m">Restrictions and volume of water available
 </h2>
 
-<p class="govuk-body">There are restrictions in place to protect the environment 
-  and to prevent the water level getting critically low. 
-  Read through the sections below to learn more.  
-</p>
+<p class="govuk-body">Your licence will specify the maximum amount of water 
+  you can abstract in megalitres per day. One megalitre is 1000 cubic metres. 
+  You can use the tables on page 11 of the <a href="https://assets.publishing.service.gov.uk/media/65267c832548ca0014ddf0fa/LIT_10154_-_WR331_Part_B_Guidance_notes_for_water_resources_abstraction_licence_application.pdf">application form guidance notes</a> 
+  to help you estimate your water usage.</p>
+
   {% endif %} 
 
 {% if (data.nowater == "true" or (data['water-use-type'] == "Consumptive" and data.gid == "1")) %} 
 
-  <div class="border govuk-!-margin-bottom-3">
+  <!-- <div class="border govuk-!-margin-bottom-3"> -->
     <h2 class="govuk-heading-m">Availability status</h2>
     <p class="govuk-body">No water is available for licensing at any time in this water body.</p>
     <p class="govuk-body">This can be due to low flow rates and a high number 
       of other abstractors. The area is likely to be water stressed meaning 
       more abstraction could have a negative impact on the local environment.</p>
-  </div>
+ <!-- </div> -->
 
   {% else %}
   {% endif %}  
@@ -125,68 +126,32 @@
   {% if (data.nowater == "true") %} 
 {% else %} 
 
+      <h2 class="govuk-heading-m">Hands-off Flow conditions</h2>
 
 
-<!-- <details class="govuk-details">
-  <summary class="govuk-details__summary">
-    <span class="govuk-details__summary-text">
-      Maximum volume for abstraction
-    </span>
-  </summary>
-  <div class="govuk-details__text">
-  <p class="govuk-body">When you make your licence application you will need to 
-    estimate the amount of water you will use. Your licence will be granted 
-    with a restriction on maximum volume you are allowed to abstract. Guidance 
-    notes are provided with the application forms to help you estimate 
-    your predicted water usage.</p>
-
- <p class="govuk-body">
-The total estimated volume of water available for new licences in {% if (data['watertype'] == "ground")%}
-      {{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}
-  
-    {% elseif (data['watertype'] == "surface")%}
-      {{data.riverCatchmentData[data.sid].properties.WB_NAME}}
-    {% endif %} is
-
-      {% if data.sid == "1" %}
-      <b>314 Megalitres per day</b>.
-      {% else %}
-<b>86 Megalitres per day</b>.
-
-   {% endif %}</p>
-  
-  </div>
-</details> -->
-
-<details class="govuk-details">
-  <summary class="govuk-details__summary">
-    <span class="govuk-details__summary-text">
-      Temporary restrictions (Hands-off Flow)
-
-    </span>
-  </summary>
-  <div class="govuk-details__text">
-
- <p class="govuk-body">There are 'Hands-off Flow' (HoF) conditions on 
-  licences. These come into effect when the flow rate is critically low.</p>
-
- <p class="govuk-body">When this happens you will be issued an alert and 
-  you are not allowed to abstract.</p>
+ <p class="govuk-body">There are also 'Hands-off Flow' (HoF) conditions on licences. These 
+come into effect when the flow rate is critically low. When this 
+happens you will be issued an alert and you are not allowed to abstract.</p>
 
  
-<p class="govuk-body">The current HoF for {% if (data['watertype'] == "ground")%}
+<p class="govuk-body">The current HoF level for {% if (data['watertype'] == "ground")%}
       {{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}
   
     {% elseif (data['watertype'] == "surface")%}
       {{data.riverCatchmentData[data.sid].properties.WB_NAME}}
-    {% endif %} is 
+    {% endif %} is set at 
       {% if data.sid == "1" %} <b>12 Megalitres per day</b>.
     {% else %}
     <b>135 Megalitres per day</b>.
 
    {% endif %}</b></p>
+
+   <p class="govuk-body">This is the general HoF level for your local 
+    water body, but the actual HoF condition on your licence will be 
+    calculated on a case-by-case basis, taking other abstractors 
+    and the local environment into account.</p>
   </div>
-</details>
+
 
   <details class="govuk-details">
   <summary class="govuk-details__summary">
@@ -209,25 +174,11 @@ The total estimated volume of water available for new licences in {% if (data['w
     {% elseif (data['watertype'] == "surface")%}
       {{data.riverCatchmentData[data.sid].properties.WB_NAME}}
     {% endif %} have reached 
-       {% if data.sid == "1" %} <b>band 1</b>. The volume of water left for licensing in this band is <b>31 Megalitres per day</b>.
+       {% if data.sid == "1" %} <b>band 1</b> and <b>19%</b> of the water has been licenced for this band. Once the remaining 81% water has been licensed, the water body will move into the next band up and the restrictions will increase.
     {% else %}
-       <b>band 4</b>.  The volume of water left for licensing in this band is <b>2 Megalitres per day</b>.
+       <b>band 4</b> and <b>85%</b> of the water has been licenced for this band. Once the remaining 15% water has been licensed, the water body will move into the next band up and the restrictions will increase.
    {% endif %}</p>  
 
- <p class="govuk-body">Once that water has been licensed, the water body will move into the next band up and the restrictions will increase.
-</p>
-
-  <!-- <p class="govuk-body">HoF conditions in {% if (data['watertype'] == "ground")%}
-      {{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}
-  
-    {% elseif (data['watertype'] == "surface")%}
-      {{data.riverCatchmentData[data.sid].properties.WB_NAME}}
-    {% endif %} have reached 
-       {% if data.sid == "1" %} <b>band 1</b>.
-    {% else %}
-       <b>band 4</b>.
-
-   {% endif %}</p> -->
 
 </div>
 </details>
@@ -263,14 +214,11 @@ The total estimated volume of water available for new licences in {% if (data['w
 
       <div class="govuk-body">
 <h3 class="govuk-heading-s">Percentage of days when water would have been available</h3>
- <!--          <p class="govuk-body">Good to full availability: <strong class="govuk-tag govuk-tag--green">66% and above</strong></p>
-          <p class="govuk-body">Low to good availability: <strong class="govuk-tag govuk-tag--yellow">33% to 66%</strong></p>
-          <p class="govuk-body">No to low availability: <strong class="govuk-tag govuk-tag--red">0% to 33%</strong></p> -->
-
+ 
 </div>
 
 <div class="govuk-accordion" data-module="govuk-accordion" data-i18n.show-all-sections="Show all years" data-i18n.hide-all-sections="Hide all years" data-i18n.show-section="Show months" data-i18n.hide-section="Hide months" id="accordion-default">
-  <div class="govuk-accordion__section">
+  <div class="govuk-accordion__section--expanded">
     <div class="govuk-accordion__section-header">
       <h3 class="govuk-accordion__section-heading">
         <span class="govuk-accordion__section-button" id="accordion-default-heading-1">
@@ -330,14 +278,11 @@ The total estimated volume of water available for new licences in {% if (data['w
  {% else %}
      <div class="govuk-body">
 <h3 class="govuk-heading-s">Percentage of days when water would have been available</h3>
-  <!--         <p class="govuk-body">Good to full availability: <strong class="govuk-tag govuk-tag--green">66% and above</strong></p>
-          <p class="govuk-body">Low to good availability: <strong class="govuk-tag govuk-tag--yellow">33% to 66%</strong></p>
-          <p class="govuk-body">No to low availability: <strong class="govuk-tag govuk-tag--red">0% to 33%</strong></p> -->
-
+ 
 </div>
 
 <div class="govuk-accordion" data-module="govuk-accordion" data-i18n.show-all-sections="Show all years" data-i18n.hide-all-sections="Hide all years" data-i18n.show-section="Show months" data-i18n.hide-section="Hide months" id="accordion-default">
-  <div class="govuk-accordion__section">
+  <div class="govuk-accordion__section--expanded">
     <div class="govuk-accordion__section-header">
       <h3 class="govuk-accordion__section-heading">
         <span class="govuk-accordion__section-button" id="accordion-default-heading-1">
@@ -424,7 +369,6 @@ The total estimated volume of water available for new licences in {% if (data['w
   as conditions on licences, these prevent abstractors from taking water when levels 
   drop below a certain point.</p>
 
-<!-- <p class="govuk-body"><a href="{{data.groundwaterCatchmentData.properties.WB_DETAIL}}">View a map of existing the local groundwater body</a>.</p> -->
 
 <h2 class="govuk-heading-m">Get advice on groundwater availability and licensing</h2>
 <p class="govuk-body">Contact the Environment Agency for more information on groundwater availability and licensing.</p>
@@ -456,10 +400,7 @@ The total estimated volume of water available for new licences in {% if (data['w
 
   {% elseif (data['nowater'] == "false" and data['licenceHolder'] == "yes") %} 
 
- <!--<p class="govuk-body">If you have an existing water abstraction licence, you can 
-  apply to the Environmental Agency to make a change to your licence. This 
-  is called a variation.</p> -->
-
+ 
  <p class="govuk-body">Continue below to learn more about licensing and other options for obtaining water such as rainwater collection and 
   trading abstraction rights.</p>
 
