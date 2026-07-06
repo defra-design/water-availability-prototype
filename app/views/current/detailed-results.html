@@ -134,7 +134,7 @@ come into effect when the flow rate is critically low. When this
 happens you will be issued an alert and you are not allowed to abstract.</p>
 
  
-<p class="govuk-body">The current HoF level for {% if (data['watertype'] == "ground")%}
+<!-- <p class="govuk-body">The current HoF level for {% if (data['watertype'] == "ground")%}
       {{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}
   
     {% elseif (data['watertype'] == "surface")%}
@@ -149,7 +149,7 @@ happens you will be issued an alert and you are not allowed to abstract.</p>
    <p class="govuk-body">This is the general HoF level for your local 
     water body, but the actual HoF condition on your licence will be 
     calculated on a case-by-case basis, taking other abstractors 
-    and the local environment into account.</p>
+    and the local environment into account.</p> -->
   </div>
 
 
@@ -174,11 +174,13 @@ happens you will be issued an alert and you are not allowed to abstract.</p>
     {% elseif (data['watertype'] == "surface")%}
       {{data.riverCatchmentData[data.sid].properties.WB_NAME}}
     {% endif %} have reached 
-       {% if data.sid == "1" %} <b>band 1</b> and <b>19%</b> of the water has been licenced for this band. Once the remaining 81% water has been licensed, the water body will move into the next band up and the restrictions will increase.
+       {% if data.sid == "1" %} <b>band 1</b> with <b>25 Megalitres per day</b> left in this band for licensing.
     {% else %}
-       <b>band 4</b> and <b>85%</b> of the water has been licenced for this band. Once the remaining 15% water has been licensed, the water body will move into the next band up and the restrictions will increase.
+       <b>band 4</b> with <b>2 Megalitres per day</b> left in this band for licensing.
    {% endif %}</p>  
 
+   <p class="govuk-body">Once that water has been licensed, the water 
+    body will move into the next band up and the restrictions will increase.</p>
 
 </div>
 </details>
@@ -198,13 +200,13 @@ happens you will be issued an alert and you are not allowed to abstract.</p>
    {% if data.sid == "1" %}
 <p class="govuk-body">The information below summarises how often the flow 
   level at your local assessment point has previously fallen below the 
-  current HoF level of 12 Megalitres per day. This means you would not be allowed to 
+  current HoF. This means you would not be allowed to 
   take water on those days.</p>
 
 {% else %}
   <p class="govuk-body">The information below summarises how often the flow 
     level at your local assessment point has previously fallen below the 
-    current HoF level of 135 Megalitres per day. This means you would not be allowed to 
+    current HoF. This means you would not be allowed to 
     take water on those days.</p>
   {% endif %}
 
