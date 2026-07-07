@@ -215,14 +215,21 @@ happens you will be issued an alert and you are not allowed to abstract.</p>
 
 
       <div class="govuk-body">
-<h3 class="govuk-heading-s">Percentage of days when water would have been available</h3>
+<h3 class="govuk-heading-s">Percentage of days when water would have been available in previous years</h3>
  
+{% set year=0 %}
+
+<h3 class="govuk-heading-s">{% include "_includes/current/table2Year0.html" %}</h3>
+<div class="govuk-body">{% include "_includes/current/annualAvailTable2.html" %}</div>
+
+
+
 </div>
 
-<div class="govuk-accordion" data-module="govuk-accordion" data-i18n.show-all-sections="Show all years" data-i18n.hide-all-sections="Hide all years" data-i18n.show-section="Show months" data-i18n.hide-section="Hide months" id="accordion-default">
+<div class="govuk-accordion" data-module="govuk-accordion" data-i18n.show-all-sections="Show previous years" data-i18n.hide-all-sections="Hide previous years" data-i18n.show-section="Show months" data-i18n.hide-section="Hide months" id="accordion-default">
   <div class="govuk-accordion__section--expanded">
     <div class="govuk-accordion__section-header">
-      <h3 class="govuk-accordion__section-heading">
+   <!--   <h3 class="govuk-accordion__section-heading">
         <span class="govuk-accordion__section-button" id="accordion-default-heading-1">
           {% set year=0 %}
           {% include "_includes/current/table2Year0.html" %}
@@ -231,8 +238,8 @@ happens you will be issued an alert and you are not allowed to abstract.</p>
     </div>
     <div id="accordion-default-content-1" class="govuk-accordion__section-content">
         
-  {% include "_includes/current/annualAvailTable2.html" %}
-    </div>
+  {% include "_includes/current/annualAvailTable2.html" %}-->
+    </div> 
   </div>
   <div class="govuk-accordion__section">
     <div class="govuk-accordion__section-header">
@@ -280,22 +287,26 @@ happens you will be issued an alert and you are not allowed to abstract.</p>
  {% else %}
      <div class="govuk-body">
 <h3 class="govuk-heading-s">Percentage of days when water would have been available</h3>
- 
-</div>
 
-<div class="govuk-accordion" data-module="govuk-accordion" data-i18n.show-all-sections="Show all years" data-i18n.hide-all-sections="Hide all years" data-i18n.show-section="Show months" data-i18n.hide-section="Hide months" id="accordion-default">
-  <div class="govuk-accordion__section--expanded">
-    <div class="govuk-accordion__section-header">
-      <h3 class="govuk-accordion__section-heading">
+{% set year=0 %}
+          <h3 class="govuk-heading-s">{% include "_includes/current/table1Year0.html" %}</h3>
+<div class="govuk-body">{% include "_includes/current/annualAvailTable.html" %}</div>
+
+
+<div class="govuk-accordion" data-module="govuk-accordion" data-i18n.show-all-sections="Show previous years" data-i18n.hide-all-sections="Hide previous years" data-i18n.show-section="Show months" data-i18n.hide-section="Hide months" id="accordion-default">
+<div class="govuk-accordion__section--expanded">
+     <div class="govuk-accordion__section-header">
+   <!--    <h3 class="govuk-accordion__section-heading">
         <span class="govuk-accordion__section-button" id="accordion-default-heading-1">
           {% set year=0 %}
           {% include "_includes/current/table1Year0.html" %}
           </span>
       </h3>
-    </div>
+    </div> 
+
     <div id="accordion-default-content-1" class="govuk-accordion__section-content">
         
-  {% include "_includes/current/annualAvailTable.html" %}
+  {% include "_includes/current/annualAvailTable.html" %} -->
     </div>
   </div>
   <div class="govuk-accordion__section">
