@@ -34,21 +34,21 @@
  
 
 
-    {% if (data['watertype'] == "surface" and data.nowater == "false") %}   
+    {% if (data['watertype'] == "surface" and data.noWater == "false") %}   
       <p class="govuk-body">This page shows restrictions and previous availability 
         information for surface water abstraction from the water 
         body <b>{{data.riverCatchmentData[data.sid].properties.WB_NAME}}</b>.</p>
 
-   {% elseif (data['watertype'] == "surface" and data.nowater == "true") %}
+   {% elseif (data['watertype'] == "surface" and data.noWater == "true") %}
            <p class="govuk-body">This page shows availability 
         information for surface water abstraction from the water 
         body <b>{{data.riverCatchmentData[data.sid].properties.WB_NAME}}</b>.</p>
 
 
-        {% elseif (data['watertype'] == "ground" and data.nowater == "false") %}
+        {% elseif (data['watertype'] == "ground" and data.noWater == "false") %}
        <p class="govuk-body">This page shows information on availability, restrictions and how to apply for a groundwater abstraction licence from the water body <b>{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}</b>.</p>
        
-       {% elseif (data['watertype'] == "ground" and data.nowater == "true") %}
+       {% elseif (data['watertype'] == "ground" and data.noWater == "true") %}
        <p class="govuk-body">This page shows availability 
         information for groundwater abstraction from the water 
         body <b>{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}</b>.</p>
@@ -97,7 +97,7 @@
 
 
  {% endif %}
-  {% if (data.nowater == "true" or (data['water-use-type'] == "Consumptive" or data.watertype == "ground")) %} 
+  {% if (data.noWater == "true" or (data['water-use-type'] == "Consumptive" or data.watertype == "ground")) %} 
   {% else %}
 <h2 class="govuk-heading-m">Restrictions and volume of water available
 </h2>
@@ -109,7 +109,7 @@
 
   {% endif %} 
 
-{% if (data.nowater == "true" or (data['water-use-type'] == "Consumptive" and data.gid == "1")) %} 
+{% if (data.noWater == "true" or (data['water-use-type'] == "Consumptive" and data.gid == "1")) %} 
 
   <!-- <div class="border govuk-!-margin-bottom-3"> -->
     <h2 class="govuk-heading-m">Availability status</h2>
@@ -123,7 +123,7 @@
   {% endif %}  
 
 {% if (data['watertype'] == "surface") %} 
-  {% if (data.nowater == "true") %} 
+  {% if (data.noWater == "true") %} 
 {% else %} 
 
       <h2 class="govuk-heading-m">Hands-off Flow conditions</h2>
@@ -360,7 +360,7 @@ happens you will be issued an alert and you are not allowed to abstract.</p>
 
   {% if data['watertype'] == "ground" %}
 
-  {% if data.nowater == "true" or (data['water-use-type'] == "Consumptive" and data.gid == "1") %} 
+  {% if data.noWater == "true" or (data['water-use-type'] == "Consumptive" and data.gid == "1") %} 
 
 
  {% else %}
@@ -407,24 +407,24 @@ happens you will be issued an alert and you are not allowed to abstract.</p>
 
   
 
-  {% if (data.nowater == "true" or (data['water-use-type'] == "Consumptive" and data.gid == "1")) %} 
+  {% if (data.noWater == "true" or (data['water-use-type'] == "Consumptive" and data.gid == "1")) %} 
 
 <p class="govuk-body">You may still be able to obtain water in a different way to licenced abstraction. Find out your alternative options.</p>
 
-  {% elseif (data['nowater'] == "false" and data['licenceHolder'] == "yes") %} 
+  {% elseif (data['noWater'] == "false" and data['licenceHolder'] == "yes") %} 
 
  
  <p class="govuk-body">Continue below to learn more about licensing and other options for obtaining water such as rainwater collection and 
   trading abstraction rights.</p>
 
-{% elseif (data.nowater == "false" and data['watertype'] == 'surface')%}
+{% elseif (data.noWater == "false" and data['watertype'] == 'surface')%}
 
 
 <p class="govuk-body">Find out more about applying for a licence 
   and your other options for sourcing water, such as trading abstraction 
   rights, desalination and water recycling.</p>
 
-  {% elseif (data.nowater == "false" and data['watertype'] == 'ground')%}
+  {% elseif (data.noWater == "false" and data['watertype'] == 'ground')%}
   <p class="govuk-body">Find out more about applying for consent to investigate a groundwater source 
   and your other options for sourcing water, such as trading abstraction 
   rights, desalination and water recycling.</p>

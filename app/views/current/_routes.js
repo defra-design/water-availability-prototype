@@ -1109,9 +1109,10 @@ router.get(folder + 'detailed-results', function (request, response) {
 
 router.post('/detailed-results', function (request, response) {
 var licenceHolder = request.session.data['licenceHolder']
-	if (licenceHolder == "yes") {
+var noWater = request.session.data['noWater']
+	if (licenceHolder == "yes" && noWater == "false") {
 		response.redirect(folder + "existing-licence-buffer")
-	} else if (licenceHolder == "no") {
+	} else if ((licenceHolder == "yes" && noWater == "true") || (licenceHolder == "no")) {
 		response.redirect(folder + "next-steps")
 	}
 })
