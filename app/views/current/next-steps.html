@@ -16,12 +16,15 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-    <h1 class="govuk-heading-l">Other options and next steps</h1>
 {% if (data['noWater'] == "true") %} 
-<p class="govuk-body">Learn more about your options for sourcing water. <!--Read further details by selecting from the sections below.--></p>
 
+    <h1 class="govuk-heading-l">Other options for sourcing water</h1>
 
-{% elseif (data['noWater'] == "false" and data['varyOrApply'] == 'vary') %} 
+{% else %}
+    <h1 class="govuk-heading-l">Next steps</h1> 
+
+{% if (data['noWater'] == "false" and data['varyOrApply'] == 'vary') %}
+
 <p class="govuk-body">Learn more about varying your licence and 
       what your other options are for sourcing water. <!--Read further details by 
       selecting from the sections below.--></p>
@@ -39,7 +42,7 @@
    and what your other options are for sourcing water. <!--Read further details by 
       selecting from the sections below.--></p>
 {% endif %}
-
+{% endif %}
    
   
 {% if (data['noWater'] == "true") %} 
@@ -116,14 +119,19 @@
 
   {% endif %}
 
+  {% if (data['noWater'] == "true") %} 
+  {% else %}
+
    <h2 class="govuk-heading-m">Other options for sourcing water</h2>
 
-  <div class="govuk-accordion" data-module="govuk-accordion" data-i18n.show-all-sections="Show all other options" data-i18n.hide-all-sections="Hide all other options" id="accordion-with-summary-sections">
+   {% endif %}
 
-
+ 
 {% if (data['noWater'] == "true") %} 
-
+<h2 class="govuk-heading-m">Water trading</h2>
 {% else %}
+
+ <div class="govuk-accordion" data-module="govuk-accordion" data-i18n.show-all-sections="Show all options" data-i18n.hide-all-sections="Hide all options" id="accordion-with-summary-sections">
   <div class="govuk-accordion__section">
     <div class="govuk-accordion__section-header">
       <h2 class="govuk-accordion__section-heading">
@@ -131,13 +139,10 @@
           Water trading
         </span>
       </h2>
-     <!-- <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
-        It can sometimes be quicker and easier to source water by entering an agreement 
-        with an local licence holder. When water availability is low the existing 
-        abstractor can give up some of their rights to abstract.
-      </div>-->
+
     </div>
     <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
+{% endif %}
 
          <p class="govuk-body">If you only need water for a short period of time, 
           instead of applying for a licence which can take a while 
@@ -150,14 +155,19 @@
           by the Environment Agency to protect the environment 
           and the rights of other lawful water users.</p>
 
-  <!--       <p class="govuk-body">Find local abstractors to trade with using the map on 
-          <a href="https://environment.data.gov.uk/defra/8a682192-4a1b-4e40-84d4-5671bfa5671c/details">DEFRA's Help for Water Rights Trading Data</a> platform.</p> -->
-          <p class="govuk-body"><a href="existing-abstractors.html">View a list of existing abstractors in your area</a>.</p>
+           <p class="govuk-body"><a href="existing-abstractors.html">View a list of existing abstractors in your area</a>.</p>
 
+           {% if (data['noWater'] == "true") %} 
+
+{% else %}
     </div>
   </div>
 
-    {% endif %}
+   {% endif %}
+
+{% if (data['noWater'] == "true") %} 
+<h2 class="govuk-heading-m">Public water supply agreements</h2>
+{% else %}
 
    <div class="govuk-accordion__section">
     <div class="govuk-accordion__section-header">
@@ -166,19 +176,25 @@
           Public water supply agreements
         </span>
       </h2>
-    <!--  <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-3">
-        Arranging a contract for bulk water supply with a local water company 
-        is another common option for those looking to abstract smaller amounts, 
-        or when licencing is limited.
-      </div>-->
+
     </div>
     <div id="accordion-with-summary-sections-content-3" class="govuk-accordion__section-content">
-         <p class="govuk-body">You may be able to arrange a favourable <a class="govuk-link" href="https://www.ofwat.gov.uk/regulated-companies/markets/nav-market/getting-a-new-appointment/bulk-supply-agreements/">bulk water supply agreement</a> 
+
+   {% endif %}
+      <p class="govuk-body">You may be able to arrange a favourable <a class="govuk-link" href="https://www.ofwat.gov.uk/regulated-companies/markets/nav-market/getting-a-new-appointment/bulk-supply-agreements/">bulk water supply agreement</a> 
           from your local water company. Read more about bulk water supply 
           agreements on the Ofwat website, and look up your <a class="govuk-link" href="https://www.water.org.uk/customers/find-your-supplier">local supplier</a> 
           on the Water UK website.</p>
-    </div>
+
+ {% if (data['noWater'] == "true") %} 
+{% else %}
+</div>
   </div>
+  {% endif %}
+
+  {% if (data['noWater'] == "true") %} 
+<h2 class="govuk-heading-m">Building a reservoir</h2>
+{% else %}
 
   <div class="govuk-accordion__section">
     <div class="govuk-accordion__section-header">
@@ -187,12 +203,10 @@
           Building a reservoir
         </span>
       </h2>
-     <!-- <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-3">
-        This is a common option if water availability is scarce over summer, 
-        but it is most suited to long-term use and requires up-front investment.
-      </div>-->
+
     </div>
     <div id="accordion-with-summary-sections-content-3" class="govuk-accordion__section-content">
+  {% endif %}
 
          <p class="govuk-body">If local water availability is low over summer and higher over winter, 
          building a reservoir is one option to ensure a more consistent water 
@@ -205,8 +219,17 @@
           LROs range from infrastructure projects like reservoirs and rainwater 
           harvesting systems to collaborative solutions such as water sharing 
           agreements or licence pooling.</p>
+    
+      {% if (data['noWater'] == "true") %}
+      {% else %} 
     </div>
   </div>
+    {% endif %}
+
+
+  {% if (data['noWater'] == "true") %} 
+<h2 class="govuk-heading-m">Water recycling and efficiency</h2>
+{% else %}
 
    <div class="govuk-accordion__section">
     <div class="govuk-accordion__section-header">
@@ -215,12 +238,13 @@
           Water recycling and efficiency
         </span>
       </h2>
-     <!-- <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-3">
-        Learn more about recycling and saving water, which can be a good solution when licencing is limited and also helps protect the environment.
-      </div>-->
+
     </div>
     <div id="accordion-with-summary-sections-content-3" class="govuk-accordion__section-content">
-         <p class="govuk-body">The Environment Agency believes <a class="govuk-link" href="https://www.gov.uk/government/publications/water-recycling-for-public-water-supply-environment-agency-position-statement/water-recycling-for-public-water-supply-environment-agency-position-statement#the-environment-agencys-position-on-water-recycling">water recycling</a> can play an 
+     {% endif %}
+
+ 
+      <p class="govuk-body">The Environment Agency believes <a class="govuk-link" href="https://www.gov.uk/government/publications/water-recycling-for-public-water-supply-environment-agency-position-statement/water-recycling-for-public-water-supply-environment-agency-position-statement#the-environment-agencys-position-on-water-recycling">water recycling</a> can play an 
           effective and increasingly important role in securing water 
           supplies. Indirect recycling treats wastewater and discharges 
           it to an environmental buffer, such as a river, reservoir or 
@@ -231,9 +255,18 @@
   and reusing water for wash down are all options to save water. 
   <a class="govuk-link" href="https://waterwise.org.uk/how-to-save-water/">Waterwise</a> offer tips and information on water 
   efficiency and conservation.</p>
-    </div>
+
+    {% if (data['noWater'] == "true") %} 
+{% else %}
+
+</div>
   </div>
 
+    {% endif %}
+
+     {% if (data['noWater'] == "true") %} 
+<h2 class="govuk-heading-m">Rainwater collection and storage</h2>
+{% else %} 
 
   <div class="govuk-accordion__section">
     <div class="govuk-accordion__section-header">
@@ -242,12 +275,11 @@
           Rainwater collection and storage
         </span>
       </h2>
-    <!--  <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-3">
-        Harvesting rainwater is efficient and you may not need a licence depending on the environmental impact. 
-        This can be a viable option for water stressed areas.
-      </div>-->
+
     </div>
     <div id="accordion-with-summary-sections-content-3" class="govuk-accordion__section-content">
+    {% endif %}
+
 
          <p class="govuk-body">Rainwater harvesting is an efficient way to use water.</p>
          <p class="govuk-body">Harvested rainwater is rainwater:</p>
@@ -265,9 +297,15 @@
  <p class="govuk-body">Learn more about rainwater harvesting and regulation in the 
   <a class="govuk-link" href="https://www.gov.uk/government/publications/rainwater-harvesting-regulatory-position-statement/rainwater-harvesting-regulatory-position-statement">Environment Agency's Rainwater harvesting: regulatory position statement</a>.</p>
 
+   {% if (data['noWater'] == "true") %} 
+   {% else %} 
     </div>
   </div>
+  {% endif %}
 
+       {% if (data['noWater'] == "true") %} 
+<h2 class="govuk-heading-m">Desalination</h2>
+{% else %} 
 
   <div class="govuk-accordion__section">
     <div class="govuk-accordion__section-header">
@@ -276,13 +314,13 @@
           Desalination
         </span>
       </h2>
-   <!--   <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-4">
-        Learn more about this technique which removes salts and chemicals from surface or 
-        groundwater but is energy intensive and needs careful waste management.
-      </div>-->
+
     </div>
     <div id="accordion-with-summary-sections-content-4" class="govuk-accordion__section-content">
-         <p class="govuk-body">Desalination is the treatment of brackish (slightly salty water 
+   {% endif %}
+
+ 
+      <p class="govuk-body">Desalination is the treatment of brackish (slightly salty water 
           from river estuaries) or seawater to remove dissolved salts and 
           other organic chemicals to provide a source of fresh water. 
           After treatment, this can be suitable for drinking.</p>
@@ -292,8 +330,12 @@
 
          <p class="govuk-body">For further information, take a look at the <a class="govuk-link" href="#">Environment Agency 
           position statement on desalination for public water supply</a>.</p>
-    </div>
+       {% if (data['noWater'] == "true") %} 
+      {% else %}
+      </div>
   </div>
+   {% endif %}
+
 </div>
 
 
