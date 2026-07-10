@@ -128,7 +128,7 @@
 
  
 {% if (data['noWater'] == "true") %} 
-<h2 class="govuk-heading-m">Water trading</h2>
+
 {% else %}
 
  <div class="govuk-accordion" data-module="govuk-accordion" data-i18n.show-all-sections="Show all options" data-i18n.hide-all-sections="Hide all options" id="accordion-with-summary-sections">
@@ -142,7 +142,7 @@
 
     </div>
     <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
-{% endif %}
+
 
          <p class="govuk-body">If you only need water for a short period of time, 
           instead of applying for a licence which can take a while 
@@ -157,9 +157,7 @@
 
            <p class="govuk-body"><a href="existing-abstractors.html">View a list of existing abstractors in your area</a>.</p>
 
-           {% if (data['noWater'] == "true") %} 
-
-{% else %}
+  
     </div>
   </div>
 
