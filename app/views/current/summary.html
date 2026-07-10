@@ -356,7 +356,7 @@ factors such as environmental concerns.</strong>
 {% endif %}
 
 
-{% if (data.groundwaterCatchmentData.length=="0") and (data.riverCatchmentData.length=="0") %}
+{% if ((data.groundwaterCatchmentData.length=="0") and (data.riverCatchmentData.length=="0")) or ((data.groundwaterCatchmentData.length=="0") and (data.watertype=="ground")) or ((data.riverCatchmentData.length=="0") and (data.watertype=="surface")) %}
 <h2 class="govuk-heading-m">Other options for sourcing water</h2>
 <p class="govuk-body">You may still be able to obtain water in a different way to licenced abstraction. Find out your alternative options.</p>
 <form class="form" method="post">

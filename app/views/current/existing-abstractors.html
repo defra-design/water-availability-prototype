@@ -25,7 +25,7 @@
         of existing surface water abstractors in your area.</p>
 
        <p class="govuk-body">You can view a <a href="https://experience.arcgis.com/experience/15d2ce4fc69d4c51accede6eec04488b/">map of local abstractors</a> 
-        on <a href="https://environment.data.gov.uk/dataset/8a682192-4a1b-4e40-84d4-5671bfa5671c">DEFRA's Help for Water Rights Trading Data</a> platform.</p>
+        and find more guidance on <a href="https://environment.data.gov.uk/dataset/8a682192-4a1b-4e40-84d4-5671bfa5671c">DEFRA's Help for Water Rights Trading Data</a> platform.</p>
 <hr>
 
 {% set licenceCount = 0 %}
@@ -85,14 +85,18 @@
        </tr>
        <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header govuk-!-width-one-half">Licence number</th>
-       <td class="govuk-table__cell">{{licence.attributes.Licence_Number}}<br></td>
-
+       <td class="govuk-table__cell">{{licence.attributes.Licence_Number}}</td>
+</tr>
+<tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header govuk-!-width-one-half">Potential to trade</th>
+       <td class="govuk-table__cell"><b>{{licence.attributes.Category}}</b></td>
+ </tr>
 
   </tbody>
 </table>
  </div>
 </details>
-<!-- {{licence.attributes |dump}} -->
+<!-- {{licence.attributes | dump}} -->
 
 {% endif %}
 {% endfor %}
@@ -162,12 +166,15 @@
        <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header govuk-!-width-one-half">Address</th>
        <td class="govuk-table__cell">{{licence.attributes.Line_1 | upper}}<br>{{licence.attributes.Town | upper}}<br>{{licence.attributes.County | upper}}<br>{{licence.attributes.Postcode}}<br></td>
- 
-              </tr>
+      </tr>
        <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header govuk-!-width-one-half">Licence number</th>
-       <td class="govuk-table__cell">{{licence.attributes.Licence_Number}}<br></td>
-
+       <td class="govuk-table__cell">{{licence.attributes.Licence_Number}}</td>
+        </tr>
+<tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header govuk-!-width-one-half">Potential to trade</th>
+       <td class="govuk-table__cell">{{licence.attributes.Category}}</td>
+ </tr>
 
   </tbody>
 </table>
