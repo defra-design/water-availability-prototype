@@ -78,11 +78,12 @@
   apply for a new a licence to replace the existing one.</p>
 
   <p class="govuk-body">You can apply for a longer licence period of up to 24 years 
-    but this will cost more and is granted at the discretion of the Environment Agency.</p>
+    which is granted at the discretion of the Environment Agency.</p>
 
-      <p class="govuk-body">If the next common end date is over 6 years away, it will apply 
-        to your licence as the expiry date. If it is less than 6 years away, we will 
-        skip to the next common end date and apply that to your licence instead.</p>
+      <p class="govuk-body">If the next common end date is over 6 years away, it 
+        will usually apply to your licence as the expiry date. If it is less than 6 years 
+        away, in most cases we will skip to the next common end date and 
+        apply that to your licence instead.</p>
  
 
 <p class="govuk-body">Common end date for {% if (data['watertype'] == "ground")%}
@@ -90,7 +91,7 @@
   
     {% elseif (data['watertype'] == "surface")%}
       {{data.riverCatchmentData[data.sid].properties.WB_NAME}}
-    {% endif %}: <b>January 2027</b>.</p>
+    {% endif %}: <b>March 2027</b>.</p>
   
   </div>
 </details>
@@ -103,8 +104,8 @@
 </h2>
 
 <p class="govuk-body">Your licence will specify the maximum amount of water 
-  you can abstract in megalitres per day. One megalitre is 1000 cubic metres. 
-  You can use the tables on page 11 of the <a href="https://assets.publishing.service.gov.uk/media/65267c832548ca0014ddf0fa/LIT_10154_-_WR331_Part_B_Guidance_notes_for_water_resources_abstraction_licence_application.pdf">application form guidance notes</a> 
+  you can abstract per day. You can use the tables on page 11 of 
+  the <a href="https://assets.publishing.service.gov.uk/media/65267c832548ca0014ddf0fa/LIT_10154_-_WR331_Part_B_Guidance_notes_for_water_resources_abstraction_licence_application.pdf">application form guidance notes</a> 
   to help you estimate your water usage.</p>
 
   {% endif %} 
@@ -130,8 +131,16 @@
 
 
  <p class="govuk-body">There are also 'Hands-off Flow' (HoF) conditions on licences. These 
-come into effect when the flow rate is critically low. When this 
-happens you will be issued an alert and you are not allowed to abstract.</p>
+come into effect when the flow rate is critically low. When this happens most abstractors 
+are issued an alert (some abstractors self-monitor water levels).</p>
+
+<p class="govuk-body">If water levels fall below the HoF condition on your 
+  licence, you are not allowed to abstract. This is common during droughts 
+  and dry periods, most often in the summer.</p>
+
+  <p class="govuk-body">HoF conditions are measured in megalitres per day. One 
+    megalitre is equivalent to 1000 cubic metres. For reference, an Olympic 
+    sized swimming pool is 2.5 megalitres in size.</p>
 
  
 <!-- <p class="govuk-body">The current HoF level for {% if (data['watertype'] == "ground")%}
@@ -369,10 +378,13 @@ happens you will be issued an alert and you are not allowed to abstract.</p>
 
 <p class="govuk-body">Water availability will depend on the location and depth of abstraction.</p>
 
-<p class="govuk-body">A pump test will be needed to determine availability for your specific 
-  abstraction point. You must <a href="https://www.gov.uk/government/publications/apply-for-consent-to-investigate-a-groundwater-source/apply-for-consent-to-investigate-a-groundwater-source" class="govuk-link">get consent to investigate the groundwater source</a> 
-  if you will abstract 20 cubic metres or more of water a day.</p>
-
+<p class="govuk-body">A pump test or hydrogeological impact assessment will be 
+  needed to determine licence availability for your specific abstraction 
+  point. You must contact the Environment Agency (see details below) to find out 
+  whether you need to
+<a href="https://www.gov.uk/government/publications/apply-for-consent-to-investigate-a-groundwater-source/apply-for-consent-to-investigate-a-groundwater-source" class="govuk-link">get consent to investigate the groundwater source</a> or 
+prepare a <a href="https://www.gov.uk/government/publications/preparing-a-hydrogeological-impact-assessment/preparing-a-hydrogeological-impact-assessment">hydrogeological impact assessment</a> before 
+you can apply for a licence.</p>
 
 <h2 class="govuk-heading-m">Regulations and restrictions</h2>
 <p class="govuk-body">Restrictions may apply to licences where availability is 
@@ -415,17 +427,12 @@ happens you will be issued an alert and you are not allowed to abstract.</p>
  <p class="govuk-body">Continue below to learn more about licensing and other options for obtaining water such as rainwater collection and 
   trading abstraction rights.</p>
 
-{% elseif (data.noWater == "false" and data['watertype'] == 'surface')%}
 
-<p class="govuk-body">Find out more about applying for a licence 
-  and your other options for sourcing water, such as trading abstraction 
-  rights, desalination and water recycling.</p>
-
-  {% elseif (data.noWater == "false" and data['watertype'] == 'ground')%}
+  {% elseif (data.noWater == "false" and (data['watertype'] == 'ground' or data['watertype'] == 'surface'))%}
  
-  <p class="govuk-body">Find out more about applying for consent to investigate a groundwater source 
-  and your other options for sourcing water, such as trading abstraction 
-  rights, desalination and water recycling.</p>
+  <p class="govuk-body">Find out more about applying for a licence and your other 
+    options for sourcing water, such as trading abstraction rights, rainwater 
+    harvesting and water recycling.</p>
 
   {% endif %}
   {% endif %}

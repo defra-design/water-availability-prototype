@@ -26,8 +26,7 @@
 {% if (data['noWater'] == "false" and data['varyOrApply'] == 'vary') %}
 
 <p class="govuk-body">Learn more about varying your licence and 
-      what your other options are for sourcing water. <!--Read further details by 
-      selecting from the sections below.--></p>
+      what your other options are for sourcing water.</p>
   
 
   {% elseif data['noWater'] == "false" and data['watertype'] == 'surface' and (data['licenceHolder'] == 'no' or data['varyOrApply'] == 'apply') %} 
@@ -38,9 +37,8 @@
 
 
   {% elseif data['noWater'] == "false" and data['watertype'] == 'ground' and (data['licenceHolder'] == 'no' or data['varyOrApply'] == 'apply') %} 
- <p class="govuk-body">Learn more about applying for consent to investigate a groundwater source 
-   and what your other options are for sourcing water. <!--Read further details by 
-      selecting from the sections below.--></p>
+ <p class="govuk-body">Learn more about your next steps for getting a groundwater abstraction licence 
+   and what your other options are for sourcing water.</p>
 {% endif %}
 {% endif %}
    
@@ -50,72 +48,31 @@
 {% elseif (data['noWater'] == "false" and data['licenceHolder'] == 'yes' and data['varyOrApply'] == 'vary') %} 
 
 <h2 class="govuk-heading-m">Varying your licence</h2>
-
-  <!--<div class="govuk-accordion__section--expanded">
-    <div class="govuk-accordion__section-header">
-      <h2 class="govuk-accordion__section-heading">
-        <span class="govuk-accordion__section-button" id="accordion-with-summary-sections-heading-1">
-          Varying your licence
-        </span>
-      </h2>
-    </div>
-    <div id="accordion-with-summary-sections-content-1" class="govuk-accordion__section-content">-->
-      
 <p class="govuk-body">Find out your next steps for making a variation to your licence, including 
   links to application forms and guidance, information on costs, permits and permissions.</p>     
 
   <p class="govuk-body"><a href="how-to-apply.html">How to vary your licence</a></p>
 
- <!--   </div>
-  </div> -->
 
  {% elseif data['noWater'] == "false" and data['watertype'] == 'surface' and (data['licenceHolder'] == 'no' or data['varyOrApply'] == 'apply') %} 
  <h2 class="govuk-heading-m">Applying for a licence</h2> 
- 
- <!--<div class="govuk-accordion__section--expanded">
-    <div class="govuk-accordion__section-header">
-      <h2 class="govuk-accordion__section-heading">
-        <span class="govuk-accordion__section-button" id="accordion-with-summary-sections-heading-1">
-          Applying for a licence
-        </span>
-      </h2>
-      <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-1">-->
- <p class="govuk-body">Find out your next steps for applying, including links to application forms and guidance, 
+  <p class="govuk-body">Find out your next steps for applying, including links to application forms and guidance, 
         information on costs, permits and permissions, and how to check which areas 
         have environmental protection in place.</p>
-      
-    <!--  </div>  
-    </div>
-    <div id="accordion-with-summary-sections-content-1" class="govuk-accordion__section-content"> -->
-      
+         
 <p class="govuk-body"><a href="how-to-apply.html">How to apply</a></p>
 
-   <!-- </div>
-  </div> -->
 
     {% elseif data['noWater'] == "false" and data['watertype'] == 'ground' and (data['licenceHolder'] == 'no' or data['varyOrApply'] == 'apply') %} 
  
-    <h2 class="govuk-heading-m">Apply for consent to investigate a groundwater source</h2>
+    <h2 class="govuk-heading-m">Learn more about the groundwater licence application process</h2>
  
-   <!-- <div class="govuk-accordion__section--expanded">
-    <div class="govuk-accordion__section-header">
-      <h2 class="govuk-accordion__section-heading">
-        <span class="govuk-accordion__section-button" id="accordion-with-summary-sections-heading-1">
-          Apply for consent to investigate a groundwater source
-        </span>
-      </h2>
-      <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-1">-->
+   
+        <p class="govuk-body">Find out about what you need to do next to get a licence, as 
+          well as information on costs, permits and permissions, and how to check which 
+          areas have environmental protection in place.</p>
+  <p class="govuk-body"><a href="how-to-apply.html">How to apply</a></p>
 
-        <p class="govuk-body">Find out your next steps for getting a licence, including how to 
-    apply for consent to investigate a groundwater source, information on costs, permits 
-    and permissions, and how to check which areas have environmental protection in place.</p>
-     <!-- </div>
-    </div>
-    <div id="accordion-with-summary-sections-content-1" class="govuk-accordion__section-content">-->
-<p class="govuk-body"><a href="how-to-apply.html">How to apply</a></p>
-
-  <!--  </div>
-  </div>-->
 
   {% endif %}
 
@@ -210,6 +167,13 @@
          building a reservoir is one option to ensure a more consistent water 
          supply. Read the <a class="govuk-link" href="#">guide to planning, designing, 
           constructing and commissioning a water storage reservoir</a> for more information.</p>
+
+          <p class="govuk-body">Building a reservoir will still require a licence, however 
+            you will have more flexibility over when to abstract, and so a winter only 
+            licence may be an option. In many cases they also require a lower volume per 
+            day to abstract compared to other uses (for example spray irrigation), making 
+            them a good choice in areas where summer flows are too low for other uses, or 
+            where restrictions would prevent year-round abstraction.</p>
 
          <p class="govuk-body"><a class="govuk-link" href="#">Local Resource Option (LRO)</a> is a water resource solution designed to 
           enhance water resilience or supply for a small group of abstractors within their 

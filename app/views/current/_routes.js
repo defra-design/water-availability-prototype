@@ -471,8 +471,8 @@ const waterUses = {
     label: 'raw water supply to third party',
     type: 'consumptive'
   },
-  'Spray irrigration (application and/or storage)': {
-    label: 'spray irrigration (application and/or storage)',
+  'Spray irrigration (including storage)': {
+    label: 'spray irrigration (including storage)',
     type: 'consumptive'
   },
   'Trickle irrigation (including storage)': {
