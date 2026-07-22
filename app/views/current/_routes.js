@@ -822,18 +822,22 @@ router.post('/location', async function (request, response) {
 
         // 4. Final Redirect Logic
         // Check if we found valid data to decide where to redirect
-        if ((surfaceFeatures && surfaceFeatures.length > 0) || (groundFeatures && groundFeatures.length > 0)) {
-            response.redirect(folder + 'water-type');
-        } else {
-            request.session.data.error = "Water body not modelled for that location";
+
+     if ((surfaceFeatures && surfaceFeatures.length == 0) || (groundFeatures && groundFeatures.length == 0) || (request.session.data['water-use-label'] == "hydroelectric power generation")) {
+//nested if for different error for hydro         
+if (request.session.data['water-use-label'] == "hydroelectric power generation") { request.session.data.error = "Hydro";} 
+else { request.session.data.error = "Water body not modelled for that location"; }
             response.redirect(folder + 'summary');
+        } else {
+            response.redirect(folder + 'water-type');
         }
 
-    } catch (error) {
+      } catch (error) {
         console.error("Route Error:", error.message);
         request.session.data.error = error.message;
         response.redirect(folder + 'location');
     }
+
 });
 
 //Usage category page

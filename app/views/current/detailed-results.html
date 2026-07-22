@@ -420,6 +420,12 @@ you can apply for a licence.</p>
 <p class="govuk-body">You may still be able to obtain water in a different way to licenced abstraction. Find out your alternative options.</p>
 
 {% else %}
+
+       {% if data['water-use-label'] == "hydroelectric power generation" %} 
+       <h2 class="govuk-heading-m">Next steps</h2> 
+       <p class="govuk-body">Find out more about applying to build a new hydropower scheme.</p>
+{% else %}
+
 <h2 class="govuk-heading-m">Next steps and other options</h2>
 
   {% if (data['noWater'] == "false" and data['licenceHolder'] == "yes") %} 
@@ -427,7 +433,7 @@ you can apply for a licence.</p>
  <p class="govuk-body">Continue below to learn more about licensing and other options for obtaining water such as rainwater collection and 
   trading abstraction rights.</p>
 
-
+ 
   {% elseif (data.noWater == "false" and (data['watertype'] == 'ground' or data['watertype'] == 'surface'))%}
  
   <p class="govuk-body">Find out more about applying for a licence and your other 
@@ -437,11 +443,24 @@ you can apply for a licence.</p>
   {% endif %}
   {% endif %}
 
+    {% endif %}
+
 <form class="form" method="post">
+
+{% if data['water-use-label'] == "hydroelectric power generation" %} 
+
+ {{ govukButton({
+          text: "Continue",
+           href: "https://www.gov.uk/guidance/new-hydropower-scheme-apply-to-build-one"
+        }) }}
+
+{% else %}
 
  {{ govukButton({
           text: "Continue"
         }) }}
+
+{% endif %}
 
         </form>
 

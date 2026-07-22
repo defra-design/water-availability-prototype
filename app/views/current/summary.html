@@ -242,6 +242,8 @@ factors such as environmental concerns.</strong>
 {% endif %}
 
 <!-- GROUNDWATER-->
+        {% if data['water-use-label'] == "hydroelectric power generation" %}  
+{% else %}
   {% if (data['watertype'] == "both" or data['watertype'] == "dontknow" or data['watertype'] == "ground" or data['watertype'] == "") %} 
 <div class="govuk-body">
 <h2 class="govuk-heading-m">Your local groundwater bodies</h2>
@@ -279,6 +281,8 @@ factors such as environmental concerns.</strong>
 
   {% endif %}
   
+
+
 {% for waterBody in data.groundwaterCatchmentData%}
   {% if loop.index0 == 0 %}
 
@@ -347,6 +351,7 @@ factors such as environmental concerns.</strong>
 
 
 {% endfor %}
+ {% endif %}
 
 {% else %}
 <p class="govuk-body">No groundwater body data is available for this area.</p>
