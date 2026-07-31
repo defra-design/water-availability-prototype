@@ -1146,13 +1146,6 @@ router.get(folder + 'next-steps', function (request, response) {
 	response.render(folder + 'next-steps')
 })
 
-//fish passes page
-router.get(folder + 'summary', function (request, response) {
-	response.render(folder + 'fish-passes')
-})
 
-router.post('/summary', function (request, response) {
-	response.redirect('https://www.gov.uk/guidance/fish-pass-approval')
-})
 
 module.exports = router
