@@ -936,7 +936,7 @@ router.post('/usage-industrial', function (request, response) {
 router.post('/usage-conservation', function (request, response) {
 	var newExisting = request.session.data['newExisting']
 	var licenceHolder = request.session.data['licenceHolder']
-var waterUsages = request.session.data['water-use-label']
+
 
   const key = request.session.data['usage-conservation']; // from the select
     console.log(key)
@@ -955,8 +955,9 @@ var waterUsages = request.session.data['water-use-label']
   }
 
   // Redirect to whatever page you want next
-  
-  if (waterUsages == "fish passes") {
+  //var waterUsages = request.session.data['water-use-label']
+
+  if (info.label == "fish passes") {
 		response.redirect(folder + "fish-passes")
 	} else {
 	response.redirect(folder + "location")
