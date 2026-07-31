@@ -541,8 +541,12 @@ const waterUses = {
     label: 'river recirculation',
     type: 'non-consumptive'
   },
-  'Throughflows and passes (pond, lake, canal, leat, fish, canoe)': {
-    label: 'throughflows and passes (pond, lake, canal, leat, fish, canoe)',
+  'Fish passes': {
+    label: 'fish passes',
+    type: 'non-consumptive'
+  },
+  'Throughflows and passes (pond, lake, canal, leat, canoe)': {
+    label: 'throughflows and passes (pond, lake, canal, leat, canoe)',
     type: 'non-consumptive'
   },
   'Transfer between sources (hydropower and Post Water Act 2003)': {
@@ -932,6 +936,7 @@ router.post('/usage-industrial', function (request, response) {
 router.post('/usage-conservation', function (request, response) {
 	var newExisting = request.session.data['newExisting']
 	var licenceHolder = request.session.data['licenceHolder']
+var waterUsages = request.session.data['water-use-label']
 
   const key = request.session.data['usage-conservation']; // from the select
     console.log(key)
@@ -951,9 +956,11 @@ router.post('/usage-conservation', function (request, response) {
 
   // Redirect to whatever page you want next
   
-
+  if (waterUsages == "fish passes") {
+		response.redirect(folder + "fish-passes")
+	} else {
 	response.redirect(folder + "location")
-
+  }
 	
 });
 
@@ -1139,6 +1146,13 @@ router.get(folder + 'next-steps', function (request, response) {
 	response.render(folder + 'next-steps')
 })
 
+//fish passes page
+router.get(folder + 'summary', function (request, response) {
+	response.render(folder + 'fish-passes')
+})
 
+router.post('/summary', function (request, response) {
+	response.redirect('https://www.gov.uk/guidance/fish-pass-approval')
+})
 
 module.exports = router
