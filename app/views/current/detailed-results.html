@@ -86,12 +86,8 @@
         apply that to your licence instead.</p>
  
 
-<p class="govuk-body">Common end date for {% if (data['watertype'] == "ground")%}
-      {{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}
-  
-    {% elseif (data['watertype'] == "surface")%}
-      {{data.riverCatchmentData[data.sid].properties.WB_NAME}}
-    {% endif %}: <b>March 2027</b>.</p>
+<p class="govuk-body">Common end date for 
+  {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %}: <b>March 2027</b>.</p>
   
   </div>
 </details>
