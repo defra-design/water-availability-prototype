@@ -16,8 +16,6 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-            <form class="form" method="post">
-
       <h1 class="govuk-heading-l">
         You may be able to vary your existing licence
       </h1>
@@ -34,37 +32,36 @@
         on next steps and how to vary your licence or make a new application.</p>
 
 
-<div class="govuk-form-group">
-  <fieldset class="govuk-fieldset">
-    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-      <h2 class="govuk-fieldset__heading">
-        Which information would you like to view?
-      </h2>
-    </legend>
-    <div class="govuk-radios" data-module="govuk-radios">
-      <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="varyOrApply-1" name="varyOrApply" type="radio" value="vary">
-        <label class="govuk-label govuk-radios__label" for="varyOrApply-1">
-          How to vary your licence
-        </label>
-      </div>
-      <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="wvaryOrApply-2" name="varyOrApply" type="radio" value="apply">
-        <label class="govuk-label govuk-radios__label" for="varyOrApply-2">
-          How to apply for a new licence
-        </label>
-      </div>
-  
-    </div>
-  </fieldset>
-</div>
+      <form class="form" method="post">
 
 
-       {{ govukButton({
+{{ govukRadios({
+  name: "varyOrApply",
+  value: data['varyOrApply'],
+  fieldset: {
+    legend: {
+      text: "Which information would you like to view?",
+      classes: "govuk-fieldset__legend--m"
+    }
+  },
+  items: [
+    {
+      value: "vary",
+      text: "How to vary your licence"
+    },
+    {
+      value: "apply",
+      text: "How to apply for a new licence"
+    }
+  ]
+}) }}
+
+        {{ govukButton({
           text: "Continue"
         }) }}
 
       </form>
+
 
      
     </div>
