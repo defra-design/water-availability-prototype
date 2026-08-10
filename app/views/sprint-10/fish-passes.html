@@ -1,0 +1,38 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  {{ serviceName }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+       <form class="form" method="post">
+      <h1 class="govuk-heading-l">
+        Apply for a fish pass
+      </h1>
+
+      <p class="govuk-body">Fish pass applications are treated differently 
+        to other types of water licences.</p>
+<p class="govuk-body">You do not need to check water licence availability 
+  before applying if you are only applying for a fish pass.</p>
+
+   {{ govukButton({
+  text: "Continue",
+  href: "https://www.gov.uk/guidance/fish-pass-approval"
+}) }}
+     
+</form>
+    </div>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,473 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  {{ "Your water availability" }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+
+
+{% block content %}
+
+
+
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <div class="govuk-body">
+
+      {% if (data['watertype'] == "surface") %}  
+        <h1 class="govuk-heading-l">Restrictions and previous availability for {{data.riverCatchmentData[data.sid].properties.WB_NAME}}</h1>
+      
+        {% elseif (data['watertype'] == "ground") %}
+        <h1 class="govuk-heading-l">Restrictions and previous availability for {{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}</h1>
+      {% endif %}
+
+  <p class='govuk-body-s'><i>This page was last updated: 25 October 2025</i></p>
+ 
+
+
+    {% if (data['watertype'] == "surface" and data.noWater == "false") %}   
+      <p class="govuk-body">This page shows restrictions and previous availability 
+        information for surface water abstraction from the water 
+        body <b>{{data.riverCatchmentData[data.sid].properties.WB_NAME}}</b>.</p>
+
+   {% elseif (data['watertype'] == "surface" and data.noWater == "true") %}
+           <p class="govuk-body">This page shows availability 
+        information for surface water abstraction from the water 
+        body <b>{{data.riverCatchmentData[data.sid].properties.WB_NAME}}</b>.</p>
+
+
+        {% elseif (data['watertype'] == "ground" and data.noWater == "false") %}
+       <p class="govuk-body">This page shows information on availability, restrictions and how to apply for a groundwater abstraction licence from the water body <b>{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}</b>.</p>
+       
+       {% elseif (data['watertype'] == "ground" and data.noWater == "true") %}
+       <p class="govuk-body">This page shows availability 
+        information for groundwater abstraction from the water 
+        body <b>{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}</b>.</p>
+
+       {% endif %}
+
+       {% if data['water-use-label'] == "impounding (non-hydropower)" %}  
+{% else %}
+
+  <details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Common end date (licensing strategy review period)
+    </span>
+
+  </summary>
+  <div class="govuk-details__text">
+
+<p class="govuk-body">The 'common end date' indicates when the licensing strategy 
+  for this area is due for review. The Environment Agency review each local 
+  licensing strategy every 12 years.</p>
+ 
+  
+<p class="govuk-body">Most licences expire on the common end date 
+  but sometimes a shorter time limit is needed, usually due to local issues or 
+  uncertainty. If you want to abstract water after the expiry date, you must 
+  apply for a new a licence to replace the existing one.</p>
+
+  <p class="govuk-body">You can apply for a longer licence period of up to 24 years 
+    which is granted at the discretion of the Environment Agency.</p>
+
+      <p class="govuk-body">If the next common end date is over 6 years away, it 
+        will usually apply to your licence as the expiry date. If it is less than 6 years 
+        away, in most cases we will skip to the next common end date and 
+        apply that to your licence instead.</p>
+ 
+
+<p class="govuk-body">Common end date for 
+  {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %}: <b>March 2027</b>.</p>
+  
+  </div>
+</details>
+
+
+ {% endif %}
+  {% if (data.noWater == "true" or (data['water-use-type'] == "Consumptive" or data.watertype == "ground")) %} 
+  {% else %}
+<h2 class="govuk-heading-m">Restrictions and volume of water available
+</h2>
+
+<p class="govuk-body">Your licence will specify the maximum amount of water 
+  you can abstract per day. You can use the tables on page 11 of 
+  the <a href="https://assets.publishing.service.gov.uk/media/65267c832548ca0014ddf0fa/LIT_10154_-_WR331_Part_B_Guidance_notes_for_water_resources_abstraction_licence_application.pdf">application form guidance notes</a> 
+  to help you estimate your water usage.</p>
+
+  {% endif %} 
+
+{% if (data.noWater == "true" or (data['water-use-type'] == "Consumptive" and data.gid == "1")) %} 
+
+  <!-- <div class="border govuk-!-margin-bottom-3"> -->
+    <h2 class="govuk-heading-m">Availability status</h2>
+    <p class="govuk-body">No water is available for licensing at any time in this water body.</p>
+    <p class="govuk-body">This can be due to low flow rates and a high number 
+      of other abstractors. The area is likely to be water stressed meaning 
+      more abstraction could have a negative impact on the local environment.</p>
+ <!-- </div> -->
+
+  {% else %}
+  {% endif %}  
+
+{% if (data['watertype'] == "surface") %} 
+  {% if (data.noWater == "true") %} 
+{% else %} 
+
+      <h2 class="govuk-heading-m">Hands-off Flow conditions</h2>
+
+
+ <p class="govuk-body">There are also 'Hands-off Flow' (HoF) conditions on licences. These 
+come into effect when the flow rate is critically low. When this happens most abstractors 
+are issued an alert (some abstractors self-monitor water levels).</p>
+
+<p class="govuk-body">If water levels fall below the HoF condition on your 
+  licence, you are not allowed to abstract. This is common during droughts 
+  and dry periods, most often in the summer.</p>
+
+  <p class="govuk-body">HoF conditions are measured in megalitres per day. One 
+    megalitre is equivalent to 1000 cubic metres. For reference, an Olympic 
+    sized swimming pool is 2.5 megalitres in size.</p>
+
+ 
+<!-- <p class="govuk-body">The current HoF level for {% if (data['watertype'] == "ground")%}
+      {{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}
+  
+    {% elseif (data['watertype'] == "surface")%}
+      {{data.riverCatchmentData[data.sid].properties.WB_NAME}}
+    {% endif %} is set at 
+      {% if data.sid == "1" %} <b>12 Megalitres per day</b>.
+    {% else %}
+    <b>135 Megalitres per day</b>.
+
+   {% endif %}</b></p>
+
+   <p class="govuk-body">This is the general HoF level for your local 
+    water body, but the actual HoF condition on your licence will be 
+    calculated on a case-by-case basis, taking other abstractors 
+    and the local environment into account.</p> -->
+  </div>
+
+
+  <details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Hands-off Flow bands and volumes
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+    <p class="govuk-body">Hands-off Flow (HoF) conditions are grouped into bands and 
+      this gives you an idea of how water stressed your local water 
+      body is.</p>
+
+<p class="govuk-body">Band 1 has the most water available and fewest 
+  restrictions, while band 6 is the most water stressed with no water 
+  available left for licensing.</p>
+
+<p class="govuk-body">HoF conditions in {% if (data['watertype'] == "ground")%}
+      {{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}
+  
+    {% elseif (data['watertype'] == "surface")%}
+      {{data.riverCatchmentData[data.sid].properties.WB_NAME}}
+    {% endif %} have reached 
+       {% if data.sid == "1" %} <b>band 1</b> with <b>25 Megalitres per day</b> left in this band for licensing.
+    {% else %}
+       <b>band 4</b> with <b>2 Megalitres per day</b> left in this band for licensing.
+   {% endif %}</p>  
+
+   <p class="govuk-body">Once that water has been licensed, the water 
+    body will move into the next band up and the restrictions will increase.</p>
+
+</div>
+</details>
+
+
+
+
+<!----------------------------------------------------------------->
+
+<h2 class="govuk-heading-m">Water availability in previous years</h2>
+
+<p class="govuk-body">Water availability is usually better in winter 
+  because rainfall and water flow rates tend to be higher. In summer, water 
+  availability is often more restricted because it usually rains 
+  less which means flow rates are lower.</p>
+
+   {% if data.sid == "1" %}
+<p class="govuk-body">The information below summarises how often the flow 
+  level at your local assessment point has previously fallen below the 
+  current HoF. This means you would not be allowed to 
+  take water on those days.</p>
+
+{% else %}
+  <p class="govuk-body">The information below summarises how often the flow 
+    level at your local assessment point has previously fallen below the 
+    current HoF. This means you would not be allowed to 
+    take water on those days.</p>
+  {% endif %}
+
+ 
+   {% if data.sid == "1" %}
+
+
+      <div class="govuk-body">
+<h3 class="govuk-heading-s">Percentage of days when water would have been available in previous years</h3>
+ 
+{% set year=0 %}
+
+<h3 class="govuk-heading-s">{% include "_includes/sprint-10/table2Year0.html" %}</h3>
+<div class="govuk-body">{% include "_includes/sprint-10/annualAvailTable2.html" %}</div>
+
+
+
+</div>
+
+<div class="govuk-accordion" data-module="govuk-accordion" data-i18n.show-all-sections="Show previous years" data-i18n.hide-all-sections="Hide previous years" data-i18n.show-section="Show months" data-i18n.hide-section="Hide months" id="accordion-default">
+  <div class="govuk-accordion__section--expanded">
+    <div class="govuk-accordion__section-header">
+   <!--   <h3 class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button" id="accordion-default-heading-1">
+          {% set year=0 %}
+          {% include "_includes/sprint-10/table2Year0.html" %}
+          </span>
+      </h3>
+    </div>
+    <div id="accordion-default-content-1" class="govuk-accordion__section-content">
+        
+  {% include "_includes/sprint-10/annualAvailTable2.html" %}-->
+    </div> 
+  </div>
+  <div class="govuk-accordion__section">
+    <div class="govuk-accordion__section-header">
+      <h3 class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button" id="accordion-default-heading-2">
+         {% set year=1 %}
+          {% include "_includes/sprint-10/table2Year1.html" %}
+        </span>
+      </h3>
+    </div>
+    <div id="accordion-default-content-2" class="govuk-accordion__section-content">
+     {% include "_includes/cursprint-10rent/annualAvailTable2.html" %}
+    </div>
+  </div>
+  <div class="govuk-accordion__section">
+    <div class="govuk-accordion__section-header">
+      <h3 class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button" id="accordion-default-heading-3">
+          {% set year=2 %}
+          {% include "_includes/sprint-10/table2Year2.html" %}
+        </span>
+      </h3>
+    </div>
+    <div id="accordion-default-content-3" class="govuk-accordion__section-content">
+     {% include "_includes/sprint-10/annualAvailTable2.html" %}
+    </div>
+  </div>
+  <div class="govuk-accordion__section">
+    <div class="govuk-accordion__section-header">
+      <h3 class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button" id="accordion-default-heading-4">
+           {% set year=3 %}
+          {% include "_includes/sprint-10/table2Year3.html" %}
+        </span>
+      </h3>
+    </div>
+    <div id="accordion-default-content-4" class="govuk-accordion__section-content">
+     {% include "_includes/sprint-10/annualAvailTable2.html" %}
+    </div>
+  </div>
+</div>
+
+
+
+ {% else %}
+     <div class="govuk-body">
+<h3 class="govuk-heading-s">Percentage of days when water would have been available</h3>
+
+{% set year=0 %}
+          <h3 class="govuk-heading-s">{% include "_includes/sprint-10/table1Year0.html" %}</h3>
+<div class="govuk-body">{% include "_includes/sprint-10/annualAvailTable.html" %}</div>
+
+
+<div class="govuk-accordion" data-module="govuk-accordion" data-i18n.show-all-sections="Show previous years" data-i18n.hide-all-sections="Hide previous years" data-i18n.show-section="Show months" data-i18n.hide-section="Hide months" id="accordion-default">
+<div class="govuk-accordion__section--expanded">
+     <div class="govuk-accordion__section-header">
+   <!--    <h3 class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button" id="accordion-default-heading-1">
+          {% set year=0 %}
+          {% include "_includes/sprint-10/table1Year0.html" %}
+          </span>
+      </h3>
+    </div> 
+
+    <div id="accordion-default-content-1" class="govuk-accordion__section-content">
+        
+  {% include "_includes/sprint-10/annualAvailTable.html" %} -->
+    </div>
+  </div>
+  <div class="govuk-accordion__section">
+    <div class="govuk-accordion__section-header">
+      <h3 class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button" id="accordion-default-heading-2">
+         {% set year=1 %}
+          {% include "_includes/cusprint-10rrent/table1Year1.html" %}
+        </span>
+      </h3>
+    </div>
+    <div id="accordion-default-content-2" class="govuk-accordion__section-content">
+     {% include "_includes/sprint-10/annualAvailTable.html" %}
+    </div>
+  </div>
+  <div class="govuk-accordion__section">
+    <div class="govuk-accordion__section-header">
+      <h3 class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button" id="accordion-default-heading-3">
+          {% set year=2 %}
+          {% include "_includes/sprint-10/table1Year2.html" %}
+        </span>
+      </h3>
+    </div>
+    <div id="accordion-default-content-3" class="govuk-accordion__section-content">
+     {% include "_includes/sprint-10/annualAvailTable.html" %}
+    </div>
+  </div>
+  <div class="govuk-accordion__section">
+    <div class="govuk-accordion__section-header">
+      <h3 class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button" id="accordion-default-heading-4">
+           {% set year=3 %}
+          {% include "_includes/sprint-10/table1Year3.html" %}
+        </span>
+      </h3>
+    </div>
+    <div id="accordion-default-content-4" class="govuk-accordion__section-content">
+     {% include "_includes/sprint-10/annualAvailTable.html" %}
+    </div>
+  </div>
+</div>
+
+
+ {% endif %}
+
+{% endif %}
+{% endif %}
+
+<!--GROUNDWATER-->
+
+  {% if data['watertype'] == "ground" %}
+
+  {% if data.noWater == "true" or (data['water-use-type'] == "Consumptive" and data.gid == "1") %} 
+
+
+ {% else %}
+
+<h2 class="govuk-heading-m">Understanding groundwater availability</h2>
+
+<p class="govuk-body">Water availability will depend on the location and depth of abstraction.</p>
+
+<p class="govuk-body">A pump test or hydrogeological impact assessment will be 
+  needed to determine licence availability for your specific abstraction 
+  point. You must contact the Environment Agency (see details below) to find out 
+  whether you need to
+<a href="https://www.gov.uk/government/publications/apply-for-consent-to-investigate-a-groundwater-source/apply-for-consent-to-investigate-a-groundwater-source" class="govuk-link">get consent to investigate the groundwater source</a> or 
+prepare a <a href="https://www.gov.uk/government/publications/preparing-a-hydrogeological-impact-assessment/preparing-a-hydrogeological-impact-assessment">hydrogeological impact assessment</a> before 
+you can apply for a licence.</p>
+
+<h2 class="govuk-heading-m">Regulations and restrictions</h2>
+<p class="govuk-body">Restrictions may apply to licences where availability is 
+  limited or to protect the environment.</p>
+
+<p class="govuk-body">Hands-off Flow and Hands-off Levels are set by the Environment Agency 
+  as conditions on licences, these prevent abstractors from taking water when levels 
+  drop below a certain point.</p>
+
+
+<h2 class="govuk-heading-m">Get advice on groundwater availability and licensing</h2>
+<p class="govuk-body">Contact the Environment Agency for more information on groundwater availability and licensing.</p>
+<p class="govuk-body">National Customer Contact Centre
+<br>PO Box 544
+<br>Rotherham
+<br>S60 1BY</p>
+
+<p class="govuk-body">Email <a href="mailto:enquiries@environment-agency.gov.uk" class="govuk-link">enquiries@environment-agency.gov.uk</a></p>
+
+<p class="govuk-body">Telephone 03708 506 506</p>
+<p class="govuk-body">Monday to Friday, 8am to 6pm.</p>
+<p class="govuk-body">Telephone from outside the UK (Monday to Friday, 
+8am to 6pm GMT) +44 (0) 114 282 5312</p>
+
+{% endif %}
+{% endif %}
+
+  
+
+  {% if (data.noWater == "true" or (data['water-use-type'] == "Consumptive" and data.gid == "1")) %} 
+
+
+
+ <h2 class="govuk-heading-m">Other options for sourcing water</h2>
+<p class="govuk-body">You may still be able to obtain water in a different way to licenced abstraction. Find out your alternative options.</p>
+
+
+{% else %}
+
+       {% if data['water-use-label'] == "hydroelectric power generation" %} 
+       <h2 class="govuk-heading-m">Next steps</h2> 
+       <p class="govuk-body">Find out more about applying to build a new hydropower scheme.</p>
+{% else %}
+
+<h2 class="govuk-heading-m">Next steps and other options</h2>
+
+  {% if (data['noWater'] == "false" and data['licenceHolder'] == "yes") %} 
+
+ <p class="govuk-body">Continue below to learn more about licensing and other options for obtaining water such as rainwater collection and 
+  trading abstraction rights.</p>
+
+ 
+  {% elseif (data.noWater == "false" and (data['watertype'] == 'ground' or data['watertype'] == 'surface'))%}
+ 
+  <p class="govuk-body">Find out more about applying for a licence and your other 
+    options for sourcing water, such as trading abstraction rights, rainwater 
+    harvesting and water recycling.</p>
+
+  {% endif %}
+  {% endif %}
+
+    {% endif %}
+
+<form class="form" method="post">
+
+{% if data['water-use-label'] == "hydroelectric power generation" %} 
+
+ {{ govukButton({
+          text: "Continue",
+           href: "https://www.gov.uk/guidance/new-hydropower-scheme-apply-to-build-one"
+        }) }}
+
+{% else %}
+
+ {{ govukButton({
+          text: "Continue"
+        }) }}
+
+{% endif %}
+
+        </form>
+
+    </div>
+  </div>
+
+
+<!-- {{data|dump}} -->
+  
+{% endblock %}
+

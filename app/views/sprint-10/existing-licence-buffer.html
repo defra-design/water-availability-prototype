@@ -1,0 +1,70 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  You will need to apply for a new licence
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">
+        You may be able to vary your existing licence
+      </h1>
+
+      <p class="govuk-body">If you are taking water from the same source (so a point 
+        from the same water body, in close proximity to your existing licensed 
+        abstraction point) you can usually apply for a variation to your existing 
+        licence. This is often cheaper and simpler than a new licence application.</p>
+      <p class="govuk-body">You only need to apply for a new licence if you are 
+        taking water from a new source or a different water body. This usually 
+        applies to bigger organisations working across multiple sites or on 
+        large plots of land.</p>
+      <p class="govuk-body">Choose one of the options below to see information 
+        on next steps and how to vary your licence or make a new application.</p>
+
+
+      <form class="form" method="post">
+
+
+{{ govukRadios({
+  name: "varyOrApply",
+  value: data['varyOrApply'],
+  fieldset: {
+    legend: {
+      text: "Which information would you like to view?",
+      classes: "govuk-fieldset__legend--m"
+    }
+  },
+  items: [
+    {
+      value: "vary",
+      text: "How to vary your licence"
+    },
+    {
+      value: "apply",
+      text: "How to apply for a new licence"
+    }
+  ]
+}) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+
+     
+    </div>
+  </div>
+
+{% endblock %}
