@@ -23,20 +23,13 @@
 {% else %}
     <h1 class="govuk-heading-l">Next steps</h1> 
 
-{% if (data['noWater'] == "false" and data['varyOrApply'] == 'vary') %}
+{% if data['noWater'] == "false" and data['watertype'] == 'surface' %} 
 
-<p class="govuk-body">Learn more about varying your licence and 
-      what your other options are for sourcing water.</p>
-  
-
-  {% elseif data['noWater'] == "false" and data['watertype'] == 'surface' and (data['licenceHolder'] == 'no' or data['varyOrApply'] == 'apply') %} 
-
- <p class="govuk-body">Learn more about applying for a licence and 
-      what your other options are for sourcing water. <!--Read further details by 
-      selecting from the sections below.--></p>   
+ <p class="govuk-body">Learn more about applying for or varying a licence and 
+      what your other options are for sourcing water.</p>   
 
 
-  {% elseif data['noWater'] == "false" and data['watertype'] == 'ground' and (data['licenceHolder'] == 'no' or data['varyOrApply'] == 'apply') %} 
+  {% elseif data['noWater'] == "false" and data['watertype'] == 'ground' %} 
  <p class="govuk-body">Learn more about your next steps for getting a groundwater abstraction licence 
    and what your other options are for sourcing water.</p>
 {% endif %}
@@ -45,25 +38,16 @@
   
 {% if (data['noWater'] == "true") %} 
 
-{% elseif (data['noWater'] == "false" and data['licenceHolder'] == 'yes' and data['varyOrApply'] == 'vary') %} 
-
-<h2 class="govuk-heading-m">Varying your licence</h2>
-<p class="govuk-body">Find out your next steps for making a variation to your licence, including 
-  links to application forms and guidance, information on costs, permits and permissions.</p>     
-
-  <p class="govuk-body"><a href="how-to-apply.html">How to vary your licence</a></p>
-
-
- {% elseif data['noWater'] == "false" and data['watertype'] == 'surface' and (data['licenceHolder'] == 'no' or data['varyOrApply'] == 'apply') %} 
+ {% elseif data['noWater'] == "false" and data['watertype'] == 'surface' %} 
  <h2 class="govuk-heading-m">Applying for a licence</h2> 
-  <p class="govuk-body">Find out your next steps for applying, including links to application forms and guidance, 
+  <p class="govuk-body">Find out your next steps for applying or varying, including links to application forms and guidance, 
         information on costs, permits and permissions, and how to check which areas 
         have environmental protection in place.</p>
          
-<p class="govuk-body"><a href="how-to-apply.html">How to apply</a></p>
+<p class="govuk-body"><a href="how-to-apply.html">How to apply for or vary your licence</a></p>
 
 
-    {% elseif data['noWater'] == "false" and data['watertype'] == 'ground' and (data['licenceHolder'] == 'no' or data['varyOrApply'] == 'apply') %} 
+    {% elseif data['noWater'] == "false" and data['watertype'] == 'ground' %} 
  
     <h2 class="govuk-heading-m">Learn more about the groundwater licence application process</h2>
  

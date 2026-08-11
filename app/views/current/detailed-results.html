@@ -108,13 +108,13 @@
 
 {% if (data.noWater == "true" or (data['water-use-type'] == "Consumptive" and data.gid == "1")) %} 
 
-  <!-- <div class="border govuk-!-margin-bottom-3"> -->
+
     <h2 class="govuk-heading-m">Availability status</h2>
     <p class="govuk-body">No water is available for licensing at any time in this water body.</p>
     <p class="govuk-body">This can be due to low flow rates and a high number 
       of other abstractors. The area is likely to be water stressed meaning 
       more abstraction could have a negative impact on the local environment.</p>
- <!-- </div> -->
+
 
   {% else %}
   {% endif %}  
@@ -138,23 +138,6 @@ are issued an alert (some abstractors self-monitor water levels).</p>
     megalitre is equivalent to 1000 cubic metres. For reference, an Olympic 
     sized swimming pool is 2.5 megalitres in size.</p>
 
- 
-<!-- <p class="govuk-body">The current HoF level for {% if (data['watertype'] == "ground")%}
-      {{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}
-  
-    {% elseif (data['watertype'] == "surface")%}
-      {{data.riverCatchmentData[data.sid].properties.WB_NAME}}
-    {% endif %} is set at 
-      {% if data.sid == "1" %} <b>12 Megalitres per day</b>.
-    {% else %}
-    <b>135 Megalitres per day</b>.
-
-   {% endif %}</b></p>
-
-   <p class="govuk-body">This is the general HoF level for your local 
-    water body, but the actual HoF condition on your licence will be 
-    calculated on a case-by-case basis, taking other abstractors 
-    and the local environment into account.</p> -->
   </div>
 
 
@@ -301,17 +284,7 @@ are issued an alert (some abstractors self-monitor water levels).</p>
 <div class="govuk-accordion" data-module="govuk-accordion" data-i18n.show-all-sections="Show previous years" data-i18n.hide-all-sections="Hide previous years" data-i18n.show-section="Show months" data-i18n.hide-section="Hide months" id="accordion-default">
 <div class="govuk-accordion__section--expanded">
      <div class="govuk-accordion__section-header">
-   <!--    <h3 class="govuk-accordion__section-heading">
-        <span class="govuk-accordion__section-button" id="accordion-default-heading-1">
-          {% set year=0 %}
-          {% include "_includes/current/table1Year0.html" %}
-          </span>
-      </h3>
-    </div> 
 
-    <div id="accordion-default-content-1" class="govuk-accordion__section-content">
-        
-  {% include "_includes/current/annualAvailTable.html" %} -->
     </div>
   </div>
   <div class="govuk-accordion__section">
@@ -427,18 +400,10 @@ you can apply for a licence.</p>
 
 <h2 class="govuk-heading-m">Next steps and other options</h2>
 
-  {% if (data['noWater'] == "false" and data['licenceHolder'] == "yes") %} 
+  {% if (data['noWater'] == "false") %} 
 
  <p class="govuk-body">Continue below to learn more about licensing and other options for obtaining water such as rainwater collection and 
   trading abstraction rights.</p>
-
- 
-  {% elseif (data.noWater == "false" and (data['watertype'] == 'ground' or data['watertype'] == 'surface'))%}
- 
-  <p class="govuk-body">Find out more about applying for a licence and your other 
-    options for sourcing water, such as trading abstraction rights, rainwater 
-    harvesting and water recycling.</p>
-
   {% endif %}
   {% endif %}
 

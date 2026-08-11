@@ -604,23 +604,23 @@ router.get(folder + 'start', function (request, response) {
 })
 
 router.post('/start', function (request, response) {
-	response.redirect(folder + 'licence-holder')
+	response.redirect(folder + 'exemption')
 })
 
 
 //Existing licence holder
-router.get(folder + 'licence-holder', function (request, response) {
-	response.render(folder + 'licence-holder')
-})
+//router.get(folder + 'licence-holder', function (request, response) {
+	//response.render(folder + 'licence-holder')
+//})
 
-router.post('/licence-holder', function (request, response) {
-var licenceHolder = request.session.data['licenceHolder']
-	if (licenceHolder == "yes") {
-		response.redirect(folder + "new-or-existing-abstraction")
-	} else if (licenceHolder == "no") {
-		response.redirect(folder + "exemption")
-	}
-})
+//router.post('/licence-holder', function (request, response) {
+//var licenceHolder = request.session.data['licenceHolder']
+//	if (licenceHolder == "yes") {
+	//	response.redirect(folder + "new-or-existing-abstraction")
+//	} else if (licenceHolder == "no") {
+//		response.redirect(folder + "exemption")
+//	}
+//})
 
 //exemption page
 router.get(folder + 'exemption', function (request, response) {
@@ -646,40 +646,6 @@ router.post('/exempt-results', function (request, response) {
 	
 })
 
-//new or existing abstraction point page
-router.get(folder + 'new-or-existing-abstraction', function (request, response) {
-	response.render(folder + 'new-or-existing-abstraction')
-})
-
-router.post('/new-or-existing-abstraction', function (request, response) {
-var newExisting = request.session.data['newExisting']
-	if (newExisting == "new") {
-		response.redirect(folder + "exemption")
-	} else if (newExisting == "existing") {
-		response.redirect(folder + "usage-category")
-	}
-
-})
-
-
-
-//licence number page
-router.get(folder + 'licence-number', function (request, response) {
-	response.render(folder + 'licence-number')
-})
-
-router.post('/licence-number', function (request, response) {
-	response.redirect(folder + 'usage-category')
-})
-
-//abstraction type page
-router.get(folder + 'abstraction-type', function (request, response) {
-	response.render(folder + 'abstraction-type')
-})
-
-router.post('/abstraction-type', function (request, response) {
-	response.redirect(folder + 'usage-category')
-})
 
 
 //Location use water page
@@ -875,8 +841,8 @@ router.post('/usage-category', function (request, response) {
 
 // Handle POST from the usage farming page
 router.post('/usage-farming', function (request, response) {
-	var newExisting = request.session.data['newExisting']
-	var licenceHolder = request.session.data['licenceHolder']
+	//var newExisting = request.session.data['newExisting']
+	//var licenceHolder = request.session.data['licenceHolder']
 
   const key = request.session.data['usage-farming']; // from the select
     console.log(key)
@@ -905,8 +871,8 @@ router.post('/usage-farming', function (request, response) {
 
 // Handle POST from the usage industrial page
 router.post('/usage-industrial', function (request, response) {
-	var newExisting = request.session.data['newExisting']
-	var licenceHolder = request.session.data['licenceHolder']
+	//var newExisting = request.session.data['newExisting']
+	//var licenceHolder = request.session.data['licenceHolder']
 
   const key = request.session.data['usage-industrial']; // from the select
     console.log(key)
@@ -934,8 +900,8 @@ router.post('/usage-industrial', function (request, response) {
 
 // Handle POST from the usage conservation page
 router.post('/usage-conservation', function (request, response) {
-	var newExisting = request.session.data['newExisting']
-	var licenceHolder = request.session.data['licenceHolder']
+//	var newExisting = request.session.data['newExisting']
+//	var licenceHolder = request.session.data['licenceHolder']
 
 
   const key = request.session.data['usage-conservation']; // from the select
@@ -967,8 +933,8 @@ router.post('/usage-conservation', function (request, response) {
 
 // Handle POST from the usage domestic page
 router.post('/usage-domestic', function (request, response) {
-	var newExisting = request.session.data['newExisting']
-	var licenceHolder = request.session.data['licenceHolder']
+	//var newExisting = request.session.data['newExisting']
+	//var licenceHolder = request.session.data['licenceHolder']
 
   const key = request.session.data['usage-domestic']; // from the select
     console.log(key)
@@ -996,8 +962,8 @@ router.post('/usage-domestic', function (request, response) {
 
 // Handle POST from the usage energy page
 router.post('/usage-energy', function (request, response) {
-	var newExisting = request.session.data['newExisting']
-	var licenceHolder = request.session.data['licenceHolder']
+	//var newExisting = request.session.data['newExisting']
+//	var licenceHolder = request.session.data['licenceHolder']
 
   const key = request.session.data['usage-energy']; // from the select
     console.log(key)
@@ -1025,8 +991,8 @@ router.post('/usage-energy', function (request, response) {
 
 // Handle POST from the usage storage page
 router.post('/usage-storage', function (request, response) {
-	var newExisting = request.session.data['newExisting']
-	var licenceHolder = request.session.data['licenceHolder']
+	//var newExisting = request.session.data['newExisting']
+	//var licenceHolder = request.session.data['licenceHolder']
 
   const key = request.session.data['usage-storage']; // from the select
     console.log(key)
@@ -1054,8 +1020,8 @@ router.post('/usage-storage', function (request, response) {
 
 // Handle POST from the usage sport page
 router.post('/usage-sport', function (request, response) {
-	var newExisting = request.session.data['newExisting']
-	var licenceHolder = request.session.data['licenceHolder']
+	//var newExisting = request.session.data['newExisting']
+	//var licenceHolder = request.session.data['licenceHolder']
 
   const key = request.session.data['usage-sport']; // from the select
     console.log(key)
@@ -1091,14 +1057,6 @@ router.post('/exempt-results', function (request, response) {
 	response.redirect(folder + 'exempt-results')
 })
 
-//duration page
-// router.get(folder + 'duration', function (request, response) {
-// 	response.render(folder + 'duration')
-// })
-
-// router.post('/duration', function (request, response) {
-// 	response.redirect(folder + 'summary')
-// })
 
 
 
@@ -1120,24 +1078,14 @@ router.get(folder + 'detailed-results', function (request, response) {
 
 
 router.post('/detailed-results', function (request, response) {
-var licenceHolder = request.session.data['licenceHolder']
-var noWater = request.session.data['noWater']
-	if (licenceHolder == "yes" && noWater == "false") {
-		response.redirect(folder + "existing-licence-buffer")
-	} else if ((licenceHolder == "yes" && noWater == "true") || (licenceHolder == "no")) {
-		response.redirect(folder + "next-steps")
-	}
+//var licenceHolder = request.session.data['licenceHolder']
+//var noWater = request.session.data['noWater']
+	
+			response.redirect(folder + "next-steps")
+
 })
 
 
-//existing-licence-buffer page
-router.get(folder + 'existing-licence-buffer', function (request, response) {
-	response.render(folder + 'existing-licence-buffer')
-})
-
-router.post('/existing-licence-buffer', function (request, response) {
-	response.redirect(folder + 'next-steps')
-})
 
 
 
