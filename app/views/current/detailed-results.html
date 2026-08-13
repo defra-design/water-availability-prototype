@@ -96,13 +96,22 @@
  {% endif %}
   {% if (data.noWater == "true" or (data['water-use-type'] == "Consumptive" or data.watertype == "ground")) %} 
   {% else %}
-<h2 class="govuk-heading-m">Restrictions and volume of water available
-</h2>
+<h2 class="govuk-heading-m">Restrictions and volume of water available</h2>
 
-<p class="govuk-body">Your licence will specify the maximum amount of water 
-  you can abstract per day. You can use the tables on page 11 of 
-  the <a href="https://assets.publishing.service.gov.uk/media/65267c832548ca0014ddf0fa/LIT_10154_-_WR331_Part_B_Guidance_notes_for_water_resources_abstraction_licence_application.pdf">application form guidance notes</a> 
-  to help you estimate your water usage.</p>
+<p class="govuk-body">Water levels are monitored using assessment point data gathered 
+  at gauging stations. Your local assessment point is <b>Henley gauging station</b> 
+  which is <b>1.2 miles</b> away from the centre of your {% if (data['location'] == "gridRef") %}
+        national grid reference
+{% elseif (data['location'] == "fieldParcel") %}
+    field parcel
+{% elseif (data['location'] == "postCode") %}
+    postcode
+      {% endif %}.</p>
+
+<p class="govuk-body">Your licence will specify the maximum amount of water y
+  ou can abstract per day. There are additional restrictions on abstraction w
+  hich are explained below.</p>
+
 
   {% endif %} 
 
@@ -123,52 +132,82 @@
   {% if (data.noWater == "true") %} 
 {% else %} 
 
-      <h2 class="govuk-heading-m">Hands-off Flow conditions</h2>
+      <h2 class="govuk-heading-m">Hands-off Flow conditions for Henley gauging station</h2>
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      What are Hands-off Flow conditions?
+    </span>
 
+  </summary>
+  <div class="govuk-details__text">
 
- <p class="govuk-body">There are also 'Hands-off Flow' (HoF) conditions on licences. These 
-come into effect when the flow rate is critically low. When this happens most abstractors 
-are issued an alert (some abstractors self-monitor water levels).</p>
+<p class="govuk-body">'Hands-off Flow' (HoF) conditions come into effect when the 
+  flow rate drops below a certain level. When this happens most abstractors 
+  are issued an alert (although some abstractors self-monitor water levels) 
+  and abstraction is not allowed until the flow rate increases.</p>
 
-<p class="govuk-body">If water levels fall below the HoF condition on your 
-  licence, you are not allowed to abstract. This is common during droughts 
-  and dry periods, most often in the summer.</p>
+<p class="govuk-body">HoF conditions are measured in megalitres per day. One 
+  megalitre is equivalent to 1000 cubic metres. For reference, an Olympic 
+  sized swimming pool is 2.5 megalitres in size. </p>
+ 
 
-  <p class="govuk-body">HoF conditions are measured in megalitres per day. One 
-    megalitre is equivalent to 1000 cubic metres. For reference, an Olympic 
-    sized swimming pool is 2.5 megalitres in size.</p>
+ 
+  </div>
+</details>
 
   </div>
+
+<!----------------------------->
+<p class="govuk-body">  The Hands-off Flow (HoF) 
+  for Henley guaging station is 
+       {% if data.sid == "1" %} <b>2.6 Megalitres per day</b>
+    {% else %}
+       <b>7.3 Megalitres per day</b>
+   {% endif %} 
+ .</p>
+
+<p class="govuk-body">Your licence may have a different HoF condition 
+  applied depending on your use and exact abstraction point location.</p>
+
+<p class="govuk-body">  HoF conditions for Henley gauging station have 
+  reached
+       {% if data.sid == "1" %} <b>band 1 out of 6</b>. There is <b>91%</b> of water remaining 
+  in this band for licensing before the next band is reached and the HoF 
+  becomes more restrictive.</b>
+    {% else %}
+       <b>band 4 out of 6</b>. There is <b>35%</b> of water remaining 
+  in this band for licensing before the next band is reached and the HoF 
+  becomes more restrictive.
+   {% endif %} 
+ .</p>
+
+<!----------------------------->
+
+
+
+
 
 
   <details class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
-      Hands-off Flow bands and volumes
+      What are Hands-off Flow bands?
     </span>
   </summary>
   <div class="govuk-details__text">
-    <p class="govuk-body">Hands-off Flow (HoF) conditions are grouped into bands and 
-      this gives you an idea of how water stressed your local water 
-      body is.</p>
+    <p class="govuk-body">Hands-off Flow (HoF) conditions are grouped 
+      into bands and this gives you an idea of how water stressed your 
+      local water body is.</p>
 
 <p class="govuk-body">Band 1 has the most water available and fewest 
   restrictions, while band 6 is the most water stressed with no water 
-  available left for licensing.</p>
+  available left for licensing. </p>
 
-<p class="govuk-body">HoF conditions in {% if (data['watertype'] == "ground")%}
-      {{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}
-  
-    {% elseif (data['watertype'] == "surface")%}
-      {{data.riverCatchmentData[data.sid].properties.WB_NAME}}
-    {% endif %} have reached 
-       {% if data.sid == "1" %} <b>band 1</b> with <b>25 Megalitres per day</b> left in this band for licensing.
-    {% else %}
-       <b>band 4</b> with <b>2 Megalitres per day</b> left in this band for licensing.
-   {% endif %}</p>  
+<p class="govuk-body">Once the remaining water in the band has been 
+  licensed, the water body will move into the next band up and the restrictions 
+  will increase.</p>
 
-   <p class="govuk-body">Once that water has been licensed, the water 
-    body will move into the next band up and the restrictions will increase.</p>
 
 </div>
 </details>
