@@ -24,9 +24,6 @@
       <p class="govuk-body">Find a trading partner using the list below 
         of existing surface water abstractors in your area.</p>
 
-       <p class="govuk-body">You can view a <a href="https://experience.arcgis.com/experience/15d2ce4fc69d4c51accede6eec04488b/">map of local abstractors</a> 
-        and find more guidance on <a href="https://environment.data.gov.uk/dataset/8a682192-4a1b-4e40-84d4-5671bfa5671c">DEFRA's Help for Water Rights Trading Data</a> platform.</p>
-<hr>
 
 {% set licenceCount = 0 %}
       {% for licence in data.riverCatchmentData[data.sid].licences %}
@@ -108,10 +105,6 @@
         <p class="govuk-body">Find a trading partner using the list below 
         of existing groundwater abstractors in your area.</p>
 
-       <p class="govuk-body">View a <a href="https://experience.arcgis.com/experience/15d2ce4fc69d4c51accede6eec04488b/">map of local abstractors</a> 
-        and find more guidance on <a href="https://environment.data.gov.uk/dataset/8a682192-4a1b-4e40-84d4-5671bfa5671c">DEFRA's Help for Water Rights Trading Data</a> platform.</p>
-
-<hr>
 
 {% set licenceCount = 0 %}
       {% for licence in data.groundwaterCatchmentData[data.gid].licences %}
@@ -185,6 +178,11 @@
 {% endfor %}
 {% endif %}
 
+
+
+<hr>
+      <p class="govuk-body">You can view a map of local abstractors
+        and find more guidance on <a href="https://environment.data.gov.uk/dataset/8a682192-4a1b-4e40-84d4-5671bfa5671c">DEFRA's Help for Water Rights Trading Data</a> platform.</p>
 
 
 <!-- {{ data | dump }} -->
