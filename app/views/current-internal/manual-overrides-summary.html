@@ -1,0 +1,141 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  {{ serviceName }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+   <!-- <div class="govuk-grid-column-two-thirds">-->
+
+      <h1 class="govuk-heading-l">
+        Redlake manual overrides
+      </h1>
+
+    <!--  <form class="form" action="/path/of/next/page" method="post">-->
+
+<table class="govuk-table">
+  <caption class="govuk-table__caption govuk-table__caption--m">Water availability colour</caption>
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Source</th>
+      <th scope="col" class="govuk-table__header">Date</th>
+       <th scope="col" class="govuk-table__header">Status</th>
+       <th scope="col" class="govuk-table__header">Actions</th>
+      <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Notes</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Override</td>
+      <td class="govuk-table__cell">09/10/2026</td>
+      <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--red">No availability</strong></td>
+
+      <td class="govuk-table__cell">
+      <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">Update</button>
+      <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">Remove</button>
+      </td>
+      <td class="govuk-table__cell">Lorem ipsum dolor sit amet, consectetur 
+          adipiscing elit, sed do eiusmod tempor incididunt ut labore et 
+          dolore magna aliqua. Ut enim ad minim veniam, quis 
+          nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</td>
+     
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">WRGIS</td>
+      <td class="govuk-table__cell">05/06/2026</td>
+      <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--yellow">Limited availability</strong></td>
+      <td class="govuk-table__cell"></td>
+      <td class="govuk-table__cell"></td>
+    </tr>
+  </tbody>
+</table>
+
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Water availability colour history
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+    Log of activity in here...  </div>
+</details>
+
+<table class="govuk-table">
+  <caption class="govuk-table__caption govuk-table__caption--m">Hands-off Flow</caption>
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Source</th>
+      <th scope="col" class="govuk-table__header">Date</th>
+       <th scope="col" class="govuk-table__header">Status</th>
+       <th scope="col" class="govuk-table__header">Actions</th>
+       <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Notes</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Override</th>
+      <td class="govuk-table__cell">10/09/2026</td>
+      <td class="govuk-table__cell">53</td>
+      <td class="govuk-table__cell" >
+        <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">Update</button>
+        <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">Remove</button>
+      </td>
+      <td class="govuk-table__cell">Lorem ipsum dolor sit amet, consectetur 
+          adipiscing elit, sed do eiusmod tempor incididunt ut labore et 
+          dolore magna aliqua. Ut enim ad minim veniam, quis 
+          nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+      </td>
+    </tr>
+
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">WRGIS</th>
+      <td class="govuk-table__cell">01/03/2026</td>
+      <td class="govuk-table__cell">71</td>
+      <td class="govuk-table__cell"></td>
+      <td class="govuk-table__cell"></td>
+    </tr>
+  </tbody>
+</table>
+
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+     Hands-off Flow history
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+    Log of activity in here...  </div>
+</details>
+
+<h2 class="govuk-heading-m">Local policies</h2>
+
+<p class="govuk-body">All of these currently apply:</p>
+<ul class="govuk-list govuk-list--bullet">
+  <li>Heavily modified waterbody</li>
+  <li>Internal drainage board</li>
+  <li>Green Line</li>
+</ul>
+
+<button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">Update</button>
+<button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">Remove</button>
+
+
+  <!--      {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>-->
+
+  <!--  </div>-->
+  </div>
+
+{% endblock %}
