@@ -13,16 +13,17 @@ const router = govukPrototypeKit.requests.setupRouter()
 // END TABLE STUFF
 
 // Start folder specific routes
-router.use('/sprint-10', require('./views/sprint-10/_routes'));
-router.use('/sprint-9', require('./views/sprint-9/_routes'));
-router.use('/sprint-8', require('./views/sprint-8/_routes'));
-router.use('/sprint-6', require('./views/sprint-6/_routes'));
-router.use('/sprint-5', require('./views/sprint-5/_routes'));
-router.use('/sprint-4', require('./views/sprint-4/_routes'));
-router.use('/sprint-3', require('./views/sprint-3/_routes'));
-router.use('/sprint-2', require('./views/sprint-2/_routes'));
-router.use('/sprint-1', require('./views/sprint-1/_routes'));
+router.use('/external/sprint-10', require('./views/external/sprint-10/_routes'));
+router.use('/external/sprint-9', require('./views/external/sprint-9/_routes'));
+router.use('/external/sprint-8', require('./views/external/sprint-8/_routes'));
+router.use('/external/sprint-6', require('./views/external/sprint-6/_routes'));
+router.use('/external/sprint-5', require('./views/external/sprint-5/_routes'));
+router.use('/external/sprint-4', require('./views/external/sprint-4/_routes'));
+router.use('/external/sprint-3', require('./views/external/sprint-3/_routes'));
+router.use('/external/sprint-2', require('./views/external/sprint-2/_routes'));
+router.use('/external/sprint-1', require('./views/external/sprint-1/_routes'));
 // current sprint, remember to add older sprint when adding a new folder!
-router.use('/current', require('./views/current/_routes'));
+router.use('/external/current', require('./views/external/current/_routes'));
+router.use('/internal/current', require('./views/internal/current/_routes'));
 
 module.exports = router
