@@ -1,19 +1,39 @@
 const govukPrototypeKit = require('govuk-prototype-kit')
 const router = govukPrototypeKit.requests.setupRouter()
-// Add your routes here - above the module.exports line
-const folder = "/internal/current/"
 
+const folder = '/internal/current/'
 
+// Search stuff
 
-//Start page
-router.get(folder + 'start', function (request, response) {
-    response.render(folder + 'start')
-})
+router.get('/api/catchments/search', async (req, res) => {
 
-router.post('/start', function (request, response) {
-    response.redirect(folder + 'intention')
-})
+ const query =
+ (req.query.q || '').toLowerCase();
 
+ const catchments = [
+ {
+ id: 'GB108039017280',
+ name: 'River Kennet'
+ },
+ {
+ id: 'GB106039023460',
+ name: 'River Thames'
+ },
+ {
+ id: 'GB106039030233',
+ name: 'River Loddon'
+ }
+ ];
 
+ const matches = catchments.filter(
+ catchment =>
+ catchment.name
+ .toLowerCase()
+ .includes(query)
+ );
+
+ res.json(matches);
+
+});
 
 module.exports = router

@@ -1,0 +1,45 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">
+       What do you want to override?
+      </h1>
+
+<div class="govuk-form-group">
+<label class="govuk-label" for="water-search">
+Search for a catchment or water body
+</label>
+
+<div id="water-search-container"></div>
+</div>
+
+<input
+type="hidden"
+id="selected-water-body-id"
+name="selectedWaterBodyId">
+
+<input
+type="hidden"
+id="selected-water-body-name"
+name="selectedWaterBodyName">
+    
+
+    </div>
+  </div>
+
+{% endblock %}
