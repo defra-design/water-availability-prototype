@@ -3,37 +3,63 @@ const router = govukPrototypeKit.requests.setupRouter()
 
 const folder = '/internal/current/'
 
-// Search stuff
+router.get('/hello', (req, res) => {
+ res.send('Hello world')
+})
 
 router.get('/api/catchments/search', async (req, res) => {
 
- const query =
- (req.query.q || '').toLowerCase();
+ try {
 
- const catchments = [
- {
- id: 'GB108039017280',
- name: 'River Kennet'
- },
- {
- id: 'GB106039023460',
- name: 'River Thames'
- },
- {
- id: 'GB106039030233',
- name: 'River Loddon'
+ const query = req.query.q || ''
+
+ if (query.length < 3) {
+ return res.json([])
  }
- ];
 
- const matches = catchments.filter(
- catchment =>
- catchment.name
- .toLowerCase()
- .includes(query)
- );
+ const url =
+ 'https://services1.arcgis.com/JZM7qJpmv7vJ0Hzx/ArcGIS/rest/services/' +
+ 'WFD_Cycle_2_River_catchment_classification/' +
+ 'FeatureServer/5/query?' +
+ 'where=' +
+ encodeURIComponent(
+ `UPPER(WB_NAME) LIKE '%${query.toUpperCase()}%'`
+ ) +
+ '&outFields=WB_ID,WB_NAME,MNCAT_NAME,OPCAT_NAME' +
+ '&returnGeometry=false' +
+ '&f=pjson'
 
- res.json(matches);
+ const response = await fetch(url)
 
-});
+ const data = await response.json()
+
+ const results =
+ data.features.map(feature => ({
+
+ id:
+ feature.attributes.WB_ID,
+
+ name:
+ feature.attributes.WB_NAME,
+
+ managementCatchment:
+ feature.attributes.MNCAT_NAME,
+
+ operationalCatchment:
+ feature.attributes.OPCAT_NAME
+
+ }))
+
+ return res.json(results)
+
+ } catch (error) {
+
+ console.error(error)
+
+ return res.json([])
+
+ }
+
+})
 
 module.exports = router

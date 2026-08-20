@@ -1,5 +1,6 @@
 window.GOVUKPrototypeKit.documentReady(() => {
 
+
  const container = document.querySelector('#water-search-container')
 
  if (!container) {
@@ -19,33 +20,27 @@ window.GOVUKPrototypeKit.documentReady(() => {
  const input = document.querySelector('#water-search')
  const results = document.querySelector('#water-search-results')
 
- const catchments = [
- {
- id: '1',
- name: 'River Kennet'
- },
- {
- id: '2',
- name: 'River Thames'
- },
- {
- id: '3',
- name: 'River Loddon'
- }
- ]
+let catchments = []
 
- input.addEventListener('input', () => {
+ input.addEventListener('input', async () => {
 
  const query = input.value.toLowerCase()
 
+ if (query.length < 3) {
+ results.innerHTML = ''
+ return
+}
+
+const response = await fetch(
+ '/api/catchments/search?q=' +
+ encodeURIComponent(query)
+)
+
+catchments = await response.json()
+
  results.innerHTML = ''
 
- const matches = catchments.filter(
- catchment =>
- catchment.name
- .toLowerCase()
- .includes(query)
- )
+ const matches = catchments
 
  matches.forEach(catchment => {
 
@@ -67,12 +62,16 @@ window.GOVUKPrototypeKit.documentReady(() => {
  nameField.value = catchment.name
  }
 
- window.location.href =
+window.location.href =
  '/internal/current/manual-overrides-summary?waterBodyName=' +
- encodeURIComponent(catchment.name)
-
+ encodeURIComponent(catchment.name) +
+ '&waterBodyId=' +
+ encodeURIComponent(catchment.id) +
+ '&managementCatchment=' +
+ encodeURIComponent(catchment.managementCatchment) +
+ '&operationalCatchment=' +
+ encodeURIComponent(catchment.operationalCatchment)
  })
-
  results.appendChild(item)
 
  })

@@ -1,3 +1,5 @@
+alert('CATCHMENT-SEARCH.JS LOADED')
+
 import { searchCatchments } from "./catchment-api.js";
 
 let selectedWaterBody = null;
@@ -33,10 +35,12 @@ const results =
 await searchCatchments(query);
 
 populateResults(
-results.map(result => ({
-id: result.id,
-label: result.name
-}))
+ results.map(result => ({
+ id: result.id,
+ label: result.name,
+ managementCatchment: result.managementCatchment,
+ operationalCatchment: result.operationalCatchment
+ }))
 );
 
 } catch (error) {
@@ -62,11 +66,20 @@ return;
 
 selectedWaterBody = {
 id: selected.id,
-name: selected.label
+name: selected.label,
+managementCatchment: selected.managementCatchment,
+operationalCatchment: selected.operationalCatchment
 };
 
 idField.value = selected.id;
 nameField.value = selected.label;
+
+window.location.href =
+'/internal/current/manual-overrides-summary?' +
+'waterBodyName=' + encodeURIComponent(selected.label) +
+'&waterBodyId=' + encodeURIComponent(selected.id) +
+'&managementCatchment=' + encodeURIComponent(selected.managementCatchment) +
+'&operationalCatchment=' + encodeURIComponent(selected.operationalCatchment);
 }
 });
 }
