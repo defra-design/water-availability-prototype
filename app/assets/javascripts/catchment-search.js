@@ -1,5 +1,3 @@
-alert('CATCHMENT-SEARCH.JS LOADED')
-
 import { searchCatchments } from "./catchment-api.js";
 
 let selectedWaterBody = null;

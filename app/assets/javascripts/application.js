@@ -47,9 +47,11 @@ catchments = await response.json()
  const item = document.createElement('li')
 
  item.innerHTML = `
- <button type="button">
+ <p class="govuk-body">
+ <a class="govuk-link" href="#">
  ${catchment.name}
- </button>
+ </a>
+ </p>
  `
 
  item.addEventListener('click', () => {
