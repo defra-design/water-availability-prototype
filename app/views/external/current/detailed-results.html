@@ -221,92 +221,70 @@
       </div>
 </details>
 
-<h2 class="govuk-heading-m">Local policies affecting water availability</h2>
+<h2 class="govuk-heading-m">Local policies affecting water availability in {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %}</h2>
 
-<div class="govuk-accordion" data-module="govuk-accordion" id="local-policies-affecting-water-availability">
-  <div class="govuk-accordion__section">
-    <div class="govuk-accordion__section-header">
-      <h3 class="govuk-accordion__section-heading">
-        <span class="govuk-accordion__section-button" id="local-policies-affecting-water-availability-heading-1">
-          Heavily Modified Water Body
-        </span>
-      </h3>
-    </div>
-    <div id="local-policies-affecting-water-availability-content-1" class="govuk-accordion__section-content">
-      <p class="govuk-body">Some water bodies are designated as ‘artificial’ or ‘heavily modified’ because they have been created or modified to suit a particular purpose such as water supply, flood protection or navigation. They are often known as ‘regulated rivers’ and may be managed through an operating agreement held by a water company which determines the availability of water.</p>
-      <p class="govuk-body">The River Pont is known to be impacted by a strategic transfer that intercepts with the waterbody in the upper reaches. Measures are being delivered by Northumbrian Water Limited, through the Water Industry National Environment Programme, to investigate changes to the operation of the strategic transfer and improve the downstream flow regime. This will likely result in changes to the Water Availability Assessment and result in more water being available for licensing.</p>
-    </div>
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">Heavily Modified Water Body</span>
+  </summary>
+  <div class="govuk-details__text">
+    <p class="govuk-body">Some water bodies are designated as ‘artificial’ or ‘heavily modified’ because they have been created or modified to suit a particular purpose such as water supply, flood protection or navigation. They are often known as ‘regulated rivers’ and may be managed through an operating agreement held by a water company which determines the availability of water.</p>
+    <p class="govuk-body">The River Pont is known to be impacted by a strategic transfer that intercepts with the waterbody in the upper reaches. Measures are being delivered by Northumbrian Water Limited, through the Water Industry National Environment Programme, to investigate changes to the operation of the strategic transfer and improve the downstream flow regime. This will likely result in changes to the Water Availability Assessment and result in more water being available for licensing.</p>
   </div>
+</details>
 
-  <div class="govuk-accordion__section">
-    <div class="govuk-accordion__section-header">
-      <h3 class="govuk-accordion__section-heading">
-        <span class="govuk-accordion__section-button" id="local-policies-affecting-water-availability-heading-2">
-          Internal Drainage Board
-        </span>
-      </h3>
-    </div>
-    <div id="local-policies-affecting-water-availability-content-2" class="govuk-accordion__section-content">
-      <p class="govuk-body">An Internal Drainage Board (IDB) is a public body that manages water levels in an area, known as an internal drainage district, where there is a special need for drainage. We will consult the relevant IDB for any licence that is considered in an IDB area.</p>
-      <p class="govuk-body">We will consider proposals for surface water abstraction on a case-by-case basis following discussion with the local Internal Drainage Board (IDB). The following conditions will apply to all new surface water abstractions in the Holbeach Marsh area:</p>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>Abstraction will be limited to periods of high flows and/or levels (normally the winter period).</li>
-        <li>All licences will have a hands-off level/flow which will be set following discussion with the IDB.</li>
-      </ul>
-    </div>
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">Internal Drainage Board</span>
+  </summary>
+  <div class="govuk-details__text">
+    <p class="govuk-body">An Internal Drainage Board (IDB) is a public body that manages water levels in an area, known as an internal drainage district, where there is a special need for drainage. We will consult the relevant IDB for any licence that is considered in an IDB area.</p>
+    <p class="govuk-body">We will consider proposals for surface water abstraction on a case-by-case basis following discussion with the local Internal Drainage Board (IDB). The following conditions will apply to all new surface water abstractions in the Holbeach Marsh area:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>Abstraction will be limited to periods of high flows and/or levels (normally the winter period).</li>
+      <li>All licences will have a hands-off level/flow which will be set following discussion with the IDB.</li>
+    </ul>
   </div>
+</details>
 
-  <div class="govuk-accordion__section">
-    <div class="govuk-accordion__section-header">
-      <h3 class="govuk-accordion__section-heading">
-        <span class="govuk-accordion__section-button" id="local-policies-affecting-water-availability-heading-3">
-          Level Dependent Environment
-        </span>
-      </h3>
-    </div>
-    <div id="local-policies-affecting-water-availability-content-3" class="govuk-accordion__section-content">
-      <p class="govuk-body">Level Dependent Environments (LDEs) are characterised by a network of river channels flowing above the level of the surrounding land. The low-lying land has a network of drainage ditches. These ditches remove water from the low-lying land and in many cases are pumped into the main river channels during the winter or high flows.</p>
-      <p class="govuk-body">In most cases licences for abstraction from the Lower Steeping LDE will contain the following conditions:</p>
-      <ol class="govuk-list govuk-list--number">
-        <li>A HoL condition set at the Havenhouse Sluice, and/or</li>
-        <li>A HoF condition set at Partney, and</li>
-        <li>A site specific HoL condition relevant to the local level management system to be agreed following liaison with the relevant DB.</li>
-      </ol>
-    </div>
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">Level Dependent Environment</span>
+  </summary>
+  <div class="govuk-details__text">
+    <p class="govuk-body">Level Dependent Environments (LDEs) are characterised by a network of river channels flowing above the level of the surrounding land. The low-lying land has a network of drainage ditches. These ditches remove water from the low-lying land and in many cases are pumped into the main river channels during the winter or high flows.</p>
+    <p class="govuk-body">In most cases licences for abstraction from the Lower Steeping LDE will contain the following conditions:</p>
+    <ol class="govuk-list govuk-list--number">
+      <li>A HoL condition set at the Havenhouse Sluice, and/or</li>
+      <li>A HoF condition set at Partney, and</li>
+      <li>A site specific HoL condition relevant to the local level management system to be agreed following liaison with the relevant DB.</li>
+    </ol>
   </div>
+</details>
 
-  <div class="govuk-accordion__section">
-    <div class="govuk-accordion__section-header">
-      <h3 class="govuk-accordion__section-heading">
-        <span class="govuk-accordion__section-button" id="local-policies-affecting-water-availability-heading-4">
-          Green Line Policy
-        </span>
-      </h3>
-    </div>
-    <div id="local-policies-affecting-water-availability-content-4" class="govuk-accordion__section-content">
-      <p class="govuk-body">The Green-line Policy was created to limit seasonal abstraction within certain level dependent environments in response to increasing pressure on resources during the irrigation season.</p>
-      <p class="govuk-body">The green-line is drawn around the marshes of Chislet, Ash, Minster/Monkton and Goshall, all of which receive water from the River Stour. The main points of this policy are:</p>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>No further licences can be granted authorising increased abstraction on an annual or daily basis during the summer period from anywhere within the green-line.</li>
-        <li>Any licences granted in the future for areas within the green-line must restrict abstraction to the winter period and, in almost all cases, require the applicant to provide sufficient storage to meet the full annual quantity together with losses by evaporation or leakage.</li>
-        <li>Any new abstraction from the river must be winter-only and subject to any local flow or level conditions.</li>
-      </ul>
-    </div>
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">Green Line Policy</span>
+  </summary>
+  <div class="govuk-details__text">
+    <p class="govuk-body">The Green-line Policy was created to limit seasonal abstraction within certain level dependent environments in response to increasing pressure on resources during the irrigation season.</p>
+    <p class="govuk-body">The green-line is drawn around the marshes of Chislet, Ash, Minster/Monkton and Goshall, all of which receive water from the River Stour. The main points of this policy are:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>No further licences can be granted authorising increased abstraction on an annual or daily basis during the summer period from anywhere within the green-line.</li>
+      <li>Any licences granted in the future for areas within the green-line must restrict abstraction to the winter period and, in almost all cases, require the applicant to provide sufficient storage to meet the full annual quantity together with losses by evaporation or leakage.</li>
+      <li>Any new abstraction from the river must be winter-only and subject to any local flow or level conditions.</li>
+    </ul>
   </div>
+</details>
 
-  <div class="govuk-accordion__section">
-    <div class="govuk-accordion__section-header">
-      <h3 class="govuk-accordion__section-heading">
-        <span class="govuk-accordion__section-button" id="local-policies-affecting-water-availability-heading-5">
-          Other
-        </span>
-      </h3>
-    </div>
-    <div id="local-policies-affecting-water-availability-content-5" class="govuk-accordion__section-content">
-      <p class="govuk-body">Content to be added where a local policy does not fit another category.</p>
-    </div>
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">Other</span>
+  </summary>
+  <div class="govuk-details__text">
+    <p class="govuk-body">Content to be added where a local policy does not fit another category.</p>
   </div>
-</div>
+</details>
 
  <!-- <p class="govuk-body">Your local assessment point is <b>Henley gauging station</b> 
   which is <b>1.2 km</b> away from the centre of your {% if (data['location'] == "gridRef") %}
@@ -344,7 +322,7 @@
 
 <!----------------------------------------------------------------->
 
-<h2 class="govuk-heading-m">Water availability in previous years</h2>
+<h2 class="govuk-heading-m">Water availability for previous years in {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %}</h2>
 
 <p class="govuk-body">Water availability is usually better in winter 
   because rainfall and water flow rates tend to be higher. In summer, water 
