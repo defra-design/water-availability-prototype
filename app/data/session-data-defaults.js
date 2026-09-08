@@ -1,5 +1,18 @@
 module.exports = {
 
+//INTERNAL SESSION DEFAULTS
+
+//This file contains the default values for the session data used in the internal prototype. It is used to populate the session data when a new session is created, and can be modified to change the default values for the prototype.
+
+//Assessment point data is stored in the session data, and is used to populate the assessment point pages. The data is stored in the following format:
+
+"updateAp":["Henley gauging station"],
+
+
+
+
+
+//EXTERNAL SESSION DEFAULTS
   // Insert values here
 "riverCatchmentData":[],
 "groundwaterCatchmentData":[],

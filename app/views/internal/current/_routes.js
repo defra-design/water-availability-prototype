@@ -62,4 +62,29 @@ router.get('/api/catchments/search', async (req, res) => {
 
 })
 
+//OVERRIDES
+//const currentRoutes = require('./views/internal/current/_routes')
+//router.use('/', currentRoutes)
+
+router.get(folder + 'manual-overrides-summary', function (request, response) {
+	response.render(folder + 'manual-overrides-summary')
+})
+
+router.post('/manual-overrides-summary', function (request, response) {
+	const upDate = request.session.data['manual-overrides-summary']
+	if (upDate == "updateAp") {
+		response.redirect(folder + "update-ap")
+	} else if (upDate == "updateHof") {
+		response.redirect(folder + "update-hof")
+	} else if (upDate == "updateLp") {
+		response.redirect(folder + "update-lp")
+	} else if (upDate == "updateCol") {
+		response.redirect(folder + "update-col")
+	}
+})
+
+router.post(folder + 'update-ap', function (request, response) {
+	request.session.data.updateAp = request.body.updateAp
+	response.redirect(folder + 'manual-overrides-summary')
+})
 module.exports = router

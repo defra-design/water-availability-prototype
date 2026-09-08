@@ -13,14 +13,20 @@
 
 {% block content %}
 
+    <form class="form" method="post">
+ 
+      
   <div class="govuk-grid-row">
    <!-- <div class="govuk-grid-column-two-thirds">-->
 <span class="govuk-caption-l">{{ data['waterBodyId'] }}</span>
       <h1 class="govuk-heading-l">
-       {{ data['waterBodyName'] }} manual overrides
+       {{ data['waterBodyName'] or data['managementCatchment'] }} manual overrides
       </h1>
 
-    <!--  <form class="form" action="/path/of/next/page" method="post">-->
+
+
+
+
 
 <table class="govuk-table">
   <caption class="govuk-table__caption govuk-table__caption--m">Water availability colour</caption>
@@ -86,7 +92,7 @@
       <td class="govuk-table__cell">10/09/2026</td>
       <td class="govuk-table__cell">53</td>
       <td class="govuk-table__cell" >
-        <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">Update</button>
+      <button type="submit" name="manual-overrides-summary" value="updateHof" class="govuk-button govuk-button--secondary" data-module="govuk-button">Update</button>
         <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">Remove</button>
       </td>
       <td class="govuk-table__cell">Lorem ipsum dolor sit amet, consectetur 
@@ -187,14 +193,51 @@
   </tbody>
 </table>
 
+<table class="govuk-table">
+  <caption class="govuk-table__caption govuk-table__caption--m">Assessment point</caption>
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Source</th>
+      <th scope="col" class="govuk-table__header">Date</th>
+       <th scope="col" class="govuk-table__header">Status</th>
+       <th scope="col" class="govuk-table__header">Actions</th>
+      <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Notes</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Override</td>
+      <td class="govuk-table__cell">09/10/2026</td>
+      <td class="govuk-table__cell">{{data.updateAp}}</td>
+
+      <td class="govuk-table__cell">
+      <button type="submit" name="manual-overrides-summary" value="updateAp" class="govuk-button govuk-button--secondary" data-module="govuk-button">Update</button>
+      <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">Remove</button>
+      </td>
+      <td class="govuk-table__cell">Lorem ipsum dolor sit amet, consectetur 
+          adipiscing elit, sed do eiusmod tempor incididunt ut labore et 
+          dolore magna aliqua. Ut enim ad minim veniam, quis 
+          nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</td>
+     
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">WRGIS</td>
+      <td class="govuk-table__cell">05/06/2026</td>
+      <td class="govuk-table__cell">Critical assessment point</strong></td>
+      <td class="govuk-table__cell"></td>
+      <td class="govuk-table__cell"></td>
+    </tr>
+  </tbody>
+</table>
 
   <!--      {{ govukButton({
           text: "Continue"
-        }) }}
+        }) }}-->
 
-      </form>-->
+     
 
   <!--  </div>-->
   </div>
-
+ </form>
+ <!-- {{data | dump}} -->
 {% endblock %}

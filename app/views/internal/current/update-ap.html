@@ -1,0 +1,51 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+<h1 class="govuk-heading-l">Update assessment point type</h1>
+
+      <form class="form" method="post">
+
+        <div class="govuk-form-group">
+  <label class="govuk-label" for="sort">
+    Please select
+  </label>
+  <select class="govuk-select" id="updateAp" name="updateAp">
+     <option value="Local assessment point" selected>Local assessment point</option>
+     <option value="No Assessment point: Case by case basis">No Assessment point: Case by case basis</option>
+
+  </select>
+</div>
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+  {{ govukButton({
+          text: "Cancel", 
+          classes: "govuk-button--secondary",
+          href: "manual-overrides-summary"
+        }) }}
+
+      </form>
+
+
+
+    </div>
+  </div>
+
+{% endblock %}
