@@ -81,7 +81,7 @@
   </thead>-->
   <tbody class="govuk-table__body">
     <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">Assessment point (AP)</th>
+      <th scope="row" class="govuk-table__header">Critical assessment point (AP)</th>
       <td class="govuk-table__cell">{{data.updateAp}}</td>
     </tr>
     <tr class="govuk-table__row">
@@ -266,14 +266,6 @@
   </div>
 </details>
 
- <!-- <p class="govuk-body">Your local assessment point is <b>Henley gauging station</b> 
-  which is <b>1.2 km</b> away from the centre of your {% if (data['location'] == "gridRef") %}
-        national grid reference
-{% elseif (data['location'] == "fieldParcel") %}
-    field parcel
-{% elseif (data['location'] == "postCode") %}
-    postcode
-      {% endif %}.</p>-->
 
 
 
@@ -302,7 +294,7 @@
 
 <!----------------------------------------------------------------->
 
-<h2 class="govuk-heading-m">Water availability for previous years in {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %}</h2>
+<h2 class="govuk-heading-m">Water availability in previous years</h2>
 
 <p class="govuk-body">Water availability is usually better in winter 
   because rainfall and water flow rates tend to be higher. In summer, water 
