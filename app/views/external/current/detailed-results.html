@@ -15,26 +15,6 @@
 
 {% block content %}
 
-{% macro availabilityTabs(items) %}
-  <div class="govuk-tabs" data-module="govuk-tabs">
-    <h2 class="govuk-tabs__title">Contents</h2>
-    <ul class="govuk-tabs__list">
-      {% for item in items %}
-        <li class="govuk-tabs__list-item{% if loop.index == 1 %} govuk-tabs__list-item--selected{% endif %}">
-          <a class="govuk-tabs__tab" href="#{{ item.id }}">{{ item.label | safe | trim }}</a>
-        </li>
-      {% endfor %}
-    </ul>
-    {% for item in items %}
-      <div class="govuk-tabs__panel{% if loop.index > 1 %} govuk-tabs__panel--hidden{% endif %}" id="{{ item.id }}">
-        {{ item.panel.html | safe | trim | indent(8) }}
-      </div>
-    {% endfor %}
-  </div>
-{% endmacro %}
-
-
-
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
@@ -345,127 +325,111 @@
  
    {% if data.sid == "1" %}
 
-      <h3 class="govuk-heading-s">Percentage of days when water would have been available in previous years</h3>
+      <div class="govuk-body">
+        <h3 class="govuk-heading-s">Percentage of days when water would have been available in previous years</h3>
+        {% set year=0 %}
+        <h3 class="govuk-heading-s">{% include "_includes/current/table2Year0.html" %}</h3>
+        <div class="govuk-body">{% include "_includes/current/annualAvailTable2.html" %}</div>
 
-      {% set year2025 %}
-        <div class="govuk-body">
-          {% set year=0 %}
-          <div class="govuk-body">{% include "_includes/current/annualAvailTable2.html" %}</div>
+        <div class="govuk-accordion" data-module="govuk-accordion" data-i18n.show-all-sections="Show previous years" data-i18n.hide-all-sections="Hide previous years" data-i18n.show-section="Show months" data-i18n.hide-section="Hide months" id="accordion-default">
+          <div class="govuk-accordion__section--expanded">
+            <div class="govuk-accordion__section-header"></div>
+          </div>
+          <div class="govuk-accordion__section">
+            <div class="govuk-accordion__section-header">
+              <h3 class="govuk-accordion__section-heading">
+                <span class="govuk-accordion__section-button" id="accordion-default-heading-2">
+                  {% set year=1 %}
+                  {% include "_includes/current/table2Year1.html" %}
+                </span>
+              </h3>
+            </div>
+            <div id="accordion-default-content-2" class="govuk-accordion__section-content">
+              {% include "_includes/current/annualAvailTable2.html" %}
+            </div>
+          </div>
+          <div class="govuk-accordion__section">
+            <div class="govuk-accordion__section-header">
+              <h3 class="govuk-accordion__section-heading">
+                <span class="govuk-accordion__section-button" id="accordion-default-heading-3">
+                  {% set year=2 %}
+                  {% include "_includes/current/table2Year2.html" %}
+                </span>
+              </h3>
+            </div>
+            <div id="accordion-default-content-3" class="govuk-accordion__section-content">
+              {% include "_includes/current/annualAvailTable2.html" %}
+            </div>
+          </div>
+          <div class="govuk-accordion__section">
+            <div class="govuk-accordion__section-header">
+              <h3 class="govuk-accordion__section-heading">
+                <span class="govuk-accordion__section-button" id="accordion-default-heading-4">
+                  {% set year=3 %}
+                  {% include "_includes/current/table2Year3.html" %}
+                </span>
+              </h3>
+            </div>
+            <div id="accordion-default-content-4" class="govuk-accordion__section-content">
+              {% include "_includes/current/annualAvailTable2.html" %}
+            </div>
+          </div>
         </div>
-      {% endset %}
-
-      {% set year2024 %}
-        {% set year=1 %}
-        <div class="govuk-body">{% include "_includes/current/annualAvailTable2.html" %}</div>
-      {% endset %}
-
-      {% set year2023 %}
-        {% set year=2 %}
-        <div class="govuk-body">{% include "_includes/current/annualAvailTable2.html" %}</div>
-      {% endset %}
-
-      {% set year2022 %}
-        {% set year=3 %}
-        <div class="govuk-body">{% include "_includes/current/annualAvailTable2.html" %}</div>
-      {% endset %}
-
-      {% set year2025TabLabel %}
-        <span>2025:</span>
-        {{ govukTag({
-          text: data.annualAvail2[0] | percentAvailAgg | round + "%",
-          classes: data.annualAvail2[0] | percentAvailAgg | availColour
-        }) }}
-      {% endset %}
-      {% set year2024TabLabel %}
-        <span>2024:</span>
-        {{ govukTag({
-          text: data.annualAvail2[1] | percentAvailAgg | round + "%",
-          classes: data.annualAvail2[1] | percentAvailAgg | availColour
-        }) }}
-      {% endset %}
-      {% set year2023TabLabel %}
-        <span>2023:</span>
-        {{ govukTag({
-          text: data.annualAvail2[2] | percentAvailAgg | round + "%",
-          classes: data.annualAvail2[2] | percentAvailAgg | availColour
-        }) }}
-      {% endset %}
-      {% set year2022TabLabel %}
-        <span>2022:</span>
-        {{ govukTag({
-          text: data.annualAvail2[3] | percentAvailAgg | round + "%",
-          classes: data.annualAvail2[3] | percentAvailAgg | availColour
-        }) }}
-      {% endset %}
-
-      {{ availabilityTabs([
-          { label: year2025TabLabel, id: "year-2025", panel: { html: year2025 } },
-          { label: year2024TabLabel, id: "year-2024", panel: { html: year2024 } },
-          { label: year2023TabLabel, id: "year-2023", panel: { html: year2023 } },
-          { label: year2022TabLabel, id: "year-2022", panel: { html: year2022 } }
-      ]) }}
+      </div>
 
 
  {% else %}
-    <h3 class="govuk-heading-s">Percentage of days when water would have been available</h3>
+     <div class="govuk-body">
+       <h3 class="govuk-heading-s">Percentage of days when water would have been available</h3>
+       {% set year=0 %}
+       <h3 class="govuk-heading-s">{% include "_includes/current/table1Year0.html" %}</h3>
+       <div class="govuk-body">{% include "_includes/current/annualAvailTable.html" %}</div>
 
-     {% set year2025 %}
-       <div class="govuk-body">
-         {% set year=0 %}
-         <div class="govuk-body">{% include "_includes/current/annualAvailTable.html" %}</div>
+       <div class="govuk-accordion" data-module="govuk-accordion" data-i18n.show-all-sections="Show previous years" data-i18n.hide-all-sections="Hide previous years" data-i18n.show-section="Show months" data-i18n.hide-section="Hide months" id="accordion-default">
+         <div class="govuk-accordion__section--expanded">
+           <div class="govuk-accordion__section-header"></div>
+         </div>
+         <div class="govuk-accordion__section">
+           <div class="govuk-accordion__section-header">
+             <h3 class="govuk-accordion__section-heading">
+               <span class="govuk-accordion__section-button" id="accordion-default-heading-2">
+                 {% set year=1 %}
+                 {% include "_includes/current/table1Year1.html" %}
+               </span>
+             </h3>
+           </div>
+           <div id="accordion-default-content-2" class="govuk-accordion__section-content">
+             {% include "_includes/current/annualAvailTable.html" %}
+           </div>
+         </div>
+         <div class="govuk-accordion__section">
+           <div class="govuk-accordion__section-header">
+             <h3 class="govuk-accordion__section-heading">
+               <span class="govuk-accordion__section-button" id="accordion-default-heading-3">
+                 {% set year=2 %}
+                 {% include "_includes/current/table1Year2.html" %}
+               </span>
+             </h3>
+           </div>
+           <div id="accordion-default-content-3" class="govuk-accordion__section-content">
+             {% include "_includes/current/annualAvailTable.html" %}
+           </div>
+         </div>
+         <div class="govuk-accordion__section">
+           <div class="govuk-accordion__section-header">
+             <h3 class="govuk-accordion__section-heading">
+               <span class="govuk-accordion__section-button" id="accordion-default-heading-4">
+                 {% set year=3 %}
+                 {% include "_includes/current/table1Year3.html" %}
+               </span>
+             </h3>
+           </div>
+           <div id="accordion-default-content-4" class="govuk-accordion__section-content">
+             {% include "_includes/current/annualAvailTable.html" %}
+           </div>
+         </div>
        </div>
-     {% endset %}
-
-     {% set year2024 %}
-       {% set year=1 %}
-       <div class="govuk-body">{% include "_includes/current/annualAvailTable.html" %}</div>
-     {% endset %}
-
-     {% set year2023 %}
-       {% set year=2 %}
-       <div class="govuk-body">{% include "_includes/current/annualAvailTable.html" %}</div>
-     {% endset %}
-
-     {% set year2022 %}
-       {% set year=3 %}
-       <div class="govuk-body">{% include "_includes/current/annualAvailTable.html" %}</div>
-     {% endset %}
-
-     {% set year2025TabLabel %}
-      <span>2025:</span>
-       {{ govukTag({
-         text: data.annualAvail[0] | percentAvailAgg | round + "%",
-         classes: data.annualAvail[0] | percentAvailAgg | availColour
-       }) }}
-     {% endset %}
-     {% set year2024TabLabel %}
-      <span>2024:</span>
-       {{ govukTag({
-         text: data.annualAvail[1] | percentAvailAgg | round + "%",
-         classes: data.annualAvail[1] | percentAvailAgg | availColour
-       }) }}
-     {% endset %}
-     {% set year2023TabLabel %}
-      <span>2023:</span>
-       {{ govukTag({
-         text: data.annualAvail[2] | percentAvailAgg | round + "%",
-         classes: data.annualAvail[2] | percentAvailAgg | availColour
-       }) }}
-     {% endset %}
-     {% set year2022TabLabel %}
-      <span>2022:</span>
-       {{ govukTag({
-         text: data.annualAvail[3] | percentAvailAgg | round + "%",
-         classes: data.annualAvail[3] | percentAvailAgg | availColour
-       }) }}
-     {% endset %}
-
-     {{ availabilityTabs([
-         { label: year2025TabLabel, id: "year-2025", panel: { html: year2025 } },
-         { label: year2024TabLabel, id: "year-2024", panel: { html: year2024 } },
-         { label: year2023TabLabel, id: "year-2023", panel: { html: year2023 } },
-         { label: year2022TabLabel, id: "year-2022", panel: { html: year2022 } }
-     ]) }}
+     </div>
 
 
  {% endif %}
