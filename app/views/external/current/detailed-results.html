@@ -116,9 +116,9 @@
     </tr>
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Hands-off Flow (HoF) level</th>
-      <td class="govuk-table__cell">{% if data.sid == "1" %} 2.6 Megalitres per day
+      <td class="govuk-table__cell">{% if data.sid == "1" %} {{data.updateHof}} Megalitres per day
     {% else %}
-       7.3 Megalitres per day
+       {{data.updateHof}} Megalitres per day
    {% endif %}</td>
     </tr>
      <tr class="govuk-table__row">

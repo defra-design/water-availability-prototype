@@ -179,7 +179,13 @@ factors such as environmental concerns.</strong>
   
       <h3 class="govuk-heading-s"><a href="detailed-results?noWater=false&sid={{loop.index0}}&gid=&watertype=surface">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.OPCAT_NAME}} catchment</a></h3>
   
+      {% if (data['updateCol'] == "<strong class='govuk-tag govuk-tag--green'>Good availability</strong>") %} 
           <p class="govuk-body">{{tagsgoodlicHTML | safe}}</p> 
+{% elseif (data['updateCol'] == "<strong class='govuk-tag govuk-tag--yellow'>Limited availability</strong>") %} 
+          <p class="govuk-body">{{tagsgoodlicHTML | safe}}</p>
+{% elseif (data['updateCol'] == "<strong class='govuk-tag govuk-tag--red'>No availability</strong>") %}
+          <p class="govuk-body">{{tagsnolicHTML | safe}}</p>
+{% endif %}
 
   <p class="govuk-body">The centre of the {% if (data['location'] == "gridRef") %}
         national grid reference
