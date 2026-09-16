@@ -17,19 +17,27 @@
     <div class="govuk-grid-column-two-thirds">
 
       <h1 class="govuk-heading-l">
-        Heading or question goes here
+        Update the Hands off Flow level
       </h1>
 
-      <form class="form" action="/path/of/next/page" method="post">
+      <form class="form" method="post">
 
-        <p>
-          [Insert question content here - see the
-          <a href="https://design-system.service.gov.uk">GOV.UK Design System</a>
-          for examples]
-        </p>
+<div class="govuk-form-group">
+  <label class="govuk-label" for="updateHof">
+    Enter new HoF level
+  </label>
+  <input class="govuk-input govuk-input--width-5" id="updateHof" name="updateHof" type="text">
+</div>
+
 
         {{ govukButton({
           text: "Continue"
+        }) }}
+
+          {{ govukButton({
+          text: "Cancel", 
+          classes: "govuk-button--secondary",
+          href: "manual-overrides-summary"
         }) }}
 
       </form>

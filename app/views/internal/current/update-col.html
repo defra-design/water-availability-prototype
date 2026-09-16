@@ -1,0 +1,66 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form class="form" method="post">
+
+       <div class="govuk-form-group">
+  <fieldset class="govuk-fieldset">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+      <h1 class="govuk-fieldset__heading">
+        Update availability colour
+      </h1>
+    </legend>
+    <div class="govuk-radios" data-module="govuk-radios">
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="updateColGreen" name="updateCol" type="radio" value="<strong class='govuk-tag govuk-tag--green'>Good availability</strong>">
+        <label class="govuk-label govuk-radios__label" for="updateColGreen">
+          <strong class="govuk-tag govuk-tag--green">Good availability</strong>
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="updateColYellow" name="updateCol" type="radio" value="<strong class='govuk-tag govuk-tag--yellow'>Limited availability</strong>">
+        <label class="govuk-label govuk-radios__label" for="updateColYellow">
+         <strong class="govuk-tag govuk-tag--yellow">Limited availability</strong>
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="updateColRed" name="updateCol" type="radio" value="<strong class='govuk-tag govuk-tag--red'>No availability</strong>">
+        <label class="govuk-label govuk-radios__label" for="updateColRed">
+          <strong class="govuk-tag govuk-tag--red">No availability</strong>
+        </label>
+      </div>
+    </div>
+  </fieldset>
+</div>
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+         {{ govukButton({
+          text: "Cancel", 
+          classes: "govuk-button--secondary",
+          href: "manual-overrides-summary"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

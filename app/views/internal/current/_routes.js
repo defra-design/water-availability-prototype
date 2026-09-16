@@ -87,4 +87,9 @@ router.post(folder + 'update-ap', function (request, response) {
 	request.session.data.updateAp = request.body.updateAp
 	response.redirect(folder + 'manual-overrides-summary')
 })
+
+router.post(folder + 'update-col', function (request, response) {
+	request.session.data.updateCol = request.body.updateCol
+	response.redirect(folder + 'manual-overrides-summary')
+})
 module.exports = router

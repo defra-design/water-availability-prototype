@@ -43,10 +43,10 @@
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Override</td>
       <td class="govuk-table__cell">09/10/2026</td>
-      <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--red">No availability</strong></td>
+      <td class="govuk-table__cell">{{ data.updateCol | safe }}</td>
 
       <td class="govuk-table__cell">
-      <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">Update</button>
+      <button type="submit" name="manual-overrides-summary" class="govuk-button govuk-button--secondary" value="updateCol" data-module="govuk-button">Update</button>
       <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">Remove</button>
       </td>
       <td class="govuk-table__cell">Lorem ipsum dolor sit amet, consectetur 
@@ -58,7 +58,7 @@
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">WRGIS</td>
       <td class="govuk-table__cell">05/06/2026</td>
-      <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--yellow">Limited availability</strong></td>
+      <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--green">Good availability</strong></td>
       <td class="govuk-table__cell"></td>
       <td class="govuk-table__cell"></td>
     </tr>

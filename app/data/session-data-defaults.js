@@ -8,9 +8,9 @@ module.exports = {
 
 "updateAp":["Henley gauging station"],
 
+"updateCol":"<strong class='govuk-tag govuk-tag--green'>Good availability</strong>",
 
-
-
+"updateHof":["73.5"],
 
 //EXTERNAL SESSION DEFAULTS
   // Insert values here
