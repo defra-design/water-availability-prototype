@@ -94,7 +94,11 @@ router.post(folder + 'update-col', function (request, response) {
 })
 
 router.post(folder + 'update-hof', function (request, response) {
-	request.session.data.updateHof = request.body.updateHof
+	if (request.body.updateHof === 'custom') {
+		request.session.data.updateHof = request.body.updateHofValue
+	} else {
+		request.session.data.updateHof = request.body.updateHof
+	}
 	response.redirect(folder + 'manual-overrides-summary')
 })
 

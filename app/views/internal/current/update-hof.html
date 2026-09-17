@@ -16,22 +16,48 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-      <h1 class="govuk-heading-l">
-        Update the Hands off Flow level
-      </h1>
-
       <form class="form" method="post">
 
 <div class="govuk-form-group">
-  <label class="govuk-label" for="updateHof">
-    Enter new HoF level
-  </label>
-  <input class="govuk-input govuk-input--width-5" id="updateHof" name="updateHof" type="text">
+  <fieldset class="govuk-fieldset" aria-describedby="contact-hint">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+      <h1 class="govuk-fieldset__heading">
+        Update the Hands off Flow level
+      </h1>
+    </legend>
+    <div id="contact-hint" class="govuk-hint">
+      Select one option
+    </div>
+    <div class="govuk-radios" data-module="govuk-radios">
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="updateHof-1" name="updateHof" type="radio" value="custom" data-aria-controls="update-hof">
+        <label class="govuk-label govuk-radios__label" for="updateHof-1">
+          Add new HoF level
+        </label>
+      </div>
+      <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="update-hof">
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="updateHofValue">
+            HoF value
+          </label>
+          <input class="govuk-input govuk-!-width-one-third" name="updateHofValue" id="updateHofValue" type="number" inputmode="numeric">
+        </div>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="updateHof-2" name="updateHof" type="radio" value="No override set">
+        <label class="govuk-label govuk-radios__label" for="updateHof-2">
+          Remove override
+        </label>
+      </div>
+      
+      
+    </div>
+  </fieldset>
 </div>
 
 
         {{ govukButton({
-          text: "Continue"
+          text: "Save"
         }) }}
 
           {{ govukButton({

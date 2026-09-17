@@ -44,12 +44,18 @@
           <strong class="govuk-tag govuk-tag--red">No availability</strong>
         </label>
       </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="removeCol" name="updateCol" type="radio" value="No override set">
+        <label class="govuk-label govuk-radios__label" for="removeCol">
+          Remove override
+        </label>
+      </div>
     </div>
   </fieldset>
 </div>
 
         {{ govukButton({
-          text: "Continue"
+          text: "Save"
         }) }}
 
          {{ govukButton({

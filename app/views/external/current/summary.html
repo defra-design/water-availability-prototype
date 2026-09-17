@@ -183,6 +183,8 @@ factors such as environmental concerns.</strong>
           <p class="govuk-body">{{tagsgoodlicHTML | safe}}</p> 
 {% elseif (data['updateCol'] == "<strong class='govuk-tag govuk-tag--yellow'>Limited availability</strong>") %} 
           <p class="govuk-body">{{tagsgoodlicHTML | safe}}</p>
+ {% elseif (data['updateCol'] == "Remove override") %} 
+          <p class="govuk-body">{{tagsgoodlicHTML | safe}}</p>         
 {% elseif (data['updateCol'] == "<strong class='govuk-tag govuk-tag--red'>No availability</strong>") %}
           <p class="govuk-body">{{tagsnolicHTML | safe}}</p>
 {% endif %}
