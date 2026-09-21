@@ -236,6 +236,162 @@
 <h2 id="local-policies" class="govuk-heading-m">Local policies affecting water availability in {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %}</h2>
 
 <p class="govuk-body">The Environment Agency has local policies which may affect water availability in your area. These policies are designed to protect the environment and ensure that water is used sustainably.</p>
+
+{% if data.sid == "1" %}
+<table class="govuk-table">
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Local policy</th>
+      <th scope="col" class="govuk-table__header govuk-!-width-three-quarters">Details</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header govuk-!-width-one-quarter">Heavily Modified Water Body (HMWB)</th>
+      <td class="govuk-table__cell govuk-!-width-three-quarters">
+       
+        <details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      What is a Heavily Modified Water Body?
+    </span>
+  </summary>
+  <div class="govuk-details__text"> 
+          Some water bodies are designated as 'artificial or heavily modified
+           because they have been created or modified to suit a particular 
+           purpose such as water supply, flood protection or 
+           navigation. They are often known as regulated rivers and may 
+           be managed through an operating agreement held by a 
+           water company which determines the availability of water.
+    </div>
+</details>
+       
+      <!-- <h3 class="govuk-heading-s">How does this affect your water availability?</h3>   -->
+   
+        <p class="govuk-body">Within the South and West Somerset wider 
+          catchment area there are several water bodies that are 
+          designated as HMWB, including the LDE areas, rivers affected 
+          by reservoirs and reservoirs themselves. There are also 
+          several lakes and drain water bodies which are designated 
+          artificial. These systems provide flows to support 'protected areas' 
+          within these catchments.</p>
+
+<p class="govuk-body">Throughout both the Brue and Parrett catchments, many 
+  of the water bodies are heavily modified due to the artificial nature 
+  of the landscape.</p>
+
+<p class="govuk-body">If the water body is a HMWB then this may impact on 
+  the availability of water. A local assessment is required for any 
+  applications for new water to determine whether there is resource 
+  available. Conditions including HoF or HoL restrictions may be 
+  applied to your licence.</p>
+
+      </td>
+    </tr>
+ 
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header govuk-!-width-one-quarter">Level Dependent Environment (LDE)</th>
+      <td class="govuk-table__cell govuk-!-width-three-quarters">
+      
+           <details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      What is a Level Dependent Environment?
+    </span>
+  </summary>
+  <div class="govuk-details__text"> 
+          A Level Dependent Environment (LDE) is an area where 
+          water levels are influenced by the surrounding topography 
+          and drainage systems. These environments are characterised 
+          by a network of river channels flowing above the level 
+          of the surrounding land. The low-lying land has a 
+          network of drainage ditches. These ditches remove water 
+          from the low-lying land and in many cases are pumped 
+          into the main river channels during the winter or high flows.
+    </div>
+</details>
+  
+ <!-- <h3 class="govuk-heading-s">How does this affect your water availability?</h3>   -->
+
+<!--<p class="govuk-body">Your local LDE is The Somerset Levels and Moors.</p> -->
+<p class="govuk-body">The South and West Somerset catchment contains a 
+  significant area of level dependent environments (LDEs). Flow constraints 
+  may not apply in LDEs. Local constraints based on levels not flow may 
+  be required on a site-specific basis to protect the watercourses.</p>
+
+     <p class="govuk-body">The Somerset Levels and Moors of the Brue, Parrett 
+      and Tone catchments are a managed wetland system covering an area of 
+      approximately 650km2. Most of the water in the Moors lies in a 
+      network of manmade channels (known locally as 'rhynes'). These 
+      rhynes serve several roles:</p>
+        <ol class="govuk-list govuk-list--number">
+          <li>Airrigating the Moors (for wet fences and supplying drinking water for livestock)</li>
+          <li>draining the areas after periods of high rainfall</li>
+          <li>flooding in certain areas for conservation purposes</li>
+        </ol> 
+<p class="govuk-body">The water levels are artificially controlled by 
+  structures including pumping stations, gates and sluices.</p>
+
+      </td>
+    </tr>
+
+       <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header govuk-!-width-one-quarter">Internal Drainage Board (IDB)</th>
+      <td class="govuk-table__cell govuk-!-width-three-quarters">
+    
+        <details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      What is an Internal Drainage Board?
+    </span>
+  </summary>
+  <div class="govuk-details__text"> 
+          An Internal Drainage Board (IDB) is a public body that 
+          manages water levels in an area, known as an internal 
+          drainage district, where there is a special need for 
+          drainage. We will consult the relevant IDB for any 
+          licence that is considered in an IDB area.
+    </div>
+</details>
+    
+ <!-- <h3 class="govuk-heading-s">How does this affect your water availability?</h3>   -->
+
+ <!--   <p class="govuk-body">Your local IDB is The Somerset Drainage Board Consortium.</p> -->
+        <p class="govuk-body">The Internal Drainage Boards have an important 
+          role in managing the water levels in the rhynes within the 
+          low-lying levels and moors. The Environment Agency controls 
+          larger pumping stations and tidal gates.</p>
+
+      <p class="govuk-body">Water level management plans have been set up 
+        for the LDEs. These have been agreed by the bodies or authorities 
+        interested in the water level management in an area. The Somerset 
+        Drainage Board Consortium maintain most of these plans, although 
+        the Environment Agency also operate a number.</p>
+
+      </td>
+    </tr>
+   <!-- <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header govuk-!-width-one-quarter">Green-line Policy</th>
+      <td class="govuk-table__cell govuk-!-width-three-quarters">
+        <p class="govuk-body">The Green-line Policy was created to limit seasonal abstraction within certain level dependent environments in response to increasing pressure on resources during the irrigation season.</p>
+        <p class="govuk-body">The green-line is drawn around the marshes of Chislet, Ash, Minster/Monkton and Goshall, all of which receive water from the River Stour. The main points of this policy are:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>No further licences can be granted authorising increased abstraction on an annual or daily basis during the summer period from anywhere within the green-line.</li>
+          <li>Any licences granted in the future for areas within the green-line must restrict abstraction to the winter period and, in almost all cases, require the applicant to provide sufficient storage to meet the full annual quantity together with losses by evaporation or leakage.</li>
+          <li>Any new abstraction from the river must be winter-only and subject to any local flow or level conditions.</li>
+        </ul>
+      </td>
+    </tr> -->
+   <!-- <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header govuk-!-width-one-quarter">Other</th>
+      <td class="govuk-table__cell govuk-!-width-three-quarters">
+        <p class="govuk-body">Content to be added where a local policy does not fit another category.</p>
+      </td>
+    </tr> -->
+  </tbody>
+</table>
+{% else %}
+
 <table class="govuk-table">
   <thead class="govuk-table__head">
     <tr class="govuk-table__row">
@@ -314,7 +470,7 @@
     </tr>
 
        <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header govuk-!-width-one-quarter">Internal Drainage Board</th>
+      <th scope="row" class="govuk-table__header govuk-!-width-one-quarter">Internal Drainage Board (IDB)</th>
       <td class="govuk-table__cell govuk-!-width-three-quarters">
     
         <details class="govuk-details">
@@ -370,9 +526,7 @@
   </tbody>
 </table>
 
-
-
-
+  {% endif %} 
 
   {% endif %} 
 
