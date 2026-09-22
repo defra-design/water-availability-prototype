@@ -80,6 +80,8 @@ router.post('/manual-overrides-summary', function (request, response) {
 		response.redirect(folder + "update-lp")
 	} else if (upDate == "updateCol") {
 		response.redirect(folder + "update-col")
+	} else if (upDate == "updateHmwb") {
+		response.redirect(folder + "update-hmwb")
 	}
 })
 
