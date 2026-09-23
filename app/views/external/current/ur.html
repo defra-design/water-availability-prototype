@@ -6,22 +6,85 @@
 
 {% block content %}
 
-<h1 class="govuk-heading-l">Participant information</h1>
+<p class="govuk-body">Please do not press Continue until your researcher tells you to.</p>
 
-<p class="govuk-body"><b>Please do not press Continue until your researcher tells you to.</b></p>
-
-
-
-<p class="govuk-body">A client of yours is a farmer who grows potatoes. They are looking to expand their business to a new location where they will also grow potatoes. The proposed location is RG1 2ST, which is 50 miles from their current site.</p>
-<p class="govuk-body">They already have a water abstraction licence for their existing site. Their main use for the water is spray irrigation and this is what they will need at their new site as well.</p>
-<p class="govuk-body">Assume the business will abstract surface water.</p>
-<p class="govuk-body">You would like to determine the availability of water for licensing for their new site, so you can advise them.</p>
-
-
-              {{ govukButton({
+{% set htmlButton1 %}
+{{ govukButton({
   text: "Continue",
   href: "start"
 }) }}
+{% endset %}
+
+{% set htmlButton2 %}
+{{ govukButton({
+  text: "Continue",
+  href: "start"
+}) }}
+{% endset %}
+
+{{ govukAccordion({
+  id: "accordion-default",
+  rememberExpanded: false,
+  items: [
+    {
+      
+      heading: {
+        text: "Participant 1"
+      },
+      content: {
+        html: '<p class="govuk-body">Your farm has experienced severe difficulties with drought over the past two years. The farm does not currently hold a water abstraction licence, and you want to find out if there is water available for you to apply for one.</p><p class="govuk-body">Farm location: <b>BA4 4AJ</b></p><p class="govuk-body">You started doing some research online and reached the following page.</p>'   
+       +htmlButton1
+              }
+  
+    },
+
+    {
+      
+      heading: {
+        text: "Participant 2"
+      },
+      content: {
+         html: '<p class="govuk-body">A client of yours has experienced severe difficulties with drought over the past two years. Their farm does not currently hold a water abstraction licence, and they have asked you to find out if there is water available for licensing.</p><p class="govuk-body">Farm location: <b>BA4 4AJ</b></p><p class="govuk-body">You started doing some research online and reached the following page.</p>'   
+       +htmlButton1
+              }
+  
+    },
+
+    {
+      
+      heading: {
+        text: "Participant 3"
+      },
+      content: {
+        html: '<p class="govuk-body">Your farm has experienced severe difficulties with drought over the past two years. The farm does not currently hold a water abstraction licence, and you want to find out if there is water available for you to apply for one.</p><p class="govuk-body">Farm location: <b>BA4 4AJ</b></p><p class="govuk-body">You started doing some research online and reached the following page.</p><p class="govuk-body">Note: We will discuss your lake at the end of the session.</p>'   
+       +htmlButton1
+              }
+  
+    },
+    {
+      
+      heading: {
+        text: "Participant 4"
+      },
+      content: {
+        html: '<p class="govuk-body">Your farm has experienced severe difficulties with drought over the past two years. The farm does not currently hold a water abstraction licence, and you want to find out if there is water available for you to apply for one.</p><p class="govuk-body">Farm location: <b>BA4 4AJ</b></p><p class="govuk-body">You started doing some research online and reached the following page.</p>'   
+       +htmlButton1
+              }
+  
+    },
+
+    {
+      heading: {
+        text: "Participant 5"
+      },
+      content: {
+        html: '<p class="govuk-body">You work for Somerset Council. You have been contacted by one of your tenant farmers who has experienced severe difficulties with drought over the past two years. Your usual land agent is unavailable to support them, so you are looking into it yourself. The tenant\'s farm does not currently hold a water abstraction licence, and you want to find out if there is water available for them to apply for one.</p><p class="govuk-body">Farm location: <b>BA4 4AJ</b></p><p class="govuk-body">You started doing some research online and reached the following page.</p>'
+       +htmlButton1
+      }
+    }
+   
+  ]
+}) }} 
+
 
 {% endblock %}
- 
