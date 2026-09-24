@@ -48,10 +48,7 @@
       <td class="govuk-table__cell">
       <button type="submit" name="manual-overrides-summary" class="govuk-button govuk-button--secondary" value="updateCol" data-module="govuk-button">Update</button>
       </td>
-      <td class="govuk-table__cell">Lorem ipsum dolor sit amet, consectetur 
-          adipiscing elit, sed do eiusmod tempor incididunt ut labore et 
-          dolore magna aliqua. Ut enim ad minim veniam, quis 
-          nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</td>
+      <td class="govuk-table__cell">{{ data.moreDetailCol}}</td>
      
     </tr>
     <tr class="govuk-table__row">
@@ -93,10 +90,7 @@
       <td class="govuk-table__cell" >
       <button type="submit" name="manual-overrides-summary" value="updateHof" class="govuk-button govuk-button--secondary" data-module="govuk-button">Update</button>
       </td>
-      <td class="govuk-table__cell">Lorem ipsum dolor sit amet, consectetur 
-          adipiscing elit, sed do eiusmod tempor incididunt ut labore et 
-          dolore magna aliqua. Ut enim ad minim veniam, quis 
-          nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+      <td class="govuk-table__cell">{{ data.moreDetailHof}}
       </td>
     </tr>
 
@@ -153,7 +147,6 @@
       <td class="govuk-table__cell">Active</td>
       <td class="govuk-table__cell" >
         <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">Update</button>
-        <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">Remove</button>
       </td>
       <td class="govuk-table__cell">Lorem ipsum dolor sit amet, consectetur 
           adipiscing elit, sed do eiusmod tempor incididunt ut labore et 
@@ -205,12 +198,16 @@
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Override</td>
       <td class="govuk-table__cell">09/10/2026</td>
-      <td class="govuk-table__cell">{{data.updateAp}}</td>
+      <td class="govuk-table__cell"> {% if (data['updateAp'] == "N/A") %}
+        N/A
+        {% else %}
+
+        {{data.updateAp}}
+        {% endif %}</td>
 
       <td class="govuk-table__cell">
       <button type="submit" name="manual-overrides-summary" value="updateAp" class="govuk-button govuk-button--secondary" data-module="govuk-button">Update</button>
-      <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">Remove</button>
-      </td>
+       </td>
       <td class="govuk-table__cell">Lorem ipsum dolor sit amet, consectetur 
           adipiscing elit, sed do eiusmod tempor incididunt ut labore et 
           dolore magna aliqua. Ut enim ad minim veniam, quis 
@@ -236,5 +233,5 @@
   <!--  </div>-->
   </div>
  </form>
- <!-- {{data | dump}} -->
+<!-- {{data | dump}} -->
 {% endblock %}

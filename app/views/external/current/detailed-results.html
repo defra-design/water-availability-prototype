@@ -86,8 +86,9 @@
 <h2 id="restrictions-and-conditions" class="govuk-heading-m">Restrictions and conditions in {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %}</h2>
 
 
-<p class="govuk-body">Water levels are monitored using assessment point data gathered 
-  at gauging stations. Your licence will specify the maximum amount of water you can 
+<p class="govuk-body">The Environment Agency monitor how much water is 
+  available using local assessment point data. Your 
+  licence will specify the maximum amount of water you can 
   abstract per day. There are additional local restrictions on abstraction 
   which are explained below.</p>
 
@@ -102,7 +103,14 @@
   <tbody class="govuk-table__body">
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Critical assessment point (AP)</th>
-      <td class="govuk-table__cell">{{data.updateAp}}</td>
+      <td class="govuk-table__cell">
+        {% if (data['updateAp'] == "N/A") %}
+        Lovington Gauging Station
+        {% else %}
+
+        {{data.updateAp}}
+        {% endif %}
+      </td>
     </tr>
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Distance of AP from your {% if (data['location'] == "gridRef") %}
@@ -163,8 +171,8 @@
 
 <p class="govuk-body">'Hands-off Flow' (HoF) conditions come into effect when the 
   flow rate drops below a certain level. When this happens most abstractors 
-  are issued an alert (although some abstractors self-monitor water levels) 
-  and abstraction is not allowed until the flow rate increases.</p>
+  are issued an alert (although some abstractors self-monitor) and 
+  abstraction is limited or stopped until the flow rate increases.</p>
 
 <p class="govuk-body">HoF conditions are measured in megalitres per day. One 
   megalitre is equivalent to 1000 cubic metres. For reference, an Olympic 

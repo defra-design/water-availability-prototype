@@ -6,11 +6,15 @@ module.exports = {
 
 //Assessment point data is stored in the session data, and is used to populate the assessment point pages. The data is stored in the following format:
 
-"updateAp":["Henley gauging station"],
+"updateAp":["N/A"],
 
 "updateCol":"<strong class='govuk-tag govuk-tag--green'>Good availability</strong>",
 
 "updateHof":["73.5"],
+
+"moreDetailCol":["Justification for the override"],
+
+"moreDetailHof":["Justification for the override"],
 
 //EXTERNAL SESSION DEFAULTS
   // Insert values here
