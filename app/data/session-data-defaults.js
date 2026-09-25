@@ -8,13 +8,12 @@ module.exports = {
 
 "updateAp":["N/A"],
 
-"updateCol":"<strong class='govuk-tag govuk-tag--green'>Good availability</strong>",
-
-"updateHof":["N/A"],
-
+"updateCol":"N/A",
 "moreDetailCol":["Justification for the override"],
 
+"updateHof":["N/A"],
 "moreDetailHof":["Justification for the override"],
+"dateHof":["N/A"],
 
 //EXTERNAL SESSION DEFAULTS
   // Insert values here

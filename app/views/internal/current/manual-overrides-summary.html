@@ -18,7 +18,7 @@
       
   <div class="govuk-grid-row">
    <!-- <div class="govuk-grid-column-two-thirds">-->
-<span class="govuk-caption-l">{{ data['waterBodyId'] }}</span>
+<span class="govuk-caption-l">{{ data['waterBodyId'] or data['managementCatchmentId'] }}</span>
       <h1 class="govuk-heading-l">
        {{ data['waterBodyName'] or data['managementCatchment'] }} manual overrides
       </h1>
@@ -43,7 +43,14 @@
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Override</td>
       <td class="govuk-table__cell">09/10/2026</td>
-      <td class="govuk-table__cell">{{ data.updateCol | safe }}</td>
+      <td class="govuk-table__cell">
+        {% if (data['updateCol'] == "N/A") %}
+        N/A
+        {% else %}
+
+        {{ data.updateCol | safe }}
+        {% endif %}
+        </td>
 
       <td class="govuk-table__cell">
       <button type="submit" name="manual-overrides-summary" class="govuk-button govuk-button--secondary" value="updateCol" data-module="govuk-button">Update</button>
