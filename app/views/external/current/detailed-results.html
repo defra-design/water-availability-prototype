@@ -125,18 +125,20 @@
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Hands-off Flow (HoF) level</th>
       <td class="govuk-table__cell">{% if data.sid == "1" %} 
-       {% if data.updateHof == "No override set" %} 
-       73.5 Megalitres per day
-       {% else %}
-       {{data.updateHof}} Megalitres per day
-       {% endif %}
+       {% if (data['updateHof'] == "N/A") %}
+        23 Megalitres per day
+        {% else %}
+
+        {{data.updateHof}}
+        {% endif %}
 
     {% else %}
-     {% if data.updateHof == "No override set" %} 
-       73.5 Megalitres per day
-       {% else %}
-       {{data.updateHof}} Megalitres per day
-       {% endif %}
+     {% if (data['updateHof'] == "N/A") %}
+        73.5 Megalitres per day
+        {% else %}
+
+        {{data.updateHof}}
+        {% endif %}
    {% endif %}
   
   </td>

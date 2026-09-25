@@ -10,7 +10,7 @@ module.exports = {
 
 "updateCol":"<strong class='govuk-tag govuk-tag--green'>Good availability</strong>",
 
-"updateHof":["73.5"],
+"updateHof":["N/A"],
 
 "moreDetailCol":["Justification for the override"],
 

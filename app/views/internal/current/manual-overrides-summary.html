@@ -86,7 +86,12 @@
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Override</th>
       <td class="govuk-table__cell">10/09/2026</td>
-      <td class="govuk-table__cell">{{data.updateHof}}</td>
+      <td class="govuk-table__cell">{% if (data['updateHof'] == "N/A") %}
+        N/A
+        {% else %}
+
+        {{data.updateHof}}
+        {% endif %}</td>
       <td class="govuk-table__cell" >
       <button type="submit" name="manual-overrides-summary" value="updateHof" class="govuk-button govuk-button--secondary" data-module="govuk-button">Update</button>
       </td>
