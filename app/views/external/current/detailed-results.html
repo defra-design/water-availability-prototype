@@ -127,6 +127,10 @@
       <td class="govuk-table__cell">{% if data.sid == "1" %} 
        {% if (data['updateHof'] == "N/A") %}
         23 Megalitres per day
+  
+        {% elseif (data['updateHof'] == "No override set") %} 
+          23 Megalitres per day</p>
+   
         {% else %}
 
         {{data.updateHof}}
@@ -134,10 +138,13 @@
 
     {% else %}
      {% if (data['updateHof'] == "N/A") %}
-        73.5 Megalitres per day
+        71 Megalitres per day
+        {% elseif (data['updateHof'] == "No override set") %} 
+          71 Megalitres per day</p>
+   
         {% else %}
 
-        {{data.updateHof}}
+        {{data.updateHof}} Megalitres per day
         {% endif %}
    {% endif %}
   
