@@ -15,9 +15,33 @@ https://prototype-kit.service.gov.uk/docs/how-to-use-layouts
   {% endblock %}
 
   {% block govukServiceNavigation %}
-    {{ govukServiceNavigation({
+    {% if internalCurrent %}
+      {% if internalStartPage %}
+        {{ govukServiceNavigation({
+          serviceName: "Manual overrides system",
+          serviceUrl: "/internal/current/start"
+        }) }}
+      {% else %}
+        {{ govukServiceNavigation({
+          serviceName: "Manual overrides system",
+          serviceUrl: "/internal/current/start",
+          navigation: [
+            {
+              html: "Signed in as: " + internalSignedInEmail,
+              classes: "govuk-body-s govuk-!-margin-bottom-0 govuk-!-font-weight-bold"
+            },
+            {
+              href: "/internal/current/sign-out",
+              text: "Sign out"
+            }
+          ]
+        }) }}
+      {% endif %}
+    {% else %}
+      {{ govukServiceNavigation({
         serviceName: serviceName
-    })}}
+      }) }}
+    {% endif %}
   {% endblock %}
   
   {% block headerEnd %}

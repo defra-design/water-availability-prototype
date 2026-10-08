@@ -4,12 +4,17 @@
   {{ serviceName }}
 {% endblock %}
 
-{% block beforeContent %}
-  {{ govukBackLink({
+{% block containerStart %}
+   {{ govukBackLink({
   text: "Back",
-  href: "javascript:window.history.back()"
+  href: "catchment-search"
 }) }}
+
+  
 {% endblock %}
+
+
+
 
 {% block content %}
 
@@ -18,10 +23,77 @@
       
   <div class="govuk-grid-row">
    <!-- <div class="govuk-grid-column-two-thirds">-->
-<span class="govuk-caption-l">{{ data['waterBodyId'] or data['managementCatchmentId'] }}</span>
+<span class="govuk-caption-l">
+    {% if selectedType == 'waterbody' %}Waterbody ID: {{ waterBodyId or waterBodyName }}
+    {% elif selectedType == 'operationalCatchment' %}Operational catchment ID: {{ operationalCatchmentId or operationalCatchment }}
+    {% else %}Management catchment ID: {{ managementCatchmentId or managementCatchment }}{% endif %}
+</span>
+
       <h1 class="govuk-heading-l">
-       {{ data['waterBodyName'] or data['managementCatchment'] }} manual overrides
+       {% if selectedType == 'waterbody' %}
+         {{ waterBodyName }} waterbody manual overrides
+         {% elif selectedType == 'operationalCatchment' %}
+         {{ operationalCatchment }} operational catchment manual overrides
+       {% else %}
+         {{ managementCatchment }} management catchment manual overrides
+       {% endif %}
       </h1>
+
+        {% if selectedType == 'waterbody' %}
+          <nav aria-label="Catchment hierarchy" class="govuk-!-margin-bottom-4">
+            <ol class="govuk-list govuk-!-margin-bottom-0">
+              <li>Management catchment: <a class="govuk-link" href="/internal/current/manual-overrides-summary?selectedType=managementCatchment&managementCatchment={{ (managementCatchment or '') | urlencode }}&managementCatchmentId={{ (managementCatchmentId or '') | urlencode }}">{{ managementCatchment }}</a></li>
+              <li class="govuk-!-margin-left-4">Operational catchment: <a class="govuk-link" href="/internal/current/manual-overrides-summary?selectedType=operationalCatchment&managementCatchment={{ (managementCatchment or '') | urlencode }}&managementCatchmentId={{ (managementCatchmentId or '') | urlencode }}&operationalCatchment={{ (operationalCatchment or '') | urlencode }}&operationalCatchmentId={{ (operationalCatchmentId or '') | urlencode }}">{{ operationalCatchment }}</a></li>
+              <li class="govuk-!-margin-left-8">Waterbody: <strong>{{ waterBodyName }}</strong></li>
+            </ol>
+          </nav>
+          <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+        {% elif selectedType == 'operationalCatchment' %}
+          <nav aria-label="Catchment hierarchy" class="govuk-!-margin-bottom-4">
+            <ol class="govuk-list govuk-!-margin-bottom-0">
+              <li>Management catchment: <a class="govuk-link" href="/internal/current/manual-overrides-summary?selectedType=managementCatchment&managementCatchment={{ (managementCatchment or '') | urlencode }}&managementCatchmentId={{ (managementCatchmentId or '') | urlencode }}">{{ managementCatchment }}</a></li>
+              <li class="govuk-!-margin-left-4">Operational catchment: <strong>{{ operationalCatchment }}</strong></li>
+            </ol>
+          </nav>
+        <details class="govuk-details govuk-!-margin-bottom-4">
+          <summary class="govuk-details__summary">
+              <span class="govuk-details__summary-text">Waterbodies in this operational catchment</span>
+          </summary>
+          <div class="govuk-details__text">
+            <ul class="govuk-list govuk-list--bullet govuk-!-margin-top-0 govuk-!-margin-bottom-0">
+                {% for child in (hierarchyChildren or []) %}
+                <li>
+                    <a class="govuk-link" href="/internal/current/manual-overrides-summary?selectedType=waterbody&waterBodyName={{ child.name | urlencode }}&waterBodyId={{ child.id | urlencode }}&managementCatchment={{ (managementCatchment or '') | urlencode }}&managementCatchmentId={{ (managementCatchmentId or '') | urlencode }}&operationalCatchment={{ (operationalCatchment or '') | urlencode }}&operationalCatchmentId={{ (operationalCatchmentId or '') | urlencode }}">{{ child.name }}</a>
+                </li>
+              {% else %}
+                  <li>{{ operationalCatchment }} has no listed waterbodies.</li>
+              {% endfor %}
+            </ul>
+          </div>
+        </details>
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+        {% elif selectedType == 'managementCatchment' %}
+          <nav aria-label="Catchment hierarchy" class="govuk-!-margin-bottom-4">
+            <ol class="govuk-list govuk-!-margin-bottom-0">
+              <li>Management catchment: <strong>{{ managementCatchment }}</strong></li>
+            </ol>
+          </nav>
+          <details class="govuk-details govuk-!-margin-bottom-4">
+            <summary class="govuk-details__summary">
+              <span class="govuk-details__summary-text">Operational catchments in this management catchment</span>
+            </summary>
+            <div class="govuk-details__text">
+              <ul class="govuk-list govuk-list--bullet govuk-!-margin-top-0 govuk-!-margin-bottom-0">
+                {% for child in (hierarchyChildren or []) %}
+                  <li><a class="govuk-link" href="/internal/current/manual-overrides-summary?selectedType=operationalCatchment&managementCatchment={{ (managementCatchment or '') | urlencode }}&managementCatchmentId={{ (managementCatchmentId or '') | urlencode }}&operationalCatchment={{ child.name | urlencode }}&operationalCatchmentId={{ child.id | urlencode }}">{{ child.name }}</a></li>
+                {% else %}
+                  <li>{{ managementCatchment }} has no listed operational catchments.</li>
+                {% endfor %}
+              </ul>
+            </div>
+          </details>
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+      {% endif %}
 
 
 

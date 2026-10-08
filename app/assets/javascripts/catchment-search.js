@@ -36,8 +36,11 @@ populateResults(
  results.map(result => ({
  id: result.id,
  label: result.name,
+ type: result.type,
  managementCatchment: result.managementCatchment,
- operationalCatchment: result.operationalCatchment
+ managementCatchmentId: result.managementCatchmentId,
+ operationalCatchment: result.operationalCatchment,
+ operationalCatchmentId: result.operationalCatchmentId
  }))
 );
 
@@ -53,7 +56,7 @@ inputValue: result =>
 result?.label || "",
 
 suggestion: result =>
-result.label
+ `${result.label} (${result.type === 'managementCatchment' ? 'management catchment' : result.type === 'operationalCatchment' ? 'operational catchment' : 'waterbody'})`
 },
 
 onConfirm: selected => {
@@ -66,18 +69,29 @@ selectedWaterBody = {
 id: selected.id,
 name: selected.label,
 managementCatchment: selected.managementCatchment,
-operationalCatchment: selected.operationalCatchment
+managementCatchmentId: selected.managementCatchmentId,
+operationalCatchment: selected.operationalCatchment,
+operationalCatchmentId: selected.operationalCatchmentId,
+type: selected.type
 };
 
 idField.value = selected.id;
 nameField.value = selected.label;
 
-window.location.href =
-'/internal/current/manual-overrides-summary?' +
-'waterBodyName=' + encodeURIComponent(selected.label) +
-'&waterBodyId=' + encodeURIComponent(selected.id) +
-'&managementCatchment=' + encodeURIComponent(selected.managementCatchment) +
-'&operationalCatchment=' + encodeURIComponent(selected.operationalCatchment);
+const isWaterbody = selectedWaterBody.type === 'waterbody'
+const isOperationalCatchment = selectedWaterBody.type === 'operationalCatchment'
+const isManagementCatchment = selectedWaterBody.type === 'managementCatchment'
+const params = new URLSearchParams({
+selectedType: selectedWaterBody.type,
+waterBodyName: isWaterbody ? selected.label : '',
+waterBodyId: isWaterbody ? selected.id : '',
+managementCatchment: isManagementCatchment ? selected.label : (selected.managementCatchment || ''),
+managementCatchmentId: isManagementCatchment ? selected.id : (selected.managementCatchmentId || ''),
+operationalCatchment: isOperationalCatchment ? selected.label : (isWaterbody ? selected.operationalCatchment || '' : ''),
+operationalCatchmentId: isOperationalCatchment ? selected.id : (isWaterbody ? selected.operationalCatchmentId || '' : '')
+});
+
+window.location.href = '/internal/current/manual-overrides-summary?' + params.toString();
 }
 });
 }

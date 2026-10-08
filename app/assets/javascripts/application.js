@@ -12,7 +12,7 @@ window.GOVUKPrototypeKit.documentReady(() => {
  class="govuk-input"
  id="water-search"
  type="text"
- placeholder="Search for a catchment"
+ placeholder="Search management catchments, operational catchments or waterbodies"
  >
  <ul id="water-search-results"></ul>
  `
@@ -49,7 +49,7 @@ catchments = await response.json()
  item.innerHTML = `
  <p class="govuk-body">
  <a class="govuk-link" href="#">
- ${catchment.name}
+ ${catchment.name} (${catchment.type === 'managementCatchment' ? 'management catchment' : catchment.type === 'operationalCatchment' ? 'operational catchment' : 'waterbody'})
  </a>
  </p>
  `
@@ -64,15 +64,20 @@ catchments = await response.json()
  nameField.value = catchment.name
  }
 
-window.location.href =
- '/internal/current/manual-overrides-summary?waterBodyName=' +
- encodeURIComponent(catchment.name) +
- '&waterBodyId=' +
- encodeURIComponent(catchment.id) +
- '&managementCatchment=' +
- encodeURIComponent(catchment.managementCatchment) +
- '&operationalCatchment=' +
- encodeURIComponent(catchment.operationalCatchment)
+const isWaterbody = catchment.type === 'waterbody'
+const isOperationalCatchment = catchment.type === 'operationalCatchment'
+const isManagementCatchment = catchment.type === 'managementCatchment'
+const params = new URLSearchParams({
+ selectedType: catchment.type,
+ waterBodyName: isWaterbody ? catchment.name : '',
+ waterBodyId: isWaterbody ? catchment.id : '',
+ managementCatchment: isManagementCatchment ? catchment.name : (catchment.managementCatchment || ''),
+ managementCatchmentId: isManagementCatchment ? catchment.id : (catchment.managementCatchmentId || ''),
+ operationalCatchment: isOperationalCatchment ? catchment.name : (isWaterbody ? catchment.operationalCatchment || '' : ''),
+ operationalCatchmentId: isOperationalCatchment ? catchment.id : (isWaterbody ? catchment.operationalCatchmentId || '' : '')
+})
+
+window.location.href = '/internal/current/manual-overrides-summary?' + params.toString()
  })
  results.appendChild(item)
 
