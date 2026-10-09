@@ -1,0 +1,321 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  {{ serviceName }}
+{% endblock %}
+
+{% block containerStart %}
+   {{ govukBackLink({
+  text: "Back",
+  href: "catchment-search"
+}) }}
+
+  
+{% endblock %}
+
+
+
+
+{% block content %}
+
+    <form class="form" method="post">
+ 
+      
+  <div class="govuk-grid-row">
+   <!-- <div class="govuk-grid-column-two-thirds">-->
+<span class="govuk-caption-l">
+    {% if selectedType == 'waterbody' %}Waterbody ID: {{ waterBodyId or waterBodyName }}
+    {% elif selectedType == 'operationalCatchment' %}Operational catchment ID: {{ operationalCatchmentId or operationalCatchment }}
+    {% else %}Management catchment ID: {{ managementCatchmentId or managementCatchment }}{% endif %}
+</span>
+
+      <h1 class="govuk-heading-l">
+       {% if selectedType == 'waterbody' %}
+         {{ waterBodyName }} waterbody manual overrides
+         {% elif selectedType == 'operationalCatchment' %}
+         {{ operationalCatchment }} operational catchment manual overrides
+       {% else %}
+         {{ managementCatchment }} management catchment manual overrides
+       {% endif %}
+      </h1>
+
+        {% if selectedType == 'waterbody' %}
+          <nav aria-label="Catchment hierarchy" class="govuk-!-margin-bottom-4">
+            <ol class="govuk-list govuk-!-margin-bottom-0">
+              <li>Management catchment: <a class="govuk-link" href="/internal/current/manual-overrides-summary?selectedType=managementCatchment&managementCatchment={{ (managementCatchment or '') | urlencode }}&managementCatchmentId={{ (managementCatchmentId or '') | urlencode }}">{{ managementCatchment }}</a></li>
+              <li class="govuk-!-margin-left-4">Operational catchment: <a class="govuk-link" href="/internal/current/manual-overrides-summary?selectedType=operationalCatchment&managementCatchment={{ (managementCatchment or '') | urlencode }}&managementCatchmentId={{ (managementCatchmentId or '') | urlencode }}&operationalCatchment={{ (operationalCatchment or '') | urlencode }}&operationalCatchmentId={{ (operationalCatchmentId or '') | urlencode }}">{{ operationalCatchment }}</a></li>
+              <li class="govuk-!-margin-left-8">Waterbody: <strong>{{ waterBodyName }}</strong></li>
+            </ol>
+          </nav>
+          <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+        {% elif selectedType == 'operationalCatchment' %}
+          <nav aria-label="Catchment hierarchy" class="govuk-!-margin-bottom-4">
+            <ol class="govuk-list govuk-!-margin-bottom-0">
+              <li>Management catchment: <a class="govuk-link" href="/internal/current/manual-overrides-summary?selectedType=managementCatchment&managementCatchment={{ (managementCatchment or '') | urlencode }}&managementCatchmentId={{ (managementCatchmentId or '') | urlencode }}">{{ managementCatchment }}</a></li>
+              <li class="govuk-!-margin-left-4">Operational catchment: <strong>{{ operationalCatchment }}</strong></li>
+            </ol>
+          </nav>
+        <details class="govuk-details govuk-!-margin-bottom-4">
+          <summary class="govuk-details__summary">
+              <span class="govuk-details__summary-text">Waterbodies in this operational catchment</span>
+          </summary>
+          <div class="govuk-details__text">
+            <ul class="govuk-list govuk-list--bullet govuk-!-margin-top-0 govuk-!-margin-bottom-0">
+                {% for child in (hierarchyChildren or []) %}
+                <li>
+                    <a class="govuk-link" href="/internal/current/manual-overrides-summary?selectedType=waterbody&waterBodyName={{ child.name | urlencode }}&waterBodyId={{ child.id | urlencode }}&managementCatchment={{ (managementCatchment or '') | urlencode }}&managementCatchmentId={{ (managementCatchmentId or '') | urlencode }}&operationalCatchment={{ (operationalCatchment or '') | urlencode }}&operationalCatchmentId={{ (operationalCatchmentId or '') | urlencode }}">{{ child.name }}</a>
+                </li>
+              {% else %}
+                  <li>{{ operationalCatchment }} has no listed waterbodies.</li>
+              {% endfor %}
+            </ul>
+          </div>
+        </details>
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+        {% elif selectedType == 'managementCatchment' %}
+          <nav aria-label="Catchment hierarchy" class="govuk-!-margin-bottom-4">
+            <ol class="govuk-list govuk-!-margin-bottom-0">
+              <li>Management catchment: <strong>{{ managementCatchment }}</strong></li>
+            </ol>
+          </nav>
+          <details class="govuk-details govuk-!-margin-bottom-4">
+            <summary class="govuk-details__summary">
+              <span class="govuk-details__summary-text">Operational catchments in this management catchment</span>
+            </summary>
+            <div class="govuk-details__text">
+              <ul class="govuk-list govuk-list--bullet govuk-!-margin-top-0 govuk-!-margin-bottom-0">
+                {% for child in (hierarchyChildren or []) %}
+                  <li><a class="govuk-link" href="/internal/current/manual-overrides-summary?selectedType=operationalCatchment&managementCatchment={{ (managementCatchment or '') | urlencode }}&managementCatchmentId={{ (managementCatchmentId or '') | urlencode }}&operationalCatchment={{ child.name | urlencode }}&operationalCatchmentId={{ child.id | urlencode }}">{{ child.name }}</a></li>
+                {% else %}
+                  <li>{{ managementCatchment }} has no listed operational catchments.</li>
+                {% endfor %}
+              </ul>
+            </div>
+          </details>
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+      {% endif %}
+
+
+
+
+
+
+<table class="govuk-table">
+  <caption class="govuk-table__caption govuk-table__caption--m">Water availability colour</caption>
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Source</th>
+      <th scope="col" class="govuk-table__header">Date</th>
+       <th scope="col" class="govuk-table__header">Status</th>
+       <th scope="col" class="govuk-table__header">Actions</th>
+      <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Notes</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Override</td>
+      <td class="govuk-table__cell">09/10/2026</td>
+      <td class="govuk-table__cell">
+        {% if (data['updateCol'] == "N/A") %}
+        N/A
+        {% else %}
+
+        {{ data.updateCol | safe }}
+        {% endif %}
+        </td>
+
+      <td class="govuk-table__cell">
+      <button type="submit" name="manual-overrides-summary" class="govuk-button govuk-button--secondary" value="updateCol" data-module="govuk-button">Update</button>
+      </td>
+      <td class="govuk-table__cell">{{ data.moreDetailCol}}</td>
+     
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">WRGIS</td>
+      <td class="govuk-table__cell">05/06/2026</td>
+      <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--green">Good availability</strong></td>
+      <td class="govuk-table__cell"></td>
+      <td class="govuk-table__cell"></td>
+    </tr>
+  </tbody>
+</table>
+
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Water availability colour history
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+    Log of activity in here...  </div>
+</details>
+
+<table class="govuk-table">
+  <caption class="govuk-table__caption govuk-table__caption--m">Hands-off Flow</caption>
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Source</th>
+      <th scope="col" class="govuk-table__header">Date</th>
+       <th scope="col" class="govuk-table__header">Status</th>
+       <th scope="col" class="govuk-table__header">Actions</th>
+       <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Notes</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Override</th>
+      <td class="govuk-table__cell">10/09/2026</td>
+      <td class="govuk-table__cell">{% if (data['updateHof'] == "N/A") %}
+        N/A
+        {% else %}
+
+        {{data.updateHof}}
+        {% endif %}</td>
+      <td class="govuk-table__cell" >
+      <button type="submit" name="manual-overrides-summary" value="updateHof" class="govuk-button govuk-button--secondary" data-module="govuk-button">Update</button>
+      </td>
+      <td class="govuk-table__cell">{{ data.moreDetailHof}}
+      </td>
+    </tr>
+
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">WRGIS</th>
+      <td class="govuk-table__cell">01/03/2026</td>
+      <td class="govuk-table__cell">71</td>
+      <td class="govuk-table__cell"></td>
+      <td class="govuk-table__cell"></td>
+    </tr>
+  </tbody>
+</table>
+
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+     Hands-off Flow history
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+    Log of activity in here...  </div>
+</details>
+
+
+<table class="govuk-table">
+  <caption class="govuk-table__caption govuk-table__caption--m">Local policies</caption>
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Policy</th>
+      <th scope="col" class="govuk-table__header">Date</th>
+       <th scope="col" class="govuk-table__header">Status</th>
+       <th scope="col" class="govuk-table__header">Actions</th>
+       <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Notes</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Heavily modified waterbody</th>
+      <td class="govuk-table__cell">19/05/2023</td>
+      <td class="govuk-table__cell">Active</td>
+      <td class="govuk-table__cell" >
+        <button type="submit" name="manual-overrides-summary" value="updateHmwb" class="govuk-button govuk-button--secondary" data-module="govuk-button">Update</button>
+       </td>
+      <td class="govuk-table__cell">Lorem ipsum dolor sit amet, consectetur 
+          adipiscing elit, sed do eiusmod tempor incididunt ut labore et 
+          dolore magna aliqua. Ut enim ad minim veniam, quis 
+          nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+      </td>
+    </tr>
+
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Internal drainage board</th>
+      <td class="govuk-table__cell">11/09/2019</td>
+      <td class="govuk-table__cell">Active</td>
+      <td class="govuk-table__cell" >
+        <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">Update</button>
+      </td>
+      <td class="govuk-table__cell">Lorem ipsum dolor sit amet, consectetur 
+          adipiscing elit, sed do eiusmod tempor incididunt ut labore et 
+          dolore magna aliqua. Ut enim ad minim veniam, quis 
+          nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+      </td>
+  </tr>
+
+     <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Green line</th>
+      <td class="govuk-table__cell">29/11/2015</td>
+      <td class="govuk-table__cell">Active</td>
+      <td class="govuk-table__cell" >
+        <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">Update</button>
+        <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">Remove</button>
+      </td>
+      <td class="govuk-table__cell">Lorem ipsum dolor sit amet, consectetur 
+          adipiscing elit, sed do eiusmod tempor incididunt ut labore et 
+          dolore magna aliqua. Ut enim ad minim veniam, quis 
+          nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+      </td>
+  </tr>
+
+     <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">
+      <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">+ Add new local policy</button>
+      </th>
+      <td class="govuk-table__cell"></td>
+      <td class="govuk-table__cell"></td>
+      <td class="govuk-table__cell"></td>
+      <td class="govuk-table__cell"></td>
+    </tr>
+
+  </tbody>
+</table>
+
+<table class="govuk-table">
+  <caption class="govuk-table__caption govuk-table__caption--m">Assessment point</caption>
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Source</th>
+      <th scope="col" class="govuk-table__header">Date</th>
+       <th scope="col" class="govuk-table__header">Status</th>
+       <th scope="col" class="govuk-table__header">Actions</th>
+      <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Notes</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Override</td>
+      <td class="govuk-table__cell">09/10/2026</td>
+      <td class="govuk-table__cell"> {% if (data['updateAp'] == "N/A") %}
+        N/A
+        {% else %}
+
+        {{data.updateAp}}
+        {% endif %}</td>
+
+      <td class="govuk-table__cell">
+      <button type="submit" name="manual-overrides-summary" value="updateAp" class="govuk-button govuk-button--secondary" data-module="govuk-button">Update</button>
+       </td>
+      <td class="govuk-table__cell">Lorem ipsum dolor sit amet, consectetur 
+          adipiscing elit, sed do eiusmod tempor incididunt ut labore et 
+          dolore magna aliqua. Ut enim ad minim veniam, quis 
+          nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</td>
+     
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">WRGIS</td>
+      <td class="govuk-table__cell">05/06/2026</td>
+      <td class="govuk-table__cell">Critical assessment point</strong></td>
+      <td class="govuk-table__cell"></td>
+      <td class="govuk-table__cell"></td>
+    </tr>
+  </tbody>
+</table>
+
+  <!--      {{ govukButton({
+          text: "Continue"
+        }) }}-->
+
+     
+
+  <!--  </div>-->
+  </div>
+ </form>
+<!-- {{data | dump}} -->
+{% endblock %}

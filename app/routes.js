@@ -25,5 +25,6 @@ router.use('/external/sprint-1', require('./views/external/sprint-1/_routes'));
 // current sprint, remember to add older sprint when adding a new folder!
 router.use('/external/current', require('./views/external/current/_routes'));
 router.use('/internal/current', require('./views/internal/current/_routes'));
+router.use('/internal/sprint-11', require('./views/internal/sprint-11/_routes'));
 
 module.exports = router

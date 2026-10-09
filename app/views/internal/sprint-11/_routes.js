@@ -1,7 +1,7 @@
 const govukPrototypeKit = require('govuk-prototype-kit')
 const router = govukPrototypeKit.requests.setupRouter()
 
-const folder = '/internal/current/'
+const folder = '/internal/sprint-11/'
 
 router.use((request, response, next) => {
  const requestPath = request.baseUrl + request.path
