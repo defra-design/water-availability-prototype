@@ -489,8 +489,18 @@
 
   {% endif %} 
 
-<a href="detailed-results.html" class="govuk-back-link">Back to {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %} overview</a></br>
-<a href="summary.html" class="govuk-back-link">Back to your local water bodies</a>
+<h2 class="govuk-heading-m">Where next?</h2>
+
+<p class="govuk-body">Back to:</p>
+<ul class="govuk-list govuk-list--bullet">
+  <li><a href="detailed-results.html">{% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %} overview</a></li>
+  <li><a href="summary.html">Your local water bodies</a></li>
+</ul>
+
+<p class="govuk-body">Or continue to:</p>
+ <ul class="govuk-list govuk-list--bullet">
+  <li><a href="how-to-apply.html">How to apply for a water licence</a></li>
+ </ul>
 
     </div>
   </div>
