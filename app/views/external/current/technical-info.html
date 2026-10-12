@@ -489,7 +489,8 @@
 
   {% endif %} 
 
-  <a href="detailed-results.html" class="govuk-back-link">Back to {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %} overview</a>
+<a href="detailed-results.html" class="govuk-back-link">Back to {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %} overview</a></br>
+<a href="summary.html" class="govuk-back-link">Back to your local water bodies</a>
 
     </div>
   </div>
