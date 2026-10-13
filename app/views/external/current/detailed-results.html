@@ -86,11 +86,11 @@
 <h2 id="restrictions-and-conditions" class="govuk-heading-m">Restrictions and conditions in {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %}</h2>
 
 
-<p class="govuk-body">The Environment Agency monitor how much water is 
-  available using local assessment point data. Your 
-  licence will specify the maximum amount of water you can 
-  abstract per day. There are additional local restrictions on abstraction 
-  which are explained below, with <a href="technical-info.html">full technical details here</a>.</p>
+<p class="govuk-body">Your licence will include certain restrictions and 
+  conditions such as Hands-off Flow, which limits abstraction based 
+  on the flow of the water, monitored locally by the Environment Agency.</p>
+  
+  <p class="govuk-body">The common end date indicates when your licence is likely to expire.</p>
 
  <table class="govuk-table">
 <!--<caption class="govuk-table__caption govuk-table__caption--m">Restrictions and conditions in {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %}</caption>
@@ -169,7 +169,7 @@
   </tbody>
 </table> 
 
- <details class="govuk-details">
+ <!--<details class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
       What is Hands-off Flow?
@@ -192,7 +192,7 @@
 
  
   </div>
-</details>
+</details>-->
 
   </div>
 
@@ -220,7 +220,7 @@
 </div>
 </details> -->
 
-  <details class="govuk-details">
+  <!--<details class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
       What is a common end date?
@@ -248,40 +248,19 @@
         apply that to your licence instead.</p>
  
       </div>
-</details>
+</details>-->
+
+
+<p class="govuk-body">You can learn more about common end date and Hands-off Flow, 
+  view data and find out more about other restrictions in {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %} in the <a href="technical-info.html">technical details</a> section.</p>
 
 <h2 id="local-policies" class="govuk-heading-m">Local policy implications affecting water availability in {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %}</h2>
 
-<p class="govuk-body">The Environment Agency has local policies which may affect water availability in your area. These policies are designed to protect the environment and ensure that water is used sustainably.</p>
-
-<h3 class="govuk-heading-s">Heavily modified water body (HMWB) implications</h3>
-
-        <p class="govuk-body">Licence applications will cost extra and can take time to 
-          organise and process.</p>
-    
-            
-      <h3 class="govuk-heading-s">Level Dependent Environment (LDE) implications</h3>
-    
-<p class="govuk-body">Abstraction licences are 
-  limited to the following uses:</p>
-
-          <ul class="govuk-list govuk-list--bullet">
-          <li>nature conservation</li>
-          <li>creating water meadows</li>
-          <li>wet fencing</li>
-          <li>animal watering welfare</li>
-          </ul> 
-
-          <p class="govuk-body">Licences will not 
-            be granted for the summer months.</p>
-    
-            
-      <h3 class="govuk-heading-s">Internal Drainage Board (IDB) implications</h3>
-   
-    <p class="govuk-body">Your local IDB is The Somerset Drainage Board Consortium.</p>
-       
-      <p class="govuk-body">We recommend you consult the Somerset 
-        Drainage Board Consortium before applying for a licence.</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>Licence applications will cost extra and can take time to organise and process.</li>
+          <li>Abstraction licences will only be granted for the winter months (November to March).</li>
+          <li>The Somerset Drainage Board Consortium operates in this area. We recommend you consult them before applying for a licence.</li>
+        </ul>
 {% endif %}
      
 
