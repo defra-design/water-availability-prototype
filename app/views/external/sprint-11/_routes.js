@@ -577,7 +577,7 @@ const folder = "/external/sprint-11/"
 
 
 //Resetting session data for UR
-router.get(folder + 'ur', function (request, response) {
+router.get('/ur', function (request, response) {
 	request.session.data = {}
 	response.render(folder + 'ur')
 })
@@ -586,7 +586,7 @@ router.get(folder + 'ur', function (request, response) {
 
 //water type page
 //Set variables page
-router.get(folder + 'water-type', function (request, response) {
+router.get('/water-type', function (request, response) {
 	response.render(folder + 'water-type')
 })
 
@@ -598,7 +598,7 @@ router.post('/water-type', function (request, response) {
 
 
 //Start page
-router.get(folder + 'start', function (request, response) {
+router.get('/start', function (request, response) {
   
 	response.render(folder + 'start')
 })
@@ -623,7 +623,7 @@ router.post('/start', function (request, response) {
 //})
 
 //exemption page
-router.get(folder + 'exemption', function (request, response) {
+router.get('/exemption', function (request, response) {
 	response.render(folder + 'exemption')
 })
 
@@ -637,7 +637,7 @@ var eXemption = request.session.data['exemption']
 })
 
 //exemption results page
-router.get(folder + 'exempt-results', function (request, response) {
+router.get('/exempt-results', function (request, response) {
 	response.render(folder + 'exempt-results')
 })
 
@@ -649,7 +649,7 @@ router.post('/exempt-results', function (request, response) {
 
 
 //Location use water page
-router.get(folder + 'location', function (request, response) {
+router.get('/location', function (request, response) {
     response.render(folder + 'location');
 });
 
@@ -811,7 +811,7 @@ else { request.session.data.error = "Water body not modelled for that location";
 });
 
 //Usage category page
-router.get(folder + 'usage-category', function (request, response) {
+router.get('/usage-category', function (request, response) {
 	response.render(folder + 'usage-category')
 })
 
@@ -1048,7 +1048,7 @@ router.post('/usage-sport', function (request, response) {
 });
 
 //exempt results page
-router.get(folder + 'exempt-results', function (request, response) {
+router.get('/exempt-results', function (request, response) {
   
 	response.render(folder + 'exempt-results')
 })
@@ -1061,7 +1061,7 @@ router.post('/exempt-results', function (request, response) {
 
 
 //summary page
-router.get(folder + 'summary', function (request, response) {
+router.get('/summary', function (request, response) {
 	response.render(folder + 'summary')
 })
 
@@ -1072,7 +1072,7 @@ router.post('/summary', function (request, response) {
 
 
 //Detailed results page
-router.get(folder + 'detailed-results', function (request, response) {
+router.get('/detailed-results', function (request, response) {
 	response.render(folder + 'detailed-results')
 })
 
@@ -1091,7 +1091,7 @@ router.post('/detailed-results', function (request, response) {
 
 
 //next steps page
-router.get(folder + 'next-steps', function (request, response) {
+router.get('/next-steps', function (request, response) {
 	response.render(folder + 'next-steps')
 })
 
