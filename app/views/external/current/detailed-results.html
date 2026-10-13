@@ -52,26 +52,7 @@
 
        {% endif %}
 
-  <!--<nav class="govuk-!-margin-bottom-6" aria-label="Contents">
-    <h2 class="govuk-heading-m">Contents</h2>
-    <ul class="govuk-list govuk-list--spaced">
-      <li>
-        <a class="govuk-link" href="#restrictions-and-conditions">
-          Restrictions and conditions in {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %}
-        </a>
-      </li>
-      <li>
-        <a class="govuk-link" href="#local-policies">
-          Local policies affecting water availability in {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %}
-        </a>
-      </li>
-      <li>
-        <a class="govuk-link" href="#previous-years">
-          Water availability for previous years in {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %}
-        </a>
-      </li>
-    </ul>
-  </nav> -->
+ 
 
        {% if data['water-use-label'] == "impounding (non-hydropower)" %}  
 {% else %}
@@ -83,185 +64,41 @@
   {% if (data.noWater == "true" or (data['water-use-type'] == "Consumptive" or data.watertype == "ground")) %} 
   {% else %}
   
-<h2 id="restrictions-and-conditions" class="govuk-heading-m">Restrictions and conditions in {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %}</h2>
+<h2 id="restrictions-and-conditions" class="govuk-heading-m">How water stressed is {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %}</h2>
 
 
-<p class="govuk-body">Your licence will include certain restrictions and 
-  conditions such as Hands-off Flow, which limits abstraction based 
-  on the flow of the water, monitored locally by the Environment Agency.</p>
+<p class="govuk-body">Some areas are more water stressed than others. We 
+  class water bodies as 'low', 'moderate' or 'highly stressed'.</p> 
+
+<p class="govuk-body">How water stressed your local area is depends 
+  on how much water is already licenced and whether areas nearby 
+  need protection.</p>
+
+<p class="govuk-body">In highly stressed areas there is less water 
+  available for abstraction, especially in times of drought, In 
+  these areas there are strict restrictions on how much water 
+  you can take and when you are allowed to abstract. You 
+  can learn more below.</p>
   
-  <p class="govuk-body">The common end date indicates when your licence is likely to expire.</p>
-
- <table class="govuk-table">
-<!--<caption class="govuk-table__caption govuk-table__caption--m">Restrictions and conditions in {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %}</caption>
- <thead class="govuk-table__head">
-    <tr class="govuk-table__row">
-      <th scope="col" class="govuk-table__header">Date</th>
-      <th scope="col" class="govuk-table__header">Amount</th>
-    </tr>
-  </thead>-->
-  <tbody class="govuk-table__body">
-   <!-- <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">Critical assessment point (AP)</th>
-      <td class="govuk-table__cell">
-        {% if (data['updateAp'] == "N/A") %}
-        Lovington Gauging Station
-        {% else %}
-
-        {{data.updateAp}}
-        {% endif %}
-      </td>
-    </tr>
-    <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">Distance of AP from your {% if (data['location'] == "gridRef") %}
-        national grid reference
-{% elseif (data['location'] == "fieldParcel") %}
-    field parcel
-{% elseif (data['location'] == "postCode") %}
-    postcode
-      {% endif %}</th>
-      <td class="govuk-table__cell">1.2 km</td>
-    </tr> -->
-    <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">Approximate Hands-off Flow (HoF)</th>
-      <td class="govuk-table__cell">{% if data.sid == "1" %} 
-       {% if (data['updateHof'] == "N/A") %}
-        23 Megalitres per day
-  
-        {% elseif (data['updateHof'] == "No override set") %} 
-          23 Megalitres per day</p>
-   
-        {% else %}
-
-        {{data.updateHof}}
-        {% endif %}
-
-    {% else %}
-     {% if (data['updateHof'] == "N/A") %}
-        71 Megalitres per day
-        {% elseif (data['updateHof'] == "No override set") %} 
-          71 Megalitres per day</p>
-   
-        {% else %}
-
-        {{data.updateHof}} Megalitres per day
-        {% endif %}
-   {% endif %}
-  
-  </td>
-    </tr>
-    <!-- <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">HoF band</th>
-      <td class="govuk-table__cell">{% if data.sid == "1" %}1 out of 6{% else %}4 out of 6{% endif %}</td>
-    </tr>
-     <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">Water remaining in band</th>
-      <td class="govuk-table__cell">{% if data.sid == "1" %}34%{% else %}68%{% endif %}</td>
-    </tr>
-     <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">Total daily amount available for all new abstractors</th>
-      <td class="govuk-table__cell">123 Megalitres</td>
-    </tr> -->
-     <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">Common end date</th>
-      <td class="govuk-table__cell">March 2027</td>
-    </tr>
-  </tbody>
-</table> 
-
- <!--<details class="govuk-details">
-  <summary class="govuk-details__summary">
-    <span class="govuk-details__summary-text">
-      What is Hands-off Flow?
-    </span>
-
-  </summary>
-  <div class="govuk-details__text">
-
-<p class="govuk-body">'Hands-off Flow' (HoF) conditions come into effect when the 
-  flow rate drops below a certain level. When this happens most abstractors 
-  are issued an alert (although some abstractors self-monitor) and 
-  abstraction is limited or stopped until the flow rate increases.</p>
-
-<p class="govuk-body">HoF conditions are measured in megalitres per day. One 
-  megalitre is equivalent to 1000 cubic metres. For reference, an Olympic 
-  sized swimming pool is 2.5 megalitres in size. </p>
- 
- <p class="govuk-body">Your licence may have a different HoF condition 
-  applied depending on your use and exact abstraction point location.</p>
-
- 
-  </div>
-</details>-->
-
-  </div>
-
-
-  <!--<details class="govuk-details">
-  <summary class="govuk-details__summary">
-    <span class="govuk-details__summary-text">
-      What are Hands-off Flow bands?
-    </span>
-  </summary>
-  <div class="govuk-details__text">
-    <p class="govuk-body">Hands-off Flow (HoF) conditions are grouped 
-      into bands and this gives you an idea of how water stressed your 
-      local water body is.</p>
-
-<p class="govuk-body">Band 1 has the most water available and fewest 
-  restrictions, while band 6 is the most water stressed with no water 
-  available left for licensing. </p>
-
-<p class="govuk-body">Once the remaining water in the band has been 
-  licensed, the water body will move into the next band up and the restrictions 
-  will increase.</p>
-
-
+<div class="govuk-inset-text">
+ {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %} is a moderate water stress area.
 </div>
-</details> -->
 
-  <!--<details class="govuk-details">
-  <summary class="govuk-details__summary">
-    <span class="govuk-details__summary-text">
-      What is a common end date?
-    </span>
 
-  </summary>
-  <div class="govuk-details__text">
 
-<p class="govuk-body">The 'common end date' indicates when the licensing strategy 
-  for this area is due for review. The Environment Agency review each local 
-  licensing strategy every 12 years.</p>
- 
-  
-<p class="govuk-body">Most licences expire on the common end date 
-  but sometimes a shorter time limit is needed, usually due to local issues or 
-  uncertainty. If you want to abstract water after the expiry date, you must 
-  apply for a new a licence to replace the existing one.</p>
+<h2 id="local-policies" class="govuk-heading-m">Local policy affecting water availability in {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %}</h2>
 
-  <p class="govuk-body">You can apply for a longer licence period of up to 24 years 
-    which is granted at the discretion of the Environment Agency.</p>
+        <ul class="govuk-list govuk-list--bullet">
+             <li>Abstraction licences will only be granted for the winter months (November to March).</li>
+          <li>The Somerset Drainage Board Consortium operates in this area. We recommend you consult them before applying for a licence.</li>
+        </ul>
+{% endif %}
 
-      <p class="govuk-body">If the next common end date is over 6 years away, it 
-        will usually apply to your licence as the expiry date. If it is less than 6 years 
-        away, in most cases we will skip to the next common end date and 
-        apply that to your licence instead.</p>
- 
-      </div>
-</details>-->
-
+<h2 id="technical-information" class="govuk-heading-m">Local data and other technical information</h2>
 
 <p class="govuk-body">You can learn more about common end date and Hands-off Flow, 
   view data and find out more about other restrictions in {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %} in the <a href="technical-info.html">technical details</a> section.</p>
 
-<h2 id="local-policies" class="govuk-heading-m">Local policy implications affecting water availability in {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %}</h2>
-
-        <ul class="govuk-list govuk-list--bullet">
-          <li>Licence applications will cost extra and can take time to organise and process.</li>
-          <li>Abstraction licences will only be granted for the winter months (November to March).</li>
-          <li>The Somerset Drainage Board Consortium operates in this area. We recommend you consult them before applying for a licence.</li>
-        </ul>
-{% endif %}
      
 
 {% if (data.noWater == "true" or (data['water-use-type'] == "Consumptive" and data.gid == "1")) %} 
