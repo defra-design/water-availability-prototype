@@ -41,8 +41,9 @@
 
 
 <p class="govuk-body">This page shows a summary with an overall 
-  indication of water licence availability in your local area. </p>
- 
+  indication of water licence availability in your local area. Explore 
+  further information about each water body using the links below.</p>
+
  <div class="govuk-inset-text">
          
  
@@ -137,36 +138,17 @@ factors such as environmental concerns.</strong>
 <!-- SURFACE WATER-->
  {% if (data['watertype'] == "both" or data['watertype'] == "dontknow" or data['watertype'] == "surface" or data['watertype'] == "") %} 
 <div class="govuk-body">
-  <h2 class="govuk-heading-m">Your local surface water bodies</h2>
+
 
 {% if data.riverCatchmentData.length %}
 
 {% if data.riverCatchmentData.length==1 %}
-
-   <p class="govuk-body">The information below shows the surface water body for the    
-  {% if (data['location'] == "gridRef") %}
-        national grid reference
-{% elseif (data['location'] == "fieldParcel") %}
-    field parcel
-{% elseif (data['location'] == "postCode") %}
-    postcode
-      {% endif %} you have provided. Use the link to view restrictions and previous availability for this water body. 
-</p>
+  <h2 class="govuk-heading-m">Your nearest surface water body</h2>
+   <p class="govuk-body">Use the link below to view detailed information for the surface water body nearest to your {% if (data['location'] == "gridRef") %}national grid reference{% elseif (data['location'] == "fieldParcel") %}field parcel{% elseif (data['location'] == "postCode") %}postcode{% endif %}.</p>
 
    {% else %}
-
-  <p class="govuk-body">Listed below are the closest surface water bodies for the  
-  
-  {% if (data['location'] == "gridRef") %}
-        national grid reference
-{% elseif (data['location'] == "fieldParcel") %}
-    field parcel
-{% elseif (data['location'] == "postCode") %}
-    postcode
-      {% endif %}
-      
-      you have provided. Use the links to view 
-      restrictions and previous availability information for each water body.</p>
+  <h2 class="govuk-heading-m">Your nearest surface water bodies</h2>
+  <p class="govuk-body">Use the links below to view detailed information for the surface water bodies nearest to your {% if (data['location'] == "gridRef") %}national grid reference{% elseif (data['location'] == "fieldParcel") %}field parcel{% elseif (data['location'] == "postCode") %}postcode{% endif %}.</p>
 
 
 
@@ -245,6 +227,8 @@ factors such as environmental concerns.</strong>
 
 {% endfor %}
 {% else %}
+
+   <h2 class="govuk-heading-m">Your nearest surface water body</h2>
 <p class="govuk-body">No surface water body data is available for this area.</p>
 <p><a href="https://www.gov.uk/government/organisations/environment-agency#org-contacts" class="govuk-link">Contact the Environment Agency</a> for more information on surface water licencing in your area.</p>
 {% endif %}
@@ -258,37 +242,19 @@ factors such as environmental concerns.</strong>
 {% else %}
   {% if (data['watertype'] == "both" or data['watertype'] == "dontknow" or data['watertype'] == "ground" or data['watertype'] == "") %} 
 <div class="govuk-body">
-<h2 class="govuk-heading-m">Your local groundwater bodies</h2>
- 
 
   {% if data.groundwaterCatchmentData.length %}
 
 
   {% if data.groundwaterCatchmentData.length==1 %}
 
-   <p class="govuk-body">The information below shows the groundwater body for the   
-  {% if (data['location'] == "gridRef") %}
-        national grid reference
-{% elseif (data['location'] == "fieldParcel") %}
-    field parcel
-{% elseif (data['location'] == "postCode") %}
-    postcode
-      {% endif %} you have provided. Use the link to view restrictions and previous availability for this water body. 
-</p>
+  <h2 class="govuk-heading-m">Your nearest groundwater body</h2>
+   <p class="govuk-body">Use the link below to view detailed information for 
+    the groundwater body nearest to your {% if (data['location'] == "gridRef") %}national grid reference{% elseif (data['location'] == "fieldParcel") %}field parcel{% elseif (data['location'] == "postCode") %}postcode{% endif %}.</p>
 
   {% else %}
-  <p class="govuk-body">Listed below are the closest groundwater bodies for the  
-  
-  {% if (data['location'] == "gridRef") %}
-        national grid reference
-{% elseif (data['location'] == "fieldParcel") %}
-    field parcel
-{% elseif (data['location'] == "postCode") %}
-    postcode
-      {% endif %}
-      
-       you have provided. Use the links to view restrictions and 
-       previous availability information for each water body.</p>
+   <h2 class="govuk-heading-m">Your nearest groundwater bodies</h2>
+  <p class="govuk-body">Use the links below to view detailed information for the groundwater bodies nearest to your {% if (data['location'] == "gridRef") %}national grid reference{% elseif (data['location'] == "fieldParcel") %}field parcel{% elseif (data['location'] == "postCode") %}postcode{% endif %}.</p>
 
 
   {% endif %}
@@ -364,6 +330,7 @@ factors such as environmental concerns.</strong>
 
   {% endfor %}
   {% else %}
+    <h2 class="govuk-heading-m">Your nearest groundwater body</h2> 
 <p class="govuk-body">No groundwater body data is available for this area.</p>
 <p><a href="https://www.gov.uk/government/organisations/environment-agency#org-contacts" class="govuk-link">Contact the Environment Agency</a> for more information on groundwater licencing in your area.</p>
   {% endif %}
