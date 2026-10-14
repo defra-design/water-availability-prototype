@@ -79,13 +79,27 @@
   these areas there are strict restrictions on how much water 
   you can take and when you are allowed to abstract. You 
   can learn more below.</p>
+ 
   
+    {% if data.sid == "1" %} 
+<div class="govuk-inset-text">
+ {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %} is a <b>mildly</b> water stressed area.
+</div>
+{% else %}
 <div class="govuk-inset-text">
  {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %} is a <b>moderately</b> water stressed area.
 </div>
+{% endif %}
+
+    {% if data.sid == "1" %} 
+<h2 id="local-policies" class="govuk-heading-m">Local policy affecting water availability in {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %}</h2>
 
 
+        <ul class="govuk-list govuk-list--bullet">
+             <li>There is no local policy affecting this area.</li>
+        </ul>
 
+        {% else %}
 <h2 id="local-policies" class="govuk-heading-m">Local policy affecting water availability in {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %}</h2>
 
 
@@ -93,7 +107,7 @@
              <li>Abstraction licences will only be granted for the winter months (November to March).</li>
           <li>The Somerset Drainage Board Consortium operates in this area. We recommend you consult them before applying for a licence.</li>
         </ul>
-
+        {% endif %}
 
 <h2 id="technical-information" class="govuk-heading-m">Local data and other technical information</h2>
 
