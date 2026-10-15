@@ -9,11 +9,12 @@ module.exports = {
 "updateAp":["N/A"],
 
 "updateCol":"N/A",
+"dateCol":"N/A",
 "moreDetailCol":["Justification for the override"],
 
 "updateHof":["N/A"],
 "moreDetailHof":["Justification for the override"],
-"dateHof":["N/A"],
+"dateHof":"N/A",
 
 //EXTERNAL SESSION DEFAULTS
   // Insert values here
@@ -1045,4 +1046,3 @@ module.exports = {
 ]
 
 }
-

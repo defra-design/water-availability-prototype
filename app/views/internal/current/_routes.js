@@ -2,6 +2,7 @@ const govukPrototypeKit = require('govuk-prototype-kit')
 const router = govukPrototypeKit.requests.setupRouter()
 
 const folder = '/internal/current/'
+const getCurrentDate = () => new Date().toLocaleDateString('en-GB')
 
 router.use((request, response, next) => {
  const requestPath = request.baseUrl + request.path
@@ -323,6 +324,9 @@ router.post(folder + 'update-ap', function (request, response) {
 
 router.post(folder + 'update-col', function (request, response) {
 	request.session.data.updateCol = request.body.updateCol
+	request.session.data.dateCol = request.body.updateCol && request.body.updateCol !== 'No override set'
+		? getCurrentDate()
+		: 'N/A'
 	response.redirect(folder + 'manual-overrides-summary')
 })
 
@@ -332,6 +336,9 @@ router.post(folder + 'update-hof', function (request, response) {
 	} else {
 		request.session.data.updateHof = request.body.updateHof
 	}
+	request.session.data.dateHof = request.session.data.updateHof && request.session.data.updateHof !== 'No override set'
+		? getCurrentDate()
+		: 'N/A'
 	response.redirect(folder + 'manual-overrides-summary')
 })
 

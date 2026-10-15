@@ -114,7 +114,7 @@
   <tbody class="govuk-table__body">
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Override</td>
-      <td class="govuk-table__cell">09/10/2026</td>
+      <td class="govuk-table__cell">{{ data.dateCol or "N/A" }}</td>
       <td class="govuk-table__cell">
         {% if (data['updateCol'] == "N/A") %}
         N/A
@@ -164,7 +164,7 @@
   <tbody class="govuk-table__body">
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Override</th>
-      <td class="govuk-table__cell">10/09/2026</td>
+      <td class="govuk-table__cell">{{ data.dateHof or "N/A" }}</td>
       <td class="govuk-table__cell">{% if (data['updateHof'] == "N/A") %}
         N/A
         {% else %}
@@ -199,7 +199,7 @@
 </details>
 
 
-<table class="govuk-table">
+<!--<table class="govuk-table">
   <caption class="govuk-table__caption govuk-table__caption--m">Local policies</caption>
   <thead class="govuk-table__head">
     <tr class="govuk-table__row">
@@ -306,7 +306,7 @@
       <td class="govuk-table__cell"></td>
     </tr>
   </tbody>
-</table>
+</table>-->
 
   <!--      {{ govukButton({
           text: "Continue"
