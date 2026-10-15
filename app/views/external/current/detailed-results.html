@@ -70,6 +70,16 @@
 <p class="govuk-body">Some areas are more water stressed than others. We 
   class water bodies as 'mildly', 'moderately' or 'highly stressed'.</p> 
 
+   {% if data.sid == "1" %} 
+<div class="govuk-inset-text">
+ {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %} is a <b>mildly</b> water stressed area.
+</div>
+{% else %}
+<div class="govuk-inset-text">
+ {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %} is a <b>moderately</b> water stressed area.
+</div>
+{% endif %}
+
 <p class="govuk-body">How water stressed your local area is depends 
   on how much water is already licenced and whether areas nearby 
   need protection.</p>
@@ -81,15 +91,7 @@
   can learn more below.</p>
  
   
-    {% if data.sid == "1" %} 
-<div class="govuk-inset-text">
- {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %} is a <b>mildly</b> water stressed area.
-</div>
-{% else %}
-<div class="govuk-inset-text">
- {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %} is a <b>moderately</b> water stressed area.
-</div>
-{% endif %}
+ 
 
     {% if data.sid == "1" %} 
 <h2 id="local-policies" class="govuk-heading-m">Local policy affecting water availability in {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %}</h2>
