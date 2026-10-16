@@ -17,7 +17,7 @@
     <div class="govuk-grid-column-two-thirds">
 
       <h1 class="govuk-heading-l">
-        Technical information for {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %}
+        Technical details for {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %}
       </h1>
 
 <p class="govuk-body">The Environment Agency monitor how much water is 
@@ -46,6 +46,9 @@
         {% endif %}
       </td>
     </tr>
+   
+   {% if data.sid == "1" %}
+   {% else %}
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Distance of AP from your {% if (data['location'] == "gridRef") %}
         national grid reference
@@ -56,6 +59,8 @@
       {% endif %}</th>
       <td class="govuk-table__cell">1.2 km</td>
     </tr>
+
+    {% endif %}
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Approximate Hands-off Flow (HoF)</th>
       <td class="govuk-table__cell">{% if data.sid == "1" %} 
@@ -84,6 +89,9 @@
   
   </td>
     </tr>
+
+   {% if data.sid == "1" %}
+   {% else %}
      <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">HoF band</th>
       <td class="govuk-table__cell">{% if data.sid == "1" %}1 out of 6{% else %}4 out of 6{% endif %}</td>
@@ -96,6 +104,8 @@
       <th scope="row" class="govuk-table__header">Total daily amount available for all new abstractors</th>
       <td class="govuk-table__cell">123 Megalitres</td>
     </tr>
+
+    {% endif %}
      <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Common end date</th>
       <td class="govuk-table__cell">March 2027</td>
@@ -132,7 +142,8 @@
  
   </div>
 </details>
-
+   {% if data.sid == "1" %}
+   {% else %}
   <details class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
@@ -155,6 +166,7 @@
 
 </div>
 </details>
+{% endif %}
 
   <details class="govuk-details">
   <summary class="govuk-details__summary">
