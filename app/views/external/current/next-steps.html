@@ -45,8 +45,8 @@
         have environmental protection in place.</p>
          
 <p class="govuk-body"><a href="how-to-apply.html">How to apply for or vary your licence</a></p>
-
-
+<hr>
+<br>
     {% elseif data['noWater'] == "false" and data['watertype'] == 'ground' %} 
  
     <h2 class="govuk-heading-m">Learn more about the groundwater licence application process</h2>
@@ -55,9 +55,10 @@
         <p class="govuk-body">Find out about what you need to do next to get a licence, as 
           well as information on costs, permits and permissions, and how to check which 
           areas have environmental protection in place.</p>
-  <p class="govuk-body"><a href="how-to-apply.html">How to apply</a></p>
+  <p class="govuk-body"><a href="how-to-apply.html">How to apply for or vary your licence</a></p>
 
-
+<hr>
+<br>
   {% endif %}
 
   {% if (data['noWater'] == "true") %} 
