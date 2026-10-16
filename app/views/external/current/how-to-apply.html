@@ -300,51 +300,7 @@
         </li>
 
 
-{% if data['watertype'] == 'surface' %} 
-         <li class="app-step-nav__step js-step" id="apply">
-          <div class="app-step-nav__header js-toggle-panel" data-position="6">
-            <h2 class="app-step-nav__title">
-              <span class="app-step-nav__circle app-step-nav__circle--number">
-                <span class="app-step-nav__circle-inner">
-                  <span class="app-step-nav__circle-background">
-                    <span class="govuk-visually-hidden govuk-!-display-none-print">Step</span> 5<span class="govuk-visually-hidden govuk-!-display-none-print" aria-hidden="true">:</span>
-                  </span>
-                </span>
-              </span>
-
-              <span class="js-step-title">
-                Submit your application
-              </span>
-            </h2>
-          </div>
-
-          <div class="app-step-nav__panel js-panel" id="step-panel-apply-6">
-            <p class="app-step-nav__paragraph">The Environment Agency grants water abstraction licences. 
-          When considering whether to grant a licence for your site, 
-          we consider other factors such as the flow rate for your 
-          local area, how much nearby abstractors are taking, the 
-          natural environment and any protected areas.</p>
-        <p class="app-step-nav__paragraph">Additional flow data might be needed to determine water 
-          availability in your area. You may be asked to submit flow 
-          data as part of your licence application. You can pay for an <a href="https://www.gov.uk/guidance/get-advice-before-you-apply-for-a-water-abstraction-or-impounding-licence">enhanced pre-application</a> 
-          which will give you more information about whether this is needed and 
-          how to gather the data.</p>
-
-          <p class="app-step-nav__paragraph">Applying can take as little as five months 
-            but it will take much longer if you need to collect flow data or 
-            other information. Ideally, you should allow at least 18 months 
-            to get your licence.</p>
-
-          <p class="app-step-nav__paragraph">Temporary licence applications can take up 
-            to 28 days to process (or 56 days if we need to serve notice to a statutory 
-            body, such as Natural England).</p>
-
-          <p class="app-step-nav__paragraph"><a href="https://www.gov.uk/guidance/water-management-apply-for-a-water-abstraction-or-impoundment-licence">Apply for a water abstraction licence</a></p>
-            
-          </div>
-
-        </li>
-{% elseif data['watertype'] == 'ground' %} 
+{% if data['watertype'] == 'ground' %} 
         <li class="app-step-nav__step js-step" id="apply">
           <div class="app-step-nav__header js-toggle-panel" data-position="6">
             <h2 class="app-step-nav__title">
@@ -383,6 +339,42 @@
    
       </ol>
     </div>
+
+
+{% if data['watertype'] == 'surface' %} 
+        <h2 class="govuk-heading-m">
+                Submit your application
+            
+            </h2>
+       
+
+          
+            <p class="govuk-body">The Environment Agency grants water abstraction licences. 
+          When considering whether to grant a licence for your site, 
+          we consider other factors such as the flow rate for your 
+          local area, how much nearby abstractors are taking, the 
+          natural environment and any protected areas.</p>
+        <p class="govuk-body">Additional flow data might be needed to determine water 
+          availability in your area. You may be asked to submit flow 
+          data as part of your licence application. You can pay for an <a href="https://www.gov.uk/guidance/get-advice-before-you-apply-for-a-water-abstraction-or-impounding-licence">enhanced pre-application</a> 
+          which will give you more information about whether this is needed and 
+          how to gather the data.</p>
+
+          <p class="govuk-body">Applying can take as little as five months 
+            but it will take much longer if you need to collect flow data or 
+            other information. Ideally, you should allow at least 18 months 
+            to get your licence.</p>
+
+          <p class="govuk-body">Temporary licence applications can take up 
+            to 28 days to process (or 56 days if we need to serve notice to a statutory 
+            body, such as Natural England).</p>
+
+<a class="govuk-button" role="button" data-module="govuk-button" href="https://www.gov.uk/guidance/water-management-apply-for-a-water-abstraction-or-impoundment-licence">
+  Continue to apply
+</a>
+
+            {% endif %}   
+
 
   </div>
 </div>

@@ -64,7 +64,7 @@
   {% if (data.noWater == "true" or (data['water-use-type'] == "Consumptive" or data.watertype == "ground")) %} 
   {% else %}
   
-<h2 id="restrictions-and-conditions" class="govuk-heading-m">How water stressed is {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %}</h2>
+<h2 id="restrictions-and-conditions" class="govuk-heading-m">Water availability and restrictions in {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %}</h2>
 
 
 <p class="govuk-body">Some areas are more water stressed than others. We 
@@ -94,15 +94,15 @@
  
 
     {% if data.sid == "1" %} 
-<h2 id="local-policies" class="govuk-heading-m">Local policy affecting water availability in {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %}</h2>
+<h2 id="local-policies" class="govuk-heading-m">Local abstraction policies in {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %}</h2>
 
 
         <ul class="govuk-list govuk-list--bullet">
-             <li>There is no local policy affecting this area.</li>
+             <li>There are no local policies affecting this area.</li>
         </ul>
 
         {% else %}
-<h2 id="local-policies" class="govuk-heading-m">Local policy affecting water availability in {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %}</h2>
+<h2 id="local-policies" class="govuk-heading-m">Local abstraction policies in {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %}</h2>
 
 
         <ul class="govuk-list govuk-list--bullet">
@@ -111,7 +111,7 @@
         </ul>
         {% endif %}
 
-<h2 id="technical-information" class="govuk-heading-m">Local data and other technical information</h2>
+<h2 id="technical-information" class="govuk-heading-m">Technical information</h2>
 
 <p class="govuk-body">You can learn more about local policies, restrictions 
   on abstraction and find local assessment point data 
