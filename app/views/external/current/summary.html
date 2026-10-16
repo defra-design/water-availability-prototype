@@ -40,21 +40,22 @@
 <h1 class="govuk-heading-l">Your local water bodies</h1>
 
 
-<p class="govuk-body">This page shows a summary with an overall 
-  indication of water licence availability in your local area. Explore 
-  further information about each water body using the links below.</p>
+<p class="govuk-body">This page shows a summary with an general 
+  indication of water licence availability in your local area for 
+  your intended use.</p>
 
+  
  <div class="govuk-inset-text">
          
  
     <p class="govuk-body">Your main water use is <b>{{ data['water-use-label'] }}</b>.</p>
-      <p class="govuk-body">This is classed as a <b>{{ data['water-use-type'] }}</b> use type.</p>
+     <!-- <p class="govuk-body">This is classed as a <b>{{ data['water-use-type'] }}</b> use type.</p>-->
 
 </div>
 
 {% if (data.riverCatchmentData.length and (data['watertype'] == "both" or data['watertype'] == "surface" or data['watertype'] == "dontknow")) or (data.groundwaterCatchmentData.length and (data['watertype'] == "both" or data['watertype'] == "ground" or data['watertype'] == "dontknow")) %}
 
-<details class="govuk-details">
+<!--<details class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
       What is consumptive and non-consumptive and why does it affect abstraction licences?
@@ -76,7 +77,7 @@
 <p class="govuk-body">The licence availability results below take your consumption 
   type into account.</p>
     </div>
-    </details>
+    </details>-->
 
 
 <details class="govuk-details">
