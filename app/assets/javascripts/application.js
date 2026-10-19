@@ -12,7 +12,7 @@ window.GOVUKPrototypeKit.documentReady(() => {
  class="govuk-input"
  id="water-search"
  type="text"
- placeholder="Search management catchments, operational catchments or waterbodies"
+ placeholder="Search management catchments, operational catchments or water bodies"
  >
  <ul id="water-search-results"></ul>
  `
@@ -49,7 +49,7 @@ catchments = await response.json()
  item.innerHTML = `
  <p class="govuk-body">
  <a class="govuk-link" href="#">
- ${catchment.name} (${catchment.type === 'managementCatchment' ? 'management catchment' : catchment.type === 'operationalCatchment' ? 'operational catchment' : 'waterbody'})
+ ${catchment.name} (${catchment.type === 'managementCatchment' ? 'management catchment' : catchment.type === 'operationalCatchment' ? 'operational catchment' : 'water body'})
  </a>
  </p>
  `

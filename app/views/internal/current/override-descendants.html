@@ -1,0 +1,55 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}Choose descendants for the override – {{ serviceName }}{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "override-scope"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {% if error %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1">
+          <h2 class="govuk-error-summary__title" id="error-summary-title">There is a problem</h2>
+          <div class="govuk-error-summary__body">
+            <ul class="govuk-list govuk-error-summary__list"><li><a href="#descendant-1">{{ error }}</a></li></ul>
+          </div>
+        </div>
+      {% endif %}
+
+      <h1 class="govuk-heading-l">Choose {{ childLabel }} for the override</h1>
+      <p class="govuk-body">The {{ overrideLabel | lower }} override is {{ pending.value | safe }} for {{ pending.source.name }}.</p>
+      {% if pending.source.type == 'managementCatchment' %}
+        <p class="govuk-body">Each operational catchment you select includes all of its water bodies.</p>
+      {% endif %}
+
+      <form method="post" action="/internal/current/override-descendants">
+        <div class="govuk-form-group{% if error %} govuk-form-group--error{% endif %}">
+          <fieldset class="govuk-fieldset" aria-describedby="descendants-hint{% if error %} descendants-error{% endif %}">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select one or more {{ childLabel }}</legend>
+            <div class="govuk-hint" id="descendants-hint">The override will be applied to the selected areas.</div>
+            {% if error %}<p class="govuk-error-message" id="descendants-error"><span class="govuk-visually-hidden">Error:</span> {{ error }}</p>{% endif %}
+            <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+              {% for child in children %}
+                <div class="govuk-checkboxes__item">
+                  <input class="govuk-checkboxes__input" id="descendant-{{ loop.index }}" name="descendants" type="checkbox" value="{{ child.id }}"{% if pending.source.type == 'managementCatchment' %} aria-describedby="descendant-hint-{{ loop.index }}"{% endif %}>
+                  <label class="govuk-label govuk-checkboxes__label" for="descendant-{{ loop.index }}">{{ child.name }}</label>
+                  {% if pending.source.type == 'managementCatchment' %}
+                    <div class="govuk-hint govuk-checkboxes__hint" id="descendant-hint-{{ loop.index }}">{{ child.waterbodies | length }} water bodies will also be included</div>
+                  {% endif %}
+                </div>
+              {% else %}
+                <p class="govuk-body">There are no listed {{ childLabel }} in this catchment.</p>
+              {% endfor %}
+            </div>
+          </fieldset>
+        </div>
+        {{ govukButton({ text: "Continue" }) }}
+      </form>
+    </div>
+  </div>
+{% endblock %}

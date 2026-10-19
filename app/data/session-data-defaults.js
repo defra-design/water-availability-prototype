@@ -11,6 +11,9 @@ module.exports = {
 "updateCol":"N/A",
 "dateCol":"N/A",
 "moreDetailCol":["Justification for the override"],
+"localOverrides":{},
+"globalOverrides":[],
+"overrideHistory":{},
 
 "updateHof":["N/A"],
 "moreDetailHof":["Justification for the override"],

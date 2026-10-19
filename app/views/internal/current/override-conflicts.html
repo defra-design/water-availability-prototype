@@ -1,0 +1,92 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}Review existing overrides – {{ serviceName }}{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "override-scope"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {% if error %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1">
+          <h2 class="govuk-error-summary__title" id="error-summary-title">There is a problem</h2>
+          <div class="govuk-error-summary__body">
+            <ul class="govuk-list govuk-error-summary__list"><li><a href="#conflict-replace-all">{{ error }}</a></li></ul>
+          </div>
+        </div>
+      {% endif %}
+
+      <h1 class="govuk-heading-l">Some descendants already have an override</h1>
+      <p class="govuk-body">Review the existing values before applying the {{ overrideLabel | lower }} override from {{ pending.source.name }}.</p>
+
+      <table class="govuk-table">
+        <caption class="govuk-table__caption govuk-table__caption--m">Existing overrides</caption>
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Area</th>
+            <th scope="col" class="govuk-table__header">Existing value</th>
+            <th scope="col" class="govuk-table__header">Where it was set</th>
+          </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+          {% for conflict in conflicts %}
+            <tr class="govuk-table__row">
+              <th scope="row" class="govuk-table__header">{{ conflict.type | replace("Catchment", " catchment") | capitalize }}: {{ conflict.name }}</th>
+              <td class="govuk-table__cell">{{ conflict.displayValue }}</td>
+              <td class="govuk-table__cell">{{ conflict.conflict.source }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <form method="post" action="/internal/current/override-conflicts">
+        <div class="govuk-form-group{% if error %} govuk-form-group--error{% endif %}">
+          <fieldset class="govuk-fieldset" aria-describedby="conflict-hint{% if error %} conflict-error{% endif %}">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">How do you want to handle these overrides?</legend>
+            <div class="govuk-hint" id="conflict-hint">You can use the same choice for every conflict or choose separately.</div>
+            {% if error %}<p class="govuk-error-message" id="conflict-error"><span class="govuk-visually-hidden">Error:</span> {{ error }}</p>{% endif %}
+            <div class="govuk-radios" data-module="govuk-radios">
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="conflict-replace-all" name="conflictStrategy" type="radio" value="replaceAll">
+                <label class="govuk-label govuk-radios__label" for="conflict-replace-all">Replace all existing overrides with the new value</label>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="conflict-keep-all" name="conflictStrategy" type="radio" value="keepAll">
+                <label class="govuk-label govuk-radios__label" for="conflict-keep-all">Keep all existing overrides in place</label>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="conflict-individual" name="conflictStrategy" type="radio" value="individual" data-aria-controls="individual-conflicts">
+                <label class="govuk-label govuk-radios__label" for="conflict-individual">Choose for each descendant</label>
+              </div>
+              <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="individual-conflicts">
+                {% for conflict in conflicts %}
+                  <fieldset class="govuk-fieldset govuk-!-margin-bottom-5">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">{{ conflict.name }} — existing value: {{ conflict.displayValue }}</legend>
+                    {% if conflict.missingChoice %}<p class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Choose whether to replace or keep this override.</p>{% endif %}
+                    <div class="govuk-radios">
+                      <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="conflict-{{ loop.index0 }}-replace" name="conflict-{{ loop.index0 }}" type="radio" value="replace">
+                        <label class="govuk-label govuk-radios__label" for="conflict-{{ loop.index0 }}-replace">Replace this override</label>
+                      </div>
+                      <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="conflict-{{ loop.index0 }}-keep" name="conflict-{{ loop.index0 }}" type="radio" value="keep">
+                        <label class="govuk-label govuk-radios__label" for="conflict-{{ loop.index0 }}-keep">Keep this override</label>
+                      </div>
+                    </div>
+                  </fieldset>
+                {% endfor %}
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        {{ govukButton({ text: "Apply override" }) }}
+        <a class="govuk-link" href="/internal/current/cancel-override">Cancel</a>
+      </form>
+    </div>
+  </div>
+{% endblock %}

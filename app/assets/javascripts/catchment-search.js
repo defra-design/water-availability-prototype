@@ -56,7 +56,7 @@ inputValue: result =>
 result?.label || "",
 
 suggestion: result =>
- `${result.label} (${result.type === 'managementCatchment' ? 'management catchment' : result.type === 'operationalCatchment' ? 'operational catchment' : 'waterbody'})`
+ `${result.label} (${result.type === 'managementCatchment' ? 'management catchment' : result.type === 'operationalCatchment' ? 'operational catchment' : 'water body'})`
 },
 
 onConfirm: selected => {

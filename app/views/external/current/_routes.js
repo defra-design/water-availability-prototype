@@ -13,7 +13,81 @@ const OSGB_PROJ = '+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +
 const WGS84_PROJ = 'WGS84';
 proj4.defs('EPSG:27700', OSGB_PROJ);
 
+const getExternalWaterBodyOverride = (data, type, waterBody) => {
+  const waterBodyId = waterBody && waterBody.properties && waterBody.properties.WB_ID
+  if (!waterBodyId) {
+    return null
+  }
+  const key = `waterbody:${waterBodyId}`
+  const local = data.localOverrides && data.localOverrides[key] && data.localOverrides[key][type]
+  const global = (data.globalOverrides || [])
+    .flatMap(record => record.type === type ? (record.targets || [])
+      .filter(target =>
+        (target.key || `${target.type}:${target.id || target.name}`) === key &&
+        target.applied
+      )
+      .map(target => ({ record, target })) : [])
+    .sort((first, second) => (second.record.createdAt || 0) - (first.record.createdAt || 0))[0]
 
+  if (local && (!global || Number(local.createdAt || 0) >= Number(global.record.createdAt || 0))) {
+    return local
+  }
+  if (global) {
+    return {
+      value: global.record.value,
+      date: global.record.date,
+      notes: global.record.notes,
+      source: global.record.source,
+      createdAt: global.record.createdAt
+    }
+  }
+  return null
+}
+
+const getLicensingAvailability = (availability, usageType) => {
+  const value = availability && availability.value || ''
+  if (value.includes('govuk-tag--red')) {
+    return 'noLicences'
+  }
+  if (value.includes('govuk-tag--yellow')) {
+    return String(usageType || '').toLowerCase() === 'consumptive'
+      ? 'noLicences'
+      : 'licencesAvailable'
+  }
+  if (value.includes('govuk-tag--green')) {
+    return 'licencesAvailable'
+  }
+  return null
+}
+
+const addExternalOverridesToWaterBodies = data => {
+  const waterBodies = [
+    ...(data.riverCatchmentData || []),
+    ...(data.groundwaterCatchmentData || [])
+  ]
+  waterBodies.forEach(waterBody => {
+    waterBody.properties = waterBody.properties || {}
+    waterBody.properties.overrideAvailabilityColour =
+      getExternalWaterBodyOverride(data, 'updateCol', waterBody)?.value || ''
+  })
+}
+
+const setSelectedExternalWaterBodyOverrides = (data, waterType, index) => {
+  const waterBodies = waterType === 'surface'
+    ? data.riverCatchmentData
+    : data.groundwaterCatchmentData
+  const waterBody = waterBodies && waterBodies[index]
+  data.externalWaterBodyOverrides = waterBody
+    ? {
+        updateCol: getExternalWaterBodyOverride(data, 'updateCol', waterBody),
+        updateHof: getExternalWaterBodyOverride(data, 'updateHof', waterBody)
+      }
+    : {}
+  data.externalWaterBodyOverrides.updateColOutcome = getLicensingAvailability(
+    data.externalWaterBodyOverrides.updateCol,
+    data['water-use-type']
+  )
+}
 
 // /////// Helper Functions /////////
 /**
@@ -1062,6 +1136,7 @@ router.post('/exempt-results', function (request, response) {
 
 //summary page
 router.get(folder + 'summary', function (request, response) {
+  addExternalOverridesToWaterBodies(request.session.data)
 	response.render(folder + 'summary')
 })
 
@@ -1073,9 +1148,24 @@ router.post('/summary', function (request, response) {
 
 //Detailed results page
 router.get(folder + 'detailed-results', function (request, response) {
+  const data = request.session.data
+  const waterType = request.query.watertype || data.watertype
+  const index = waterType === 'surface'
+    ? request.query.sid ?? data.sid
+    : request.query.gid ?? data.gid
+  setSelectedExternalWaterBodyOverrides(data, waterType, Number(index))
 	response.render(folder + 'detailed-results')
 })
 
+router.get(folder + 'technical-info.html', function (request, response) {
+  const data = request.session.data
+  const waterType = request.query.watertype || data.watertype
+  const index = waterType === 'surface'
+    ? request.query.sid ?? data.sid
+    : request.query.gid ?? data.gid
+  setSelectedExternalWaterBodyOverrides(data, waterType, Number(index))
+  response.render(folder + 'technical-info')
+})
 
 router.post('/detailed-results', function (request, response) {
 //var licenceHolder = request.session.data['licenceHolder']

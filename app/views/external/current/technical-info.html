@@ -63,31 +63,13 @@
     {% endif %}
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Approximate Hands-off Flow (HoF)</th>
-      <td class="govuk-table__cell">{% if data.sid == "1" %} 
-       {% if (data['updateHof'] == "N/A") %}
+      <td class="govuk-table__cell">{% if data.externalWaterBodyOverrides.updateHof %}
+        {{ data.externalWaterBodyOverrides.updateHof.value }} Megalitres per day
+      {% elif data.sid == "1" %}
         23 Megalitres per day
-  
-        {% elseif (data['updateHof'] == "No override set") %} 
-          23 Megalitres per day</p>
-   
-        {% else %}
-
-        {{data.updateHof}}
-        {% endif %}
-
-    {% else %}
-     {% if (data['updateHof'] == "N/A") %}
+      {% else %}
         71 Megalitres per day
-        {% elseif (data['updateHof'] == "No override set") %} 
-          71 Megalitres per day</p>
-   
-        {% else %}
-
-        {{data.updateHof}} Megalitres per day
-        {% endif %}
-   {% endif %}
-  
-  </td>
+      {% endif %}</td>
     </tr>
 
    {% if data.sid == "1" %}

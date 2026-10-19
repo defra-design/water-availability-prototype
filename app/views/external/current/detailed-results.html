@@ -122,7 +122,14 @@
 {% endif %}
      
 
-{% if (data.noWater == "true" or (data['water-use-type'] == "Consumptive" and data.gid == "1")) %} 
+{% if data.externalWaterBodyOverrides.updateCol %}
+    <h2 class="govuk-heading-m">Availability status</h2>
+    {% if data.externalWaterBodyOverrides.updateColOutcome == 'noLicences' %}
+      <p class="govuk-body">{{ govukTag({ text: "No licences", classes: "govuk-tag--grey" }) }}</p>
+    {% elif data.externalWaterBodyOverrides.updateColOutcome == 'licencesAvailable' %}
+      <p class="govuk-body">{{ govukTag({ text: "Licences available", classes: "govuk-tag--blue" }) }}</p>
+    {% endif %}
+{% elif (data.noWater == "true" or (data['water-use-type'] == "Consumptive" and data.gid == "1")) %}
 
 
     <h2 class="govuk-heading-m">Availability status</h2>
