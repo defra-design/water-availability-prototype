@@ -32,9 +32,9 @@
 
 
     {% if (data['watertype'] == "surface" and data.noWater == "false") %}   
-      <p class="govuk-body">This page shows restrictions, local policies and previous availability 
-        information for surface water abstraction from the water 
-        body {{data.riverCatchmentData[data.sid].properties.WB_NAME}}.</p>
+      <p class="govuk-body">This page gives detailed information about 
+        licence availability and restrictions for surface water abstraction 
+        from the water body {{data.riverCatchmentData[data.sid].properties.WB_NAME}}.</p>
 
    {% elseif (data['watertype'] == "surface" and data.noWater == "true") %}
            <p class="govuk-body">This page shows availability 
@@ -43,7 +43,9 @@
 
 
         {% elseif (data['watertype'] == "ground" and data.noWater == "false") %}
-       <p class="govuk-body">This page shows information on availability, restrictions and how to apply for a groundwater abstraction licence from the water body <b>{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}</b>.</p>
+       <p class="govuk-body">This page gives detailed information about 
+        licence availability and restrictions for groundwater abstraction 
+        from the water body <b>{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}</b>.</p>
        
        {% elseif (data['watertype'] == "ground" and data.noWater == "true") %}
        <p class="govuk-body">This page shows availability 
