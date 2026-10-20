@@ -116,6 +116,19 @@
       <td class="govuk-table__cell"></td>
       <td class="govuk-table__cell"></td>
     </tr>
+    {% if selectedType == 'operationalCatchment' %}
+      {% for override in inheritedOverrides %}
+        {% if override.type == 'updateCol' and override.source.type == 'managementCatchment' %}
+          <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">Applied from {{ override.source.name }}</th>
+            <td class="govuk-table__cell">{{ override.date }}</td>
+            <td class="govuk-table__cell">{{ override.value | safe }}</td>
+            <td class="govuk-table__cell"></td>
+            <td class="govuk-table__cell">{{ override.notes }}</td>
+          </tr>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
     {% for override in globalOverrideSummaries %}
       {% if override.type == 'updateCol' %}
         <tr class="govuk-table__row">
@@ -225,18 +238,6 @@
   {% endfor %}
 {% endif %}
 
-{% for override in inheritedOverrides %}
-  {% if override.type == 'updateCol' %}
-    <section class="govuk-inset-text" aria-label="Water availability colour override applied from a higher level">
-      <p class="govuk-body">
-        Water availability colour: {{ override.displayValue }} was applied from
-        <a class="govuk-link" href="{{ override.sourceUrl }}">{{ override.source.name }} {{ override.source.type | replace("Catchment", " catchment") }}</a>
-        on {{ override.date }}.
-      </p>
-    </section>
-  {% endif %}
-{% endfor %}
-
 {% for override in allWaterBodyOverrides.updateCol %}
   <details class="govuk-details">
     <summary class="govuk-details__summary">
@@ -321,6 +322,19 @@
       <td class="govuk-table__cell"></td>
       <td class="govuk-table__cell"></td>
     </tr>
+    {% if selectedType == 'operationalCatchment' %}
+      {% for override in inheritedOverrides %}
+        {% if override.type == 'updateHof' and override.source.type == 'managementCatchment' %}
+          <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">Applied from {{ override.source.name }}</th>
+            <td class="govuk-table__cell">{{ override.date }}</td>
+            <td class="govuk-table__cell">{{ override.displayValue }}</td>
+            <td class="govuk-table__cell"></td>
+            <td class="govuk-table__cell">{{ override.notes }}</td>
+          </tr>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
     {% for override in globalOverrideSummaries %}
       {% if override.type == 'updateHof' %}
         <tr class="govuk-table__row">
@@ -428,18 +442,6 @@
     {% endif %}
   {% endfor %}
 {% endif %}
-
-{% for override in inheritedOverrides %}
-  {% if override.type == 'updateHof' %}
-    <section class="govuk-inset-text" aria-label="Hands-off Flow override applied from a higher level">
-      <p class="govuk-body">
-        Hands-off Flow: {{ override.displayValue }} was applied from
-        <a class="govuk-link" href="{{ override.sourceUrl }}">{{ override.source.name }} {{ override.source.type | replace("Catchment", " catchment") }}</a>
-        on {{ override.date }}.
-      </p>
-    </section>
-  {% endif %}
-{% endfor %}
 
 {% for override in allWaterBodyOverrides.updateHof %}
   <details class="govuk-details">

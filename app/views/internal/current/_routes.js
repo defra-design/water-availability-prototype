@@ -168,11 +168,35 @@ const getEffectiveOverride = (data, type, entity) => {
       date: inherited.record.date,
       notes: inherited.record.notes,
       source: 'global',
-      sourceEntity: inherited.record.source
+      sourceEntity: inherited.record.source,
+      sourceRecordId: inherited.record.id,
+      createdAt: inherited.record.createdAt
     }
   }
 
   return { value: 'N/A', date: 'N/A', notes: '', source: 'none' }
+}
+
+const isGlobalOverrideEffective = (data, record, target) => {
+  const effective = getEffectiveOverride(data, record.type, target)
+  return effective.source === 'global' && effective.sourceRecordId === record.id
+}
+
+const getGlobalTargetStatus = (data, record, target) => {
+  if (target.status === 'kept') {
+    return 'Existing override kept'
+  }
+  if (isGlobalOverrideEffective(data, record, target)) {
+    return 'Override applied'
+  }
+  const effective = getEffectiveOverride(data, record.type, target)
+  if (effective.source === 'local') {
+    return 'Superseded by a local override'
+  }
+  if (effective.source === 'global') {
+    return 'Superseded by a later override'
+  }
+  return target.status || 'Not applied'
 }
 
 const getOverrideDisplayValue = (type, value) => {
@@ -553,9 +577,11 @@ router.get(folder + 'manual-overrides-summary', async function (request, respons
         .map(target => ({
           ...target,
           url: makeSummaryUrl(target),
-          status: target.applied ? 'Override applied' : 'Existing override kept'
+          status: getGlobalTargetStatus(request.session.data, record, target)
         }))
-      const appliedCount = record.targets.filter(target => target.applied).length
+      const appliedCount = record.targets.filter(target =>
+        isGlobalOverrideEffective(request.session.data, record, target)
+      ).length
       const keptCount = record.targets.filter(target => target.status === 'kept').length
       return {
         ...record,
@@ -563,7 +589,7 @@ router.get(folder + 'manual-overrides-summary', async function (request, respons
         displayValue: getOverrideDisplayValue(record.type, record.value),
         appliedCount,
         keptCount,
-        totalCount: appliedCount + keptCount,
+        totalCount: record.targets.filter(target => target.applied || target.status === 'kept').length,
         details
       }
     })
@@ -587,10 +613,12 @@ router.get(folder + 'manual-overrides-summary', async function (request, respons
           .map(target => ({
             ...target,
             url: makeSummaryUrl(target),
-            status: target.applied ? 'Override applied' : 'Existing override kept'
+            status: getGlobalTargetStatus(request.session.data, record, target)
           }))
-        const appliedCount = waterBodies.filter(waterBody => waterBody.applied).length
-        const keptCount = waterBodies.filter(waterBody => !waterBody.applied).length
+        const appliedCount = waterBodies.filter(waterBody =>
+          isGlobalOverrideEffective(request.session.data, record, waterBody)
+        ).length
+        const keptCount = waterBodies.filter(waterBody => waterBody.status === 'Existing override kept').length
         return {
           ...record,
           displayValue: getOverrideDisplayValue(type, record.value),
@@ -627,15 +655,19 @@ router.get(folder + 'manual-overrides-summary', async function (request, respons
   const inheritedOverrides = ['updateCol', 'updateHof']
     .flatMap(type => getGlobalOverrides(request.session.data)
       .filter(record => record.type === type && record.targets.some(target =>
-        target.key === entityKey && target.applied
+        target.key === entityKey &&
+        target.applied &&
+        isGlobalOverrideEffective(request.session.data, record, target)
       ))
       .map(record => ({
         type,
         label: overrideTypes[type],
+        value: record.value,
         displayValue: getOverrideDisplayValue(type, record.value),
         source: record.source,
         sourceUrl: makeSummaryUrl(record.source),
-        date: record.date
+        date: record.date,
+        notes: record.notes || ''
       })))
   const overrideHistory = ['updateCol', 'updateHof'].reduce((history, type) => {
     const localHistory = (getOverrideHistory(request.session.data)[entityKey] || {})[type] || []
@@ -670,7 +702,8 @@ router.get(folder + 'manual-overrides-summary', async function (request, respons
           relevantTargets.filter(target => predicate ? predicate(target) : target.status === status).length
         const statusText = isSource
           ? [
-              `${statusCount('applied', target => target.applied)} applied`,
+              `${relevantTargets.filter(target => isGlobalOverrideEffective(request.session.data, record, target)).length} applied`,
+              `${relevantTargets.filter(target => target.applied && getEffectiveOverride(request.session.data, type, target).source === 'local').length} superseded by local overrides`,
               `${statusCount('kept')} kept`,
               `${statusCount('superseded')} superseded`,
               `${statusCount('removed')} removed`
@@ -684,7 +717,9 @@ router.get(folder + 'manual-overrides-summary', async function (request, respons
                 'not applied': 'Not applied'
               }
               const targetStatus = target.status || (target.applied ? 'applied' : 'not applied')
-              return statuses[targetStatus] || 'Not applied'
+              return target.applied
+                ? getGlobalTargetStatus(request.session.data, record, target)
+                : statuses[targetStatus] || 'Not applied'
             }).join(', ')
         return [{
           value: getOverrideDisplayValue(type, record.value),
