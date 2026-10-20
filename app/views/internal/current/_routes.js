@@ -548,23 +548,22 @@ router.get(folder + 'manual-overrides-summary', async function (request, respons
     .filter(record => getEntityKey(record.source) === entityKey)
     .filter(record => record.targets.some(target => target.applied || target.status === 'kept'))
     .map(record => {
-      const directTargetType = record.source.type === 'managementCatchment'
-        ? 'operationalCatchment'
-        : 'waterbody'
       const details = record.targets
-        .filter(target => target.type === directTargetType)
+        .filter(target => target.applied || target.status === 'kept')
         .map(target => ({
           ...target,
           url: makeSummaryUrl(target),
-          status: target.status || (target.applied ? 'applied' : 'not applied')
+          status: target.applied ? 'Override applied' : 'Existing override kept'
         }))
+      const appliedCount = record.targets.filter(target => target.applied).length
+      const keptCount = record.targets.filter(target => target.status === 'kept').length
       return {
         ...record,
         label: overrideTypes[record.type],
         displayValue: getOverrideDisplayValue(record.type, record.value),
-        appliedCount: record.targets.filter(target => target.applied).length,
-        keptCount: record.targets.filter(target => target.status === 'kept').length,
-        totalCount: record.targets.length,
+        appliedCount,
+        keptCount,
+        totalCount: appliedCount + keptCount,
         details
       }
     })
@@ -1149,8 +1148,11 @@ router.post(folder + 'remove-global-descendants', (request, response) => {
     return response.redirect(folder + 'remove-global-descendants')
   }
 
+  const removableTargetType = record.source.type === 'managementCatchment'
+    ? 'operationalCatchment'
+    : 'waterbody'
   record.targets.forEach(target => {
-    const selected = selectedIds.includes(String(target.id)) ||
+    const selected = (target.type === removableTargetType && selectedIds.includes(String(target.id))) ||
       (record.source.type === 'managementCatchment' &&
         target.type === 'waterbody' &&
         selectedIds.includes(String(target.operationalCatchmentId)))

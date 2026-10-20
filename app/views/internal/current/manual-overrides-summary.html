@@ -95,33 +95,6 @@
         <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
       {% endif %}
 
-{% if globalOverrideSummaries.length %}
-  <h2 class="govuk-heading-m">Overrides applied to descendants</h2>
-  {% for override in globalOverrideSummaries %}
-    <details class="govuk-details">
-      <summary class="govuk-details__summary">
-        <span class="govuk-details__summary-text">{{ override.label }}: {{ override.displayValue }}</span>
-      </summary>
-      <div class="govuk-details__text">
-        <p class="govuk-body">
-          Applied to {{ override.appliedCount }} of {{ override.totalCount }} descendant records.
-          {% if override.keptCount %}{{ override.keptCount }} existing overrides were kept.{% endif %}
-        </p>
-        <ul class="govuk-list govuk-list--bullet">
-          {% for target in override.details %}
-            <li><a class="govuk-link" href="{{ target.url }}">{{ target.name }}</a> — {{ target.status }}</li>
-          {% endfor %}
-        </ul>
-        <button type="submit" name="manual-overrides-summary" value="removeGlobal:{{ override.id }}" class="govuk-button govuk-button--secondary" data-module="govuk-button">Remove global override</button>
-      </div>
-    </details>
-  {% endfor %}
-{% endif %}
-
-
-
-
-
 <h2 class="govuk-heading-m">Water availability colour</h2>
 <button type="submit" name="manual-overrides-summary" value="updateCol" class="govuk-button govuk-button--secondary" data-module="govuk-button">Add override</button>
 <table class="govuk-table">
@@ -143,6 +116,24 @@
       <td class="govuk-table__cell"></td>
       <td class="govuk-table__cell"></td>
     </tr>
+    {% for override in globalOverrideSummaries %}
+      {% if override.type == 'updateCol' %}
+        <tr class="govuk-table__row">
+          <th scope="row" class="govuk-table__header">
+            {% if override.scope == 'all' %}All operational catchments and water bodies{% else %}Selected operational catchments and water bodies{% endif %}
+          </th>
+          <td class="govuk-table__cell">{{ override.date }}</td>
+          <td class="govuk-table__cell">
+            {{ override.value | safe }} — applied to {{ override.appliedCount }} of {{ override.totalCount }} descendants
+            {% if override.keptCount %}; {{ override.keptCount }} existing overrides kept{% endif %}
+          </td>
+          <td class="govuk-table__cell">
+            <button type="submit" name="manual-overrides-summary" value="removeGlobal:{{ override.id }}" class="govuk-button govuk-button--secondary" data-module="govuk-button">Remove</button>
+          </td>
+          <td class="govuk-table__cell">{{ override.notes }}</td>
+        </tr>
+      {% endif %}
+    {% endfor %}
     {% if selectedType == 'waterbody' %}
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">
@@ -206,6 +197,33 @@
     {% endfor %}
   </tbody>
 </table>
+
+{% if selectedType == 'managementCatchment' %}
+  {% for override in globalOverrideSummaries %}
+    {% if override.type == 'updateCol' %}
+    <details class="govuk-details">
+      <summary class="govuk-details__summary">
+        <span class="govuk-details__summary-text">Descendants included in this water availability colour override ({{ override.totalCount }})</span>
+      </summary>
+      <div class="govuk-details__text">
+        <p class="govuk-body">
+          {{ override.displayValue }} set on {{ override.date }} for {{ override.source.name }} management catchment.
+        </p>
+        <ul class="govuk-list govuk-list--bullet">
+          {% for target in override.details %}
+            <li>
+              {% if target.type == 'waterbody' %}Water body: {% else %}Operational catchment: {% endif %}
+              <a class="govuk-link" href="{{ target.url }}">{{ target.name }}</a>
+              {% if target.type == 'waterbody' and target.operationalCatchment %} ({{ target.operationalCatchment }} operational catchment){% endif %}
+              — {{ target.status }}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </details>
+    {% endif %}
+  {% endfor %}
+{% endif %}
 
 {% for override in inheritedOverrides %}
   {% if override.type == 'updateCol' %}
@@ -303,6 +321,24 @@
       <td class="govuk-table__cell"></td>
       <td class="govuk-table__cell"></td>
     </tr>
+    {% for override in globalOverrideSummaries %}
+      {% if override.type == 'updateHof' %}
+        <tr class="govuk-table__row">
+          <th scope="row" class="govuk-table__header">
+            {% if override.scope == 'all' %}All operational catchments and water bodies{% else %}Selected operational catchments and water bodies{% endif %}
+          </th>
+          <td class="govuk-table__cell">{{ override.date }}</td>
+          <td class="govuk-table__cell">
+            {{ override.displayValue }} — applied to {{ override.appliedCount }} of {{ override.totalCount }} descendants
+            {% if override.keptCount %}; {{ override.keptCount }} existing overrides kept{% endif %}
+          </td>
+          <td class="govuk-table__cell">
+            <button type="submit" name="manual-overrides-summary" value="removeGlobal:{{ override.id }}" class="govuk-button govuk-button--secondary" data-module="govuk-button">Remove</button>
+          </td>
+          <td class="govuk-table__cell">{{ override.notes }}</td>
+        </tr>
+      {% endif %}
+    {% endfor %}
     {% if selectedType == 'waterbody' %}
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">
@@ -365,6 +401,33 @@
     {% endfor %}
   </tbody>
 </table>
+
+{% if selectedType == 'managementCatchment' %}
+  {% for override in globalOverrideSummaries %}
+    {% if override.type == 'updateHof' %}
+    <details class="govuk-details">
+      <summary class="govuk-details__summary">
+        <span class="govuk-details__summary-text">Descendants included in this Hands-off Flow override ({{ override.totalCount }})</span>
+      </summary>
+      <div class="govuk-details__text">
+        <p class="govuk-body">
+          {{ override.displayValue }} set on {{ override.date }} for {{ override.source.name }} management catchment.
+        </p>
+        <ul class="govuk-list govuk-list--bullet">
+          {% for target in override.details %}
+            <li>
+              {% if target.type == 'waterbody' %}Water body: {% else %}Operational catchment: {% endif %}
+              <a class="govuk-link" href="{{ target.url }}">{{ target.name }}</a>
+              {% if target.type == 'waterbody' and target.operationalCatchment %} ({{ target.operationalCatchment }} operational catchment){% endif %}
+              — {{ target.status }}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </details>
+    {% endif %}
+  {% endfor %}
+{% endif %}
 
 {% for override in inheritedOverrides %}
   {% if override.type == 'updateHof' %}
