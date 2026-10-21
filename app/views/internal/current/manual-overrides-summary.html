@@ -172,8 +172,10 @@
         </td>
 
       <td class="govuk-table__cell">
-        {% if effectiveOverrides.updateCol.source == 'local' %}
-          <button type="submit" name="manual-overrides-summary" value="removeLocal:updateCol" class="govuk-button govuk-button--secondary" data-module="govuk-button">Remove override</button>
+        {% if localOverridesForCurrentEntity.updateCol %}
+          <button type="submit" name="manual-overrides-summary" value="removeLocal:updateCol" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+            {% if effectiveOverrides.updateCol.source == 'local' %}Remove override{% else %}Remove local override{% endif %}
+          </button>
         {% endif %}
       </td>
       <td class="govuk-table__cell">{{ effectiveOverrides.updateCol.notes }}</td>
@@ -376,8 +378,10 @@
         {{ effectiveOverrides.updateHof.value }}
         {% endif %}</td>
       <td class="govuk-table__cell">
-        {% if effectiveOverrides.updateHof.source == 'local' %}
-          <button type="submit" name="manual-overrides-summary" value="removeLocal:updateHof" class="govuk-button govuk-button--secondary" data-module="govuk-button">Remove override</button>
+        {% if localOverridesForCurrentEntity.updateHof %}
+          <button type="submit" name="manual-overrides-summary" value="removeLocal:updateHof" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+            {% if effectiveOverrides.updateHof.source == 'local' %}Remove override{% else %}Remove local override{% endif %}
+          </button>
         {% endif %}
       </td>
       <td class="govuk-table__cell">{{ effectiveOverrides.updateHof.notes }}

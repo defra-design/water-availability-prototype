@@ -178,7 +178,7 @@ factors such as environmental concerns.</strong>
   
       <h3 class="govuk-heading-s"><a href="detailed-results?noWater=false&sid={{loop.index0}}&gid=&watertype=surface&returnWatertype={{data.watertype}}">{{waterBody.properties.WB_NAME}} in the {{waterBody.properties.OPCAT_NAME}} catchment</a></h3>
   
-      <p class="govuk-body">{{ waterBodyAvailability(waterBody, tagsgoodlicHTML, data['water-use-type'], data['updateCol'], tagsgoodlicHTML, tagsnolicHTML) }}</p>
+      <p class="govuk-body">{{ waterBodyAvailability(waterBody, tagsgoodlicHTML, data['water-use-type'], '', tagsgoodlicHTML, tagsnolicHTML) }}</p>
 
   <p class="govuk-body">The centre of the {% if (data['location'] == "gridRef") %}
         national grid reference

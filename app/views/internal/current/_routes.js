@@ -568,6 +568,7 @@ router.get(folder + 'manual-overrides-summary', async function (request, respons
     updateHof: getEffectiveOverride(request.session.data, 'updateHof', currentEntity)
   }
   const entityKey = getEntityKey(currentEntity)
+  const localOverridesForCurrentEntity = getLocalOverrides(request.session.data)[entityKey] || {}
   const globalOverrideSummaries = getGlobalOverrides(request.session.data)
     .filter(record => getEntityKey(record.source) === entityKey)
     .filter(record => record.targets.some(target => target.applied || target.status === 'kept'))
@@ -763,6 +764,7 @@ router.get(folder + 'manual-overrides-summary', async function (request, respons
 		waterBodyId,
 		hierarchyChildren: children,
     effectiveOverrides,
+    localOverridesForCurrentEntity,
     globalOverrideSummaries: catchmentLevelOverrideSummaries,
     selectedWaterBodyOverrides,
     allWaterBodyOverrides,
