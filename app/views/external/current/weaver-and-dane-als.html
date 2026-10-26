@@ -73,7 +73,7 @@
 
       <div class="govuk-!-margin-bottom-6">
         <h2 class="govuk-heading-m">Updates to this page</h2>
-        <dl class="govuk-summary-list govuk-summary-list--no-border">
+        <dl class="govuk-summary-list govuk-summary-list--no-border app-page-updates">
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">From</dt>
             <dd class="govuk-summary-list__value">
@@ -106,31 +106,39 @@
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <button class="govuk-button govuk-button--secondary" type="button">Get emails about this page</button>
+      <button class="app-subscription-button" type="button">
+        <svg aria-hidden="true" focusable="false" height="18" width="18" viewBox="0 0 459.334 459.334">
+          <path fill="currentColor" d="M177.216 404.514c-.001.12-.009.239-.009.359 0 30.078 24.383 54.461 54.461 54.461s54.461-24.383 54.461-54.461c0-.12-.008-.239-.009-.359H175.216zM403.549 336.438l-49.015-72.002v-89.83c0-60.581-43.144-111.079-100.381-122.459V24.485C254.152 10.963 243.19 0 229.667 0s-24.485 10.963-24.485 24.485v27.663c-57.237 11.381-100.381 61.879-100.381 122.459v89.83l-49.015 72.002a24.76 24.76 0 0 0 20.468 38.693H383.08a24.761 24.761 0 0 0 20.469-38.694z"/>
+        </svg>
+        Get emails about this page
+      </button>
 
       <section aria-labelledby="documents">
         <h2 class="govuk-heading-m" id="documents">Documents</h2>
-        <article class="govuk-!-margin-bottom-6">
-          <h3 class="govuk-heading-s">
-            <a class="govuk-link" href="/external/current/interrupter">
-              Weaver and Dane abstraction licensing strategy
-            </a>
-          </h3>
-          <p class="govuk-body-s">Ref: LIT 7884</p>
-          <p class="govuk-body-s">PDF, 3.7 MB, 20 pages</p>
-          <p class="govuk-body">This file may not be suitable for users of assistive technology.</p>
-          <details class="govuk-details">
-            <summary class="govuk-details__summary">
-              <span class="govuk-details__summary-text">Request an accessible format</span>
-            </summary>
-            <div class="govuk-details__text">
-              <p class="govuk-body">
-                If you use assistive technology (such as a screen reader) and need a version of this document in a more accessible format, please email
-                <a class="govuk-link" href="mailto:enquiries@environment-agency.gov.uk">enquiries@environment-agency.gov.uk</a>.
-                Please tell us what format you need. It will help us if you say what assistive technology you use.
-              </p>
-            </div>
-          </details>
+        <article class="govuk-!-margin-bottom-6 app-document-attachment">
+          <img class="app-document-attachment__icon" src="/public/images/pdf.png" alt="">
+          <div>
+            <h3 class="govuk-body-l app-document-attachment__title">
+              <a class="govuk-link" href="/external/current/interrupter">
+                Weaver and Dane abstraction licensing strategy
+              </a>
+            </h3>
+            <p class="govuk-body app-document-attachment__metadata">Ref: LIT 7884</p>
+            <p class="govuk-body app-document-attachment__metadata app-document-attachment__metadata--last">PDF, 3.7 MB, 20 pages</p>
+            <p class="govuk-body app-document-attachment__warning">This file may not be suitable for users of assistive technology.</p>
+            <details class="govuk-details">
+              <summary class="govuk-details__summary">
+                <span class="govuk-details__summary-text">Request an accessible format</span>
+              </summary>
+              <div class="govuk-details__text">
+                <p class="govuk-body">
+                  If you use assistive technology (such as a screen reader) and need a version of this document in a more accessible format, please email
+                  <a class="govuk-link" href="mailto:enquiries@environment-agency.gov.uk">enquiries@environment-agency.gov.uk</a>.
+                  Please tell us what format you need. It will help us if you say what assistive technology you use.
+                </p>
+              </div>
+            </details>
+          </div>
         </article>
       </section>
 
@@ -143,7 +151,12 @@
 
       <section class="govuk-!-margin-top-8" aria-labelledby="emails-and-print">
         <h2 class="govuk-heading-m" id="emails-and-print">Sign up for emails or print this page</h2>
-        <button class="govuk-button govuk-button--secondary" type="button">Get emails about this page</button>
+        <button class="app-subscription-button" type="button">
+          <svg aria-hidden="true" focusable="false" height="18" width="18" viewBox="0 0 459.334 459.334">
+            <path fill="currentColor" d="M177.216 404.514c-.001.12-.009.239-.009.359 0 30.078 24.383 54.461 54.461 54.461s54.461-24.383 54.461-54.461c0-.12-.008-.239-.009-.359H175.216zM403.549 336.438l-49.015-72.002v-89.83c0-60.581-43.144-111.079-100.381-122.459V24.485C254.152 10.963 243.19 0 229.667 0s-24.485 10.963-24.485 24.485v27.663c-57.237 11.381-100.381 61.879-100.381 122.459v89.83l-49.015 72.002a24.76 24.76 0 0 0 20.468 38.693H383.08a24.761 24.761 0 0 0 20.469-38.694z"/>
+          </svg>
+          Get emails about this page
+        </button>
         <button class="govuk-button govuk-button--secondary" type="button" onclick="window.print()">Print this page</button>
       </section>
     </div>
