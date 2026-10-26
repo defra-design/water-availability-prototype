@@ -1,0 +1,183 @@
+{% extends "layouts/main.html" %}
+{% from "govuk/macros/logo.njk" import govukLogo %}
+
+{% block pageTitle %}
+  Weaver and Dane abstraction licensing strategy - GOV.UK
+{% endblock %}
+
+{% block header %}
+  <header class="govuk-header app-publication-header" role="banner">
+    <div class="govuk-width-container app-publication-header__container">
+      <a href="https://www.gov.uk/" class="govuk-header__homepage-link" aria-label="Go to the GOV.UK homepage">
+        {{ govukLogo({
+          classes: "govuk-header__logotype",
+          ariaLabelText: "GOV.UK"
+        }) }}
+      </a>
+      <nav class="app-publication-header__navigation" aria-label="Navigation menu">
+        <button class="app-publication-header__menu-button" type="button" aria-label="Show navigation menu">
+          <span class="app-publication-header__chevron" aria-hidden="true"></span>
+          Menu
+        </button>
+        <a class="app-publication-header__search-button" href="https://www.gov.uk/search/all" aria-label="Search GOV.UK">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <circle cx="10.8" cy="10.8" r="6.2"></circle>
+            <path d="m15.4 15.4 5 5"></path>
+          </svg>
+        </a>
+      </nav>
+    </div>
+  </header>
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBreadcrumbs({
+    items: [
+      {
+        text: "Home",
+        href: "/"
+      },
+      {
+        text: "Environment",
+        href: "https://www.gov.uk/environment"
+      },
+      {
+        text: "Water management",
+        href: "https://www.gov.uk/environment/water"
+      },
+      {
+        text: "Water and sewerage services",
+        href: "https://www.gov.uk/environment/water-and-sewerage-services"
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <div class="govuk-inset-text">
+        <h2 class="govuk-heading-m">Try our new water licensing for abstraction service</h2>
+        <p class="govuk-body">
+          We are currently building a new water licensing for abstraction service
+          as an alternative to this abstraction licensing strategy. If you would like
+          to try it out, you can do so <a class="govuk-link" href="/external/current/start">here</a>.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <span class="govuk-caption-l">Policy paper</span>
+      <h1 class="govuk-heading-l">Weaver and Dane abstraction licensing strategy</h1>
+      <p class="govuk-body-l">This document sets out how water is managed in the Weaver and Dane area.</p>
+
+      <div class="govuk-!-margin-bottom-6">
+        <h2 class="govuk-heading-m">Updates to this page</h2>
+        <dl class="govuk-summary-list govuk-summary-list--no-border">
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">From</dt>
+            <dd class="govuk-summary-list__value">
+              <a class="govuk-link" href="https://www.gov.uk/government/organisations/environment-agency">Environment Agency</a>
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">Published</dt>
+            <dd class="govuk-summary-list__value">28 February 2013</dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">Last updated</dt>
+            <dd class="govuk-summary-list__value">
+              25 November 2020
+              <details class="govuk-details govuk-!-margin-top-2">
+                <summary class="govuk-details__summary">
+                  <span class="govuk-details__summary-text">Show all updates</span>
+                </summary>
+                <div class="govuk-details__text">
+                  <p class="govuk-body">25 November 2020: Abstraction management strategies have been updated with the latest information on water resource availability.</p>
+                  <p class="govuk-body">28 February 2013: First published.</p>
+                </div>
+              </details>
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <button class="govuk-button govuk-button--secondary" type="button">Get emails about this page</button>
+
+      <section aria-labelledby="documents">
+        <h2 class="govuk-heading-m" id="documents">Documents</h2>
+        <article class="govuk-!-margin-bottom-6">
+          <h3 class="govuk-heading-s">
+            <a class="govuk-link" href="https://assets.publishing.service.gov.uk/media/5fbe4735d3bf7f572b163f81/Weaver-and-Dane-abstraction-licensing-strategy.pdf">
+              Weaver and Dane abstraction licensing strategy
+            </a>
+          </h3>
+          <p class="govuk-body-s">Ref: LIT 7884</p>
+          <p class="govuk-body-s">PDF, 3.7 MB, 20 pages</p>
+          <p class="govuk-body">This file may not be suitable for users of assistive technology.</p>
+          <details class="govuk-details">
+            <summary class="govuk-details__summary">
+              <span class="govuk-details__summary-text">Request an accessible format</span>
+            </summary>
+            <div class="govuk-details__text">
+              <p class="govuk-body">
+                If you use assistive technology (such as a screen reader) and need a version of this document in a more accessible format, please email
+                <a class="govuk-link" href="mailto:enquiries@environment-agency.gov.uk">enquiries@environment-agency.gov.uk</a>.
+                Please tell us what format you need. It will help us if you say what assistive technology you use.
+              </p>
+            </div>
+          </details>
+        </article>
+      </section>
+
+      <section aria-labelledby="details">
+        <h2 class="govuk-heading-m" id="details">Details</h2>
+        <p class="govuk-body">
+          This licensing strategy sets out how the Environment Agency will manage water resources in the Weaver and Dane area and provides information on how they will manage existing abstraction licences and water availability for further abstraction.
+        </p>
+      </section>
+
+      <section class="govuk-!-margin-top-8" aria-labelledby="emails-and-print">
+        <h2 class="govuk-heading-m" id="emails-and-print">Sign up for emails or print this page</h2>
+        <button class="govuk-button govuk-button--secondary" type="button">Get emails about this page</button>
+        <button class="govuk-button govuk-button--secondary" type="button" onclick="window.print()">Print this page</button>
+      </section>
+    </div>
+
+    <aside class="govuk-grid-column-one-third" aria-labelledby="related-content">
+      <div class="govuk-!-margin-top-6 govuk-!-padding-top-3">
+        <hr class="govuk-section-break govuk-section-break--visible govuk-section-break--m">
+        <h2 class="govuk-heading-m" id="related-content">Related content</h2>
+        <h3 class="govuk-heading-s">Collection</h3>
+        <ul class="govuk-list">
+          <li>
+            <a class="govuk-link" href="https://www.gov.uk/government/collections/water-abstraction-licensing-strategies-cams-process">
+              Abstraction licensing strategies (CAMS process)
+            </a>
+          </li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <nav class="govuk-!-margin-top-8" aria-labelledby="explore-topic">
+        <h2 class="govuk-heading-m" id="explore-topic">Explore the topic</h2>
+        <ul class="govuk-list">
+          <li>
+            <a class="govuk-link" href="https://www.gov.uk/environment/water-and-sewerage-services">Water and sewerage services</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+{% endblock %}
