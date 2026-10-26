@@ -57,16 +57,18 @@
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <div class="govuk-inset-text">
-        <h2 class="govuk-heading-m">Try our new water availability for licensing service</h2>
-        <p class="govuk-body">
-          We are currently building a new water availability for licensing service
-          as an alternative to this abstraction licensing strategy. If you would like
-          to try it out, you can do so <a class="govuk-link" href="/external/current/start">here</a>.
-        </p>
-      </div>
+      <h2 class="govuk-heading-m">
+        Try our new water availability for licensing service
+        {{ govukTag({ text: "Beta", classes: "govuk-phase-banner__content__tag" }) }}
+      </h2>
+      <p class="govuk-body">
+        We are currently building a new water availability for licensing service
+        as an alternative to this abstraction licensing strategy. If you would like
+        to try it out, you can do so <a class="govuk-link" href="/external/current/start">here</a>.
+      </p>
     </div>
   </div>
+  <hr>
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
