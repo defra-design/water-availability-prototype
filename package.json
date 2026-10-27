@@ -14,5 +14,9 @@
     "govuk-frontend": "6.6.0",
     "govuk-prototype-kit": "14.0.2",
     "proj4": "^2.20.8"
+  },
+  "resolutions": {
+    "body-parser": "^2.4.0",
+    "follow-redirects": "^1.16.1"
   }
 }
