@@ -157,7 +157,30 @@
                 </span>
               </span>
 
+
+ {% if data['watertype'] == 'ground' %}              
               <span class="js-step-title">
+                Check permits and other permissions needed
+              </span>
+            </h2>
+          </div>
+
+ <div class="app-step-nav__panel js-panel" id="step-panel-permits-and-permissions-3">
+            <p class="app-step-nav__paragraph">As well as your abstraction licence, you might need 
+        other permits and permissions before you can abstract water. If you are planning to discharge water, you will probably need an <a href="https://www.gov.uk/guidance/discharges-to-surface-water-and-groundwater-environmental-permits">environmental permit</a>. Getting an 
+  environmental permit can take up to 4 months, so it is essential that you 
+  apply soon if it is needed.</p>
+             <p class="app-step-nav__paragraph">Make sure to check if you need a <a href="https://www.gov.uk/guidance/flood-risk-activities-environmental-permits">flood risk activity permit</a> 
+  for carrying out any proposed works if they are in, or close, to a main river.</p>
+                      <p class="app-step-nav__paragraph">Finally, you may need planning permission, for example 
+  if you are building storage. You can get guidance and apply for this by 
+  <a href="https://www.gov.uk/find-local-council">contacting your local council in your area</a>.</p>
+          </div>
+
+ 
+   {% elseif data['watertype'] == 'surface' %}
+
+                           <span class="js-step-title">
                 Check permits and other permissions needed
               </span>
             </h2>
@@ -184,9 +207,7 @@
   <a href="https://www.gov.uk/find-local-council">contacting your local council in your area</a>.</p>
           </div>
 
-          
-        </li>
-
+ {% endif %}
 
          <li class="app-step-nav__step js-step" id="estimate-volume">
           <div class="app-step-nav__header js-toggle-panel" data-position="4">
@@ -198,6 +219,8 @@
                   </span>
                 </span>
               </span>
+
+             
               
 
               <span class="js-step-title">
@@ -299,6 +322,61 @@
 
         </li>
 
+{% if data['watertype'] == 'surface' %} 
+               <li class="app-step-nav__step js-step" id="application-duration-times">
+          <div class="app-step-nav__header js-toggle-panel" data-position="6">
+            <h2 class="app-step-nav__title">
+               <span class="app-step-nav__circle app-step-nav__circle--number">
+                <span class="app-step-nav__circle-inner">
+                  <span class="app-step-nav__circle-background">
+                    <span class="govuk-visually-hidden govuk-!-display-none-print">Step</span> 5<span class="govuk-visually-hidden govuk-!-display-none-print" aria-hidden="true">:</span>
+                  </span>
+                </span>
+              </span>
+
+             
+              <span class="js-step-title">
+                Application time lengths
+              </span>
+            </h2>
+          </div>
+
+          <div class="app-step-nav__panel js-panel" id="step-panel-application-duration-times-5">
+
+          
+                      <p class="app-step-nav__paragraph">The Environment Agency grants and makes changes to water abstraction licences. 
+          When considering whether to grant or extend a licence for your site, 
+          we consider other factors such as the flow rate for your 
+          local area, how much nearby abstractors are taking, the 
+          natural environment and any protected areas.</p>
+        <p class="app-step-nav__paragraph">Additional flow data might be needed to determine water 
+          availability in your area. You may be asked to submit flow 
+          data as part of your licence application. You can pay for an <a href="https://www.gov.uk/guidance/get-advice-before-you-apply-for-a-water-abstraction-or-impounding-licence">enhanced pre-application</a> 
+          which will give you more information about whether this is needed and 
+          how to gather the data.</p>
+
+          <p class="app-step-nav__paragraph">Applying can take as little as five months 
+            but it will take much longer if you need to collect flow data or 
+            other information. Ideally, you should allow at least 18 months 
+            to get your licence.</p>
+
+            <p class="app-step-nav__paragraph">A standard variation to an existing licence 
+              generally takes up to 13 weeks, while a substantial variation 
+              will need a full reassessment and can take 4 months or longer 
+              if public advertising or complex environmental data gathering 
+              is needed.</p>
+
+          <p class="app-step-nav__paragraph">Temporary licence applications can take up 
+            to 28 days to process (or 56 days if we need to serve notice to a statutory 
+            body, such as Natural England).</p>
+
+          </div>
+
+        </li>
+
+  {% else %} 
+  {% endif %}     
+
 
 {% if data['watertype'] == 'ground' %} 
         <li class="app-step-nav__step js-step" id="apply">
@@ -313,24 +391,18 @@
               </span>
 
               <span class="js-step-title">
-                Find out if you need a pump test or hydrogeological impact assessment
+                Organise a pump test, if needed, and a hydrogeological impact assessment
               </span>
             </h2>
           </div>
 
           <div class="app-step-nav__panel js-panel" id="step-panel-apply-6">
 
-<p class="app-step-nav__paragraph">You will need to contact the Environmental Agency 
-  to find out if you need to do a pump test or a hydrogeological impact assessment.</p>
+<p class="app-step-nav__paragraph">Your next step is to contact the <a href="https://www.gov.uk/government/publications/apply-for-consent-to-investigate-a-groundwater-source/apply-for-consent-to-investigate-a-groundwater-source#contact-the-environment-agency" class="govuk-link">Environment Agency</a> to find out if you need to do a pump test. If one is required you will need to <a href="https://www.gov.uk/government/publications/apply-for-consent-to-investigate-a-groundwater-source/apply-for-consent-to-investigate-a-groundwater-source" class="govuk-link">apply for consent to investigate a groundwater source</a> before you can do any further investigation.</p>
 
-<p class="app-step-nav__paragraph">Often a pump test will be required, and in 
-  this case you will need to <a href="https://www.gov.uk/government/publications/apply-for-consent-to-investigate-a-groundwater-source/apply-for-consent-to-investigate-a-groundwater-source" class="govuk-link">apply for consent to investigate a groundwater 
-  source</a> before you can do any further investigation. In some situations a 
-  <a href="https://www.gov.uk/government/publications/preparing-a-hydrogeological-impact-assessment/preparing-a-hydrogeological-impact-assessment" class="govuk-link">hydrogeological impact assessment</a> is sufficient instead. The groundwater 
-  team at the Environment Agency will be able to advise you on what is needed.</p>
+<p class="app-step-nav__paragraph">You will also need to organise a <a href="https://www.gov.uk/government/publications/preparing-a-hydrogeological-impact-assessment/preparing-a-hydrogeological-impact-assessment" class="govuk-link">hydrogeological impact assessment</a>. The groundwater team at the Environment Agency can advise you on this too.</p>
 
-<p class="app-step-nav__paragraph">Once this has been completed, you can 
-  fill in the <a href="https://www.gov.uk/government/publications/water-abstraction-application-for-a-water-resources-licence" class="govuk-link">application forms</a> to apply for a licence.</p>
+<p class="app-step-nav__paragraph">Once these steps have been completed, you can fill in the <a href="https://www.gov.uk/government/publications/water-abstraction-application-for-a-water-resources-licence" class="govuk-link">application forms</a> to apply for a licence.</p>
             
           </div>
 
@@ -342,38 +414,11 @@
 
 
 {% if data['watertype'] == 'surface' %} 
-        <h2 class="govuk-heading-m">
+
+<h2 class="govuk-heading-m">
                 Submit your application to apply or vary
             
             </h2>
-       
-
-          
-            <p class="govuk-body">The Environment Agency grants and makes changes towater abstraction licences. 
-          When considering whether to grant or extend a licence for your site, 
-          we consider other factors such as the flow rate for your 
-          local area, how much nearby abstractors are taking, the 
-          natural environment and any protected areas.</p>
-        <p class="govuk-body">Additional flow data might be needed to determine water 
-          availability in your area. You may be asked to submit flow 
-          data as part of your licence application. You can pay for an <a href="https://www.gov.uk/guidance/get-advice-before-you-apply-for-a-water-abstraction-or-impounding-licence">enhanced pre-application</a> 
-          which will give you more information about whether this is needed and 
-          how to gather the data.</p>
-
-          <p class="govuk-body">Applying can take as little as five months 
-            but it will take much longer if you need to collect flow data or 
-            other information. Ideally, you should allow at least 18 months 
-            to get your licence.</p>
-
-            <p class="govuk-body">A standard variation to an existing licence 
-              generally takes up to 13 weeks, while a substantial variation 
-              will need a full reassessment and can take 4 months or longer 
-              if public advertising or complex environmental data gathering 
-              is needed.</p>
-
-          <p class="govuk-body">Temporary licence applications can take up 
-            to 28 days to process (or 56 days if we need to serve notice to a statutory 
-            body, such as Natural England).</p>
 
             <p class="govuk-body">Continue below to find GOV.UK guidance and forms 
               for licence applications or variations.</p>
