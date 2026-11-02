@@ -1,51 +1,31 @@
 {% extends "layouts/main.html" %}
 
 {% block pageTitle %}
-  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+  Add assessment point team notes – {{ serviceName }}
 {% endblock %}
 
 {% block containerStart %}
   {{ govukBackLink({
     text: "Back",
-    href: "javascript:window.history.back()"
+    href: "/internal/current/manual-overrides-summary"
   }) }}
 {% endblock %}
 
 {% block content %}
-
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-
-<h1 class="govuk-heading-l">Update assessment point type</h1>
-
-      <form class="form" method="post">
+      <form class="form" method="post" action="/internal/current/update-ap">
+        <h1 class="govuk-heading-l">Add assessment point team notes</h1>
 
         <div class="govuk-form-group">
-  <label class="govuk-label" for="sort">
-    Please select
-  </label>
-  <select class="govuk-select" id="updateAp" name="updateAp">
-     <option value="Local assessment point" selected>Local assessment point</option>
-     <option value="No Assessment point: Case by case basis">No Assessment point: Case by case basis</option>
-
-  </select>
-</div>
+          <label class="govuk-label" for="team-notes">Team notes</label>
+          <textarea class="govuk-textarea" id="team-notes" name="teamNotes" rows="5">{{ teamNotes }}</textarea>
+        </div>
 
         {{ govukButton({
           text: "Save"
         }) }}
-
-  {{ govukButton({
-          text: "Cancel", 
-          classes: "govuk-button--secondary",
-          href: "manual-overrides-summary"
-        }) }}
-
       </form>
-
-
-
     </div>
   </div>
-
 {% endblock %}

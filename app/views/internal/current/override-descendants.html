@@ -1,6 +1,6 @@
 {% extends "layouts/main.html" %}
 
-{% block pageTitle %}Choose descendants for the override – {{ serviceName }}{% endblock %}
+{% block pageTitle %}Choose descendants – {{ serviceName }}{% endblock %}
 
 {% block containerStart %}
   {{ govukBackLink({
@@ -21,8 +21,8 @@
         </div>
       {% endif %}
 
-      <h1 class="govuk-heading-l">Choose {{ childLabel }} for the override</h1>
-      <p class="govuk-body">The {{ overrideLabel | lower }} override is {{ pending.value | safe }} for {{ pending.source.name }}.</p>
+      <h1 class="govuk-heading-l">Choose {{ childLabel }} for {% if policyApplicationLabel %}the {{ policyApplicationLabel }}{% elif pending.type == 'hmwbImplications' %}the HMWB implication{% elif pending.type == 'hmwbUniqueContent' %}the unique content{% else %}the override{% endif %}</h1>
+      <p class="govuk-body">The {% if policyApplicationLabel %}{{ policyApplicationLabel }}{% elif pending.type == 'hmwbImplications' %}HMWB implication{% elif pending.type == 'hmwbUniqueContent' %}unique content{% else %}{{ overrideLabel | lower }} override{% endif %} is {% if pending.type == 'updateCol' %}{{ pending.value | safe }}{% else %}{{ pending.value }}{% endif %} for {{ pending.source.name }}.</p>
       {% if pending.source.type == 'managementCatchment' %}
         <p class="govuk-body">Each operational catchment you select includes all of its water bodies.</p>
       {% endif %}
@@ -31,7 +31,7 @@
         <div class="govuk-form-group{% if error %} govuk-form-group--error{% endif %}">
           <fieldset class="govuk-fieldset" aria-describedby="descendants-hint{% if error %} descendants-error{% endif %}">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select one or more {{ childLabel }}</legend>
-            <div class="govuk-hint" id="descendants-hint">The override will be applied to the selected areas.</div>
+            <div class="govuk-hint" id="descendants-hint">The {% if policyApplicationLabel %}{{ policyApplicationLabel }}{% elif pending.type == 'hmwbImplications' %}implication{% elif pending.type == 'hmwbUniqueContent' %}unique content{% else %}override{% endif %} will be applied to the selected areas.</div>
             {% if error %}<p class="govuk-error-message" id="descendants-error"><span class="govuk-visually-hidden">Error:</span> {{ error }}</p>{% endif %}
             <div class="govuk-checkboxes" data-module="govuk-checkboxes">
               {% for child in children %}

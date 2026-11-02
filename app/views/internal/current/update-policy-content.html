@@ -1,0 +1,31 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}{{ policyConfig.heading }} – {{ serviceName }}{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <form class="form" action="/internal/current/{{ policyConfig.route }}" method="post">
+        <div class="govuk-form-group">
+          <h1 class="govuk-label-wrapper">
+            <label class="govuk-label govuk-label--l" for="policy-content">{{ policyConfig.heading }}</label>
+          </h1>
+          <div class="govuk-hint" id="policy-content-hint">{{ policyConfig.hint }}</div>
+          <textarea class="govuk-textarea" id="policy-content" name="{{ policyConfig.contentField }}" rows="5" aria-describedby="policy-content-hint">{{ content }}</textarea>
+        </div>
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="policy-notes">{{ policyConfig.notesLabel }}</label>
+          <textarea class="govuk-textarea" id="policy-notes" name="{{ policyConfig.notesField }}" rows="5">{{ notes }}</textarea>
+        </div>
+        {{ govukButton({ text: "Continue" }) }}
+      </form>
+    </div>
+  </div>
+{% endblock %}

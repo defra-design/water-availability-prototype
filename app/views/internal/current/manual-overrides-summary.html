@@ -1,5 +1,80 @@
 {% extends "layouts/main.html" %}
 
+{% macro localPolicyPanel(type, config, content, action, effective, sourceSummaries, allTargets, selectedTargets) %}
+  <h3 class="govuk-heading-s">{{ config.title }}</h3>
+  {% if effective.source != 'none' and content.value %}
+    <table class="govuk-table">
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th scope="col" class="govuk-table__header">{{ config.contentLabel }}</th>
+          <th scope="col" class="govuk-table__header">{{ config.notesLabel }}</th>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">{{ content.value }}</td>
+          <td class="govuk-table__cell">{{ content.notes }}</td>
+        </tr>
+      </tbody>
+    </table>
+  {% endif %}
+  <button type="submit" name="manual-overrides-summary" value="{{ action.value }}" class="govuk-button govuk-button--secondary govuk-!-display-block" data-module="govuk-button">{% if action.hasValue %}Remove {{ config.actionLabel }}{% else %}Add {{ config.actionLabel }}{% endif %}</button>
+  {% if effective.source == 'global' %}
+    <p class="govuk-body">Applied from <a class="govuk-link" href="{{ content.sourceUrl }}">{{ effective.sourceEntity.name }}</a> on {{ effective.date }}.</p>
+  {% endif %}
+  {% for override in sourceSummaries %}
+    {% if override.type == type %}
+      <p class="govuk-body">{{ override.displayValue }} — applied to {{ override.appliedCount }} of {{ override.totalCount }} descendants{% if override.keptCount %}; {{ override.keptCount }} existing values kept{% endif %}.</p>
+      <details class="govuk-details">
+        <summary class="govuk-details__summary"><span class="govuk-details__summary-text">Descendants included in this {{ config.title }} application ({{ override.totalCount }})</span></summary>
+        <div class="govuk-details__text">
+          <ul class="govuk-list govuk-list--bullet">
+            {% for target in override.details %}
+              <li>{% if target.type == 'waterbody' %}Water body{% else %}Operational catchment{% endif %}: <a class="govuk-link" href="{{ target.url }}">{{ target.name }}</a> — {{ target.status }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </details>
+    {% endif %}
+  {% endfor %}
+  {% for override in allTargets %}
+    <details class="govuk-details">
+      <summary class="govuk-details__summary"><span class="govuk-details__summary-text">Water bodies included in this all-water-bodies {{ config.title }} application ({{ override.totalCount }})</span></summary>
+      <div class="govuk-details__text"><ul class="govuk-list govuk-list--bullet">{% for waterBody in override.waterBodies %}<li><a class="govuk-link" href="{{ waterBody.url }}">{{ waterBody.name }}</a> — {{ waterBody.status }}</li>{% endfor %}</ul></div>
+    </details>
+  {% endfor %}
+  {% for override in selectedTargets %}
+    <details class="govuk-details">
+      <summary class="govuk-details__summary"><span class="govuk-details__summary-text">Water bodies included in this selected-water-bodies {{ config.title }} application ({{ override.totalCount }})</span></summary>
+      <div class="govuk-details__text"><ul class="govuk-list govuk-list--bullet">{% for waterBody in override.waterBodies %}<li><a class="govuk-link" href="{{ waterBody.url }}">{{ waterBody.name }}</a> — {{ waterBody.status }}</li>{% endfor %}</ul></div>
+    </details>
+  {% endfor %}
+{% endmacro %}
+
+{% macro localPolicyHistory(title, history, uniqueContentType, implicationConfig, uniqueContentConfig) %}
+  <details class="govuk-details">
+    <summary class="govuk-details__summary"><span class="govuk-details__summary-text">{{ title }} history</span></summary>
+    <div class="govuk-details__text">
+      {% if history.length %}
+        <ol class="govuk-list">
+          {% for entry in history %}
+            {% set entryConfig = uniqueContentConfig if entry.type == uniqueContentType else implicationConfig %}
+            <li class="govuk-!-margin-bottom-4">
+              <strong>{{ entry.date }} — {{ entry.action | capitalize }} {{ entryConfig.actionLabel }}</strong><br>
+              {% if entry.source %}Source: <a class="govuk-link" href="{{ entry.sourceUrl }}">{{ entry.source.name }}</a>{% if entry.scope == 'all' %} for all descendants{% elif entry.scope == 'selected' %} for selected descendants{% endif %}.<br>Status: {{ entry.status }}{% if entry.statusDate %} (updated {{ entry.statusDate }}{% if entry.statusEmail %} by {{ entry.statusEmail }}{% endif %}){% endif %}.<br>{% elif entry.sourceName %}{{ entry.sourceName }} — {{ entry.status | lower }}.<br>{% endif %}
+              User: {{ entry.email or 'Not recorded' }}
+              {% if entry.notes %}<br>{{ entryConfig.notesLabel }}: {{ entry.notes }}{% endif %}
+              {% if entry.displayValue %}<br>{{ entryConfig.contentLabel }}: {{ entry.displayValue }}{% endif %}
+            </li>
+          {% endfor %}
+        </ol>
+      {% else %}
+        <p class="govuk-body">No {{ title }} changes have been recorded for this area.</p>
+      {% endif %}
+    </div>
+  </details>
+{% endmacro %}
+
 {% block pageTitle %}
   {{ serviceName }}
 {% endblock %}
@@ -31,11 +106,11 @@
 
       <h1 class="govuk-heading-l">
        {% if selectedType == 'waterbody' %}
-         {{ waterBodyName }} water body manual overrides
+         {{ waterBodyName }} water body
          {% elif selectedType == 'operationalCatchment' %}
-         {{ operationalCatchment }} operational catchment manual overrides
+         {{ operationalCatchment }} operational catchment
        {% else %}
-         {{ managementCatchment }} management catchment manual overrides
+         {{ managementCatchment }} management catchment
        {% endif %}
       </h1>
 
@@ -95,8 +170,28 @@
         <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
       {% endif %}
 
-<h2 class="govuk-heading-m">Water availability colour</h2>
-<button type="submit" name="manual-overrides-summary" value="updateCol" class="govuk-button govuk-button--secondary" data-module="govuk-button">Add override</button>
+<div class="govuk-accordion" data-module="govuk-accordion" id="manual-overrides-accordion">
+  <div class="govuk-accordion__section">
+    <div class="govuk-accordion__section-header">
+      <h2 class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button" id="manual-overrides-accordion-heading-1">Water availability colour</span>
+      </h2>
+    </div>
+    <div id="manual-overrides-accordion-content-1" class="govuk-accordion__section-content">
+<button type="submit" name="manual-overrides-summary" value="{% if localOverridesForCurrentEntity.updateCol %}removeLocal:updateCol{% else %}updateCol{% endif %}" class="govuk-button govuk-button--secondary" data-module="govuk-button">{% if localOverridesForCurrentEntity.updateCol %}Remove override{% else %}Add override{% endif %}</button>
+{% for override in globalOverrideSummaries %}
+  {% if override.type == 'updateCol' %}
+    <button type="submit" name="manual-overrides-summary" value="removeGlobal:{{ override.id }}" class="govuk-button govuk-button--secondary" data-module="govuk-button">Remove global override</button>
+  {% endif %}
+{% endfor %}
+{% if selectedType != 'waterbody' %}
+  {% for override in allWaterBodyOverrides.updateCol %}
+    <button type="submit" name="manual-overrides-summary" value="removeGlobal:{{ override.id }}" class="govuk-button govuk-button--secondary" data-module="govuk-button">Remove all-water-bodies override</button>
+  {% endfor %}
+  {% for override in selectedWaterBodyOverrides.updateCol %}
+    <button type="submit" name="manual-overrides-summary" value="removeGlobal:{{ override.id }}" class="govuk-button govuk-button--secondary" data-module="govuk-button">Remove selected-water-bodies override</button>
+  {% endfor %}
+{% endif %}
 <table class="govuk-table">
   <caption class="govuk-table__caption govuk-visually-hidden">Water availability colour</caption>
   <thead class="govuk-table__head">
@@ -104,7 +199,6 @@
       <th scope="col" class="govuk-table__header">Source</th>
       <th scope="col" class="govuk-table__header">Date</th>
        <th scope="col" class="govuk-table__header">Status</th>
-       <th scope="col" class="govuk-table__header">Actions</th>
       <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Notes</th>
     </tr>
   </thead>
@@ -114,7 +208,6 @@
       <td class="govuk-table__cell">05/06/2026</td>
       <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--green">Good availability</strong></td>
       <td class="govuk-table__cell"></td>
-      <td class="govuk-table__cell"></td>
     </tr>
     {% if selectedType == 'operationalCatchment' %}
       {% for override in inheritedOverrides %}
@@ -123,7 +216,6 @@
             <th scope="row" class="govuk-table__header">Applied from {{ override.source.name }}</th>
             <td class="govuk-table__cell">{{ override.date }}</td>
             <td class="govuk-table__cell">{{ override.value | safe }}</td>
-            <td class="govuk-table__cell"></td>
             <td class="govuk-table__cell">{{ override.notes }}</td>
           </tr>
         {% endif %}
@@ -139,9 +231,6 @@
           <td class="govuk-table__cell">
             {{ override.value | safe }} — applied to {{ override.appliedCount }} of {{ override.totalCount }} descendants
             {% if override.keptCount %}; {{ override.keptCount }} existing overrides kept{% endif %}
-          </td>
-          <td class="govuk-table__cell">
-            <button type="submit" name="manual-overrides-summary" value="removeGlobal:{{ override.id }}" class="govuk-button govuk-button--secondary" data-module="govuk-button">Remove</button>
           </td>
           <td class="govuk-table__cell">{{ override.notes }}</td>
         </tr>
@@ -171,13 +260,6 @@
         {% endif %}
         </td>
 
-      <td class="govuk-table__cell">
-        {% if localOverridesForCurrentEntity.updateCol %}
-          <button type="submit" name="manual-overrides-summary" value="removeLocal:updateCol" class="govuk-button govuk-button--secondary" data-module="govuk-button">
-            {% if effectiveOverrides.updateCol.source == 'local' %}Remove override{% else %}Remove local override{% endif %}
-          </button>
-        {% endif %}
-      </td>
       <td class="govuk-table__cell">{{ effectiveOverrides.updateCol.notes }}</td>
      
     </tr>
@@ -190,9 +272,6 @@
           {{ override.value | safe }} — applied to {{ override.appliedCount }} of {{ override.totalCount }} water bodies
           {% if override.keptCount %}; {{ override.keptCount }} existing {% if override.keptCount == 1 %}override was{% else %}overrides were{% endif %} kept{% endif %}
         </td>
-        <td class="govuk-table__cell">
-          <button type="submit" name="manual-overrides-summary" value="removeGlobal:{{ override.id }}" class="govuk-button govuk-button--secondary" data-module="govuk-button">Remove</button>
-        </td>
         <td class="govuk-table__cell">{{ override.notes }}</td>
       </tr>
     {% endfor %}
@@ -203,9 +282,6 @@
         <td class="govuk-table__cell">
           {{ override.value | safe }} — applied to {{ override.appliedCount }} of {{ override.totalCount }} selected water bodies
           {% if override.keptCount %}; {{ override.keptCount }} existing {% if override.keptCount == 1 %}override was{% else %}overrides were{% endif %} kept{% endif %}
-        </td>
-        <td class="govuk-table__cell">
-          <button type="submit" name="manual-overrides-summary" value="removeGlobal:{{ override.id }}" class="govuk-button govuk-button--secondary" data-module="govuk-button">Remove</button>
         </td>
         <td class="govuk-table__cell">{{ override.notes }}</td>
       </tr>
@@ -303,8 +379,29 @@
   </div>
 </details>
 
-<h2 class="govuk-heading-m">Hands-off Flow</h2>
-<button type="submit" name="manual-overrides-summary" value="updateHof" class="govuk-button govuk-button--secondary" data-module="govuk-button">Add override</button>
+    </div>
+  </div>
+  <div class="govuk-accordion__section">
+    <div class="govuk-accordion__section-header">
+      <h2 class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button" id="manual-overrides-accordion-heading-2">Hands-off Flow</span>
+      </h2>
+    </div>
+    <div id="manual-overrides-accordion-content-2" class="govuk-accordion__section-content">
+<button type="submit" name="manual-overrides-summary" value="{% if localOverridesForCurrentEntity.updateHof %}removeLocal:updateHof{% else %}updateHof{% endif %}" class="govuk-button govuk-button--secondary" data-module="govuk-button">{% if localOverridesForCurrentEntity.updateHof %}Remove override{% else %}Add override{% endif %}</button>
+{% for override in globalOverrideSummaries %}
+  {% if override.type == 'updateHof' %}
+    <button type="submit" name="manual-overrides-summary" value="removeGlobal:{{ override.id }}" class="govuk-button govuk-button--secondary" data-module="govuk-button">Remove global override</button>
+  {% endif %}
+{% endfor %}
+{% if selectedType != 'waterbody' %}
+  {% for override in allWaterBodyOverrides.updateHof %}
+    <button type="submit" name="manual-overrides-summary" value="removeGlobal:{{ override.id }}" class="govuk-button govuk-button--secondary" data-module="govuk-button">Remove all-water-bodies override</button>
+  {% endfor %}
+  {% for override in selectedWaterBodyOverrides.updateHof %}
+    <button type="submit" name="manual-overrides-summary" value="removeGlobal:{{ override.id }}" class="govuk-button govuk-button--secondary" data-module="govuk-button">Remove selected-water-bodies override</button>
+  {% endfor %}
+{% endif %}
 <table class="govuk-table">
   <caption class="govuk-table__caption govuk-visually-hidden">Hands-off Flow</caption>
   <thead class="govuk-table__head">
@@ -312,7 +409,6 @@
       <th scope="col" class="govuk-table__header">Source</th>
       <th scope="col" class="govuk-table__header">Date</th>
        <th scope="col" class="govuk-table__header">Status</th>
-       <th scope="col" class="govuk-table__header">Actions</th>
        <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Notes</th>
     </tr>
   </thead>
@@ -322,7 +418,6 @@
       <td class="govuk-table__cell">01/03/2026</td>
       <td class="govuk-table__cell">71</td>
       <td class="govuk-table__cell"></td>
-      <td class="govuk-table__cell"></td>
     </tr>
     {% if selectedType == 'operationalCatchment' %}
       {% for override in inheritedOverrides %}
@@ -331,7 +426,6 @@
             <th scope="row" class="govuk-table__header">Applied from {{ override.source.name }}</th>
             <td class="govuk-table__cell">{{ override.date }}</td>
             <td class="govuk-table__cell">{{ override.displayValue }}</td>
-            <td class="govuk-table__cell"></td>
             <td class="govuk-table__cell">{{ override.notes }}</td>
           </tr>
         {% endif %}
@@ -347,9 +441,6 @@
           <td class="govuk-table__cell">
             {{ override.displayValue }} — applied to {{ override.appliedCount }} of {{ override.totalCount }} descendants
             {% if override.keptCount %}; {{ override.keptCount }} existing overrides kept{% endif %}
-          </td>
-          <td class="govuk-table__cell">
-            <button type="submit" name="manual-overrides-summary" value="removeGlobal:{{ override.id }}" class="govuk-button govuk-button--secondary" data-module="govuk-button">Remove</button>
           </td>
           <td class="govuk-table__cell">{{ override.notes }}</td>
         </tr>
@@ -377,13 +468,6 @@
 
         {{ effectiveOverrides.updateHof.value }}
         {% endif %}</td>
-      <td class="govuk-table__cell">
-        {% if localOverridesForCurrentEntity.updateHof %}
-          <button type="submit" name="manual-overrides-summary" value="removeLocal:updateHof" class="govuk-button govuk-button--secondary" data-module="govuk-button">
-            {% if effectiveOverrides.updateHof.source == 'local' %}Remove override{% else %}Remove local override{% endif %}
-          </button>
-        {% endif %}
-      </td>
       <td class="govuk-table__cell">{{ effectiveOverrides.updateHof.notes }}
       </td>
     </tr>
@@ -397,9 +481,6 @@
           {{ override.displayValue }} — applied to {{ override.appliedCount }} of {{ override.totalCount }} water bodies
           {% if override.keptCount %}; {{ override.keptCount }} existing {% if override.keptCount == 1 %}override was{% else %}overrides were{% endif %} kept{% endif %}
         </td>
-        <td class="govuk-table__cell">
-          <button type="submit" name="manual-overrides-summary" value="removeGlobal:{{ override.id }}" class="govuk-button govuk-button--secondary" data-module="govuk-button">Remove</button>
-        </td>
         <td class="govuk-table__cell">{{ override.notes }}</td>
       </tr>
     {% endfor %}
@@ -410,9 +491,6 @@
         <td class="govuk-table__cell">
           {{ override.displayValue }} — applied to {{ override.appliedCount }} of {{ override.totalCount }} selected water bodies
           {% if override.keptCount %}; {{ override.keptCount }} existing {% if override.keptCount == 1 %}override was{% else %}overrides were{% endif %} kept{% endif %}
-        </td>
-        <td class="govuk-table__cell">
-          <button type="submit" name="manual-overrides-summary" value="removeGlobal:{{ override.id }}" class="govuk-button govuk-button--secondary" data-module="govuk-button">Remove</button>
         </td>
         <td class="govuk-table__cell">{{ override.notes }}</td>
       </tr>
@@ -510,115 +588,445 @@
   </div>
 </details>
 
-
-<!--<table class="govuk-table">
-  <caption class="govuk-table__caption govuk-table__caption--m">Local policies</caption>
-  <thead class="govuk-table__head">
-    <tr class="govuk-table__row">
-      <th scope="col" class="govuk-table__header">Policy</th>
-      <th scope="col" class="govuk-table__header">Date</th>
-       <th scope="col" class="govuk-table__header">Status</th>
-       <th scope="col" class="govuk-table__header">Actions</th>
-       <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Notes</th>
-    </tr>
-  </thead>
-  <tbody class="govuk-table__body">
-    <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">Heavily modified water body</th>
-      <td class="govuk-table__cell">19/05/2023</td>
-      <td class="govuk-table__cell">Active</td>
-      <td class="govuk-table__cell" >
-        <button type="submit" name="manual-overrides-summary" value="updateHmwb" class="govuk-button govuk-button--secondary" data-module="govuk-button">Update</button>
-       </td>
-      <td class="govuk-table__cell">Lorem ipsum dolor sit amet, consectetur 
-          adipiscing elit, sed do eiusmod tempor incididunt ut labore et 
-          dolore magna aliqua. Ut enim ad minim veniam, quis 
-          nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-      </td>
-    </tr>
-
-    <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">Internal drainage board</th>
-      <td class="govuk-table__cell">11/09/2019</td>
-      <td class="govuk-table__cell">Active</td>
-      <td class="govuk-table__cell" >
-        <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">Update</button>
-      </td>
-      <td class="govuk-table__cell">Lorem ipsum dolor sit amet, consectetur 
-          adipiscing elit, sed do eiusmod tempor incididunt ut labore et 
-          dolore magna aliqua. Ut enim ad minim veniam, quis 
-          nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-      </td>
-  </tr>
-
-     <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">Green line</th>
-      <td class="govuk-table__cell">29/11/2015</td>
-      <td class="govuk-table__cell">Active</td>
-      <td class="govuk-table__cell" >
-        <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">Update</button>
-        <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">Remove</button>
-      </td>
-      <td class="govuk-table__cell">Lorem ipsum dolor sit amet, consectetur 
-          adipiscing elit, sed do eiusmod tempor incididunt ut labore et 
-          dolore magna aliqua. Ut enim ad minim veniam, quis 
-          nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-      </td>
-  </tr>
-
-     <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">
-      <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">+ Add new local policy</button>
-      </th>
-      <td class="govuk-table__cell"></td>
-      <td class="govuk-table__cell"></td>
-      <td class="govuk-table__cell"></td>
-      <td class="govuk-table__cell"></td>
-    </tr>
-
-  </tbody>
-</table>
-
+    </div>
+  </div>
+  <div class="govuk-accordion__section">
+    <div class="govuk-accordion__section-header">
+      <h2 class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button" id="manual-overrides-accordion-heading-3">Assessment point</span>
+      </h2>
+    </div>
+    <div id="manual-overrides-accordion-content-3" class="govuk-accordion__section-content">
+      {% if wrgisStatus.assessmentPoint.active %}
+        {% if wrgisStatus.assessmentPoint.local %}
+          <button type="submit" name="manual-overrides-summary" value="switchOffWrgis:assessmentPoint" class="govuk-button govuk-button--secondary" data-module="govuk-button">Switch case-by-case off</button>
+        {% else %}
+          <p class="govuk-body">Applied from {{ wrgisStatus.assessmentPoint.source.name }} on {{ wrgisStatus.assessmentPoint.date }}. Switch it off from that parent area.</p>
+          <button type="submit" name="manual-overrides-summary" value="toggleWrgis:assessmentPoint" class="govuk-button govuk-button--secondary" data-module="govuk-button">Switch case-by-case on for this assessment point</button>
+        {% endif %}
+      {% else %}
+        <button type="submit" name="manual-overrides-summary" value="toggleWrgis:assessmentPoint" class="govuk-button govuk-button--secondary" data-module="govuk-button">Switch case-by-case on</button>
+      {% endif %}
+      <p class="govuk-hint">You can switch case-by-case on or off for an assessment point.</p>
+      <table class="govuk-table">
+        <caption class="govuk-table__caption govuk-visually-hidden">Assessment point</caption>
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Source</th>
+            <th scope="col" class="govuk-table__header">Date</th>
+            <th scope="col" class="govuk-table__header">Status</th>
+            <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Notes</th>
+          </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+          <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">WRGIS</th>
+            <td class="govuk-table__cell">05/06/2026</td>
+            <td class="govuk-table__cell">Automatically applied</td>
+            <td class="govuk-table__cell"></td>
+          </tr>
+          {% if wrgisStatus.assessmentPoint.active %}
+            <tr class="govuk-table__row">
+              <th scope="row" class="govuk-table__header">Applied from {{ wrgisStatus.assessmentPoint.source.name }}</th>
+              <td class="govuk-table__cell">{{ wrgisStatus.assessmentPoint.date }}</td>
+              <td class="govuk-table__cell">Manually applied</td>
+              <td class="govuk-table__cell">{{ wrgisStatus.assessmentPoint.notes }}</td>
+            </tr>
+          {% endif %}
+        </tbody>
+      </table>
+      <details class="govuk-details">
+        <summary class="govuk-details__summary"><span class="govuk-details__summary-text">Assessment point history</span></summary>
+        <div class="govuk-details__text">
+          {% if assessmentPointHistory.length %}
+            <ol class="govuk-list">
+              {% for entry in assessmentPointHistory %}
+                <li class="govuk-!-margin-bottom-4">
+                  <strong>{{ entry.date }} — {% if entry.action == 'removed' %}Switched off{% else %}Switched on{% endif %}</strong><br>
+                  {{ entry.entity.name }} — {{ entry.action }}.<br>
+                  User: {{ entry.email }}
+                  {% if entry.notes %}<br>Team notes: {{ entry.notes }}{% endif %}
+                </li>
+              {% endfor %}
+            </ol>
+          {% else %}
+            <p class="govuk-body">No assessment point changes have been recorded for this area.</p>
+          {% endif %}
+        </div>
+      </details>
+    </div>
+  </div>
+  <div class="govuk-accordion__section">
+    <div class="govuk-accordion__section-header">
+      <h2 class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button" id="manual-overrides-accordion-heading-4">Heavily modified water body</span>
+      </h2>
+    </div>
+    <div id="manual-overrides-accordion-content-4" class="govuk-accordion__section-content">
+{% if wrgisConfig.hmwb == 'yes' %}
 <table class="govuk-table">
-  <caption class="govuk-table__caption govuk-table__caption--m">Assessment point</caption>
+  <caption class="govuk-table__caption govuk-visually-hidden">Heavily modified water body</caption>
   <thead class="govuk-table__head">
     <tr class="govuk-table__row">
       <th scope="col" class="govuk-table__header">Source</th>
       <th scope="col" class="govuk-table__header">Date</th>
-       <th scope="col" class="govuk-table__header">Status</th>
-       <th scope="col" class="govuk-table__header">Actions</th>
-      <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Notes</th>
+      <th scope="col" class="govuk-table__header">Status</th>
     </tr>
   </thead>
   <tbody class="govuk-table__body">
     <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">Override</td>
-      <td class="govuk-table__cell">09/10/2026</td>
-      <td class="govuk-table__cell"> {% if (data['updateAp'] == "N/A") %}
-        N/A
-        {% else %}
-
-        {{data.updateAp}}
-        {% endif %}</td>
-
-      <td class="govuk-table__cell">
-      <button type="submit" name="manual-overrides-summary" value="updateAp" class="govuk-button govuk-button--secondary" data-module="govuk-button">Update</button>
-       </td>
-      <td class="govuk-table__cell">Lorem ipsum dolor sit amet, consectetur 
-          adipiscing elit, sed do eiusmod tempor incididunt ut labore et 
-          dolore magna aliqua. Ut enim ad minim veniam, quis 
-          nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</td>
-     
-    </tr>
-    <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">WRGIS</td>
-      <td class="govuk-table__cell">05/06/2026</td>
-      <td class="govuk-table__cell">Critical assessment point</strong></td>
-      <td class="govuk-table__cell"></td>
-      <td class="govuk-table__cell"></td>
+      <td class="govuk-table__cell">Assumed data layer</td>
+      <td class="govuk-table__cell">19/05/2023</td>
+      <td class="govuk-table__cell">Automatically applied</td>
     </tr>
   </tbody>
-</table>-->
+</table>
+{% elif wrgisStatus.hmwb.active %}
+{% if wrgisStatus.hmwb.local %}
+<button type="submit" name="manual-overrides-summary" value="switchOffWrgis:hmwb" class="govuk-button govuk-button--secondary" data-module="govuk-button">Switch off</button>
+{% else %}
+<p class="govuk-body">Applied from {{ wrgisStatus.hmwb.source.name }} on {{ wrgisStatus.hmwb.date }}. Switch it off from that parent area.</p>
+{% endif %}
+<table class="govuk-table">
+  <caption class="govuk-table__caption govuk-visually-hidden">Heavily modified water body</caption>
+  <thead class="govuk-table__head"><tr class="govuk-table__row"><th scope="col" class="govuk-table__header">Source</th><th scope="col" class="govuk-table__header">Date</th><th scope="col" class="govuk-table__header">Status</th></tr></thead>
+  <tbody class="govuk-table__body"><tr class="govuk-table__row"><td class="govuk-table__cell">User activated</td><td class="govuk-table__cell">{{ wrgisStatus.hmwb.date }}</td><td class="govuk-table__cell">Manually applied</td></tr></tbody>
+</table>
+{% else %}
+<button type="submit" name="manual-overrides-summary" value="toggleWrgis:hmwb" class="govuk-button govuk-button--secondary" data-module="govuk-button">Switch on</button>
+{% endif %}
+{% if wrgisConfig.hmwb == 'yes' or wrgisStatus.hmwb.active %}
+<h3 class="govuk-heading-s">HMWB implications</h3>
+{% if effectiveOverrides.hmwbImplications.source != 'none' and hmwbContent.hmwbImplications %}
+<table class="govuk-table">
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Implications</th>
+      <th scope="col" class="govuk-table__header">Implication notes</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">{{ hmwbContent.hmwbImplications or 'N/A' }}</td>
+      <td class="govuk-table__cell">{{ hmwbContent.hmwbImplicationNotes }}</td>
+    </tr>
+  </tbody>
+</table>
+{% endif %}
+<button type="submit" name="manual-overrides-summary" value="{{ hmwbActions.hmwbImplications.value }}" class="govuk-button govuk-button--secondary govuk-!-display-block" data-module="govuk-button">{% if hmwbActions.hmwbImplications.hasValue %}Remove implications{% else %}Add implications{% endif %}</button>
+{% if effectiveOverrides.hmwbImplications.source == 'global' %}
+<p class="govuk-body">Applied from <a class="govuk-link" href="{{ hmwbContent.hmwbImplicationsSourceUrl }}">{{ effectiveOverrides.hmwbImplications.sourceEntity.name }}</a> on {{ effectiveOverrides.hmwbImplications.date }}.</p>
+{% endif %}
+{% for override in globalOverrideSummaries %}
+  {% if override.type == 'hmwbImplications' %}
+    <p class="govuk-body">{{ override.displayValue }} — applied to {{ override.appliedCount }} of {{ override.totalCount }} descendants{% if override.keptCount %}; {{ override.keptCount }} existing overrides kept{% endif %}.</p>
+    <details class="govuk-details">
+      <summary class="govuk-details__summary"><span class="govuk-details__summary-text">Descendants included in this implications override ({{ override.totalCount }})</span></summary>
+      <div class="govuk-details__text">
+        <ul class="govuk-list govuk-list--bullet">
+          {% for target in override.details %}
+            <li>{% if target.type == 'waterbody' %}Water body{% else %}Operational catchment{% endif %}: <a class="govuk-link" href="{{ target.url }}">{{ target.name }}</a> — {{ target.status }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </details>
+  {% endif %}
+{% endfor %}
+{% for override in allWaterBodyOverrides.hmwbImplications %}
+  <details class="govuk-details"><summary class="govuk-details__summary"><span class="govuk-details__summary-text">Water bodies included in this all-water-bodies implications override ({{ override.totalCount }})</span></summary><div class="govuk-details__text"><ul class="govuk-list govuk-list--bullet">{% for waterBody in override.waterBodies %}<li><a class="govuk-link" href="{{ waterBody.url }}">{{ waterBody.name }}</a> — {{ waterBody.status }}</li>{% endfor %}</ul></div></details>
+{% endfor %}
+{% for override in selectedWaterBodyOverrides.hmwbImplications %}
+  <details class="govuk-details"><summary class="govuk-details__summary"><span class="govuk-details__summary-text">Water bodies included in this selected-water-bodies implications override ({{ override.totalCount }})</span></summary><div class="govuk-details__text"><ul class="govuk-list govuk-list--bullet">{% for waterBody in override.waterBodies %}<li><a class="govuk-link" href="{{ waterBody.url }}">{{ waterBody.name }}</a> — {{ waterBody.status }}</li>{% endfor %}</ul></div></details>
+{% endfor %}
+<h3 class="govuk-heading-s">HMWB unique content</h3>
+{% if effectiveOverrides.hmwbUniqueContent.source != 'none' and hmwbContent.hmwbUniqueContent %}
+<table class="govuk-table">
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Unique content</th>
+      <th scope="col" class="govuk-table__header">Unique content notes</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">{{ hmwbContent.hmwbUniqueContent or 'N/A' }}</td>
+      <td class="govuk-table__cell">{{ hmwbContent.hmwbUniqueContentNotes }}</td>
+    </tr>
+  </tbody>
+</table>
+{% endif %}
+<button type="submit" name="manual-overrides-summary" value="{{ hmwbActions.hmwbUniqueContent.value }}" class="govuk-button govuk-button--secondary govuk-!-display-block" data-module="govuk-button">{% if hmwbActions.hmwbUniqueContent.hasValue %}Remove unique content{% else %}Add unique content{% endif %}</button>
+{% if effectiveOverrides.hmwbUniqueContent.source == 'global' %}
+<p class="govuk-body">Applied from <a class="govuk-link" href="{{ hmwbContent.hmwbUniqueContentSourceUrl }}">{{ effectiveOverrides.hmwbUniqueContent.sourceEntity.name }}</a> on {{ effectiveOverrides.hmwbUniqueContent.date }}.</p>
+{% endif %}
+{% for override in globalOverrideSummaries %}
+  {% if override.type == 'hmwbUniqueContent' %}
+    <p class="govuk-body">{{ override.displayValue }} — applied to {{ override.appliedCount }} of {{ override.totalCount }} descendants{% if override.keptCount %}; {{ override.keptCount }} existing overrides kept{% endif %}.</p>
+    <details class="govuk-details">
+      <summary class="govuk-details__summary"><span class="govuk-details__summary-text">Descendants included in this unique content override ({{ override.totalCount }})</span></summary>
+      <div class="govuk-details__text">
+        <ul class="govuk-list govuk-list--bullet">
+          {% for target in override.details %}
+            <li>{% if target.type == 'waterbody' %}Water body{% else %}Operational catchment{% endif %}: <a class="govuk-link" href="{{ target.url }}">{{ target.name }}</a> — {{ target.status }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </details>
+  {% endif %}
+{% endfor %}
+{% for override in allWaterBodyOverrides.hmwbUniqueContent %}
+  <details class="govuk-details"><summary class="govuk-details__summary"><span class="govuk-details__summary-text">Water bodies included in this all-water-bodies unique content override ({{ override.totalCount }})</span></summary><div class="govuk-details__text"><ul class="govuk-list govuk-list--bullet">{% for waterBody in override.waterBodies %}<li><a class="govuk-link" href="{{ waterBody.url }}">{{ waterBody.name }}</a> — {{ waterBody.status }}</li>{% endfor %}</ul></div></details>
+{% endfor %}
+{% for override in selectedWaterBodyOverrides.hmwbUniqueContent %}
+  <details class="govuk-details"><summary class="govuk-details__summary"><span class="govuk-details__summary-text">Water bodies included in this selected-water-bodies unique content override ({{ override.totalCount }})</span></summary><div class="govuk-details__text"><ul class="govuk-list govuk-list--bullet">{% for waterBody in override.waterBodies %}<li><a class="govuk-link" href="{{ waterBody.url }}">{{ waterBody.name }}</a> — {{ waterBody.status }}</li>{% endfor %}</ul></div></details>
+{% endfor %}
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">Heavily modified water bodies history</span>
+  </summary>
+  <div class="govuk-details__text">
+    {% if hmwbHistory.length %}
+      <ol class="govuk-list">
+        {% for entry in hmwbHistory %}
+          {% set entryType = entry.type or 'hmwbImplications' %}
+          <li class="govuk-!-margin-bottom-4">
+            <strong>{{ entry.date }} — {{ entry.action | capitalize }} {% if entryType == 'hmwbUniqueContent' or entryType == 'uniqueContent' %}unique content{% else %}implications{% endif %}</strong><br>
+            {% if entry.source %}
+              Source: <a class="govuk-link" href="{{ entry.sourceUrl }}">{{ entry.source.name }}</a>
+              {% if entry.scope == 'all' %}for all descendants{% elif entry.scope == 'selected' %}for selected descendants{% endif %}.<br>
+              Status: {{ entry.status }}{% if entry.statusDate %} (updated {{ entry.statusDate }}{% if entry.statusEmail %} by {{ entry.statusEmail }}{% endif %}){% endif %}.<br>
+            {% elif entry.sourceName %}
+              {{ entry.sourceName }} — {{ entry.status | lower }}.<br>
+            {% endif %}
+            User: {{ entry.email or 'Not recorded' }}
+            {% if entry.notes or entry.teamNotes %}<br>{% if entryType == 'hmwbUniqueContent' or entryType == 'uniqueContent' %}Unique content notes{% else %}Implication notes{% endif %}: {{ entry.notes or entry.teamNotes }}{% endif %}
+            {% if entry.displayValue or entry.content or entry.serviceInformation %}<br>{% if entryType == 'hmwbUniqueContent' or entryType == 'uniqueContent' %}Unique content{% else %}Implications{% endif %}: {{ entry.displayValue or entry.content or entry.serviceInformation }}{% endif %}
+          </li>
+        {% endfor %}
+      </ol>
+    {% else %}
+      <p class="govuk-body">No heavily modified water body changes have been recorded for this area.</p>
+    {% endif %}
+  </div>
+</details>
+{% endif %}
+
+    </div>
+  </div>
+  <div class="govuk-accordion__section">
+    <div class="govuk-accordion__section-header">
+      <h2 class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button" id="manual-overrides-accordion-heading-5">Internal drainage board</span>
+      </h2>
+    </div>
+    <div id="manual-overrides-accordion-content-5" class="govuk-accordion__section-content">
+{% if wrgisConfig.idb == 'yes' %}
+<table class="govuk-table">
+  <caption class="govuk-table__caption govuk-visually-hidden">IDB</caption>
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Source</th>
+      <th scope="col" class="govuk-table__header">Date</th>
+      <th scope="col" class="govuk-table__header">Status</th>
+
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">Assumed data layer</td>
+      <td class="govuk-table__cell">11/09/2019</td>
+      <td class="govuk-table__cell">Automatically applied</td>
+
+    </tr>
+  </tbody>
+</table>
+{% elif wrgisStatus.idb.active %}
+{% if wrgisStatus.idb.local %}
+<button type="submit" name="manual-overrides-summary" value="switchOffWrgis:idb" class="govuk-button govuk-button--secondary" data-module="govuk-button">Switch off</button>
+{% else %}
+<p class="govuk-body">Applied from {{ wrgisStatus.idb.source.name }} on {{ wrgisStatus.idb.date }}. Switch it off from that parent area.</p>
+{% endif %}
+<table class="govuk-table">
+  <caption class="govuk-table__caption govuk-visually-hidden">IDB</caption>
+  <thead class="govuk-table__head"><tr class="govuk-table__row"><th scope="col" class="govuk-table__header">Source</th><th scope="col" class="govuk-table__header">Date</th><th scope="col" class="govuk-table__header">Status</th></tr></thead>
+  <tbody class="govuk-table__body"><tr class="govuk-table__row"><td class="govuk-table__cell">User activated</td><td class="govuk-table__cell">{{ wrgisStatus.idb.date }}</td><td class="govuk-table__cell">Manually applied</td></tr></tbody>
+</table>
+{% else %}
+<button type="submit" name="manual-overrides-summary" value="toggleWrgis:idb" class="govuk-button govuk-button--secondary" data-module="govuk-button">Switch on</button>
+{% endif %}
+{% if wrgisConfig.idb == 'yes' or wrgisStatus.idb.active %}
+{{ localPolicyPanel('idbImplications', localPolicyFields.idbImplications, policyContent.idbImplications, localPolicyActions.idbImplications, effectiveOverrides.idbImplications, globalOverrideSummaries, allWaterBodyOverrides.idbImplications, selectedWaterBodyOverrides.idbImplications) }}
+{{ localPolicyPanel('idbUniqueContent', localPolicyFields.idbUniqueContent, policyContent.idbUniqueContent, localPolicyActions.idbUniqueContent, effectiveOverrides.idbUniqueContent, globalOverrideSummaries, allWaterBodyOverrides.idbUniqueContent, selectedWaterBodyOverrides.idbUniqueContent) }}
+{{ localPolicyHistory('IDB', policyHistories.idb, 'idbUniqueContent', localPolicyFields.idbImplications, localPolicyFields.idbUniqueContent) }}
+{% endif %}
+
+    </div>
+  </div>
+  <div class="govuk-accordion__section">
+    <div class="govuk-accordion__section-header">
+      <h2 class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button" id="manual-overrides-accordion-heading-6">Canals and Rivers Trust</span>
+      </h2>
+    </div>
+    <div id="manual-overrides-accordion-content-6" class="govuk-accordion__section-content">
+{% if wrgisConfig.crt == 'yes' %}
+<table class="govuk-table">
+  <caption class="govuk-table__caption govuk-visually-hidden">CRT</caption>
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Source</th>
+      <th scope="col" class="govuk-table__header">Date</th>
+      <th scope="col" class="govuk-table__header">Status</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">Assumed data layer</td>
+      <td class="govuk-table__cell">09/08/2019</td>
+      <td class="govuk-table__cell">Automatically applied</td>
+    </tr>
+  </tbody>
+</table>
+{% elif wrgisStatus.crt.active %}
+{% if wrgisStatus.crt.local %}
+<button type="submit" name="manual-overrides-summary" value="switchOffWrgis:crt" class="govuk-button govuk-button--secondary" data-module="govuk-button">Switch off</button>
+{% else %}
+<p class="govuk-body">Applied from {{ wrgisStatus.crt.source.name }} on {{ wrgisStatus.crt.date }}. Switch it off from that parent area.</p>
+{% endif %}
+<table class="govuk-table">
+  <caption class="govuk-table__caption govuk-visually-hidden">CRT</caption>
+  <thead class="govuk-table__head"><tr class="govuk-table__row"><th scope="col" class="govuk-table__header">Source</th><th scope="col" class="govuk-table__header">Date</th><th scope="col" class="govuk-table__header">Status</th></tr></thead>
+  <tbody class="govuk-table__body"><tr class="govuk-table__row"><td class="govuk-table__cell">User activated</td><td class="govuk-table__cell">{{ wrgisStatus.crt.date }}</td><td class="govuk-table__cell">Manually applied</td></tr></tbody>
+</table>
+{% else %}
+<button type="submit" name="manual-overrides-summary" value="toggleWrgis:crt" class="govuk-button govuk-button--secondary" data-module="govuk-button">Switch on</button>
+{% endif %}
+{% if wrgisConfig.crt == 'yes' or wrgisStatus.crt.active %}
+{{ localPolicyPanel('crtImplications', localPolicyFields.crtImplications, policyContent.crtImplications, localPolicyActions.crtImplications, effectiveOverrides.crtImplications, globalOverrideSummaries, allWaterBodyOverrides.crtImplications, selectedWaterBodyOverrides.crtImplications) }}
+{{ localPolicyPanel('crtUniqueContent', localPolicyFields.crtUniqueContent, policyContent.crtUniqueContent, localPolicyActions.crtUniqueContent, effectiveOverrides.crtUniqueContent, globalOverrideSummaries, allWaterBodyOverrides.crtUniqueContent, selectedWaterBodyOverrides.crtUniqueContent) }}
+{{ localPolicyHistory('CRT', policyHistories.crt, 'crtUniqueContent', localPolicyFields.crtImplications, localPolicyFields.crtUniqueContent) }}
+{% endif %}
+
+    </div>
+  </div>
+  <div class="govuk-accordion__section">
+    <div class="govuk-accordion__section-header">
+      <h2 class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button" id="manual-overrides-accordion-heading-7">Level dependent environment</span>
+      </h2>
+    </div>
+    <div id="manual-overrides-accordion-content-7" class="govuk-accordion__section-content">
+{% if wrgisConfig.lde == 'yes' %}
+<table class="govuk-table">
+  <caption class="govuk-table__caption govuk-visually-hidden">LDE</caption>
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Source</th>
+      <th scope="col" class="govuk-table__header">Date</th>
+      <th scope="col" class="govuk-table__header">Status</th>
+     </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">Assumed data layer</td>
+      <td class="govuk-table__cell">10/09/2023</td>
+      <td class="govuk-table__cell">Automatically applied</td>
+     </tr>
+  </tbody>
+</table>
+{% elif wrgisStatus.lde.active %}
+{% if wrgisStatus.lde.local %}
+<button type="submit" name="manual-overrides-summary" value="switchOffWrgis:lde" class="govuk-button govuk-button--secondary" data-module="govuk-button">Switch off</button>
+{% else %}
+<p class="govuk-body">Applied from {{ wrgisStatus.lde.source.name }} on {{ wrgisStatus.lde.date }}. Switch it off from that parent area.</p>
+{% endif %}
+<table class="govuk-table">
+  <caption class="govuk-table__caption govuk-visually-hidden">LDE</caption>
+  <thead class="govuk-table__head"><tr class="govuk-table__row"><th scope="col" class="govuk-table__header">Source</th><th scope="col" class="govuk-table__header">Date</th><th scope="col" class="govuk-table__header">Status</th></tr></thead>
+  <tbody class="govuk-table__body"><tr class="govuk-table__row"><td class="govuk-table__cell">User activated</td><td class="govuk-table__cell">{{ wrgisStatus.lde.date }}</td><td class="govuk-table__cell">Manually applied</td></tr></tbody>
+</table>
+{% else %}
+<button type="submit" name="manual-overrides-summary" value="toggleWrgis:lde" class="govuk-button govuk-button--secondary" data-module="govuk-button">Switch on</button>
+{% endif %}
+{% if wrgisConfig.lde == 'yes' or wrgisStatus.lde.active %}
+{{ localPolicyPanel('ldeImplications', localPolicyFields.ldeImplications, policyContent.ldeImplications, localPolicyActions.ldeImplications, effectiveOverrides.ldeImplications, globalOverrideSummaries, allWaterBodyOverrides.ldeImplications, selectedWaterBodyOverrides.ldeImplications) }}
+{{ localPolicyPanel('ldeUniqueContent', localPolicyFields.ldeUniqueContent, policyContent.ldeUniqueContent, localPolicyActions.ldeUniqueContent, effectiveOverrides.ldeUniqueContent, globalOverrideSummaries, allWaterBodyOverrides.ldeUniqueContent, selectedWaterBodyOverrides.ldeUniqueContent) }}
+{{ localPolicyHistory('LDE', policyHistories.lde, 'ldeUniqueContent', localPolicyFields.ldeImplications, localPolicyFields.ldeUniqueContent) }}
+{% endif %}
+
+    </div>
+  </div>
+  <div class="govuk-accordion__section">
+    <div class="govuk-accordion__section-header">
+      <h2 class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button" id="manual-overrides-accordion-heading-8">Thames bespoke strategy</span>
+      </h2>
+    </div>
+    <div id="manual-overrides-accordion-content-8" class="govuk-accordion__section-content">
+{% if wrgisConfig.thamesBespokeStrategy == 'yes' %}
+<table class="govuk-table">
+  <caption class="govuk-table__caption govuk-visually-hidden">Thames bespoke strategy</caption>
+  <thead class="govuk-table__head"><tr class="govuk-table__row"><th scope="col" class="govuk-table__header">Source</th><th scope="col" class="govuk-table__header">Date</th><th scope="col" class="govuk-table__header">Status</th></tr></thead>
+  <tbody class="govuk-table__body"><tr class="govuk-table__row"><td class="govuk-table__cell">Assumed data layer</td><td class="govuk-table__cell">05/06/2026</td><td class="govuk-table__cell">Automatically applied</td></tr></tbody>
+</table>
+{% elif wrgisStatus.thamesBespokeStrategy.active %}
+{% if wrgisStatus.thamesBespokeStrategy.local %}
+<button type="submit" name="manual-overrides-summary" value="switchOffWrgis:thamesBespokeStrategy" class="govuk-button govuk-button--secondary" data-module="govuk-button">Switch off</button>
+{% else %}
+<p class="govuk-body">Applied from {{ wrgisStatus.thamesBespokeStrategy.source.name }} on {{ wrgisStatus.thamesBespokeStrategy.date }}. Switch it off from that parent area.</p>
+{% endif %}
+<table class="govuk-table">
+  <caption class="govuk-table__caption govuk-visually-hidden">Thames bespoke strategy</caption>
+  <thead class="govuk-table__head"><tr class="govuk-table__row"><th scope="col" class="govuk-table__header">Source</th><th scope="col" class="govuk-table__header">Date</th><th scope="col" class="govuk-table__header">Status</th></tr></thead>
+  <tbody class="govuk-table__body"><tr class="govuk-table__row"><td class="govuk-table__cell">User activated</td><td class="govuk-table__cell">{{ wrgisStatus.thamesBespokeStrategy.date }}</td><td class="govuk-table__cell">Manually applied</td></tr></tbody>
+</table>
+{% else %}
+<button type="submit" name="manual-overrides-summary" value="toggleWrgis:thamesBespokeStrategy" class="govuk-button govuk-button--secondary" data-module="govuk-button">Switch on</button>
+{% endif %}
+{% if wrgisConfig.thamesBespokeStrategy == 'yes' or wrgisStatus.thamesBespokeStrategy.active %}
+{{ localPolicyPanel('thamesBespokeStrategyImplications', localPolicyFields.thamesBespokeStrategyImplications, policyContent.thamesBespokeStrategyImplications, localPolicyActions.thamesBespokeStrategyImplications, effectiveOverrides.thamesBespokeStrategyImplications, globalOverrideSummaries, allWaterBodyOverrides.thamesBespokeStrategyImplications, selectedWaterBodyOverrides.thamesBespokeStrategyImplications) }}
+{{ localPolicyPanel('thamesBespokeStrategyUniqueContent', localPolicyFields.thamesBespokeStrategyUniqueContent, policyContent.thamesBespokeStrategyUniqueContent, localPolicyActions.thamesBespokeStrategyUniqueContent, effectiveOverrides.thamesBespokeStrategyUniqueContent, globalOverrideSummaries, allWaterBodyOverrides.thamesBespokeStrategyUniqueContent, selectedWaterBodyOverrides.thamesBespokeStrategyUniqueContent) }}
+{{ localPolicyHistory('Thames bespoke strategy', policyHistories.thamesBespokeStrategy, 'thamesBespokeStrategyUniqueContent', localPolicyFields.thamesBespokeStrategyImplications, localPolicyFields.thamesBespokeStrategyUniqueContent) }}
+{% endif %}
+    </div>
+  </div>
+  <div class="govuk-accordion__section">
+    <div class="govuk-accordion__section-header">
+      <h2 class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button" id="manual-overrides-accordion-heading-9">Green-line Policy</span>
+      </h2>
+    </div>
+    <div id="manual-overrides-accordion-content-9" class="govuk-accordion__section-content">
+{% if wrgisConfig.greenLinePolicy == 'yes' %}
+<table class="govuk-table">
+  <caption class="govuk-table__caption govuk-visually-hidden">Green-line Policy</caption>
+  <thead class="govuk-table__head"><tr class="govuk-table__row"><th scope="col" class="govuk-table__header">Source</th><th scope="col" class="govuk-table__header">Date</th><th scope="col" class="govuk-table__header">Status</th></tr></thead>
+  <tbody class="govuk-table__body"><tr class="govuk-table__row"><td class="govuk-table__cell">Assumed data layer</td><td class="govuk-table__cell">05/06/2026</td><td class="govuk-table__cell">Automatically applied</td></tr></tbody>
+</table>
+{% elif wrgisStatus.greenLinePolicy.active %}
+{% if wrgisStatus.greenLinePolicy.local %}
+<button type="submit" name="manual-overrides-summary" value="switchOffWrgis:greenLinePolicy" class="govuk-button govuk-button--secondary" data-module="govuk-button">Switch off</button>
+{% else %}
+<p class="govuk-body">Applied from {{ wrgisStatus.greenLinePolicy.source.name }} on {{ wrgisStatus.greenLinePolicy.date }}. Switch it off from that parent area.</p>
+{% endif %}
+<table class="govuk-table">
+  <caption class="govuk-table__caption govuk-visually-hidden">Green-line Policy</caption>
+  <thead class="govuk-table__head"><tr class="govuk-table__row"><th scope="col" class="govuk-table__header">Source</th><th scope="col" class="govuk-table__header">Date</th><th scope="col" class="govuk-table__header">Status</th></tr></thead>
+  <tbody class="govuk-table__body"><tr class="govuk-table__row"><td class="govuk-table__cell">User activated</td><td class="govuk-table__cell">{{ wrgisStatus.greenLinePolicy.date }}</td><td class="govuk-table__cell">Manually applied</td></tr></tbody>
+</table>
+{% else %}
+<button type="submit" name="manual-overrides-summary" value="toggleWrgis:greenLinePolicy" class="govuk-button govuk-button--secondary" data-module="govuk-button">Switch on</button>
+{% endif %}
+{% if wrgisConfig.greenLinePolicy == 'yes' or wrgisStatus.greenLinePolicy.active %}
+{{ localPolicyPanel('greenLinePolicyImplications', localPolicyFields.greenLinePolicyImplications, policyContent.greenLinePolicyImplications, localPolicyActions.greenLinePolicyImplications, effectiveOverrides.greenLinePolicyImplications, globalOverrideSummaries, allWaterBodyOverrides.greenLinePolicyImplications, selectedWaterBodyOverrides.greenLinePolicyImplications) }}
+{{ localPolicyPanel('greenLinePolicyUniqueContent', localPolicyFields.greenLinePolicyUniqueContent, policyContent.greenLinePolicyUniqueContent, localPolicyActions.greenLinePolicyUniqueContent, effectiveOverrides.greenLinePolicyUniqueContent, globalOverrideSummaries, allWaterBodyOverrides.greenLinePolicyUniqueContent, selectedWaterBodyOverrides.greenLinePolicyUniqueContent) }}
+{{ localPolicyHistory('Green-line Policy', policyHistories.greenLinePolicy, 'greenLinePolicyUniqueContent', localPolicyFields.greenLinePolicyImplications, localPolicyFields.greenLinePolicyUniqueContent) }}
+{% endif %}
+
+    </div>
+  </div>
+</div>
+<button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">Add new local policy</button>
 
   <!--      {{ govukButton({
           text: "Continue"

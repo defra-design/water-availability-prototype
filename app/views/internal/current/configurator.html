@@ -1,0 +1,51 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}Do you want to simulate any of the following being automatically applied with dynamic data? – {{ serviceName }}{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <form method="post" action="/internal/current/configurator">
+        <h1 class="govuk-heading-l">Do you want to simulate any of the following being automatically applied with dynamic data?</h1>
+
+        {% if errors.hmwb or errors.crt or errors.lde or errors.idb or errors.thamesBespokeStrategy or errors.greenLinePolicy %}
+          <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">There is a problem</h2>
+            <div class="govuk-error-summary__body">
+              <ul class="govuk-list govuk-error-summary__list">
+                {% for component in wrgisComponents %}
+                  {% if errors[component.key] %}
+                    <li><a href="#wrgis-{{ component.key }}-yes">{{ errors[component.key] }}</a></li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        {% endif %}
+
+        {% for component in wrgisComponents %}
+          <fieldset class="govuk-fieldset govuk-!-margin-bottom-6" {% if errors[component.key] %}aria-describedby="wrgis-{{ component.key }}-error"{% endif %}>
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">{{ component.label }}</legend>
+            {% if errors[component.key] %}
+              <p class="govuk-error-message" id="wrgis-{{ component.key }}-error">
+                <span class="govuk-visually-hidden">Error:</span> {{ errors[component.key] }}
+              </p>
+            {% endif %}
+            <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="wrgis-{{ component.key }}-yes" name="wrgis-{{ component.key }}" type="radio" value="yes" {% if wrgisConfig[component.key] == 'yes' %}checked{% endif %} required>
+                <label class="govuk-label govuk-radios__label" for="wrgis-{{ component.key }}-yes">Yes</label>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="wrgis-{{ component.key }}-no" name="wrgis-{{ component.key }}" type="radio" value="no" {% if wrgisConfig[component.key] == 'no' %}checked{% endif %} required>
+                <label class="govuk-label govuk-radios__label" for="wrgis-{{ component.key }}-no">No</label>
+              </div>
+            </div>
+          </fieldset>
+        {% endfor %}
+
+        <button type="submit" class="govuk-button" data-module="govuk-button">Continue</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}

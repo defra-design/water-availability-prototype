@@ -1,0 +1,26 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}Edit LDE implications – {{ serviceName }}{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({ text: "Back", href: "javascript:window.history.back()" }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <form class="form" action="/internal/current/update-policy/ldeImplications" method="post">
+        <h1 class="govuk-heading-l">Edit LDE implications</h1>
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="policy-content">Implications</label>
+          <textarea class="govuk-textarea" id="policy-content" name="content" rows="5">{{ data.ldeImplications }}</textarea>
+        </div>
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="policy-notes">Implication notes</label>
+          <textarea class="govuk-textarea" id="policy-notes" name="notes" rows="5">{{ data.ldeImplicationNotes }}</textarea>
+        </div>
+        {{ govukButton({ text: "Continue" }) }}
+      </form>
+    </div>
+  </div>
+{% endblock %}

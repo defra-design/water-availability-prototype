@@ -1,6 +1,6 @@
 {% extends "layouts/main.html" %}
 
-{% block pageTitle %}Remove a global override – {{ serviceName }}{% endblock %}
+{% block pageTitle %}{% if isLocalPolicy %}Remove an application{% else %}Remove a global override{% endif %} – {{ serviceName }}{% endblock %}
 
 {% block containerStart %}
   {{ govukBackLink({
@@ -20,15 +20,18 @@
           </div>
         </div>
       {% endif %}
-      <h1 class="govuk-heading-l">Remove this global override?</h1>
+      <h1 class="govuk-heading-l">{% if isLocalPolicy %}Remove this {{ overrideLabel }} application?{% else %}Remove this global override?{% endif %}</h1>
       <p class="govuk-body">{{ overrideLabel }}: {{ record.value | safe }}</p>
       <p class="govuk-body">Set on {{ record.source.name }} on {{ record.date }}.</p>
+      {% if isLocalPolicy and record.source.type == 'operationalCatchment' %}
+        <p class="govuk-body">Removing this application will also remove it from {{ record.source.name }} itself.</p>
+      {% endif %}
 
       <form method="post" action="/internal/current/remove-global">
         <div class="govuk-form-group{% if error %} govuk-form-group--error{% endif %}">
           <fieldset class="govuk-fieldset" aria-describedby="remove-scope-hint{% if error %} remove-scope-error{% endif %}">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Where do you want to remove it?</legend>
-            <div class="govuk-hint" id="remove-scope-hint">Removing an override will leave any local overrides in place.</div>
+            <div class="govuk-hint" id="remove-scope-hint">{% if isLocalPolicy %}Removing an application will leave any content applied directly to descendants in place.{% else %}Removing an override will leave any local overrides in place.{% endif %}</div>
             {% if error %}<p class="govuk-error-message" id="remove-scope-error"><span class="govuk-visually-hidden">Error:</span> {{ error }}</p>{% endif %}
             <div class="govuk-radios" data-module="govuk-radios">
               <div class="govuk-radios__item">

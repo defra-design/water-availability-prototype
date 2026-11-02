@@ -17,20 +17,24 @@
     <div class="govuk-grid-column-two-thirds">
 
 
-      <form class="form" action="update-hof.html" method="post">
+      <form class="form" action="update-hmwb" method="post">
 
-        <p>
-       <div class="govuk-form-group">
-  <h1 class="govuk-label-wrapper">
-    <label class="govuk-label govuk-label--l" for="more-detail">
-      Edit the HMWB information
-    </label>
-  </h1>
-  <div id="more-detail-hint" class="govuk-hint">
- Explain clearly to the end user what licence implications there will be for them  </div>
-  <textarea class="govuk-textarea" id="more-detail" name="moreDetail" rows="5" aria-describedby="more-detail-hint"></textarea>
-</div>
-        </p>
+        <div class="govuk-form-group">
+          <h1 class="govuk-label-wrapper">
+            <label class="govuk-label govuk-label--l" for="more-detail">
+              Edit the HMWB information
+            </label>
+          </h1>
+          <div id="more-detail-hint" class="govuk-hint">
+            Explain clearly to the end user what water availability and/or licence implications there will be for them
+          </div>
+          <textarea class="govuk-textarea" id="more-detail" name="moreDetail" rows="5" aria-describedby="more-detail-hint">{{ data.hmwbServiceInformation }}</textarea>
+        </div>
+
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="team-notes">Team notes</label>
+          <textarea class="govuk-textarea" id="team-notes" name="teamNotes" rows="5">{{ data.hmwbTeamNotes }}</textarea>
+        </div>
 
         {{ govukButton({
           text: "Continue"
