@@ -95,15 +95,6 @@
   
  
 
-    {% if data.sid == "1" %} 
-<h2 id="local-policies" class="govuk-heading-m">Local abstraction policies in {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %}</h2>
-
-
-        <ul class="govuk-list govuk-list--bullet">
-             <li>There are no local policies affecting this area.</li>
-        </ul>
-
-        {% else %}
 <h2 id="local-policies" class="govuk-heading-m">Local abstraction policies in {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %}</h2>
 
         <ul class="govuk-list govuk-list--bullet">
@@ -111,12 +102,13 @@
             {% for implication in localPolicyImplicationItems %}
               <li>{{ implication }}</li>
             {% endfor %}
+          {% elif data.sid == "1" %}
+            <li>There are no local policies affecting this area.</li>
           {% else %}
             <li>Abstraction licences will only be granted for the winter months (November to March).</li>
             <li>The Somerset Drainage Board Consortium operates in this area. We recommend you consult them before applying for a licence.</li>
           {% endif %}
         </ul>
-        {% endif %}
 
 <h2 id="technical-information" class="govuk-heading-m">Technical information</h2>
 

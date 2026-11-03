@@ -38,13 +38,19 @@
           <div class="govuk-form-group{% if replaceInheritedError %} govuk-form-group--error{% endif %}">
             <fieldset class="govuk-fieldset" aria-describedby="replace-inherited-hint{% if replaceInheritedError %} replace-inherited-error{% endif %}">
               <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">{% if pending.localApplication %}This water body inherits {% if policyApplicationLabel %}content{% else %}an override{% endif %} from {{ inheritedOverride.sourceEntity.name }}{% else %}This operational catchment inherits {% if policyApplicationLabel %}content{% else %}an override{% endif %} from {{ inheritedOverride.sourceEntity.name }}{% endif %}</legend>
-              <div class="govuk-hint" id="replace-inherited-hint">{% if pending.localApplication %}Applying this {% if policyApplicationLabel %}content{% else %}override{% endif %} will replace the inherited value for this water body only.{% else %}Applying this {% if policyApplicationLabel %}content{% else %}override{% endif %} will replace the inherited value for {{ pending.source.name }} and the descendants you select. Other operational catchments and their water bodies will keep their existing {% if policyApplicationLabel %}content{% else %}overrides{% endif %}.{% endif %}</div>
+              <div class="govuk-hint" id="replace-inherited-hint">{% if pending.localApplication %}Applying this {% if policyApplicationLabel %}content{% else %}override{% endif %} will replace the inherited value for this water body only.{% elif canStackInherited %}Choose whether to replace the inherited implication or keep it and add this new implication for this operational catchment and the descendants you select.{% else %}Applying this {% if policyApplicationLabel %}content{% else %}override{% endif %} will replace the inherited value for {{ pending.source.name }} and the descendants you select. Other operational catchments and their water bodies will keep their existing {% if policyApplicationLabel %}content{% else %}overrides{% endif %}.{% endif %}</div>
               {% if replaceInheritedError %}<p class="govuk-error-message" id="replace-inherited-error"><span class="govuk-visually-hidden">Error:</span> {{ replaceInheritedError }}</p>{% endif %}
               <div class="govuk-radios">
                 <div class="govuk-radios__item">
                   <input class="govuk-radios__input" id="replace-inherited-yes" name="replaceInherited" type="radio" value="yes">
                   <label class="govuk-label govuk-radios__label" for="replace-inherited-yes">{% if pending.localApplication %}Yes, replace the inherited {% if policyApplicationLabel %}content{% else %}override{% endif %} for this water body{% else %}Yes, replace the inherited {% if policyApplicationLabel %}content{% else %}override{% endif %} and continue{% endif %}</label>
                 </div>
+                {% if canStackInherited %}
+                  <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="replace-inherited-stack" name="replaceInherited" type="radio" value="stack">
+                    <label class="govuk-label govuk-radios__label" for="replace-inherited-stack">Keep the inherited implications and add this implication</label>
+                  </div>
+                {% endif %}
                 <div class="govuk-radios__item">
                   <input class="govuk-radios__input" id="replace-inherited-no" name="replaceInherited" type="radio" value="no">
                   <label class="govuk-label govuk-radios__label" for="replace-inherited-no">No, cancel and keep the existing {% if policyApplicationLabel %}content{% else %}value{% endif %}</label>

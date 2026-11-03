@@ -14,11 +14,15 @@ const WGS84_PROJ = 'WGS84';
 proj4.defs('EPSG:27700', OSGB_PROJ);
 
 const getExternalWaterBodyOverride = (data, type, waterBody) => {
-  const waterBodyId = waterBody && waterBody.properties && waterBody.properties.WB_ID
-  if (!waterBodyId) {
+  const properties = waterBody && waterBody.properties
+  const waterBodyId = properties && properties.WB_ID
+  const waterBodyIdentity = waterBodyId === undefined || waterBodyId === null || waterBodyId === ''
+    ? properties && properties.WB_NAME
+    : waterBodyId
+  if (waterBodyIdentity === undefined || waterBodyIdentity === null || waterBodyIdentity === '') {
     return null
   }
-  const key = `waterbody:${waterBodyId}`
+  const key = `waterbody:${waterBodyIdentity}`
   const local = data.localOverrides && data.localOverrides[key] && data.localOverrides[key][type]
   const global = (data.globalOverrides || [])
     .flatMap(record => record.type === type ? (record.targets || [])
@@ -34,7 +38,9 @@ const getExternalWaterBodyOverride = (data, type, waterBody) => {
   }
   if (global) {
     return {
-      value: global.record.value,
+      value: global.target.stackedValues
+        ? global.target.stackedValues.join('\n')
+        : global.record.value,
       date: global.record.date,
       notes: global.record.notes,
       source: global.record.source,
@@ -89,23 +95,33 @@ const setSelectedExternalWaterBodyOverrides = (data, waterType, index) => {
   )
 }
 
-const localPolicyImplicationKeys = [
-  'hmwbServiceInformation',
+const localPolicyImplications = [
+  'hmwbImplications',
   'crtImplications',
   'idbImplications',
   'ldeImplications',
   'thamesBespokeStrategyImplications',
   'greenLinePolicyImplications'
 ]
-const getLocalPolicyImplicationItems = data => localPolicyImplicationKeys
-  .flatMap(key => {
-    const values = Array.isArray(data[key]) ? data[key] : [data[key]]
-    return values
-      .flatMap(value => String(value || '').split(/\r?\n/))
-      .map(value => value.trim())
-      .filter(Boolean)
-      .slice(0, 10)
-  })
+const getLocalPolicyImplicationItems = (data, waterType, index) => {
+  const waterBodies = waterType === 'surface'
+    ? data.riverCatchmentData
+    : data.groundwaterCatchmentData
+  const waterBody = waterBodies && waterBodies[index]
+  if (!waterBody) {
+    return []
+  }
+
+  return localPolicyImplications
+    .flatMap(type => {
+      const effective = getExternalWaterBodyOverride(data, type, waterBody)
+      const values = Array.isArray(effective?.value) ? effective.value : [effective?.value]
+      return values
+        .flatMap(value => String(value || '').split(/\r?\n/))
+        .map(value => value.trim())
+        .filter(Boolean)
+    })
+}
 
 // /////// Helper Functions /////////
 /**
@@ -1173,7 +1189,7 @@ router.get(folder + 'detailed-results', function (request, response) {
     : request.query.gid ?? data.gid
   setSelectedExternalWaterBodyOverrides(data, waterType, Number(index))
   response.render(folder + 'detailed-results', {
-    localPolicyImplicationItems: getLocalPolicyImplicationItems(data)
+    localPolicyImplicationItems: getLocalPolicyImplicationItems(data, waterType, Number(index))
   })
 })
 

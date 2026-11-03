@@ -20,15 +20,22 @@
 
       <form class="form" action="update-hmwb" method="post">
 
+        {% if error %}
+          <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">There is a problem</h2>
+            <div class="govuk-error-summary__body"><p class="govuk-body">{{ error }}</p></div>
+          </div>
+        {% endif %}
+
         <h1 class="govuk-heading-l">Edit the HMWB information</h1>
         <div id="more-detail-hint" class="govuk-hint">
-          Explain clearly to the end user what water availability and/or licence implications there will be for them
+          {% if isInherited %}This implication is inherited from a higher-level catchment and cannot be edited here. Add a local implication to replace it for this water body.{% else %}Explain clearly to the end user what water availability and/or licence implications there will be for them.{% endif %}
         </div>
         {{ localPolicyInputs('more-detail', 'moreDetail', contentItems, 'more-detail-hint') }}
 
         <div class="govuk-form-group">
           <label class="govuk-label" for="team-notes">Team notes</label>
-          <textarea class="govuk-textarea" id="team-notes" name="teamNotes" rows="5">{{ data.hmwbTeamNotes }}</textarea>
+          <textarea class="govuk-textarea" id="team-notes" name="teamNotes" rows="5">{{ teamNotes }}</textarea>
         </div>
 
         {{ govukButton({

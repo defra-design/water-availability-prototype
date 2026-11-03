@@ -12,19 +12,36 @@
       </thead>
       <tbody class="govuk-table__body">
         <tr class="govuk-table__row">
-          <td class="govuk-table__cell">{{ content.value }}</td>
+          <td class="govuk-table__cell">
+            {% if config.isImplications %}
+              <ul class="govuk-list govuk-list--bullet">
+                {% for item in content.items %}<li>{{ item }}</li>{% endfor %}
+              </ul>
+            {% else %}
+              {{ content.value }}
+            {% endif %}
+          </td>
           <td class="govuk-table__cell">{{ content.notes }}</td>
         </tr>
       </tbody>
     </table>
   {% endif %}
-  <button type="submit" name="manual-overrides-summary" value="{{ action.value }}" class="govuk-button govuk-button--secondary govuk-!-display-block" data-module="govuk-button">{% if action.hasValue %}Remove {{ config.actionLabel }}{% else %}Add {{ config.actionLabel }}{% endif %}</button>
+  {% if action.hasValue %}
+    <button type="submit" name="manual-overrides-summary" value="{{ action.editValue }}" class="govuk-button govuk-button--secondary govuk-!-display-block" data-module="govuk-button">Edit {{ config.actionLabel }}</button>
+    <button type="submit" name="manual-overrides-summary" value="{{ action.removeValue }}" class="govuk-button govuk-button--secondary govuk-!-display-block" data-module="govuk-button">Remove {{ config.actionLabel }}</button>
+  {% else %}
+    <button type="submit" name="manual-overrides-summary" value="{{ action.editValue }}" class="govuk-button govuk-button--secondary govuk-!-display-block" data-module="govuk-button">{{ action.addLabel }}</button>
+  {% endif %}
   {% if effective.source == 'global' %}
     <p class="govuk-body">Applied from <a class="govuk-link" href="{{ content.sourceUrl }}">{{ effective.sourceEntity.name }}</a> on {{ effective.date }}.</p>
   {% endif %}
   {% for override in sourceSummaries %}
     {% if override.type == type %}
       <p class="govuk-body">{{ override.displayValue }} — applied to {{ override.appliedCount }} of {{ override.totalCount }} descendants{% if override.keptCount %}; {{ override.keptCount }} existing values kept{% endif %}.</p>
+      {% if config.isImplications %}
+        <button type="submit" name="manual-overrides-summary" value="editGlobalPolicy:{{ override.id }}" class="govuk-button govuk-button--secondary" data-module="govuk-button">Edit {{ config.actionLabel }}</button>
+      {% endif %}
+      <button type="submit" name="manual-overrides-summary" value="removeGlobal:{{ override.id }}" class="govuk-button govuk-button--secondary" data-module="govuk-button">Remove {{ config.actionLabel }}</button>
       <details class="govuk-details">
         <summary class="govuk-details__summary"><span class="govuk-details__summary-text">Descendants included in this {{ config.title }} application ({{ override.totalCount }})</span></summary>
         <div class="govuk-details__text">
@@ -64,6 +81,7 @@
               {% if entry.source %}Source: <a class="govuk-link" href="{{ entry.sourceUrl }}">{{ entry.source.name }}</a>{% if entry.scope == 'all' %} for all descendants{% elif entry.scope == 'selected' %} for selected descendants{% endif %}.<br>Status: {{ entry.status }}{% if entry.statusDate %} (updated {{ entry.statusDate }}{% if entry.statusEmail %} by {{ entry.statusEmail }}{% endif %}){% endif %}.<br>{% elif entry.sourceName %}{{ entry.sourceName }} — {{ entry.status | lower }}.<br>{% endif %}
               User: {{ entry.email or 'Not recorded' }}
               {% if entry.notes %}<br>{{ entryConfig.notesLabel }}: {{ entry.notes }}{% endif %}
+              {% if entry.action == 'edited' and entry.previousDisplayValue %}<br>Previous content: {{ entry.previousDisplayValue }}{% endif %}
               {% if entry.displayValue %}<br>{{ entryConfig.contentLabel }}: {{ entry.displayValue }}{% endif %}
             </li>
           {% endfor %}
@@ -148,11 +166,6 @@
         </details>
         <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
         {% elif selectedType == 'managementCatchment' %}
-          <nav aria-label="Catchment hierarchy" class="govuk-!-margin-bottom-4">
-            <ol class="govuk-list govuk-!-margin-bottom-0">
-              <li>Management catchment: <strong>{{ managementCatchment }}</strong></li>
-            </ol>
-          </nav>
           <details class="govuk-details govuk-!-margin-bottom-4">
             <summary class="govuk-details__summary">
               <span class="govuk-details__summary-text">Operational catchments in this management catchment</span>
@@ -707,19 +720,30 @@
   </thead>
   <tbody class="govuk-table__body">
     <tr class="govuk-table__row">
-      <td class="govuk-table__cell">{{ hmwbContent.hmwbImplications or 'N/A' }}</td>
+      <td class="govuk-table__cell">
+        <ul class="govuk-list govuk-list--bullet">
+          {% for item in hmwbContent.hmwbImplicationItems %}<li>{{ item }}</li>{% endfor %}
+        </ul>
+      </td>
       <td class="govuk-table__cell">{{ hmwbContent.hmwbImplicationNotes }}</td>
     </tr>
   </tbody>
 </table>
 {% endif %}
-<button type="submit" name="manual-overrides-summary" value="{{ hmwbActions.hmwbImplications.value }}" class="govuk-button govuk-button--secondary govuk-!-display-block" data-module="govuk-button">{% if hmwbActions.hmwbImplications.hasValue %}Remove implications{% else %}Add implications{% endif %}</button>
+{% if hmwbActions.hmwbImplications.hasValue %}
+<button type="submit" name="manual-overrides-summary" value="{{ hmwbActions.hmwbImplications.editValue }}" class="govuk-button govuk-button--secondary govuk-!-display-block" data-module="govuk-button">Edit implications</button>
+<button type="submit" name="manual-overrides-summary" value="{{ hmwbActions.hmwbImplications.removeValue }}" class="govuk-button govuk-button--secondary govuk-!-display-block" data-module="govuk-button">Remove implications</button>
+{% else %}
+<button type="submit" name="manual-overrides-summary" value="{{ hmwbActions.hmwbImplications.editValue }}" class="govuk-button govuk-button--secondary govuk-!-display-block" data-module="govuk-button">{{ hmwbActions.hmwbImplications.addLabel }}</button>
+{% endif %}
 {% if effectiveOverrides.hmwbImplications.source == 'global' %}
 <p class="govuk-body">Applied from <a class="govuk-link" href="{{ hmwbContent.hmwbImplicationsSourceUrl }}">{{ effectiveOverrides.hmwbImplications.sourceEntity.name }}</a> on {{ effectiveOverrides.hmwbImplications.date }}.</p>
 {% endif %}
 {% for override in globalOverrideSummaries %}
   {% if override.type == 'hmwbImplications' %}
     <p class="govuk-body">{{ override.displayValue }} — applied to {{ override.appliedCount }} of {{ override.totalCount }} descendants{% if override.keptCount %}; {{ override.keptCount }} existing overrides kept{% endif %}.</p>
+    <button type="submit" name="manual-overrides-summary" value="editGlobalPolicy:{{ override.id }}" class="govuk-button govuk-button--secondary" data-module="govuk-button">Edit implications</button>
+    <button type="submit" name="manual-overrides-summary" value="removeGlobal:{{ override.id }}" class="govuk-button govuk-button--secondary" data-module="govuk-button">Remove implications</button>
     <details class="govuk-details">
       <summary class="govuk-details__summary"><span class="govuk-details__summary-text">Descendants included in this implications override ({{ override.totalCount }})</span></summary>
       <div class="govuk-details__text">
@@ -755,7 +779,12 @@
   </tbody>
 </table>
 {% endif %}
-<button type="submit" name="manual-overrides-summary" value="{{ hmwbActions.hmwbUniqueContent.value }}" class="govuk-button govuk-button--secondary govuk-!-display-block" data-module="govuk-button">{% if hmwbActions.hmwbUniqueContent.hasValue %}Remove unique content{% else %}Add unique content{% endif %}</button>
+{% if hmwbActions.hmwbUniqueContent.hasValue %}
+<button type="submit" name="manual-overrides-summary" value="{{ hmwbActions.hmwbUniqueContent.editValue }}" class="govuk-button govuk-button--secondary govuk-!-display-block" data-module="govuk-button">Edit unique content</button>
+<button type="submit" name="manual-overrides-summary" value="{{ hmwbActions.hmwbUniqueContent.removeValue }}" class="govuk-button govuk-button--secondary govuk-!-display-block" data-module="govuk-button">Remove unique content</button>
+{% else %}
+<button type="submit" name="manual-overrides-summary" value="{{ hmwbActions.hmwbUniqueContent.editValue }}" class="govuk-button govuk-button--secondary govuk-!-display-block" data-module="govuk-button">Add unique content</button>
+{% endif %}
 {% if effectiveOverrides.hmwbUniqueContent.source == 'global' %}
 <p class="govuk-body">Applied from <a class="govuk-link" href="{{ hmwbContent.hmwbUniqueContentSourceUrl }}">{{ effectiveOverrides.hmwbUniqueContent.sourceEntity.name }}</a> on {{ effectiveOverrides.hmwbUniqueContent.date }}.</p>
 {% endif %}
@@ -800,6 +829,7 @@
             {% endif %}
             User: {{ entry.email or 'Not recorded' }}
             {% if entry.notes or entry.teamNotes %}<br>{% if entryType == 'hmwbUniqueContent' or entryType == 'uniqueContent' %}Unique content notes{% else %}Implication notes{% endif %}: {{ entry.notes or entry.teamNotes }}{% endif %}
+            {% if entry.action == 'edited' and entry.previousDisplayValue %}<br>Previous content: {{ entry.previousDisplayValue }}{% endif %}
             {% if entry.displayValue or entry.content or entry.serviceInformation %}<br>{% if entryType == 'hmwbUniqueContent' or entryType == 'uniqueContent' %}Unique content{% else %}Implications{% endif %}: {{ entry.displayValue or entry.content or entry.serviceInformation }}{% endif %}
           </li>
         {% endfor %}

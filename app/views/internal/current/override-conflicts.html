@@ -1,6 +1,6 @@
 {% extends "layouts/main.html" %}
 
-{% block pageTitle %}Review existing overrides – {{ serviceName }}{% endblock %}
+{% block pageTitle %}Review existing {% if isImplication %}implications{% else %}overrides{% endif %} – {{ serviceName }}{% endblock %}
 
 {% block containerStart %}
   {{ govukBackLink({
@@ -21,11 +21,11 @@
         </div>
       {% endif %}
 
-      <h1 class="govuk-heading-l">Some descendants already have an override</h1>
-      <p class="govuk-body">Review the existing values before applying the {{ overrideLabel | lower }} override from {{ pending.source.name }}.</p>
+      <h1 class="govuk-heading-l">Some descendants already have an {% if isImplication %}implication{% else %}override{% endif %}</h1>
+      <p class="govuk-body">Review the existing values before applying the {{ overrideLabel | lower }}{% if not isImplication %} override{% endif %} from {{ pending.source.name }}.</p>
 
       <table class="govuk-table">
-        <caption class="govuk-table__caption govuk-table__caption--m">Existing overrides</caption>
+        <caption class="govuk-table__caption govuk-table__caption--m">Existing {% if isImplication %}implications{% else %}overrides{% endif %}</caption>
         <thead class="govuk-table__head">
           <tr class="govuk-table__row">
             <th scope="col" class="govuk-table__header">Area</th>
@@ -47,18 +47,24 @@
       <form method="post" action="/internal/current/override-conflicts">
         <div class="govuk-form-group{% if error %} govuk-form-group--error{% endif %}">
           <fieldset class="govuk-fieldset" aria-describedby="conflict-hint{% if error %} conflict-error{% endif %}">
-            <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">How do you want to handle these overrides?</legend>
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">How do you want to handle these {% if isImplication %}implications{% else %}overrides{% endif %}?</legend>
             <div class="govuk-hint" id="conflict-hint">You can use the same choice for every conflict or choose separately.</div>
             {% if error %}<p class="govuk-error-message" id="conflict-error"><span class="govuk-visually-hidden">Error:</span> {{ error }}</p>{% endif %}
             <div class="govuk-radios" data-module="govuk-radios">
               <div class="govuk-radios__item">
                 <input class="govuk-radios__input" id="conflict-replace-all" name="conflictStrategy" type="radio" value="replaceAll">
-                <label class="govuk-label govuk-radios__label" for="conflict-replace-all">Replace all existing overrides with the new value</label>
+                <label class="govuk-label govuk-radios__label" for="conflict-replace-all">Replace all existing {% if isImplication %}implications{% else %}overrides{% endif %} with the new value</label>
               </div>
               <div class="govuk-radios__item">
                 <input class="govuk-radios__input" id="conflict-keep-all" name="conflictStrategy" type="radio" value="keepAll">
-                <label class="govuk-label govuk-radios__label" for="conflict-keep-all">Keep all existing overrides in place</label>
+                <label class="govuk-label govuk-radios__label" for="conflict-keep-all">Keep all existing {% if isImplication %}implications{% else %}overrides{% endif %} in place</label>
               </div>
+              {% if pending.type in ['hmwbImplications', 'crtImplications', 'idbImplications', 'ldeImplications', 'thamesBespokeStrategyImplications', 'greenLinePolicyImplications'] %}
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" id="conflict-stack-all" name="conflictStrategy" type="radio" value="stackAll">
+                  <label class="govuk-label govuk-radios__label" for="conflict-stack-all">Keep existing implications and add the new implications</label>
+                </div>
+              {% endif %}
               <div class="govuk-radios__item">
                 <input class="govuk-radios__input" id="conflict-individual" name="conflictStrategy" type="radio" value="individual" data-aria-controls="individual-conflicts">
                 <label class="govuk-label govuk-radios__label" for="conflict-individual">Choose for each descendant</label>
@@ -67,16 +73,22 @@
                 {% for conflict in conflicts %}
                   <fieldset class="govuk-fieldset govuk-!-margin-bottom-5">
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">{{ conflict.name }} — existing value: {{ conflict.displayValue }}</legend>
-                    {% if conflict.missingChoice %}<p class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Choose whether to replace or keep this override.</p>{% endif %}
+                    {% if conflict.missingChoice %}<p class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Choose whether to replace or keep this {% if isImplication %}implication{% else %}override{% endif %}.</p>{% endif %}
                     <div class="govuk-radios">
                       <div class="govuk-radios__item">
                         <input class="govuk-radios__input" id="conflict-{{ loop.index0 }}-replace" name="conflict-{{ loop.index0 }}" type="radio" value="replace">
-                        <label class="govuk-label govuk-radios__label" for="conflict-{{ loop.index0 }}-replace">Replace this override</label>
+                        <label class="govuk-label govuk-radios__label" for="conflict-{{ loop.index0 }}-replace">Replace this {% if isImplication %}implication{% else %}override{% endif %}</label>
                       </div>
                       <div class="govuk-radios__item">
                         <input class="govuk-radios__input" id="conflict-{{ loop.index0 }}-keep" name="conflict-{{ loop.index0 }}" type="radio" value="keep">
-                        <label class="govuk-label govuk-radios__label" for="conflict-{{ loop.index0 }}-keep">Keep this override</label>
+                        <label class="govuk-label govuk-radios__label" for="conflict-{{ loop.index0 }}-keep">Keep this {% if isImplication %}implication{% else %}override{% endif %}</label>
                       </div>
+                      {% if pending.type in ['hmwbImplications', 'crtImplications', 'idbImplications', 'ldeImplications', 'thamesBespokeStrategyImplications', 'greenLinePolicyImplications'] %}
+                        <div class="govuk-radios__item">
+                          <input class="govuk-radios__input" id="conflict-{{ loop.index0 }}-stack" name="conflict-{{ loop.index0 }}" type="radio" value="stack">
+                          <label class="govuk-label govuk-radios__label" for="conflict-{{ loop.index0 }}-stack">Keep these implications and add the new ones</label>
+                        </div>
+                      {% endif %}
                     </div>
                   </fieldset>
                 {% endfor %}
@@ -84,7 +96,11 @@
             </div>
           </fieldset>
         </div>
-        {{ govukButton({ text: "Apply override" }) }}
+        {% if isImplication %}
+          {{ govukButton({ text: "Apply implication" }) }}
+        {% else %}
+          {{ govukButton({ text: "Apply override" }) }}
+        {% endif %}
         <a class="govuk-link" href="/internal/current/cancel-override">Cancel</a>
       </form>
     </div>
