@@ -89,6 +89,24 @@ const setSelectedExternalWaterBodyOverrides = (data, waterType, index) => {
   )
 }
 
+const localPolicyImplicationKeys = [
+  'hmwbServiceInformation',
+  'crtImplications',
+  'idbImplications',
+  'ldeImplications',
+  'thamesBespokeStrategyImplications',
+  'greenLinePolicyImplications'
+]
+const getLocalPolicyImplicationItems = data => localPolicyImplicationKeys
+  .flatMap(key => {
+    const values = Array.isArray(data[key]) ? data[key] : [data[key]]
+    return values
+      .flatMap(value => String(value || '').split(/\r?\n/))
+      .map(value => value.trim())
+      .filter(Boolean)
+      .slice(0, 10)
+  })
+
 // /////// Helper Functions /////////
 /**
  * Calculates the distance between two points (Haversine formula)
@@ -1154,7 +1172,9 @@ router.get(folder + 'detailed-results', function (request, response) {
     ? request.query.sid ?? data.sid
     : request.query.gid ?? data.gid
   setSelectedExternalWaterBodyOverrides(data, waterType, Number(index))
-	response.render(folder + 'detailed-results')
+  response.render(folder + 'detailed-results', {
+    localPolicyImplicationItems: getLocalPolicyImplicationItems(data)
+  })
 })
 
 router.get(folder + 'technical-info.html', function (request, response) {

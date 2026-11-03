@@ -12,6 +12,7 @@
 {% endblock %}
 
 {% block content %}
+  {% from "internal/current/_local-policy-inputs.html" import localPolicyInputs %}
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
@@ -19,17 +20,11 @@
 
       <form class="form" action="update-hmwb" method="post">
 
-        <div class="govuk-form-group">
-          <h1 class="govuk-label-wrapper">
-            <label class="govuk-label govuk-label--l" for="more-detail">
-              Edit the HMWB information
-            </label>
-          </h1>
-          <div id="more-detail-hint" class="govuk-hint">
-            Explain clearly to the end user what water availability and/or licence implications there will be for them
-          </div>
-          <textarea class="govuk-textarea" id="more-detail" name="moreDetail" rows="5" aria-describedby="more-detail-hint">{{ data.hmwbServiceInformation }}</textarea>
+        <h1 class="govuk-heading-l">Edit the HMWB information</h1>
+        <div id="more-detail-hint" class="govuk-hint">
+          Explain clearly to the end user what water availability and/or licence implications there will be for them
         </div>
+        {{ localPolicyInputs('more-detail', 'moreDetail', contentItems, 'more-detail-hint') }}
 
         <div class="govuk-form-group">
           <label class="govuk-label" for="team-notes">Team notes</label>

@@ -7,14 +7,12 @@
 {% endblock %}
 
 {% block content %}
+  {% from "internal/current/_local-policy-inputs.html" import localPolicyInputs %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       <form class="form" action="/internal/current/update-policy/idbImplications" method="post">
         <h1 class="govuk-heading-l">Edit IDB implications</h1>
-        <div class="govuk-form-group">
-          <label class="govuk-label" for="policy-content">Implications</label>
-          <textarea class="govuk-textarea" id="policy-content" name="content" rows="5">{{ data.idbImplications }}</textarea>
-        </div>
+        {{ localPolicyInputs('idb-implications', 'content', data.idbImplicationsItems) }}
         <div class="govuk-form-group">
           <label class="govuk-label" for="policy-notes">Implication notes</label>
           <textarea class="govuk-textarea" id="policy-notes" name="notes" rows="5">{{ data.idbImplicationNotes }}</textarea>

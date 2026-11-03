@@ -10,16 +10,23 @@
 {% endblock %}
 
 {% block content %}
+  {% from "internal/current/_local-policy-inputs.html" import localPolicyInputs %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       <form class="form" action="/internal/current/{{ policyConfig.route }}" method="post">
-        <div class="govuk-form-group">
-          <h1 class="govuk-label-wrapper">
-            <label class="govuk-label govuk-label--l" for="policy-content">{{ policyConfig.heading }}</label>
-          </h1>
+        {% if policyConfig.isImplications %}
+          <h1 class="govuk-heading-l">{{ policyConfig.heading }}</h1>
           <div class="govuk-hint" id="policy-content-hint">{{ policyConfig.hint }}</div>
-          <textarea class="govuk-textarea" id="policy-content" name="{{ policyConfig.contentField }}" rows="5" aria-describedby="policy-content-hint">{{ content }}</textarea>
-        </div>
+          {{ localPolicyInputs('policy-content', policyConfig.contentField, contentItems, 'policy-content-hint') }}
+        {% else %}
+          <div class="govuk-form-group">
+            <h1 class="govuk-label-wrapper">
+              <label class="govuk-label govuk-label--l" for="policy-content">{{ policyConfig.heading }}</label>
+            </h1>
+            <div class="govuk-hint" id="policy-content-hint">{{ policyConfig.hint }}</div>
+            <textarea class="govuk-textarea" id="policy-content" name="{{ policyConfig.contentField }}" rows="5" aria-describedby="policy-content-hint">{{ content }}</textarea>
+          </div>
+        {% endif %}
         <div class="govuk-form-group">
           <label class="govuk-label" for="policy-notes">{{ policyConfig.notesLabel }}</label>
           <textarea class="govuk-textarea" id="policy-notes" name="{{ policyConfig.notesField }}" rows="5">{{ notes }}</textarea>

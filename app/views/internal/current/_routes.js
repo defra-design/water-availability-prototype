@@ -58,6 +58,22 @@ const localPolicyTypes = [
   ...hmwbOverrideTypes,
   ...policyContentTypes
 ]
+const localPolicyImplicationKeys = [
+  'hmwbServiceInformation',
+  'crtImplications',
+  'idbImplications',
+  'ldeImplications',
+  'thamesBespokeStrategyImplications',
+  'greenLinePolicyImplications'
+]
+const getPolicyInputItems = value => {
+  const values = Array.isArray(value) ? value : [value]
+  return values
+    .flatMap(item => String(item || '').split(/\r?\n/))
+    .map(item => item.trim())
+    .filter(Boolean)
+    .slice(0, 10)
+}
 const localPolicyFields = {
   hmwbImplications: {
     title: 'HMWB implications',
@@ -69,6 +85,7 @@ const localPolicyFields = {
     savedKey: 'hmwbServiceInformationSaved',
     route: 'update-hmwb',
     contentField: 'moreDetail',
+    isImplications: true,
     notesField: 'teamNotes'
   },
   hmwbUniqueContent: {
@@ -99,6 +116,7 @@ Object.entries(policyFamilies).forEach(([policy, family]) => {
     heading: `Edit ${prefix} implications`,
     hint: `Explain clearly to the end user what implications apply to this ${family.name}.`,
     contentField: 'content',
+    isImplications: true,
     notesField: 'notes'
   }
   overrideTypes[`${policy}Implications`] = `${prefix} implications`
@@ -123,6 +141,11 @@ Object.entries(policyFamilies).forEach(([policy, family]) => {
 router.use((request, response, next) => {
  const requestPath = request.baseUrl + request.path
  if (requestPath.startsWith(folder)) {
+  localPolicyImplicationKeys.forEach(key => {
+   const items = getPolicyInputItems(request.session.data[key])
+   request.session.data[`${key}Items`] = items
+   response.locals.data[`${key}Items`] = items
+ })
   response.locals.internalCurrent = true
   response.locals.internalStartPage = requestPath === folder + 'start'
   response.locals.internalSignedInEmail = request.session.data.email || ''
@@ -1611,6 +1634,11 @@ router.post(folder + 'update-ap', function (request, response) {
 
 const saveLocalPolicyContent = (request, response, type, value, notes) => {
   const data = request.session.data
+  if (Array.isArray(value)) {
+    value = getPolicyInputItems(value).join('\n')
+  } else {
+    value = String(value || '')
+  }
   const currentEntity = data.currentOverrideEntity || getCurrentEntity(data)
   const date = getCurrentDate()
   const inheritedOverride = getEffectiveOverride(data, type, currentEntity)
@@ -1681,12 +1709,19 @@ router.get(folder + 'update-policy/:type', (request, response) => {
   response.render(folder + 'update-policy-content', {
     policyConfig: config,
     content: request.session.data[config.contentKey] || '',
+    contentItems: config.isImplications ? getPolicyInputItems(request.session.data[config.contentKey]) : [],
     notes: request.session.data[config.notesKey] || ''
   })
 })
 
+router.get(folder + 'update-hmwb', (request, response) => {
+  response.render(folder + 'update-hmwb', {
+    contentItems: getPolicyInputItems(request.session.data.hmwbServiceInformation)
+  })
+})
+
 router.post(folder + 'update-hmwb', function (request, response) {
-  saveLocalPolicyContent(request, response, 'hmwbImplications', request.body.moreDetail || '', request.body.teamNotes || '')
+  saveLocalPolicyContent(request, response, 'hmwbImplications', request.body.moreDetail || [], request.body.teamNotes || '')
 })
 
 router.post(folder + 'update-hmwb-unique-content', function (request, response) {
@@ -1700,7 +1735,7 @@ policyContentTypes.forEach(type => {
       request,
       response,
       type,
-      request.body[config.contentField] || '',
+      request.body[config.contentField] || [],
       request.body[config.notesField] || ''
     )
   })

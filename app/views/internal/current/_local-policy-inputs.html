@@ -1,0 +1,24 @@
+{% macro localPolicyInputs(id, fieldName, contentItems, hintId) %}
+  <div data-repeating-inputs data-max-items="10">
+    <div data-repeating-inputs-list>
+      {% if contentItems and contentItems.length %}
+        {% for item in contentItems %}
+          <div class="govuk-form-group" data-repeating-input>
+            <label class="govuk-label" for="{{ id }}-{{ loop.index }}">Implication</label>
+            <input class="govuk-input" id="{{ id }}-{{ loop.index }}" name="{{ fieldName }}[]" type="text" value="{{ item }}"{% if hintId %} aria-describedby="{{ hintId }}"{% endif %}>
+            {% if not loop.first %}
+              <button class="govuk-button govuk-button--secondary" type="button" data-remove-item aria-label="Remove implication {{ loop.index }}">Remove</button>
+            {% endif %}
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="govuk-form-group" data-repeating-input>
+          <label class="govuk-label" for="{{ id }}-1">Implication</label>
+          <input class="govuk-input" id="{{ id }}-1" name="{{ fieldName }}[]" type="text"{% if hintId %} aria-describedby="{{ hintId }}"{% endif %}>
+        </div>
+      {% endif %}
+    </div>
+    <button class="govuk-button govuk-button--secondary" type="button" data-add-another>Add another</button>
+    <div class="govuk-hint">You can add up to 10 implications.</div>
+  </div>
+{% endmacro %}

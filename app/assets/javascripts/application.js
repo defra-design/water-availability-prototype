@@ -1,5 +1,65 @@
 window.GOVUKPrototypeKit.documentReady(() => {
 
+ document.querySelectorAll('[data-repeating-inputs]').forEach((container) => {
+ const list = container.querySelector('[data-repeating-inputs-list]')
+ const addButton = container.querySelector('[data-add-another]')
+ const maxItems = Number(container.dataset.maxItems) || 10
+ const firstInput = list.querySelector('input')
+ const idPrefix = firstInput.id.replace(/-\d+$/, '')
+ let itemCount = list.children.length
+ let nextItemNumber = itemCount
+
+ const updateAddButton = () => {
+ addButton.disabled = itemCount >= maxItems
+ }
+
+ addButton.addEventListener('click', () => {
+ if (itemCount >= maxItems) {
+ return
+ }
+
+ itemCount += 1
+ nextItemNumber += 1
+ const item = document.createElement('div')
+ item.className = 'govuk-form-group'
+ item.dataset.repeatingInput = ''
+
+ const label = document.createElement('label')
+ label.className = 'govuk-label'
+ label.htmlFor = `${idPrefix}-${nextItemNumber}`
+ label.textContent = 'Implication'
+
+ const input = document.createElement('input')
+ input.className = 'govuk-input'
+ input.id = `${idPrefix}-${nextItemNumber}`
+ input.name = firstInput.name
+ input.type = 'text'
+
+ const removeButton = document.createElement('button')
+ removeButton.className = 'govuk-button govuk-button--secondary'
+ removeButton.type = 'button'
+ removeButton.dataset.removeItem = ''
+ removeButton.setAttribute('aria-label', `Remove implication ${nextItemNumber}`)
+ removeButton.textContent = 'Remove'
+
+ item.append(label, input, removeButton)
+ list.append(item)
+ updateAddButton()
+ })
+
+ list.addEventListener('click', (event) => {
+ const removeButton = event.target.closest('[data-remove-item]')
+ if (!removeButton) {
+ return
+ }
+
+ removeButton.closest('[data-repeating-input]').remove()
+ itemCount -= 1
+ updateAddButton()
+ })
+
+ updateAddButton()
+ })
 
  const container = document.querySelector('#water-search-container')
 
