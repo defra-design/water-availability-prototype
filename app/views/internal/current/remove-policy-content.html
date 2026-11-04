@@ -23,6 +23,9 @@
 
       <h1 class="govuk-heading-l">Remove {{ policyConfig.actionLabel }}</h1>
       <p class="govuk-body">Choose the {{ 'implications' if policyConfig.isImplications else 'unique content' }} to remove, or remove all of it.</p>
+      {% if policyConfig.isImplications %}
+        <p class="govuk-body">Only implications set at this level are listed. Inherited implications will not be changed.</p>
+      {% endif %}
 
       <form method="post" action="/internal/current/remove-policy-content/{{ policyType }}">
         <div class="govuk-form-group{% if error %} govuk-form-group--error{% endif %}">
@@ -32,18 +35,18 @@
             {% if error %}<p class="govuk-error-message" id="remove-policy-error"><span class="govuk-visually-hidden">Error:</span> {{ error }}</p>{% endif %}
             <div class="govuk-radios govuk-!-margin-bottom-4" data-module="govuk-radios">
               <div class="govuk-radios__item">
-                <input class="govuk-radios__input" id="remove-selected" name="removeScope" type="radio" value="selected" checked>
+                <input class="govuk-radios__input" id="remove-selected" name="removeScope" type="radio" value="selected"{% if removeScope != 'all' %} checked{% endif %}>
                 <label class="govuk-label govuk-radios__label" for="remove-selected">Remove selected items</label>
               </div>
               <div class="govuk-radios__item">
-                <input class="govuk-radios__input" id="remove-all" name="removeScope" type="radio" value="all">
+                <input class="govuk-radios__input" id="remove-all" name="removeScope" type="radio" value="all"{% if removeScope == 'all' %} checked{% endif %}>
                 <label class="govuk-label govuk-radios__label" for="remove-all">Remove all items</label>
               </div>
             </div>
             <div class="govuk-checkboxes">
               {% for item in items %}
                 <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input" id="policy-item-{{ item.index }}" name="selectedItems[]" type="checkbox" value="{{ item.index }}">
+                  <input class="govuk-checkboxes__input" id="policy-item-{{ item.index }}" name="selectedItems[]" type="checkbox" value="{{ item.index }}"{% if item.selected %} checked{% endif %}>
                   <label class="govuk-label govuk-checkboxes__label" for="policy-item-{{ item.index }}">{{ item.value }}</label>
                 </div>
               {% endfor %}

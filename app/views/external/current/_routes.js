@@ -6,6 +6,19 @@ const router = govukPrototypeKit.requests.setupRouter()
 const axios = require('axios');
 const proj4 = require('proj4');
 
+const getStackedImplicationLines = value => {
+  const seen = new Set()
+  return (Array.isArray(value) ? value : [value])
+    .flatMap(item => String(item || '').split(/\r?\n/))
+    .map(item => item.trim())
+    .filter(item => {
+      if (!item || seen.has(item)) {
+        return false
+      }
+      seen.add(item)
+      return true
+    })
+}
 
 const OSGB_PROJ = '+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +towgs84=446.448,-125.157,542.06,0.15,0.247,0.842,-20.489 +units=m +no_defs';
 
@@ -39,7 +52,7 @@ const getExternalWaterBodyOverride = (data, type, waterBody) => {
   if (global) {
     return {
       value: global.target.stackedValues
-        ? global.target.stackedValues.join('\n')
+        ? getStackedImplicationLines(global.target.stackedValues).join('\n')
         : global.record.value,
       date: global.record.date,
       notes: global.record.notes,

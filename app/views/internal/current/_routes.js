@@ -73,6 +73,16 @@ const getPolicyImplicationLines = value => {
     .map(item => item.trim())
     .filter(Boolean)
 }
+const getStackedPolicyImplicationLines = (...values) => {
+  const seen = new Set()
+  return values.flatMap(getPolicyImplicationLines).filter(line => {
+    if (seen.has(line)) {
+      return false
+    }
+    seen.add(line)
+    return true
+  })
+}
 const getPolicyInputItems = value => {
   return getPolicyImplicationLines(value)
     .slice(0, 10)
@@ -85,6 +95,10 @@ const getPolicyContentItems = (type, value) => {
   const content = String(value || '').trim()
   return content ? [content] : []
 }
+const getRemovablePolicyValue = (type, effective) =>
+  isLocalPolicyImplication(type)
+    ? effective.source === 'local' ? getLocallyOwnedPolicyValue(effective) : ''
+    : effective.source === 'none' ? '' : effective.value
 const localPolicyFields = {
   hmwbImplications: {
     title: 'HMWB implications',
@@ -466,7 +480,15 @@ const getEntityKey = entity => `${entity.type}:${entity.id || entity.name}`
 const getCurrentEntity = data => {
   const type = data.selectedType
   if (type === 'waterbody') {
-    return { type, id: data.waterBodyId, name: data.waterBodyName }
+    return {
+      type,
+      id: data.waterBodyId,
+      name: data.waterBodyName,
+      operationalCatchmentId: data.operationalCatchmentId,
+      operationalCatchment: data.operationalCatchment,
+      managementCatchmentId: data.managementCatchmentId,
+      managementCatchment: data.managementCatchment
+    }
   }
   if (type === 'operationalCatchment') {
     return {
@@ -717,20 +739,94 @@ const getGlobalForEntity = (data, type, entity) => {
 
 const getEffectiveOverride = (data, type, entity) => {
   const local = getLocalOverrides(data)[getEntityKey(entity)]
-  const inherited = getGlobalForEntity(data, type, entity)
+  let inherited = getGlobalForEntity(data, type, entity)
+  const localOverride = local && local[type]
+  if (entity.type === 'operationalCatchment' &&
+    isLocalPolicyImplication(type) &&
+    localOverride?.stackInherited &&
+    !inherited &&
+    localOverride.inheritedSourceRecordId) {
+    const sourceRecord = getGlobalOverrides(data).find(record =>
+      record.id === localOverride.inheritedSourceRecordId &&
+      record.type === type
+    )
+    const sourceTarget = sourceRecord?.targets.find(target =>
+      target.key === getEntityKey(entity) &&
+      target.status === 'superseded' &&
+      target.supersededBy
+    )
+    const supersedingRecord = sourceTarget && getGlobalOverrides(data).find(record =>
+      record.id === sourceTarget.supersededBy &&
+      record.type === type &&
+      record.source.type === 'operationalCatchment' &&
+      getEntityKey(record.source) === getEntityKey(entity)
+    )
+    if (sourceTarget && supersedingRecord) {
+      sourceTarget.applied = true
+      sourceTarget.status = 'applied'
+      delete sourceTarget.supersededBy
+      inherited = { record: sourceRecord, target: sourceTarget }
+    }
+  }
+  const inheritedValue = inherited
+    ? inherited.target.stackedValues
+      ? getStackedPolicyImplicationLines(inherited.target.stackedValues).join('\n')
+      : inherited.record.value
+    : ''
+  if (entity.type === 'operationalCatchment' &&
+    isLocalPolicyImplication(type) &&
+    local?.[type] &&
+    !local[type].stackInherited &&
+    inherited) {
+    const inheritedLines = getPolicyImplicationLines(inheritedValue)
+    const localLines = getPolicyImplicationLines(local[type].value)
+    const sourceKey = getEntityKey(entity)
+    const previousOperationalApplication = getGlobalOverrides(data)
+      .filter(record =>
+        record.type === type &&
+        getEntityKey(record.source) === sourceKey &&
+        record.targets.some(target =>
+          target.applied || target.status === 'stacked' || target.status === 'kept'
+        )
+      )
+      .sort((first, second) => Number(second.createdAt || 0) - Number(first.createdAt || 0))
+      .find(record => {
+        const sourceLines = getPolicyImplicationLines(record.value)
+        const expectedLines = [...inheritedLines, ...sourceLines]
+        return expectedLines.length === localLines.length &&
+          expectedLines.every((line, index) => line === localLines[index])
+      })
+    if (previousOperationalApplication) {
+      local[type].value = previousOperationalApplication.value
+      local[type].stackInherited = true
+      local[type].inheritedSourceRecordId = inherited.record.id
+    }
+  }
   const hasLocal = local && local[type] && local[type].value !== 'No override set'
   const localIsNewer = hasLocal &&
-    (!inherited || Number(local[type].createdAt || 0) >= Number(inherited.record.createdAt || 0))
+    (local[type].stackInherited && isLocalPolicyImplication(type) ||
+      !inherited ||
+      Number(local[type].createdAt || 0) >= Number(inherited.record.createdAt || 0))
 
   if (localIsNewer) {
-    return { ...local[type], source: 'local', sourceEntity: entity }
+    const stackInherited = isLocalPolicyImplication(type) && local[type].stackInherited
+    return {
+      ...local[type],
+      value: stackInherited
+        ? getStackedPolicyImplicationLines(inheritedValue, local[type].value).join('\n')
+        : local[type].value,
+      localValue: local[type].value,
+      inheritedValue: stackInherited ? inheritedValue : '',
+      inheritedSourceRecordId: stackInherited ? inherited?.record.id : undefined,
+      inheritedSourceEntity: stackInherited ? inherited?.record.source : undefined,
+      source: 'local',
+      sourceEntity: entity
+    }
   }
 
   if (inherited) {
     return {
-      value: inherited.target.stackedValues
-        ? inherited.target.stackedValues.join('\n')
-        : inherited.record.value,
+      value: inheritedValue,
       date: inherited.record.date,
       notes: inherited.record.notes,
       source: 'global',
@@ -743,9 +839,79 @@ const getEffectiveOverride = (data, type, entity) => {
   return { value: 'N/A', date: 'N/A', notes: '', source: 'none' }
 }
 
+const getInheritedPolicySources = (data, type, entity) => {
+  const parents = entity.type === 'waterbody'
+    ? [
+        {
+          type: 'operationalCatchment',
+          id: entity.operationalCatchmentId,
+          name: entity.operationalCatchment
+        },
+        {
+          type: 'managementCatchment',
+          id: entity.managementCatchmentId,
+          name: entity.managementCatchment
+        }
+      ]
+    : entity.type === 'operationalCatchment'
+      ? [{
+          type: 'managementCatchment',
+          id: entity.managementCatchmentId,
+          name: entity.managementCatchment
+        }]
+      : []
+  const currentKey = getEntityKey(entity)
+  const sourcesByKey = new Map()
+
+  parents
+    .filter(parent => parent.id || parent.name)
+    .forEach(parent => {
+      const parentKey = getEntityKey(parent)
+      const records = getGlobalOverrides(data)
+        .filter(record =>
+          record.type === type &&
+          getEntityKey(record.source) === parentKey
+        )
+        .filter(record => record.targets.some(target =>
+          target.key === currentKey &&
+          target.applied &&
+          (target.status === 'applied' || target.status === 'stacked')
+        ))
+        .sort((first, second) =>
+          Number(second.createdAt || 0) - Number(first.createdAt || 0)
+        )
+      const record = records[0]
+      if (record) {
+        sourcesByKey.set(parentKey, {
+          sourceEntity: record.source,
+          sourceUrl: makeSummaryUrl(record.source),
+          date: record.date
+        })
+        return
+      }
+
+      const localOverride = getLocalOverrides(data)[parentKey]?.[type]
+      if (localOverride && getPolicyImplicationLines(localOverride.value).length) {
+        sourcesByKey.set(parentKey, {
+          sourceEntity: parent,
+          sourceUrl: makeSummaryUrl(parent),
+          date: localOverride.date
+        })
+      }
+    })
+
+  return Array.from(sourcesByKey.values())
+}
+
+const getLocallyOwnedPolicyValue = effective =>
+  effective.localValue === undefined ? effective.value : effective.localValue
+
 const isGlobalOverrideEffective = (data, record, target) => {
   const effective = getEffectiveOverride(data, record.type, target)
-  return effective.source === 'global' && effective.sourceRecordId === record.id
+  return (effective.source === 'global' && effective.sourceRecordId === record.id) ||
+    (effective.source === 'local' &&
+      effective.stackInherited &&
+      effective.inheritedSourceRecordId === record.id)
 }
 
 const getGlobalTargetStatus = (data, record, target) => {
@@ -868,6 +1034,18 @@ const updateGlobalPolicyContent = (data, record, value, notes) => {
   record.notes = notes
   record.date = date
   record.action = 'edited'
+  if (record.source.type === 'operationalCatchment') {
+    const sourceKey = getEntityKey(record.source)
+    const localOverrides = getLocalOverrides(data)
+    localOverrides[sourceKey] = localOverrides[sourceKey] || {}
+    const localOverride = localOverrides[sourceKey][record.type]
+    if (localOverride) {
+      localOverride.value = normalizedValue
+      localOverride.notes = notes
+      localOverride.date = date
+      localOverride.createdAt = createdAt
+    }
+  }
   record.targets.forEach(target => {
     if (target.status === 'stacked') {
       target.stackedValues = [
@@ -876,6 +1054,38 @@ const updateGlobalPolicyContent = (data, record, value, notes) => {
       ]
     }
   })
+  if (record.source.type === 'managementCatchment') {
+    const operationalRecords = getGlobalOverrides(data).filter(candidate =>
+      candidate !== record &&
+      candidate.type === record.type &&
+      candidate.source.type === 'operationalCatchment' &&
+      ((candidate.source.managementCatchmentId && record.source.id &&
+        String(candidate.source.managementCatchmentId) === String(record.source.id)) ||
+        candidate.source.managementCatchment === record.source.name)
+    )
+    record.targets
+      .filter(target => target.type === 'waterbody' && (target.applied || target.status === 'stacked'))
+      .forEach(parentTarget => {
+        const inheritedValue = parentTarget.stackedValues
+          ? parentTarget.stackedValues.join('\n')
+          : normalizedValue
+        operationalRecords.forEach(operationalRecord => {
+          operationalRecord.targets
+            .filter(target =>
+              target.key === parentTarget.key &&
+              target.applied &&
+              target.status === 'stacked'
+            )
+            .forEach(target => {
+              target.previousValue = inheritedValue
+              target.stackedValues = [
+                ...getPolicyImplicationLines(inheritedValue),
+                ...getPolicyImplicationLines(operationalRecord.value)
+              ]
+            })
+        })
+      })
+  }
   delete data.pendingGlobalPolicyEditId
 }
 
@@ -902,6 +1112,9 @@ const makeSummaryUrl = entity => {
 
 const saveGlobalOverride = (data, targets, replaceChoices) => {
   const pending = data.pendingOverride
+  const stackedInheritedRecordId = pending.stackInherited
+    ? pending.stackInheritedSourceRecordId || pending.inheritedSourceRecordId
+    : undefined
   const record = {
     id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
     type: pending.type,
@@ -927,7 +1140,7 @@ const saveGlobalOverride = (data, targets, replaceChoices) => {
         conflict &&
         (choice === 'stack' || choice === 'append')
       const stackedValues = stack
-        ? [...getPolicyImplicationLines(previousOverride.value), ...getPolicyImplicationLines(pending.value)]
+        ? getStackedPolicyImplicationLines(previousOverride.value, pending.value)
         : undefined
       return {
         ...target,
@@ -951,12 +1164,14 @@ const saveGlobalOverride = (data, targets, replaceChoices) => {
     const localOverrides = getLocalOverrides(data)
     localOverrides[sourceKey] = localOverrides[sourceKey] || {}
     localOverrides[sourceKey][pending.type] = {
-      value: pending.stackInherited && isLocalPolicyImplication(pending.type)
-        ? [...getPolicyImplicationLines(previousOverride.value), ...getPolicyImplicationLines(pending.value)].join('\n')
-        : pending.value,
+      value: pending.value,
       notes: pending.notes,
       date: pending.date,
-      createdAt: Date.now()
+      createdAt: Date.now(),
+      stackInherited: Boolean(pending.stackInherited && isLocalPolicyImplication(pending.type)),
+      inheritedSourceRecordId: pending.stackInherited
+        ? pending.stackInheritedSourceRecordId || pending.inheritedSourceRecordId
+        : undefined
     }
     addLocalOverrideHistory(
       data,
@@ -979,6 +1194,9 @@ const saveGlobalOverride = (data, targets, replaceChoices) => {
     getGlobalOverrides(data)
       .filter(previous => previous.type === pending.type)
       .forEach(previous => {
+        if (previous.id === stackedInheritedRecordId) {
+          return
+        }
         const previousTarget = previous.targets.find(target =>
           target.key === sourceKey && (target.applied || target.status === 'kept')
         )
@@ -1306,7 +1524,8 @@ router.get(folder + 'manual-overrides-summary', async function (request, respons
       : effectiveOverrides.hmwbImplications.value,
     hmwbImplicationItems: effectiveOverrides.hmwbImplications.source === 'none'
       ? []
-      : getPolicyInputItems(effectiveOverrides.hmwbImplications.value),
+      : getPolicyInputItems(getLocallyOwnedPolicyValue(effectiveOverrides.hmwbImplications)),
+    hmwbInheritedImplicationItems: getPolicyInputItems(effectiveOverrides.hmwbImplications.inheritedValue),
     hmwbImplicationNotes: effectiveOverrides.hmwbImplications.source === 'none'
       ? ''
       : effectiveOverrides.hmwbImplications.notes,
@@ -1319,6 +1538,11 @@ router.get(folder + 'manual-overrides-summary', async function (request, respons
     hmwbImplicationsSourceUrl: effectiveOverrides.hmwbImplications.source === 'global'
       ? makeSummaryUrl(effectiveOverrides.hmwbImplications.sourceEntity)
       : '',
+    hmwbImplicationsInheritedSources: getInheritedPolicySources(
+      request.session.data,
+      'hmwbImplications',
+      currentEntity
+    ),
     hmwbUniqueContentSourceUrl: effectiveOverrides.hmwbUniqueContent.source === 'global'
       ? makeSummaryUrl(effectiveOverrides.hmwbUniqueContent.sourceEntity)
       : ''
@@ -1334,13 +1558,19 @@ router.get(folder + 'manual-overrides-summary', async function (request, respons
     content[type] = {
       value: effective.source === 'none' ? '' : effective.value,
       items: localPolicyFields[type].isImplications && effective.source !== 'none'
-        ? getPolicyInputItems(effective.value)
+        ? getPolicyInputItems(getLocallyOwnedPolicyValue(effective))
+        : [],
+      inheritedItems: localPolicyFields[type].isImplications
+        ? getPolicyInputItems(effective.inheritedValue)
         : [],
       notes: effective.source === 'none' ? '' : effective.notes,
       source: effective.source,
       date: effective.date,
       sourceEntity: effective.sourceEntity,
-      sourceUrl: effective.source === 'global' ? makeSummaryUrl(effective.sourceEntity) : ''
+      sourceUrl: effective.source === 'global' ? makeSummaryUrl(effective.sourceEntity) : '',
+      inheritedSources: config.isImplications
+        ? getInheritedPolicySources(request.session.data, type, currentEntity)
+        : []
     }
     request.session.data[config.contentKey] = content[type].value
     request.session.data[config.notesKey] = content[type].notes
@@ -1423,6 +1653,30 @@ router.get(folder + 'manual-overrides-summary', async function (request, respons
       .filter(record => record.isAllWaterBodies)
     return overrides
   }, {})
+  const operationalImplicationWaterBodyTargets = localPolicyTypes.reduce((targets, type) => {
+    if (!localPolicyImplicationTypes.includes(type)) {
+      targets[type] = { waterBodies: [], totalCount: 0 }
+      return targets
+    }
+
+    const waterBodiesById = new Map()
+    operationalWaterBodyOverrideRecords[type].forEach(record => {
+      record.waterBodies.forEach(waterBody => {
+        const key = String(waterBody.id)
+        const current = waterBodiesById.get(key)
+        if (!current || Number(record.createdAt || 0) >= current.createdAt) {
+          waterBodiesById.set(key, {
+            ...waterBody,
+            createdAt: Number(record.createdAt || 0)
+          })
+        }
+      })
+    })
+    const waterBodies = Array.from(waterBodiesById.values())
+      .map(({ createdAt, ...waterBody }) => waterBody)
+    targets[type] = { waterBodies, totalCount: waterBodies.length }
+    return targets
+  }, {})
   const operationalOverrideRecordIds = new Set(
     ['updateCol', 'updateHof', ...localPolicyTypes]
       .flatMap(type => selectedWaterBodyOverrides[type].concat(allWaterBodyOverrides[type]))
@@ -1450,6 +1704,11 @@ router.get(folder + 'manual-overrides-summary', async function (request, respons
         date: record.date,
         notes: record.notes || ''
       })))
+  const entityLevelLabel = selectedType === 'waterbody'
+    ? 'water body'
+    : selectedType === 'operationalCatchment'
+      ? 'operational catchment'
+      : 'management catchment'
   const localPolicyActions = localPolicyTypes.reduce((actions, type) => {
     const effective = effectiveOverrides[type]
     const isImplication = localPolicyImplicationTypes.includes(type)
@@ -1457,9 +1716,16 @@ router.get(folder + 'manual-overrides-summary', async function (request, respons
     actions[type] = {
       hasValue: effective.source !== 'none' &&
         (!isImplication || effective.source === 'local') &&
-        Boolean(String(effective.value || '').trim()),
+        Boolean(String(isImplication
+          ? getLocallyOwnedPolicyValue(effective)
+          : effective.value || '').trim()),
       isInherited: isImplication && effective.source === 'global',
-      addLabel: effective.source === 'global' ? `Add local ${actionLabel}` : `Add ${actionLabel}`,
+      levelLabel: entityLevelLabel,
+      addLabel: effective.source === 'global'
+        ? `Add local ${entityLevelLabel} ${actionLabel}`
+        : `Add ${entityLevelLabel} ${actionLabel}`,
+      editLabel: `Edit ${entityLevelLabel} ${actionLabel}`,
+      removeLabel: `Remove ${entityLevelLabel} ${actionLabel}`,
       editValue: `updatePolicy:${type}`,
       removeValue: `removePolicyContent:${type}`
     }
@@ -1469,10 +1735,18 @@ router.get(folder + 'manual-overrides-summary', async function (request, respons
     const localHistory = (getOverrideHistory(request.session.data)[entityKey] || {})[type] || []
     const currentLocalOverride = getLocalOverrides(request.session.data)[entityKey] &&
       getLocalOverrides(request.session.data)[entityKey][type]
+    const currentLocalEditRecordedGlobally = currentLocalOverride &&
+      getGlobalOverrides(request.session.data).some(record =>
+        record.type === type &&
+        getEntityKey(record.source) === entityKey &&
+        (record.editHistory || []).some(edit =>
+          edit.value === currentLocalOverride.value && edit.date === currentLocalOverride.date
+        )
+      )
     const localHistoryWithCurrent = currentLocalOverride && currentLocalOverride.value && !localHistory.some(entry =>
       entry.value === currentLocalOverride.value &&
       entry.date === currentLocalOverride.date
-    )
+    ) && !currentLocalEditRecordedGlobally
       ? localHistory.concat({
           action: 'applied',
           value: currentLocalOverride.value,
@@ -1597,6 +1871,7 @@ router.get(folder + 'manual-overrides-summary', async function (request, respons
     globalOverrideSummaries: catchmentLevelOverrideSummaries,
     selectedWaterBodyOverrides,
     allWaterBodyOverrides,
+    operationalImplicationWaterBodyTargets,
     inheritedOverrides,
     localPolicyActions,
     hmwbActions: localPolicyActions,
@@ -1800,6 +2075,9 @@ const saveLocalPolicyContent = (request, response, type, value, notes, { removed
     value = String(value || '')
   }
   const currentEntity = data.currentOverrideEntity || getCurrentEntity(data)
+  const entityKey = getEntityKey(currentEntity)
+  const localOverride = getLocalOverrides(data)[entityKey] &&
+    getLocalOverrides(data)[entityKey][type]
   const date = getCurrentDate()
   const inheritedOverride = getEffectiveOverride(data, type, currentEntity)
   const action = inheritedOverride.source === 'none' ? 'applied' : 'edited'
@@ -1832,6 +2110,8 @@ const saveLocalPolicyContent = (request, response, type, value, notes, { removed
         inheritedOverride.source === 'global'
         ? inheritedOverride.sourceRecordId
         : undefined,
+      stackInherited: Boolean(localOverride && localOverride.stackInherited),
+      stackInheritedSourceRecordId: localOverride?.inheritedSourceRecordId,
       canStackInherited: currentEntity.type === 'operationalCatchment' &&
         isLocalPolicyImplication(type) &&
         inheritedOverride.source === 'global'
@@ -1881,12 +2161,21 @@ const applyLocalOverride = (data, currentEntity, type, value, notes, date, { rem
   }
 }
 
-const renderRemovePolicyContent = (request, response, type, error, status = 200) => {
+const renderRemovePolicyContent = (
+  request,
+  response,
+  type,
+  error,
+  status = 200,
+  { selectedIndexes = [], removeScope = 'selected' } = {}
+) => {
   const config = localPolicyFields[type]
   const entity = request.session.data.currentOverrideEntity || getCurrentEntity(request.session.data)
   const effective = getEffectiveOverride(request.session.data, type, entity)
-  const items = getPolicyContentItems(type, effective.source === 'none' ? '' : effective.value)
-    .map((value, index) => ({ index, value }))
+  const ownedValue = getRemovablePolicyValue(type, effective)
+  const selected = new Set(selectedIndexes)
+  const items = getPolicyContentItems(type, ownedValue)
+    .map((value, index) => ({ index, value, selected: selected.has(index) }))
 
   if (!items.length) {
     return response.redirect(folder + 'manual-overrides-summary')
@@ -1896,6 +2185,8 @@ const renderRemovePolicyContent = (request, response, type, error, status = 200)
     policyConfig: config,
     policyType: type,
     items,
+    selectedIndexes,
+    removeScope,
     error
   })
 }
@@ -1917,33 +2208,54 @@ router.post(folder + 'remove-policy-content/:type', (request, response) => {
   const data = request.session.data
   const entity = data.currentOverrideEntity || getCurrentEntity(data)
   const effective = getEffectiveOverride(data, type, entity)
-  const items = getPolicyContentItems(type, effective.source === 'none' ? '' : effective.value)
+  const ownedValue = getRemovablePolicyValue(type, effective)
+  const items = getPolicyContentItems(type, ownedValue)
   if (!items.length) {
     return response.redirect(folder + 'manual-overrides-summary')
   }
 
   const removeAll = request.body.removeScope === 'all'
+  const removeScope = request.body.removeScope
   if (!removeAll && request.body.removeScope !== 'selected') {
     return renderRemovePolicyContent(
       request,
       response,
       type,
       'Choose whether to remove selected items or all items.',
-      400
+      400,
+      { removeScope }
     )
   }
 
-  const selectedIndexes = [].concat(request.body.selectedItems || []).map(Number)
-  if (!removeAll && (
-    !selectedIndexes.length ||
-    selectedIndexes.some(index => !Number.isInteger(index) || index < 0 || index >= items.length)
-  )) {
+  const rawSelectedItems = request.body.selectedItems ?? request.body['selectedItems[]'] ?? []
+  const submittedIndexes = [].concat(rawSelectedItems)
+    .filter(value => String(value).trim() !== '')
+  const selectedIndexes = submittedIndexes.map(Number)
+  const validSelectedIndexes = selectedIndexes.filter((index, position) =>
+    String(submittedIndexes[position]).trim() !== '' &&
+    Number.isInteger(index) &&
+    index >= 0 &&
+    index < items.length
+  )
+  const invalidSelection = validSelectedIndexes.length !== selectedIndexes.length
+  if (!removeAll && !selectedIndexes.length) {
     return renderRemovePolicyContent(
       request,
       response,
       type,
       'Select at least one item to remove.',
-      400
+      400,
+      { removeScope }
+    )
+  }
+  if (!removeAll && invalidSelection) {
+    return renderRemovePolicyContent(
+      request,
+      response,
+      type,
+      'The selected item could not be found. Review the list and select an item to remove.',
+      400,
+      { selectedIndexes: validSelectedIndexes, removeScope }
     )
   }
 
@@ -1952,6 +2264,66 @@ router.post(folder + 'remove-policy-content/:type', (request, response) => {
     : [...new Set(selectedIndexes)].map(index => items[index])
   const removedIndexes = new Set(removeAll ? items.map((item, index) => index) : selectedIndexes)
   const remainingItems = items.filter((item, index) => !removedIndexes.has(index))
+
+  if (effective.source === 'local' && isLocalPolicyImplication(type)) {
+    const entityKey = getEntityKey(entity)
+    const localOverrides = getLocalOverrides(data)
+    const localOverride = localOverrides[entityKey][type]
+    const removedValue = removedItems.map(item => item.value).join('\n')
+    const sourceApplication = entity.type === 'operationalCatchment'
+      ? getGlobalOverrides(data)
+        .filter(record =>
+          record.type === type &&
+          getEntityKey(record.source) === entityKey
+        )
+        .sort((first, second) => Number(second.createdAt || 0) - Number(first.createdAt || 0))
+        .find(record => record.targets.some(target => target.applied || target.status === 'kept'))
+      : null
+    if (sourceApplication && !remainingItems.length) {
+      data.pendingGlobalRemovalId = sourceApplication.id
+      return response.redirect(folder + 'remove-global')
+    }
+    if (sourceApplication && remainingItems.length) {
+      updateGlobalPolicyContent(
+        data,
+        sourceApplication,
+        remainingItems.map(item => item.value).join('\n'),
+        effective.notes || ''
+      )
+      addLocalOverrideHistory(
+        data,
+        entity,
+        type,
+        'removed',
+        { value: removedValue, notes: effective.notes || '' },
+        effective.value
+      )
+      return response.redirect(folder + 'manual-overrides-summary')
+    }
+    if (remainingItems.length) {
+      localOverride.value = remainingItems.map(item => item.value).join('\n')
+      localOverride.date = getCurrentDate()
+      localOverride.createdAt = Date.now()
+      addLocalOverrideHistory(data, entity, type, 'edited', localOverride, effective.value)
+    } else {
+      delete localOverrides[entityKey][type]
+    }
+    addLocalOverrideHistory(
+      data,
+      entity,
+      type,
+      'removed',
+      { value: removedValue, notes: effective.notes || '' },
+      effective.value
+    )
+    const config = localPolicyFields[type]
+    const currentOverride = getEffectiveOverride(data, type, entity)
+    const locallyOwnedValue = currentOverride.source === 'local' ? currentOverride.value : ''
+    data[config.contentKey] = locallyOwnedValue
+    data[config.notesKey] = currentOverride.source === 'local' ? currentOverride.notes : ''
+    data[config.savedKey] = Boolean(String(locallyOwnedValue).trim())
+    return response.redirect(folder + 'manual-overrides-summary')
+  }
 
   if (!remainingItems.length && effective.source === 'global' &&
     getEntityKey(effective.sourceEntity) === getEntityKey(entity)) {
@@ -1994,9 +2366,10 @@ router.post(folder + 'remove-policy-content/:type', (request, response) => {
 
   const config = localPolicyFields[type]
   const currentOverride = getEffectiveOverride(data, type, entity)
-  data[config.contentKey] = currentOverride.source === 'none' ? '' : currentOverride.value
-  data[config.notesKey] = currentOverride.source === 'none' ? '' : currentOverride.notes
-  data[config.savedKey] = Boolean(String(data[config.contentKey] || '').trim())
+  const locallyOwnedValue = currentOverride.source === 'local' ? currentOverride.value : ''
+  data[config.contentKey] = locallyOwnedValue
+  data[config.notesKey] = currentOverride.source === 'local' ? currentOverride.notes : ''
+  data[config.savedKey] = Boolean(String(locallyOwnedValue).trim())
   return response.redirect(folder + 'manual-overrides-summary')
 })
 
@@ -2014,7 +2387,7 @@ router.get(folder + 'update-policy/:type', (request, response) => {
   const content = pendingEdit
     ? pendingEdit.value
     : config.isImplications
-    ? effective.source === 'local' ? effective.value : ''
+    ? effective.source === 'local' ? getLocallyOwnedPolicyValue(effective) : ''
     : request.session.data[config.contentKey] || ''
   response.render(folder + 'update-policy-content', {
     policyConfig: config,
@@ -2040,7 +2413,7 @@ router.get(folder + 'update-hmwb', (request, response) => {
     contentItems: pendingEdit
       ? getPolicyInputItems(pendingEdit.value)
       : effective.source === 'local'
-        ? getPolicyInputItems(effective.value)
+        ? getPolicyInputItems(getLocallyOwnedPolicyValue(effective))
         : [],
     teamNotes: pendingEdit
       ? pendingEdit.notes || ''
@@ -2516,13 +2889,15 @@ router.post(folder + 'remove-global', (request, response) => {
         : 'Select whether to remove the override from all descendants or choose specific descendants.'
     })
   }
-  record.targets.forEach(target => {
-    if (target.applied || target.status === 'kept') {
-      target.applied = false
-      target.status = 'removed'
-      target.statusDate = getCurrentDate()
-      target.statusEmail = data.email || 'Not recorded'
-    }
+  const removedTargets = record.targets.filter(target =>
+    target.applied || target.status === 'kept'
+  )
+  removeInheritedImplicationsFromOperationalStacks(data, record, removedTargets)
+  removedTargets.forEach(target => {
+    target.applied = false
+    target.status = 'removed'
+    target.statusDate = getCurrentDate()
+    target.statusEmail = data.email || 'Not recorded'
   })
   removeSourcePolicyContent(data, record)
   delete data.pendingGlobalRemovalId
@@ -2545,6 +2920,78 @@ const removeSourcePolicyContent = (data, record) => {
   data[config.contentKey] = ''
   data[config.notesKey] = ''
   data[config.savedKey] = false
+}
+
+const removeLastPolicyImplicationSequence = (value, sequenceValue) => {
+  const lines = getPolicyImplicationLines(value)
+  const sequence = getPolicyImplicationLines(sequenceValue)
+  for (let start = lines.length - sequence.length; start >= 0; start -= 1) {
+    if (sequence.every((line, index) => lines[start + index] === line)) {
+      lines.splice(start, sequence.length)
+      break
+    }
+  }
+  return lines
+}
+
+const removeInheritedImplicationsFromOperationalStacks = (data, record, removedTargets) => {
+  if (record.source.type !== 'managementCatchment' ||
+    !isLocalPolicyImplication(record.type) ||
+    !getPolicyImplicationLines(record.value).length) {
+    return
+  }
+
+  const operationalIds = new Set(removedTargets.flatMap(target => {
+    if (target.type === 'operationalCatchment') {
+      return [String(target.id)]
+    }
+    return target.type === 'waterbody' && target.operationalCatchmentId
+      ? [String(target.operationalCatchmentId)]
+      : []
+  }))
+  if (!operationalIds.size) {
+    return
+  }
+
+  const operationalRecords = getGlobalOverrides(data)
+    .filter(candidate =>
+      candidate !== record &&
+      candidate.type === record.type &&
+      candidate.source.type === 'operationalCatchment' &&
+      operationalIds.has(String(candidate.source.id))
+    )
+  operationalRecords.forEach(operationalRecord => {
+      operationalRecord.targets
+        .filter(target => target.applied && target.status === 'stacked')
+        .forEach(target => {
+          const ownLines = getPolicyImplicationLines(operationalRecord.value)
+          const inheritedLines = target.stackedValues
+            ? ownLines.length
+              ? getPolicyImplicationLines(target.stackedValues).slice(0, -ownLines.length)
+              : getPolicyImplicationLines(target.previousValue)
+            : getPolicyImplicationLines(target.previousValue)
+          const updatedInheritedLines = removeLastPolicyImplicationSequence(
+            inheritedLines,
+            record.value
+          )
+          target.previousValue = updatedInheritedLines.join('\n')
+          target.stackedValues = [...updatedInheritedLines, ...ownLines]
+        })
+    })
+
+  const latestOperationalRecord = operationalRecords
+    .slice()
+    .sort((first, second) => (second.createdAt || 0) - (first.createdAt || 0))[0]
+  if (latestOperationalRecord) {
+    const sourceKey = getEntityKey(latestOperationalRecord.source)
+    const localOverrides = getLocalOverrides(data)
+    const localOverride = localOverrides[sourceKey] &&
+      localOverrides[sourceKey][record.type]
+    if (localOverride && localOverride.stackInherited) {
+      localOverride.value = latestOperationalRecord.value
+      localOverride.inheritedSourceRecordId = undefined
+    }
+  }
 }
 
 router.get(folder + 'cancel-global-removal', (request, response) => {
@@ -2605,17 +3052,19 @@ router.post(folder + 'remove-global-descendants', (request, response) => {
   const removableTargetType = record.source.type === 'managementCatchment'
     ? 'operationalCatchment'
     : 'waterbody'
-  record.targets.forEach(target => {
+  const removedTargets = record.targets.filter(target => {
     const selected = (target.type === removableTargetType && selectedIds.includes(String(target.id))) ||
       (record.source.type === 'managementCatchment' &&
         target.type === 'waterbody' &&
         selectedIds.includes(String(target.operationalCatchmentId)))
-    if (selected && (target.applied || target.status === 'kept')) {
-      target.applied = false
-      target.status = 'removed'
-      target.statusDate = getCurrentDate()
-      target.statusEmail = data.email || 'Not recorded'
-    }
+    return selected && (target.applied || target.status === 'kept')
+  })
+  removeInheritedImplicationsFromOperationalStacks(data, record, removedTargets)
+  removedTargets.forEach(target => {
+    target.applied = false
+    target.status = 'removed'
+    target.statusDate = getCurrentDate()
+    target.statusEmail = data.email || 'Not recorded'
   })
   removeSourcePolicyContent(data, record)
   delete data.pendingGlobalRemovalId

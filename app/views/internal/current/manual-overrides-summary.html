@@ -1,6 +1,6 @@
 {% extends "layouts/main.html" %}
 
-{% macro localPolicyPanel(type, config, content, action, effective, sourceSummaries, allTargets, selectedTargets) %}
+{% macro localPolicyPanel(type, config, content, action, effective, sourceSummaries, allTargets, selectedTargets, implicationTargets) %}
   <h3 class="govuk-heading-s">{{ config.title }}</h3>
   {% if effective.source != 'none' and content.value %}
     <table class="govuk-table">
@@ -14,6 +14,13 @@
         <tr class="govuk-table__row">
           <td class="govuk-table__cell">
             {% if config.isImplications %}
+              {% if content.inheritedItems.length %}
+                <p class="govuk-body govuk-!-font-weight-bold">Inherited implications</p>
+                <ul class="govuk-list govuk-list--bullet">
+                  {% for item in content.inheritedItems %}<li>{{ item }}</li>{% endfor %}
+                </ul>
+                {% if content.items.length %}<p class="govuk-body govuk-!-font-weight-bold">Implications set at this level</p>{% endif %}
+              {% endif %}
               <ul class="govuk-list govuk-list--bullet">
                 {% for item in content.items %}<li>{{ item }}</li>{% endfor %}
               </ul>
@@ -27,21 +34,25 @@
     </table>
   {% endif %}
   {% if action.hasValue %}
-    <button type="submit" name="manual-overrides-summary" value="{{ action.editValue }}" class="govuk-button govuk-button--secondary govuk-!-display-block" data-module="govuk-button">Edit {{ config.actionLabel }}</button>
-    <button type="submit" name="manual-overrides-summary" value="{{ action.removeValue }}" class="govuk-button govuk-button--secondary govuk-!-display-block" data-module="govuk-button">Remove {{ config.actionLabel }}</button>
+    <button type="submit" name="manual-overrides-summary" value="{{ action.editValue }}" class="govuk-button govuk-button--secondary govuk-!-display-block" data-module="govuk-button">{{ action.editLabel }}</button>
+    <button type="submit" name="manual-overrides-summary" value="{{ action.removeValue }}" class="govuk-button govuk-button--secondary govuk-!-display-block" data-module="govuk-button">{{ action.removeLabel }}</button>
   {% else %}
     <button type="submit" name="manual-overrides-summary" value="{{ action.editValue }}" class="govuk-button govuk-button--secondary govuk-!-display-block" data-module="govuk-button">{{ action.addLabel }}</button>
   {% endif %}
-  {% if effective.source == 'global' %}
+  {% if config.isImplications and content.inheritedSources.length %}
+    {% for source in content.inheritedSources %}
+      <p class="govuk-body">Applied from <a class="govuk-link" href="{{ source.sourceUrl }}">{{ source.sourceEntity.name }}</a> on {{ source.date }}.</p>
+    {% endfor %}
+  {% elif effective.source == 'global' %}
     <p class="govuk-body">Applied from <a class="govuk-link" href="{{ content.sourceUrl }}">{{ effective.sourceEntity.name }}</a> on {{ effective.date }}.</p>
   {% endif %}
   {% for override in sourceSummaries %}
     {% if override.type == type %}
       <p class="govuk-body">{{ override.displayValue }} — applied to {{ override.appliedCount }} of {{ override.totalCount }} descendants{% if override.keptCount %}; {{ override.keptCount }} existing values kept{% endif %}.</p>
       {% if config.isImplications %}
-        <button type="submit" name="manual-overrides-summary" value="editGlobalPolicy:{{ override.id }}" class="govuk-button govuk-button--secondary" data-module="govuk-button">Edit {{ config.actionLabel }}</button>
+        <button type="submit" name="manual-overrides-summary" value="editGlobalPolicy:{{ override.id }}" class="govuk-button govuk-button--secondary" data-module="govuk-button">{{ action.editLabel }}</button>
       {% endif %}
-      <button type="submit" name="manual-overrides-summary" value="removeGlobal:{{ override.id }}" class="govuk-button govuk-button--secondary" data-module="govuk-button">Remove {{ config.actionLabel }}</button>
+      <button type="submit" name="manual-overrides-summary" value="removeGlobal:{{ override.id }}" class="govuk-button govuk-button--secondary" data-module="govuk-button">{{ action.removeLabel }}</button>
       <details class="govuk-details">
         <summary class="govuk-details__summary"><span class="govuk-details__summary-text">Descendants included in this {{ config.title }} application ({{ override.totalCount }})</span></summary>
         <div class="govuk-details__text">
@@ -54,18 +65,27 @@
       </details>
     {% endif %}
   {% endfor %}
-  {% for override in allTargets %}
-    <details class="govuk-details">
-      <summary class="govuk-details__summary"><span class="govuk-details__summary-text">Water bodies included in this all-water-bodies {{ config.title }} application ({{ override.totalCount }})</span></summary>
-      <div class="govuk-details__text"><ul class="govuk-list govuk-list--bullet">{% for waterBody in override.waterBodies %}<li><a class="govuk-link" href="{{ waterBody.url }}">{{ waterBody.name }}</a> — {{ waterBody.status }}</li>{% endfor %}</ul></div>
-    </details>
-  {% endfor %}
-  {% for override in selectedTargets %}
-    <details class="govuk-details">
-      <summary class="govuk-details__summary"><span class="govuk-details__summary-text">Water bodies included in this selected-water-bodies {{ config.title }} application ({{ override.totalCount }})</span></summary>
-      <div class="govuk-details__text"><ul class="govuk-list govuk-list--bullet">{% for waterBody in override.waterBodies %}<li><a class="govuk-link" href="{{ waterBody.url }}">{{ waterBody.name }}</a> — {{ waterBody.status }}</li>{% endfor %}</ul></div>
-    </details>
-  {% endfor %}
+  {% if config.isImplications %}
+    {% if implicationTargets.totalCount %}
+      <details class="govuk-details">
+        <summary class="govuk-details__summary"><span class="govuk-details__summary-text">Water bodies included in these {{ action.levelLabel }} implications ({{ implicationTargets.totalCount }})</span></summary>
+        <div class="govuk-details__text"><ul class="govuk-list govuk-list--bullet">{% for waterBody in implicationTargets.waterBodies %}<li><a class="govuk-link" href="{{ waterBody.url }}">{{ waterBody.name }}</a> — {{ waterBody.status }}</li>{% endfor %}</ul></div>
+      </details>
+    {% endif %}
+  {% else %}
+    {% for override in allTargets %}
+      <details class="govuk-details">
+        <summary class="govuk-details__summary"><span class="govuk-details__summary-text">Water bodies included in this all-water-bodies {{ config.title }} application ({{ override.totalCount }})</span></summary>
+        <div class="govuk-details__text"><ul class="govuk-list govuk-list--bullet">{% for waterBody in override.waterBodies %}<li><a class="govuk-link" href="{{ waterBody.url }}">{{ waterBody.name }}</a> — {{ waterBody.status }}</li>{% endfor %}</ul></div>
+      </details>
+    {% endfor %}
+    {% for override in selectedTargets %}
+      <details class="govuk-details">
+        <summary class="govuk-details__summary"><span class="govuk-details__summary-text">Water bodies included in this selected-water-bodies {{ config.title }} application ({{ override.totalCount }})</span></summary>
+        <div class="govuk-details__text"><ul class="govuk-list govuk-list--bullet">{% for waterBody in override.waterBodies %}<li><a class="govuk-link" href="{{ waterBody.url }}">{{ waterBody.name }}</a> — {{ waterBody.status }}</li>{% endfor %}</ul></div>
+      </details>
+    {% endfor %}
+  {% endif %}
 {% endmacro %}
 
 {% macro localPolicyHistory(title, history, uniqueContentType, implicationConfig, uniqueContentConfig) %}
@@ -721,6 +741,13 @@
   <tbody class="govuk-table__body">
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">
+        {% if hmwbContent.hmwbInheritedImplicationItems.length %}
+          <p class="govuk-body govuk-!-font-weight-bold">Inherited implications</p>
+          <ul class="govuk-list govuk-list--bullet">
+            {% for item in hmwbContent.hmwbInheritedImplicationItems %}<li>{{ item }}</li>{% endfor %}
+          </ul>
+          {% if hmwbContent.hmwbImplicationItems.length %}<p class="govuk-body govuk-!-font-weight-bold">Implications set at this level</p>{% endif %}
+        {% endif %}
         <ul class="govuk-list govuk-list--bullet">
           {% for item in hmwbContent.hmwbImplicationItems %}<li>{{ item }}</li>{% endfor %}
         </ul>
@@ -731,19 +758,23 @@
 </table>
 {% endif %}
 {% if hmwbActions.hmwbImplications.hasValue %}
-<button type="submit" name="manual-overrides-summary" value="{{ hmwbActions.hmwbImplications.editValue }}" class="govuk-button govuk-button--secondary govuk-!-display-block" data-module="govuk-button">Edit implications</button>
-<button type="submit" name="manual-overrides-summary" value="{{ hmwbActions.hmwbImplications.removeValue }}" class="govuk-button govuk-button--secondary govuk-!-display-block" data-module="govuk-button">Remove implications</button>
+<button type="submit" name="manual-overrides-summary" value="{{ hmwbActions.hmwbImplications.editValue }}" class="govuk-button govuk-button--secondary govuk-!-display-block" data-module="govuk-button">{{ hmwbActions.hmwbImplications.editLabel }}</button>
+<button type="submit" name="manual-overrides-summary" value="{{ hmwbActions.hmwbImplications.removeValue }}" class="govuk-button govuk-button--secondary govuk-!-display-block" data-module="govuk-button">{{ hmwbActions.hmwbImplications.removeLabel }}</button>
 {% else %}
 <button type="submit" name="manual-overrides-summary" value="{{ hmwbActions.hmwbImplications.editValue }}" class="govuk-button govuk-button--secondary govuk-!-display-block" data-module="govuk-button">{{ hmwbActions.hmwbImplications.addLabel }}</button>
 {% endif %}
-{% if effectiveOverrides.hmwbImplications.source == 'global' %}
+{% if hmwbContent.hmwbImplicationsInheritedSources.length %}
+  {% for source in hmwbContent.hmwbImplicationsInheritedSources %}
+    <p class="govuk-body">Applied from <a class="govuk-link" href="{{ source.sourceUrl }}">{{ source.sourceEntity.name }}</a> on {{ source.date }}.</p>
+  {% endfor %}
+{% elif effectiveOverrides.hmwbImplications.source == 'global' %}
 <p class="govuk-body">Applied from <a class="govuk-link" href="{{ hmwbContent.hmwbImplicationsSourceUrl }}">{{ effectiveOverrides.hmwbImplications.sourceEntity.name }}</a> on {{ effectiveOverrides.hmwbImplications.date }}.</p>
 {% endif %}
 {% for override in globalOverrideSummaries %}
   {% if override.type == 'hmwbImplications' %}
     <p class="govuk-body">{{ override.displayValue }} — applied to {{ override.appliedCount }} of {{ override.totalCount }} descendants{% if override.keptCount %}; {{ override.keptCount }} existing overrides kept{% endif %}.</p>
-    <button type="submit" name="manual-overrides-summary" value="editGlobalPolicy:{{ override.id }}" class="govuk-button govuk-button--secondary" data-module="govuk-button">Edit implications</button>
-    <button type="submit" name="manual-overrides-summary" value="removeGlobal:{{ override.id }}" class="govuk-button govuk-button--secondary" data-module="govuk-button">Remove implications</button>
+    <button type="submit" name="manual-overrides-summary" value="editGlobalPolicy:{{ override.id }}" class="govuk-button govuk-button--secondary" data-module="govuk-button">{{ hmwbActions.hmwbImplications.editLabel }}</button>
+    <button type="submit" name="manual-overrides-summary" value="removeGlobal:{{ override.id }}" class="govuk-button govuk-button--secondary" data-module="govuk-button">{{ hmwbActions.hmwbImplications.removeLabel }}</button>
     <details class="govuk-details">
       <summary class="govuk-details__summary"><span class="govuk-details__summary-text">Descendants included in this implications override ({{ override.totalCount }})</span></summary>
       <div class="govuk-details__text">
@@ -756,12 +787,9 @@
     </details>
   {% endif %}
 {% endfor %}
-{% for override in allWaterBodyOverrides.hmwbImplications %}
-  <details class="govuk-details"><summary class="govuk-details__summary"><span class="govuk-details__summary-text">Water bodies included in this all-water-bodies implications override ({{ override.totalCount }})</span></summary><div class="govuk-details__text"><ul class="govuk-list govuk-list--bullet">{% for waterBody in override.waterBodies %}<li><a class="govuk-link" href="{{ waterBody.url }}">{{ waterBody.name }}</a> — {{ waterBody.status }}</li>{% endfor %}</ul></div></details>
-{% endfor %}
-{% for override in selectedWaterBodyOverrides.hmwbImplications %}
-  <details class="govuk-details"><summary class="govuk-details__summary"><span class="govuk-details__summary-text">Water bodies included in this selected-water-bodies implications override ({{ override.totalCount }})</span></summary><div class="govuk-details__text"><ul class="govuk-list govuk-list--bullet">{% for waterBody in override.waterBodies %}<li><a class="govuk-link" href="{{ waterBody.url }}">{{ waterBody.name }}</a> — {{ waterBody.status }}</li>{% endfor %}</ul></div></details>
-{% endfor %}
+{% if operationalImplicationWaterBodyTargets.hmwbImplications.totalCount %}
+  <details class="govuk-details"><summary class="govuk-details__summary"><span class="govuk-details__summary-text">Water bodies included in these {{ hmwbActions.hmwbImplications.levelLabel }} implications ({{ operationalImplicationWaterBodyTargets.hmwbImplications.totalCount }})</span></summary><div class="govuk-details__text"><ul class="govuk-list govuk-list--bullet">{% for waterBody in operationalImplicationWaterBodyTargets.hmwbImplications.waterBodies %}<li><a class="govuk-link" href="{{ waterBody.url }}">{{ waterBody.name }}</a> — {{ waterBody.status }}</li>{% endfor %}</ul></div></details>
+{% endif %}
 <h3 class="govuk-heading-s">HMWB unique content</h3>
 {% if effectiveOverrides.hmwbUniqueContent.source != 'none' and hmwbContent.hmwbUniqueContent %}
 <table class="govuk-table">
@@ -885,8 +913,8 @@
 <button type="submit" name="manual-overrides-summary" value="toggleWrgis:idb" class="govuk-button govuk-button--secondary" data-module="govuk-button">Switch on</button>
 {% endif %}
 {% if wrgisConfig.idb == 'yes' or wrgisStatus.idb.active %}
-{{ localPolicyPanel('idbImplications', localPolicyFields.idbImplications, policyContent.idbImplications, localPolicyActions.idbImplications, effectiveOverrides.idbImplications, globalOverrideSummaries, allWaterBodyOverrides.idbImplications, selectedWaterBodyOverrides.idbImplications) }}
-{{ localPolicyPanel('idbUniqueContent', localPolicyFields.idbUniqueContent, policyContent.idbUniqueContent, localPolicyActions.idbUniqueContent, effectiveOverrides.idbUniqueContent, globalOverrideSummaries, allWaterBodyOverrides.idbUniqueContent, selectedWaterBodyOverrides.idbUniqueContent) }}
+{{ localPolicyPanel('idbImplications', localPolicyFields.idbImplications, policyContent.idbImplications, localPolicyActions.idbImplications, effectiveOverrides.idbImplications, globalOverrideSummaries, allWaterBodyOverrides.idbImplications, selectedWaterBodyOverrides.idbImplications, operationalImplicationWaterBodyTargets.idbImplications) }}
+{{ localPolicyPanel('idbUniqueContent', localPolicyFields.idbUniqueContent, policyContent.idbUniqueContent, localPolicyActions.idbUniqueContent, effectiveOverrides.idbUniqueContent, globalOverrideSummaries, allWaterBodyOverrides.idbUniqueContent, selectedWaterBodyOverrides.idbUniqueContent, operationalImplicationWaterBodyTargets.idbUniqueContent) }}
 {{ localPolicyHistory('IDB', policyHistories.idb, 'idbUniqueContent', localPolicyFields.idbImplications, localPolicyFields.idbUniqueContent) }}
 {% endif %}
 
@@ -932,8 +960,8 @@
 <button type="submit" name="manual-overrides-summary" value="toggleWrgis:crt" class="govuk-button govuk-button--secondary" data-module="govuk-button">Switch on</button>
 {% endif %}
 {% if wrgisConfig.crt == 'yes' or wrgisStatus.crt.active %}
-{{ localPolicyPanel('crtImplications', localPolicyFields.crtImplications, policyContent.crtImplications, localPolicyActions.crtImplications, effectiveOverrides.crtImplications, globalOverrideSummaries, allWaterBodyOverrides.crtImplications, selectedWaterBodyOverrides.crtImplications) }}
-{{ localPolicyPanel('crtUniqueContent', localPolicyFields.crtUniqueContent, policyContent.crtUniqueContent, localPolicyActions.crtUniqueContent, effectiveOverrides.crtUniqueContent, globalOverrideSummaries, allWaterBodyOverrides.crtUniqueContent, selectedWaterBodyOverrides.crtUniqueContent) }}
+{{ localPolicyPanel('crtImplications', localPolicyFields.crtImplications, policyContent.crtImplications, localPolicyActions.crtImplications, effectiveOverrides.crtImplications, globalOverrideSummaries, allWaterBodyOverrides.crtImplications, selectedWaterBodyOverrides.crtImplications, operationalImplicationWaterBodyTargets.crtImplications) }}
+{{ localPolicyPanel('crtUniqueContent', localPolicyFields.crtUniqueContent, policyContent.crtUniqueContent, localPolicyActions.crtUniqueContent, effectiveOverrides.crtUniqueContent, globalOverrideSummaries, allWaterBodyOverrides.crtUniqueContent, selectedWaterBodyOverrides.crtUniqueContent, operationalImplicationWaterBodyTargets.crtUniqueContent) }}
 {{ localPolicyHistory('CRT', policyHistories.crt, 'crtUniqueContent', localPolicyFields.crtImplications, localPolicyFields.crtUniqueContent) }}
 {% endif %}
 
@@ -979,8 +1007,8 @@
 <button type="submit" name="manual-overrides-summary" value="toggleWrgis:lde" class="govuk-button govuk-button--secondary" data-module="govuk-button">Switch on</button>
 {% endif %}
 {% if wrgisConfig.lde == 'yes' or wrgisStatus.lde.active %}
-{{ localPolicyPanel('ldeImplications', localPolicyFields.ldeImplications, policyContent.ldeImplications, localPolicyActions.ldeImplications, effectiveOverrides.ldeImplications, globalOverrideSummaries, allWaterBodyOverrides.ldeImplications, selectedWaterBodyOverrides.ldeImplications) }}
-{{ localPolicyPanel('ldeUniqueContent', localPolicyFields.ldeUniqueContent, policyContent.ldeUniqueContent, localPolicyActions.ldeUniqueContent, effectiveOverrides.ldeUniqueContent, globalOverrideSummaries, allWaterBodyOverrides.ldeUniqueContent, selectedWaterBodyOverrides.ldeUniqueContent) }}
+{{ localPolicyPanel('ldeImplications', localPolicyFields.ldeImplications, policyContent.ldeImplications, localPolicyActions.ldeImplications, effectiveOverrides.ldeImplications, globalOverrideSummaries, allWaterBodyOverrides.ldeImplications, selectedWaterBodyOverrides.ldeImplications, operationalImplicationWaterBodyTargets.ldeImplications) }}
+{{ localPolicyPanel('ldeUniqueContent', localPolicyFields.ldeUniqueContent, policyContent.ldeUniqueContent, localPolicyActions.ldeUniqueContent, effectiveOverrides.ldeUniqueContent, globalOverrideSummaries, allWaterBodyOverrides.ldeUniqueContent, selectedWaterBodyOverrides.ldeUniqueContent, operationalImplicationWaterBodyTargets.ldeUniqueContent) }}
 {{ localPolicyHistory('LDE', policyHistories.lde, 'ldeUniqueContent', localPolicyFields.ldeImplications, localPolicyFields.ldeUniqueContent) }}
 {% endif %}
 
@@ -1014,8 +1042,8 @@
 <button type="submit" name="manual-overrides-summary" value="toggleWrgis:thamesBespokeStrategy" class="govuk-button govuk-button--secondary" data-module="govuk-button">Switch on</button>
 {% endif %}
 {% if wrgisConfig.thamesBespokeStrategy == 'yes' or wrgisStatus.thamesBespokeStrategy.active %}
-{{ localPolicyPanel('thamesBespokeStrategyImplications', localPolicyFields.thamesBespokeStrategyImplications, policyContent.thamesBespokeStrategyImplications, localPolicyActions.thamesBespokeStrategyImplications, effectiveOverrides.thamesBespokeStrategyImplications, globalOverrideSummaries, allWaterBodyOverrides.thamesBespokeStrategyImplications, selectedWaterBodyOverrides.thamesBespokeStrategyImplications) }}
-{{ localPolicyPanel('thamesBespokeStrategyUniqueContent', localPolicyFields.thamesBespokeStrategyUniqueContent, policyContent.thamesBespokeStrategyUniqueContent, localPolicyActions.thamesBespokeStrategyUniqueContent, effectiveOverrides.thamesBespokeStrategyUniqueContent, globalOverrideSummaries, allWaterBodyOverrides.thamesBespokeStrategyUniqueContent, selectedWaterBodyOverrides.thamesBespokeStrategyUniqueContent) }}
+{{ localPolicyPanel('thamesBespokeStrategyImplications', localPolicyFields.thamesBespokeStrategyImplications, policyContent.thamesBespokeStrategyImplications, localPolicyActions.thamesBespokeStrategyImplications, effectiveOverrides.thamesBespokeStrategyImplications, globalOverrideSummaries, allWaterBodyOverrides.thamesBespokeStrategyImplications, selectedWaterBodyOverrides.thamesBespokeStrategyImplications, operationalImplicationWaterBodyTargets.thamesBespokeStrategyImplications) }}
+{{ localPolicyPanel('thamesBespokeStrategyUniqueContent', localPolicyFields.thamesBespokeStrategyUniqueContent, policyContent.thamesBespokeStrategyUniqueContent, localPolicyActions.thamesBespokeStrategyUniqueContent, effectiveOverrides.thamesBespokeStrategyUniqueContent, globalOverrideSummaries, allWaterBodyOverrides.thamesBespokeStrategyUniqueContent, selectedWaterBodyOverrides.thamesBespokeStrategyUniqueContent, operationalImplicationWaterBodyTargets.thamesBespokeStrategyUniqueContent) }}
 {{ localPolicyHistory('Thames bespoke strategy', policyHistories.thamesBespokeStrategy, 'thamesBespokeStrategyUniqueContent', localPolicyFields.thamesBespokeStrategyImplications, localPolicyFields.thamesBespokeStrategyUniqueContent) }}
 {% endif %}
     </div>
@@ -1048,8 +1076,8 @@
 <button type="submit" name="manual-overrides-summary" value="toggleWrgis:greenLinePolicy" class="govuk-button govuk-button--secondary" data-module="govuk-button">Switch on</button>
 {% endif %}
 {% if wrgisConfig.greenLinePolicy == 'yes' or wrgisStatus.greenLinePolicy.active %}
-{{ localPolicyPanel('greenLinePolicyImplications', localPolicyFields.greenLinePolicyImplications, policyContent.greenLinePolicyImplications, localPolicyActions.greenLinePolicyImplications, effectiveOverrides.greenLinePolicyImplications, globalOverrideSummaries, allWaterBodyOverrides.greenLinePolicyImplications, selectedWaterBodyOverrides.greenLinePolicyImplications) }}
-{{ localPolicyPanel('greenLinePolicyUniqueContent', localPolicyFields.greenLinePolicyUniqueContent, policyContent.greenLinePolicyUniqueContent, localPolicyActions.greenLinePolicyUniqueContent, effectiveOverrides.greenLinePolicyUniqueContent, globalOverrideSummaries, allWaterBodyOverrides.greenLinePolicyUniqueContent, selectedWaterBodyOverrides.greenLinePolicyUniqueContent) }}
+{{ localPolicyPanel('greenLinePolicyImplications', localPolicyFields.greenLinePolicyImplications, policyContent.greenLinePolicyImplications, localPolicyActions.greenLinePolicyImplications, effectiveOverrides.greenLinePolicyImplications, globalOverrideSummaries, allWaterBodyOverrides.greenLinePolicyImplications, selectedWaterBodyOverrides.greenLinePolicyImplications, operationalImplicationWaterBodyTargets.greenLinePolicyImplications) }}
+{{ localPolicyPanel('greenLinePolicyUniqueContent', localPolicyFields.greenLinePolicyUniqueContent, policyContent.greenLinePolicyUniqueContent, localPolicyActions.greenLinePolicyUniqueContent, effectiveOverrides.greenLinePolicyUniqueContent, globalOverrideSummaries, allWaterBodyOverrides.greenLinePolicyUniqueContent, selectedWaterBodyOverrides.greenLinePolicyUniqueContent, operationalImplicationWaterBodyTargets.greenLinePolicyUniqueContent) }}
 {{ localPolicyHistory('Green-line Policy', policyHistories.greenLinePolicy, 'greenLinePolicyUniqueContent', localPolicyFields.greenLinePolicyImplications, localPolicyFields.greenLinePolicyUniqueContent) }}
 {% endif %}
 
