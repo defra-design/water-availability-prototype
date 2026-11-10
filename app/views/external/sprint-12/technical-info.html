@@ -47,7 +47,7 @@
       </td>
     </tr>
    
-   {% if data.sid == "1" %}
+   <!--{% if data.sid == "1" %}
    {% else %}
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Distance of AP from your {% if (data['location'] == "gridRef") %}
@@ -60,7 +60,7 @@
       <td class="govuk-table__cell">1.2 km</td>
     </tr>
 
-    {% endif %}
+    {% endif %}-->
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Approximate Hands-off Flow (HoF)</th>
       <td class="govuk-table__cell">{% if data.externalWaterBodyOverrides.updateHof %}
@@ -72,7 +72,7 @@
       {% endif %}</td>
     </tr>
 
-   {% if data.sid == "1" %}
+  <!-- {% if data.sid == "1" %}
    {% else %}
      <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">HoF band</th>
@@ -87,7 +87,7 @@
       <td class="govuk-table__cell">123 Megalitres</td>
     </tr>
 
-    {% endif %}
+    {% endif %}-->
      <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Common end date</th>
       <td class="govuk-table__cell">March 2027</td>
@@ -202,10 +202,10 @@
 </details>
 
  
-{% if data.sid == "1" %}
+ <!--{% if data.sid == "1" %}
 
 {% else %}
-    <h2 id="local-policies" class="govuk-heading-m">Local policy affecting water availability in {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %}</h2>
+   <h2 id="local-policies" class="govuk-heading-m">Local policy affecting water availability in {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %}</h2>
 
 <p class="govuk-body">The Environment Agency has local policies which may affect water availability in your area. These policies are designed to protect the environment and ensure that water is used sustainably.</p>
 
@@ -270,7 +270,7 @@
 
 <p class="govuk-body">We recommend you consult the Somerset Drainage Board Consortium before applying for a licence to see how this could affect you.</p>
 
-  {% endif %} 
+  {% endif %} -->
 
 <h2 class="govuk-heading-m">Where next?</h2>
 
