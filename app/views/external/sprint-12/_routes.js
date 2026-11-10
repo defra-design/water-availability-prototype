@@ -540,8 +540,8 @@ const waterUses = {
     label: 'domestic purposes (commercial and non-commercial)',
     type: 'consumptive'
   },
-  'Drinking water (portable water) - direct and storage': {
-    label: 'drinking water (portable water) - direct and storage',
+  'Drinking water (potable water) - direct and storage': {
+    label: 'drinking water (potable water) - direct and storage',
     type: 'consumptive'
   },
   'Dust suppression': {
