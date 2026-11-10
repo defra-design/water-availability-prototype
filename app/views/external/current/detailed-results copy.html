@@ -20,17 +20,17 @@
 
       <div class="govuk-body">
 
-      <h1 class="govuk-heading-l"><span style="color: red;">Detailed availability information for {{data.riverCatchmentData[data.sid].properties.WB_NAME}}</span></h1>
+      <h1 class="govuk-heading-l">Detailed availability information for {{data.riverCatchmentData[data.sid].properties.WB_NAME}}</h1>
 
   <p class='govuk-body-s'><i>This page was last updated: 25 October 2025</i></p>
  
 
 
     {% if (data.noWater == "false") %}
-      <p class="govuk-body"><span style="color: red;">This page shows restrictions, local policies and previous availability information for surface water abstraction from the water body <b>{{data.riverCatchmentData[data.sid].properties.WB_NAME}}</b>.</span></p>
+      <p class="govuk-body">This page shows restrictions, local policies and previous availability information for surface water abstraction from the water body <b>{{data.riverCatchmentData[data.sid].properties.WB_NAME}}</b>.</p>
 
    {% else %}
-           <p class="govuk-body"><span style="color: red;">This page shows availability information for surface water abstraction from the water body <b>{{data.riverCatchmentData[data.sid].properties.WB_NAME}}</b>.</span></p>
+           <p class="govuk-body">This page shows availability information for surface water abstraction from the water body <b>{{data.riverCatchmentData[data.sid].properties.WB_NAME}}</b>.</p>
     {% endif %}
 
        {% if data['water-use-label'] == "impounding (non-hydropower)" %}  
@@ -43,7 +43,7 @@
   {% if (data.noWater == "true" or data['water-use-type'] == "Consumptive") %}
   {% else %}
   
-<h2 id="restrictions-and-conditions" class="govuk-heading-m"><span style="color: red;">Restrictions and conditions in {{data.riverCatchmentData[data.sid].properties.WB_NAME}}</span></h2>
+<h2 id="restrictions-and-conditions" class="govuk-heading-m">Restrictions and conditions in {{data.riverCatchmentData[data.sid].properties.WB_NAME}}</h2>
 
 
 <p class="govuk-body">The Environment Agency monitor how much water is 
@@ -203,7 +203,7 @@
       </div>
 </details>
 
-<h2 id="local-policies" class="govuk-heading-m"><span style="color: red;">Local policies affecting water availability in {{data.riverCatchmentData[data.sid].properties.WB_NAME}}</span></h2>
+<h2 id="local-policies" class="govuk-heading-m">Local policies affecting water availability in {{data.riverCatchmentData[data.sid].properties.WB_NAME}}</h2>
 
 <p class="govuk-body">The Environment Agency has local policies which may affect water availability in your area. These policies are designed to protect the environment and ensure that water is used sustainably.</p>
 
@@ -535,7 +535,7 @@
 
 <!----------------------------------------------------------------->
 
-<h2 id="previous-years" class="govuk-heading-m"><span style="color: red;">Water availability for previous years in {{data.riverCatchmentData[data.sid].properties.WB_NAME}}</span></h2>
+<h2 id="previous-years" class="govuk-heading-m">Water availability for previous years in {{data.riverCatchmentData[data.sid].properties.WB_NAME}}</h2>
 
 <p class="govuk-body">Water availability is usually better in winter 
   because rainfall and water flow rates tend to be higher. In summer, water 

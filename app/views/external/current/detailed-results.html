@@ -20,17 +20,17 @@
 
       <div class="govuk-body">
 
-      <h1 class="govuk-heading-l"><span style="color: red;">Water availability overview for {{data.riverCatchmentData[data.sid].properties.WB_NAME}}</span></h1>
+      <h1 class="govuk-heading-l">Water availability overview for {{data.riverCatchmentData[data.sid].properties.WB_NAME}}</h1>
 
   <p class='govuk-body-s'><i>This page was last updated: 25 October 2025</i></p>
  
 
 
     {% if (data.noWater == "false") %}
-      <p class="govuk-body"><span style="color: red;">This page gives detailed information about licence availability and restrictions for surface water abstraction from the water body {{data.riverCatchmentData[data.sid].properties.WB_NAME}}.</span></p>
+      <p class="govuk-body">This page gives detailed information about licence availability and restrictions for surface water abstraction from the water body {{data.riverCatchmentData[data.sid].properties.WB_NAME}}.</p>
 
    {% else %}
-           <p class="govuk-body"><span style="color: red;">This page shows availability information for surface water abstraction from the water body {{data.riverCatchmentData[data.sid].properties.WB_NAME}}.</span></p>
+           <p class="govuk-body">This page shows availability information for surface water abstraction from the water body {{data.riverCatchmentData[data.sid].properties.WB_NAME}}.</p>
     {% endif %}
 
  
@@ -45,7 +45,7 @@
   {% if (data.noWater == "true" or data['water-use-type'] == "Consumptive") %}
   {% else %}
   
-<h2 id="restrictions-and-conditions" class="govuk-heading-m"><span style="color: red;">Water availability and restrictions in {{data.riverCatchmentData[data.sid].properties.WB_NAME}}</span></h2>
+<h2 id="restrictions-and-conditions" class="govuk-heading-m">Water availability and restrictions in {{data.riverCatchmentData[data.sid].properties.WB_NAME}}</h2>
 
 
 <p class="govuk-body">Some areas are more water stressed than others. We 
@@ -53,11 +53,11 @@
 
    {% if data.sid == "1" %} 
 <div class="govuk-inset-text">
- <span style="color: red;">{{data.riverCatchmentData[data.sid].properties.WB_NAME}} is a <b>mildly</b> water stressed area.</span>
+ {{data.riverCatchmentData[data.sid].properties.WB_NAME}} is a <b>mildly</b> water stressed area.
 </div>
 {% else %}
 <div class="govuk-inset-text">
- <span style="color: red;">{{data.riverCatchmentData[data.sid].properties.WB_NAME}} is a <b>moderately</b> water stressed area.</span>
+ {{data.riverCatchmentData[data.sid].properties.WB_NAME}} is a <b>moderately</b> water stressed area.
 </div>
 {% endif %}
 
@@ -74,7 +74,7 @@
   
  
 
-<h2 id="local-policies" class="govuk-heading-m"><span style="color: red;">Local abstraction policies in {{data.riverCatchmentData[data.sid].properties.WB_NAME}}</span></h2>
+<h2 id="local-policies" class="govuk-heading-m">Local abstraction policies in {{data.riverCatchmentData[data.sid].properties.WB_NAME}}</h2>
 
         <ul class="govuk-list govuk-list--bullet">
           {% if localPolicyImplicationItems and localPolicyImplicationItems.length %}
@@ -127,7 +127,7 @@
 
 <!----------------------------------------------------------------->
 
-<h2 id="previous-years" class="govuk-heading-m"><span style="color: red;">Water availability for previous years in {{data.riverCatchmentData[data.sid].properties.WB_NAME}}</span></h2>
+<h2 id="previous-years" class="govuk-heading-m">Water availability for previous years in {{data.riverCatchmentData[data.sid].properties.WB_NAME}}</h2>
 
    {% if data.sid == "1" %}
 <p class="govuk-body">The information below summarises how often 
@@ -261,7 +261,7 @@
 
 
 
- <h2 class="govuk-heading-m"><span style="color: red;">Other options for sourcing water</span></h2>
+ <h2 class="govuk-heading-m">Other options for sourcing water</h2>
 <p class="govuk-body">You may still be able to obtain water in a different way to licenced abstraction. Find out your alternative options.</p>
 
 
