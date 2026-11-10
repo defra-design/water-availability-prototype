@@ -1,0 +1,60 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}Remove {{ policyConfig.actionLabel }} – {{ serviceName }}{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {% if error %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1">
+          <h2 class="govuk-error-summary__title" id="error-summary-title">There is a problem</h2>
+          <div class="govuk-error-summary__body">
+            <p class="govuk-body">{{ error }}</p>
+          </div>
+        </div>
+      {% endif %}
+
+      <h1 class="govuk-heading-l">Remove {{ policyConfig.actionLabel }}</h1>
+      <p class="govuk-body">Choose the {{ 'implications' if policyConfig.isImplications else 'unique content' }} to remove, or remove all of it.</p>
+      {% if policyConfig.isImplications %}
+        <p class="govuk-body">Only implications set at this level are listed. Inherited implications will not be changed.</p>
+      {% endif %}
+
+      <form method="post" action="/internal/sprint-12/remove-policy-content/{{ policyType }}">
+        <div class="govuk-form-group{% if error %} govuk-form-group--error{% endif %}">
+          <fieldset class="govuk-fieldset" aria-describedby="remove-policy-hint{% if error %} remove-policy-error{% endif %}">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">What do you want to remove?</legend>
+            <div class="govuk-hint" id="remove-policy-hint">Choose one or more items to remove, or remove all items.</div>
+            {% if error %}<p class="govuk-error-message" id="remove-policy-error"><span class="govuk-visually-hidden">Error:</span> {{ error }}</p>{% endif %}
+            <div class="govuk-radios govuk-!-margin-bottom-4" data-module="govuk-radios">
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="remove-selected" name="removeScope" type="radio" value="selected"{% if removeScope != 'all' %} checked{% endif %}>
+                <label class="govuk-label govuk-radios__label" for="remove-selected">Remove selected items</label>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="remove-all" name="removeScope" type="radio" value="all"{% if removeScope == 'all' %} checked{% endif %}>
+                <label class="govuk-label govuk-radios__label" for="remove-all">Remove all items</label>
+              </div>
+            </div>
+            <div class="govuk-checkboxes">
+              {% for item in items %}
+                <div class="govuk-checkboxes__item">
+                  <input class="govuk-checkboxes__input" id="policy-item-{{ item.index }}" name="selectedItems[]" type="checkbox" value="{{ item.index }}"{% if item.selected %} checked{% endif %}>
+                  <label class="govuk-label govuk-checkboxes__label" for="policy-item-{{ item.index }}">{{ item.value }}</label>
+                </div>
+              {% endfor %}
+            </div>
+          </fieldset>
+        </div>
+        {{ govukButton({ text: "Continue" }) }}
+      </form>
+    </div>
+  </div>
+{% endblock %}

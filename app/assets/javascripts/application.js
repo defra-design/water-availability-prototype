@@ -137,7 +137,10 @@ const params = new URLSearchParams({
  operationalCatchmentId: isOperationalCatchment ? catchment.id : (isWaterbody ? catchment.operationalCatchmentId || '' : '')
 })
 
-window.location.href = '/internal/current/manual-overrides-summary?' + params.toString()
+const internalPrefix = window.location.pathname.startsWith('/internal/sprint-12/')
+  ? '/internal/sprint-12'
+  : '/internal/current'
+window.location.href = internalPrefix + '/manual-overrides-summary?' + params.toString()
  })
  results.appendChild(item)
 

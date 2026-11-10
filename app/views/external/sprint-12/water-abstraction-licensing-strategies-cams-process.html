@@ -1,0 +1,359 @@
+{% extends "layouts/main.html" %}
+{% from "govuk/macros/logo.njk" import govukLogo %}
+
+{% set regions = [
+  {
+    name: "North East (map area 1)",
+    id: "north-east-(map-area-1)",
+    publications: [
+      ["Northumberland rivers abstraction licensing strategy", "/government/publications/northumberland-rivers-abstraction-licensing-strategy", "28 February 2013"],
+      ["Tees abstraction licensing strategy", "/government/publications/tees-abstraction-licensing-strategy", "28 February 2013"],
+      ["Till and Tweed abstraction licensing strategy", "/government/publications/till-and-tweed-abstraction-licensing-strategy", "24 June 2022"],
+      ["Till abstraction licensing strategy", "/government/publications/till-abstraction-licensing-strategy", "28 February 2013"],
+      ["Tyne abstraction licensing strategy", "/government/publications/tyne-abstraction-licensing-strategy", "27 March 2018"],
+      ["Wear abstraction licensing strategy", "/government/publications/wear-abstraction-licensing-strategy", "27 March 2018"]
+    ]
+  },
+  {
+    name: "Cumbria and Lancashire (map area 2)",
+    id: "cumbria-and-lancashire-(map-area-2)",
+    publications: [
+      ["Alt Crossens abstraction licensing strategy", "/government/publications/alt-crossens-abstraction-licensing-strategy", "30 June 2022"],
+      ["Derwent and West Cumbria abstraction licensing strategy", "/government/publications/derwent-and-west-cumbria-abstraction-licensing-strategy", "27 February 2013"],
+      ["Eden and Esk abstraction licensing strategy", "/government/publications/eden-and-esk-abstraction-licensing-strategy", "27 February 2013"],
+      ["Lune and Wyre abstraction licensing strategy", "/government/publications/lune-and-wyre-abstraction-licensing-strategy", "27 February 2013"],
+      ["Ribble, Douglas and Crossens abstraction licensing strategy", "/government/publications/ribble-douglas-and-crossens-bstraction-licensing-strategy", "28 February 2013"],
+      ["South Cumbria abstraction licensing strategy", "/government/publications/south-cumbria-abstraction-licensing-strategy", "27 February 2013"]
+    ]
+  },
+  {
+    name: "Yorkshire (map area 3)",
+    id: "yorkshire-(map-area-3)",
+    publications: [
+      ["Aire and Calder abstraction licensing strategy", "/government/publications/abstraction-licensing-aire-and-calder-strategy", "16 January 2025"],
+      ["Yorkshire Derwent abstraction licensing strategy", "/government/publications/abstraction-licensing-derwent-strategy", "12 January 2026"],
+      ["Don and Rother abstraction licensing strategy", "/government/publications/don-and-rother-abstraction-licensing-strategy", "28 February 2013"],
+      ["Esk and Coast abstraction licensing strategy", "/government/publications/abstraction-licensing-esk-and-coast-strategy", "28 February 2013"],
+      ["Hull and East Riding abstraction licensing strategy", "/government/publications/cams-hull-and-east-riding-abstraction-licensing-strategy", "12 January 2026"],
+      ["Swale, Ure, Nidd and Upper Ouse abstraction licensing strategy", "/government/publications/swale-ure-nidd-and-upper-ouse-abstraction-licensing-strategy", "28 February 2013"],
+      ["Wharfe and Lower Ouse abstraction licensing strategy", "/government/publications/wharfe-and-lower-ouse-abstraction-licensing-strategy", "28 February 2013"]
+    ]
+  },
+  {
+    name: "Greater Manchester, Merseyside and Cheshire (map area 4)",
+    id: "greater-manchester,-merseyside-and-cheshire-(map-area-4)",
+    publications: [
+      ["Lower Mersey abstraction licensing strategy", "/government/publications/lower-mersey-and-alt-abstraction-licensing-strategy", "10 July 2026"],
+      ["Northern Manchester abstraction licensing strategy", "/government/publications/northern-manchester-abstraction-licensing-strategy", "10 July 2026"],
+      ["Upper Mersey abstraction licensing strategy", "/government/publications/upper-mersey-abstraction-licensing-strategy", "28 February 2013"],
+      ["Weaver and Dane abstraction licensing strategy", "interruptor", "25 November 2020"]
+    ]
+  },
+  {
+    name: "Lincolnshire and Northamptonshire (map area 5)",
+    id: "lincolnshire-and-northamptonshire-(map-area-5)",
+    publications: [
+      ["Grimsby, Ancholme and Louth abstraction licensing strategy", "/government/publications/camsgrimsby-ancholme-and-louth-catchment-abstraction-management", "23 March 2020"],
+      ["Holbeach Marsh abstraction licensing strategy", "/government/publications/holbeach-marsh-abstraction-licensing-strategy", "23 March 2020"],
+      ["Nene abstraction licensing strategy", "/government/publications/cams-nene-catchment-abstraction-management-strategy", "7 April 2021"],
+      ["Steeping, Great Eau and Long Eau abstraction licensing strategy", "/government/publications/cams-steeping-great-eau-and-long-eau-catchment-abstraction-management-strategy", "23 March 2020"],
+      ["Welland abstraction licensing strategy", "/government/publications/welland-abstraction-management-strategy", "7 April 2021"],
+      ["Witham abstraction licensing strategy (ALS)", "/government/publications/witham-abstraction-licensing-strategy", "17 December 2020"]
+    ]
+  },
+  {
+    name: "East Midlands (map area 6)",
+    id: "east-midlands-(map-area-6)",
+    publications: [
+      ["Derbyshire Derwent abstraction licensing strategy", "/government/publications/cams-derbyshire-derwent-abstraction-licensing-strategy", "31 January 2020"],
+      ["Idle and Torne abstraction licensing strategy (ALS)", "/government/publications/idle-and-torne-abstraction-licensing-strategy", "18 December 2020"],
+      ["Lower Trent and Erewash abstraction licensing strategy", "/government/publications/cams-lower-trent-and-erewash-abstraction-licensing-strategy", "15 September 2020"],
+      ["Soar abstraction licensing strategy", "/government/publications/cams-soar-abstraction-licensing-strategy", "8 September 2020"]
+    ]
+  },
+  {
+    name: "West Midlands (map area 7)",
+    id: "west-midlands-(map-area-7)",
+    publications: [
+      ["Dove abstraction licensing strategy", "/government/publications/cams-dove-abstraction-licensing-strategy", "25 February 2021"],
+      ["Severn Corridor abstraction licensing strategy", "/government/publications/cams-severn-corridor-abstraction-licensing-strategy", "3 April 2020"],
+      ["Severn Vale abstraction licensing strategy", "/government/publications/severn-vale-abstraction-licensing-strategy", "11 August 2022"],
+      ["Shropshire Middle Severn abstraction licensing strategy", "/government/publications/cams-shropshire-middle-severn-abstraction-licensing-strategy", "14 July 2021"],
+      ["Staffordshire Trent Valley abstraction licensing strategy", "/government/publications/cams-staffordshire-trent-valley-abstraction-licensing-strategy", "2 July 2021"],
+      ["Tame, Anker and Mease abstraction licensing strategy", "/government/publications/cams-tame-anker-and-mease-abstraction-licensing-strategy", "23 June 2022"],
+      ["Teme abstraction licensing strategy", "/government/publications/teme-abstraction-licensing-strategy", "27 April 2023"],
+      ["Warwickshire Avon abstraction licensing strategy", "/government/publications/warwickshire-avon-abstraction-licensing-strategy", "27 April 2023"],
+      ["Worcestershire middle Severn abstraction licensing strategy", "/government/publications/cams-worcestershire-middle-severn-abstraction-licensing-strategy", "7 July 2022"],
+      ["Wye abstraction licensing strategy", "/government/publications/wye-abstraction-licensing-strategy", "27 January 2022"]
+    ]
+  },
+  {
+    name: "Wessex (map area 8)",
+    id: "wessex-(map-area-8)",
+    publications: [
+      ["Bristol Avon and North Somerset abstraction licensing strategy", "/government/publications/bristol-avon-and-north-somerset-abstraction-licensing-strategy", "19 December 2012"],
+      ["Dorset abstraction licensing strategy", "/government/publications/dorset-abstraction-licensing-strategy", "6 April 2020"],
+      ["Hampshire Avon abstraction licensing strategy", "/government/publications/hampshire-avon-abstraction-licensing-strategy", "3 March 2020"],
+      ["South and West Somerset abstraction licensing strategy", "/government/publications/south-and-west-somerset-abstraction-licensing-strategy", "30 July 2025"]
+    ]
+  },
+  {
+    name: "Devon, Cornwall and Isles of Scilly (map area 9)",
+    id: "devon,-cornwall-and-isles-of-scilly-(map-area-9)",
+    publications: [
+      ["East Devon abstraction licensing strategy", "/government/publications/east-devon-abstraction-licensing-strategy", "23 June 2022"],
+      ["North Cornwall, Seaton, Looe and Fowey abstraction licensing strategy", "/government/publications/north-cornwall-seaton-and-fowey-abstraction-licensing-strategy", "28 January 2025"],
+      ["North Devon abstraction licensing strategy", "/government/publications/north-devon-abstraction-licensing-strategy", "28 January 2025"],
+      ["South Devon abstraction licensing strategy", "/government/publications/south-devon-abstraction-licensing-strategy", "19 December 2012"],
+      ["Tamar abstraction licensing strategy", "/government/publications/tamar-abstraction-licensing-strategy", "21 October 2024"],
+      ["West Cornwall and Fal abstraction licensing strategy", "/government/publications/west-cornwall-and-fal-abstraction-licensing-strategy", "19 December 2012"]
+    ]
+  },
+  {
+    name: "East Anglia (map area 10)",
+    id: "east-anglia-(map-area-10)",
+    publications: [
+      ["Broadland abstraction licensing strategy", "/government/publications/cams-broadland-abstraction-licensing-strategy", "9 August 2017"],
+      ["Cam and Ely Ouse abstraction licensing strategy (ALS)", "/government/publications/cam-and-ely-ouse-abstraction-licensing-strategy", "22 December 2020"],
+      ["East Suffolk abstraction licensing strategy (ALS)", "/government/publications/east-suffolk-abstraction-licensing-strategy", "21 December 2020"],
+      ["Essex abstraction licensing strategy", "/government/publications/cams-essex-abstraction-licensing-strategy", "9 August 2017"],
+      ["North Norfolk abstraction licensing strategy", "/government/publications/cams-north-norfolk-abstraction-licensing-strategy", "9 August 2017"],
+      ["North west Norfolk abstraction licensing strategy", "/government/publications/cams-the-north-west-norfolk-abstraction-licencing-strategy", "9 August 2017"],
+      ["Old Bedford including Middle Level abstraction licensing strategy", "/government/publications/cams-old-bedford-including-middle-level-abstraction-licencing", "9 August 2017"],
+      ["Upper Ouse and Bedford Ouse abstraction licensing strategy", "/government/publications/cams-upper-ouse-and-bedford-ouse-abstraction-licencing-strategy", "9 August 2017"]
+    ]
+  },
+  {
+    name: "Thames (map area 11)",
+    id: "thames-(map-area-11)",
+    publications: [
+      ["Cherwell, Thame and Wye abstraction licensing strategy", "/government/publications/cherwell-thame-and-wye-catchment-abstraction-licensing-strategy", "17 April 2019"],
+      ["Cotswolds abstraction licensing strategy", "/government/publications/cotswolds-catchment-abstraction-licensing-strategy", "17 April 2019"],
+      ["Kennet and Vale of White Horse abstraction licensing strategy", "/government/publications/kennet-and-vale-of-white-horse-catchment-abstraction-licensing-strategy", "17 April 2019"],
+      ["Loddon abstraction licensing strategy", "/government/publications/loddon-catchment-abstraction-licensing-strategy", "17 April 2019"],
+      ["Thames catchment abstraction licensing strategy", "/government/publications/thames-catchment-abstraction-licensing-strategy", "6 December 2019"],
+      ["Wey abstraction licensing strategy", "/government/publications/wey-catchment-abstraction-licensing-strategy", "17 April 2019"]
+    ]
+  },
+  {
+    name: "Hertfordshire and North London (map area 12)",
+    id: "hertfordshire-and-north-london-(map-area-12)",
+    publications: [
+      ["Colne abstraction licensing strategy", "/government/publications/colne-catchment-abstraction-licensing-strategy", "12 February 2026"],
+      ["Roding, Beam, Ingrebourne and Mardyke abstraction licensing strategy", "/government/publications/roding-beam-ingrebourne-and-mardyke-catchment-abstraction-licensing-strategy", "3 April 2019"],
+      ["Upper Lee abstraction licensing strategy", "/government/publications/upper-lee-catchment-abstraction-licensing-strategy", "3 April 2019"]
+    ]
+  },
+  {
+    name: "Kent, South London and East Sussex (map area 13)",
+    id: "kent,-south-london-and-east-sussex-(map-area-13)",
+    publications: [
+      ["Darent and Cray abstraction licensing strategy", "/government/publications/darent-and-cray-catchment-abstraction-licensing-strategy", "5 March 2013"],
+      ["London abstraction licensing strategy", "/government/publications/london-catchment-abstraction-licensing-strategy", "19 May 2025"],
+      ["Medway abstraction licensing strategy", "/government/publications/medway-catchment-abstraction-licensing-strategy", "11 April 2013"],
+      ["Mole abstraction licensing strategy", "/government/publications/mole-catchment-abstraction-licensing-strategy", "5 March 2013"],
+      ["North Kent and Swale abstraction licensing strategy", "/government/publications/north-kent-and-swale-catchment-abstraction-licensing-strategy", "5 March 2013"],
+      ["Rother abstraction licensing strategy", "/government/publications/rother-catchment-abstraction-licensing-strategy", "5 March 2013"],
+      ["Stour abstraction licensing strategy", "/government/publications/stour-catchment-abstraction-licensing-strategy", "5 March 2013"]
+    ]
+  },
+  {
+    name: "Solent and South Downs (map area 14)",
+    id: "solent-and-south-downs-(map-area-14)",
+    publications: [
+      ["Adur and Ouse abstraction licensing strategy", "/government/publications/adur-and-ouse-catchment-abstraction-licensing-strategy", "8 April 2019"],
+      ["Arun and Western Streams abstraction licensing strategy", "/government/publications/arun-and-western-streams-abstraction-licensing-strategy", "22 June 2022"],
+      ["Cuckmere and Pevensey Levels abstraction licensing strategy", "/government/publications/cuckmere-and-pevensey-levels-catchment-abstraction-licensing-strategy", "8 April 2019"],
+      ["East Hampshire abstraction licensing strategy", "/government/publications/east-hampshire-catchment-abstraction-licensing-strategy", "8 April 2019"],
+      ["Isle of Wight abstraction licensing strategy", "/government/publications/isle-of-wight-catchment-abstraction-licensing-strategy", "8 April 2019"],
+      ["New Forest abstraction licensing strategy", "/government/publications/new-forest-catchment-abstraction-licensing-strategy", "8 April 2019"],
+      ["Test and Itchen abstraction licensing strategy", "/government/publications/test-and-itchen-catchment-abstraction-licensing-strategy", "8 April 2019"]
+    ]
+  }
+] %}
+
+{% block pageTitle %}
+  Abstraction licensing strategies (CAMS process) - GOV.UK
+{% endblock %}
+
+{% block header %}
+  <header class="govuk-header app-publication-header" role="banner">
+    <div class="govuk-width-container app-publication-header__container">
+      <a href="https://www.gov.uk/" class="govuk-header__homepage-link" aria-label="Go to the GOV.UK homepage">
+        {{ govukLogo({
+          classes: "govuk-header__logotype",
+          ariaLabelText: "GOV.UK"
+        }) }}
+      </a>
+      <nav class="app-publication-header__navigation" aria-label="Navigation menu">
+        <button class="app-publication-header__menu-button" type="button" aria-label="Show navigation menu">
+          <span class="app-publication-header__chevron" aria-hidden="true"></span>
+          Menu
+        </button>
+        <a class="app-publication-header__search-button" href="https://www.gov.uk/search/all" aria-label="Search GOV.UK">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <circle cx="10.8" cy="10.8" r="6.2"></circle>
+            <path d="m15.4 15.4 5 5"></path>
+          </svg>
+        </a>
+      </nav>
+    </div>
+  </header>
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBreadcrumbs({
+    items: [
+      {
+        text: "Home",
+        href: "/"
+      },
+      {
+        text: "Abstract (take) water",
+        href: "https://www.gov.uk/business/environmental-management-water-abstract-take-water"
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <div class="app-collection-title">
+        <span class="govuk-caption-l">Collection</span>
+        <h1 class="govuk-heading-xl">Abstraction licensing strategies (CAMS process)</h1>
+      </div>
+      <p class="govuk-body-l app-collection-lede">Find out how much water is available in your area by viewing Environment Agency abstraction licensing strategies.</p>
+
+      <div class="govuk-!-margin-bottom-6">
+        <h2 class="govuk-visually-hidden">Updates to this page</h2>
+        <dl class="govuk-summary-list govuk-summary-list--no-border app-page-updates">
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">From:</dt>
+            <dd class="govuk-summary-list__value">
+              <a class="govuk-link app-page-updates__publisher" href="https://www.gov.uk/government/organisations/environment-agency">Environment Agency</a>
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">Published:</dt>
+            <dd class="govuk-summary-list__value">30 April 2014</dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">Last updated:</dt>
+            <dd class="govuk-summary-list__value">
+              30 April 2025
+              <details class="govuk-details govuk-!-margin-top-2">
+                <summary class="govuk-details__summary">
+                  <span class="govuk-details__summary-text">Show all updates</span>
+                </summary>
+                <div class="govuk-details__text">
+                  <p class="govuk-body"><strong>30 April 2025</strong><br>Added information about how to participate in research to help improve water abstraction services.</p>
+                  <p class="govuk-body"><strong>3 May 2023</strong><br>Added Teme ALS and Warwickshire Avon ALS to the West Midlands collection, April 2023</p>
+                  <p class="govuk-body"><strong>12 July 2022</strong><br>Added to the collection page:</p>
+                  <ol class="govuk-list">
+                    <li>Till and Tweed abstraction licensing strategy (ALS)</li>
+                    <li>Arun and Western Streams ALS</li>
+                    <li>Alt Crossens ALS</li>
+                    <li>South and West Somerset ALS</li>
+                    <li>East Devon ALS</li>
+                  </ol>
+                  <p class="govuk-body"><strong>6 January 2021</strong><br>Added links to new abstraction licensing strategies for: Witham, Idle and Torne, East Suffolk, Cam and Ely Ouse.</p>
+                  <p class="govuk-body"><strong>17 January 2018</strong><br>Updated Environment Agency area names and map areas.</p>
+                  <p class="govuk-body"><strong>15 May 2014</strong><br>Re-titled linked publications to give consistent format.</p>
+                  <p class="govuk-body"><strong>30 April 2014</strong><br>First published.</p>
+                </div>
+              </details>
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <button class="app-subscription-button" type="button">
+        <svg aria-hidden="true" focusable="false" height="18" width="18" viewBox="0 0 459.334 459.334">
+          <path fill="currentColor" d="M177.216 404.514c-.001.12-.009.239-.009.359 0 30.078 24.383 54.461 54.461 54.461s54.461-24.383 54.461-54.461c0-.12-.008-.239-.009-.359H175.216zM403.549 336.438l-49.015-72.002v-89.83c0-60.581-43.144-111.079-100.381-122.459V24.485C254.152 10.963 243.19 0 229.667 0s-24.485 10.963-24.485 24.485v27.663c-57.237 11.381-100.381 61.879-100.381 122.459v89.83l-49.015 72.002a24.76 24.76 0 0 0 20.468 38.693H383.08a24.761 24.761 0 0 0 20.469-38.694z"/>
+        </svg>
+        Get emails about this page
+      </button>
+
+      <nav class="app-collection-contents" aria-labelledby="contents">
+        <h2 class="govuk-heading-m" id="contents">Contents</h2>
+        <ol class="govuk-list">
+          <li><a class="govuk-link" href="#help-us-improve-water-abstraction-services">Help us improve water abstraction services</a></li>
+          {% for region in regions %}
+            <li><a class="govuk-link" href="#{{ region.id }}">{{ region.name }}</a></li>
+          {% endfor %}
+        </ol>
+      </nav>
+
+      <section class="app-collection-intro">
+        <p class="govuk-body">The Environment Agency is responsible for managing water resources in England. We need to make sure there is:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>enough water for people - public water supply, industry and agriculture</li>
+          <li>a healthy environment</li>
+        </ul>
+        <p class="govuk-body">The Environment Agency controls how much water is taken with a permitting system. The Environment Agency regulate existing licences and grant new ones. To do this they use:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>the catchment abstraction management strategy (CAMS) process</li>
+          <li>abstraction licensing strategies</li>
+        </ul>
+        <p class="govuk-body">The publication <a class="govuk-link" href="https://www.gov.uk/government/publications/managing-water-abstraction">‘managing water abstraction’</a> sets out the approach and regulatory framework within which we will manage water resources.</p>
+        <p class="govuk-body">You need a <a class="govuk-link" href="https://www.gov.uk/water-abstraction-licence-england-wales">water abstraction licence</a> from the Environment Agency to remove more than 20 cubic metres of water a day from a watercourse or underground water reserve in England.</p>
+        <p class="govuk-body">The strategies below are grouped by Environment Agency areas. <a class="govuk-link" href="https://www.gov.uk/government/publications/environment-agency-area-and-region-operational-locations">See a map showing the areas</a>.</p>
+      </section>
+
+      <section id="help-us-improve-water-abstraction-services" class="app-collection-research">
+        <h2 class="govuk-heading-m">Help us improve water abstraction services</h2>
+        <p class="govuk-body">The Environment Agency is doing research to make it easier to do things like:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>find out how much water is available to abstract</li>
+          <li>apply for a water abstraction licence</li>
+          <li>manage a water abstraction licence</li>
+        </ul>
+        <p class="govuk-body">We need feedback from users to make sure our improvements meet people’s needs. <a class="govuk-link" href="https://www.smartsurvey.co.uk/s/water-resources-research/">Sign up</a> for occasional invites to take part in research.</p>
+      </section>
+
+      {% for region in regions %}
+        <section class="app-collection-region" aria-labelledby="{{ region.id }}">
+          <h2 class="govuk-heading-m govuk-!-font-size-27" id="{{ region.id }}">{{ region.name }}</h2>
+          <ul class="app-collection-document-list">
+            {% for publication in region.publications %}
+              <li>
+                <a class="govuk-link" href="{{ publication[1] }}">{{ publication[0] }}</a>
+                <ul class="app-collection-document-list__metadata">
+                  <li>{{ publication[2] }}</li>
+                  <li>Policy paper</li>
+                </ul>
+              </li>
+            {% endfor %}
+          </ul>
+        </section>
+      {% endfor %}
+    </div>
+
+    <aside class="govuk-grid-column-one-third" aria-labelledby="related-content">
+      <div class="govuk-!-margin-top-6 govuk-!-padding-top-3 app-collection-related">
+        <hr class="govuk-section-break govuk-section-break--visible govuk-section-break--m">
+        <h2 class="govuk-heading-m" id="related-content">Related content</h2>
+        <h3 class="govuk-heading-s">Collection</h3>
+        <ul class="govuk-list">
+          <li><a class="govuk-link" href="https://www.gov.uk/government/collections/environmental-capacity-for-industrial-clusters">Environmental capacity for industrial clusters</a></li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <nav class="govuk-!-margin-top-8" aria-labelledby="explore-topic">
+        <h2 class="govuk-heading-m" id="explore-topic">Explore the topic</h2>
+        <ul class="govuk-list">
+          <li><a class="govuk-link" href="https://www.gov.uk/business/environmental-management-water-abstract-take-water">Abstract (take) water</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+{% endblock %}

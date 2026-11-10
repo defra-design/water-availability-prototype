@@ -17,7 +17,7 @@
     <div class="govuk-grid-column-two-thirds">
 
       <h1 class="govuk-heading-l">
-        Technical information for {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %}
+        <span style="color: red;">Technical information for {{data.riverCatchmentData[data.sid].properties.WB_NAME}}</span>
       </h1>
 
 <p class="govuk-body">The Environment Agency monitor how much water is 
@@ -27,13 +27,6 @@
   which are explained below.</p>
 
  <table class="govuk-table">
-<!--<caption class="govuk-table__caption govuk-table__caption--m">Restrictions and conditions in {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %}</caption>
- <thead class="govuk-table__head">
-    <tr class="govuk-table__row">
-      <th scope="col" class="govuk-table__header">Date</th>
-      <th scope="col" class="govuk-table__header">Amount</th>
-    </tr>
-  </thead>-->
   <tbody class="govuk-table__body">
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Assessment point (AP)</th>
@@ -205,7 +198,7 @@
 {% if data.sid == "1" %}
 
 {% else %}
-    <h2 id="local-policies" class="govuk-heading-m">Local policy affecting water availability in {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %}</h2>
+    <h2 id="local-policies" class="govuk-heading-m"><span style="color: red;">Local policy affecting water availability in {{data.riverCatchmentData[data.sid].properties.WB_NAME}}</span></h2>
 
 <p class="govuk-body">The Environment Agency has local policies which may affect water availability in your area. These policies are designed to protect the environment and ensure that water is used sustainably.</p>
 
@@ -276,8 +269,8 @@
 
 <p class="govuk-body">Back to:</p>
 <ul class="govuk-list govuk-list--bullet">
-  <li><a href="detailed-results.html">{% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %} overview</a></li>
-  <li><a href="summary?watertype={% if data.returnWatertype is defined %}{{data.returnWatertype}}{% else %}{{data.watertype}}{% endif %}">Your local water bodies</a></li>
+  <li><a href="detailed-results.html"><span style="color: red;">{{data.riverCatchmentData[data.sid].properties.WB_NAME}} overview</span></a></li>
+  <li><a href="summary"><span style="color: red;">Your local surface water bodies</span></a></li>
 </ul>
 
 <p class="govuk-body">Or continue to:</p>

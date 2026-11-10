@@ -1,0 +1,24 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}Edit CRT implications – {{ serviceName }}{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({ text: "Back", href: "javascript:window.history.back()" }) }}
+{% endblock %}
+
+{% block content %}
+  {% from "internal/sprint-12/_local-policy-inputs.html" import localPolicyInputs %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <form class="form" action="/internal/sprint-12/update-policy/crtImplications" method="post">
+        <h1 class="govuk-heading-l">Edit CRT implications</h1>
+        {{ localPolicyInputs('crt-implications', 'content', data.crtImplicationsItems) }}
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="policy-notes">Implication notes</label>
+          <textarea class="govuk-textarea" id="policy-notes" name="notes" rows="5">{{ data.crtImplicationNotes }}</textarea>
+        </div>
+        {{ govukButton({ text: "Continue" }) }}
+      </form>
+    </div>
+  </div>
+{% endblock %}

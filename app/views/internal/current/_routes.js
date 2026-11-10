@@ -2,6 +2,7 @@ const govukPrototypeKit = require('govuk-prototype-kit')
 const router = govukPrototypeKit.requests.setupRouter()
 
 const folder = '/internal/current/'
+const templateFolder = '/internal/current/'
 const getCurrentDate = () => new Date().toLocaleDateString('en-GB')
 const wrgisComponents = ['hmwb', 'crt', 'lde', 'idb', 'thamesBespokeStrategy', 'greenLinePolicy']
 const manualActivationComponents = [...wrgisComponents, 'assessmentPoint']
@@ -179,7 +180,9 @@ router.use((request, response, next) => {
    response.locals.data[`${key}Items`] = items
  })
   response.locals.internalCurrent = true
-  response.locals.internalStartPage = requestPath === folder + 'start'
+ response.locals.internalFolder = folder.slice(0, -1)
+ response.locals.externalFolder = folder.replace('/internal/', '/external/').slice(0, -1)
+ response.locals.internalStartPage = requestPath === folder + 'start'
   response.locals.internalSignedInEmail = request.session.data.email || ''
  }
  next()
@@ -223,7 +226,7 @@ router.get(folder + 'confirm-wrgis-switch-off', (request, response) => {
           key: getEntityKey({ type: 'waterbody', id: child.id, name: child.name })
         }))
       : []
-  response.render(folder + 'confirm-wrgis-switch-off', {
+  response.render(templateFolder + 'confirm-wrgis-switch-off', {
     component: wrgisComponentLabels[component],
     isAssessmentPoint: component === 'assessmentPoint',
     hasDescendants: descendants.length > 0,
@@ -345,7 +348,7 @@ router.post(folder + 'confirm-wrgis-switch-off', (request, response) => {
 
 router.get(folder + 'configurator', (request, response) => {
   const wrgisConfig = getWrgisConfig(request.session.data)
-  response.render(folder + 'configurator', {
+  response.render(templateFolder + 'configurator', {
     wrgisConfig,
     wrgisComponents: wrgisComponents.map(key => ({ key, label: wrgisComponentLabels[key] })),
     errors: {}
@@ -365,7 +368,7 @@ router.post(folder + 'configurator', (request, response) => {
   })
 
   if (Object.keys(errors).length) {
-    response.status(400).render(folder + 'configurator', {
+    response.status(400).render(templateFolder + 'configurator', {
       wrgisConfig,
       wrgisComponents: wrgisComponents.map(key => ({ key, label: wrgisComponentLabels[key] })),
       errors
@@ -393,7 +396,7 @@ router.get(folder + 'start', (request, response) => {
     response.redirect(folder + 'configurator')
     return
   }
-  response.render(folder + 'start')
+  response.render(templateFolder + 'start')
 })
 
 const getCatchmentChildren = async (type, catchmentName, catchmentId) => {
@@ -1107,7 +1110,7 @@ const makeSummaryUrl = entity => {
     params.set('managementCatchmentId', entity.id)
     params.set('managementCatchment', entity.name)
   }
-  return `/internal/current/manual-overrides-summary?${params.toString()}`
+  return `${folder}manual-overrides-summary?${params.toString()}`
 }
 
 const saveGlobalOverride = (data, targets, replaceChoices) => {
@@ -1857,7 +1860,7 @@ router.get(folder + 'manual-overrides-summary', async function (request, respons
   }, {})
   const assessmentPointHistory = (request.session.data.assessmentPointHistory || {})[entityKey] || []
 
-  response.render(folder + 'manual-overrides-summary', {
+  response.render(templateFolder + 'manual-overrides-summary', {
     selectedType,
 		waterBodyName,
     managementCatchment,
@@ -2048,7 +2051,7 @@ router.post(folder + 'start', function (request, response) {
 })
 
 router.get(folder + 'update-ap', function (request, response) {
-  response.render(folder + 'update-ap', { teamNotes: '' })
+  response.render(templateFolder + 'update-ap', { teamNotes: '' })
 })
 
 router.post(folder + 'update-ap', function (request, response) {
@@ -2181,7 +2184,7 @@ const renderRemovePolicyContent = (
     return response.redirect(folder + 'manual-overrides-summary')
   }
 
-  return response.status(status).render(folder + 'remove-policy-content', {
+  return response.status(status).render(templateFolder + 'remove-policy-content', {
     policyConfig: config,
     policyType: type,
     items,
@@ -2389,7 +2392,7 @@ router.get(folder + 'update-policy/:type', (request, response) => {
     : config.isImplications
     ? effective.source === 'local' ? getLocallyOwnedPolicyValue(effective) : ''
     : request.session.data[config.contentKey] || ''
-  response.render(folder + 'update-policy-content', {
+  response.render(templateFolder + 'update-policy-content', {
     policyConfig: config,
     content,
     contentItems: config.isImplications ? getPolicyInputItems(content) : [],
@@ -2409,7 +2412,7 @@ router.get(folder + 'update-hmwb', (request, response) => {
     delete request.session.data.pendingGlobalPolicyEditId
   }
   const effective = getEffectiveOverride(request.session.data, 'hmwbImplications', entity)
-  response.render(folder + 'update-hmwb', {
+  response.render(templateFolder + 'update-hmwb', {
     contentItems: pendingEdit
       ? getPolicyInputItems(pendingEdit.value)
       : effective.source === 'local'
@@ -2433,7 +2436,7 @@ router.post(folder + 'update-hmwb', function (request, response) {
   if (pendingEdit) {
     const normalizedValue = getPolicyInputItems(value).join('\n')
     if (!normalizedValue) {
-      return response.status(400).render(folder + 'update-hmwb', {
+      return response.status(400).render(templateFolder + 'update-hmwb', {
         contentItems: getPolicyInputItems(value),
         teamNotes: notes,
         isInherited: false,
@@ -2462,7 +2465,7 @@ policyContentTypes.forEach(type => {
     if (pendingEdit) {
       const normalizedValue = getPolicyInputItems(value).join('\n')
       if (!normalizedValue) {
-        return response.status(400).render(folder + 'update-policy-content', {
+        return response.status(400).render(templateFolder + 'update-policy-content', {
           policyConfig: config,
           content: '',
           contentItems: getPolicyInputItems(value),
@@ -2500,7 +2503,7 @@ Object.entries(legacyPolicyTypes).forEach(([legacyType, currentType]) => {
 
 router.post(folder + 'update-col', function (request, response) {
   if (!request.body.updateCol) {
-    return response.status(400).render(folder + 'update-col', {
+    return response.status(400).render(templateFolder + 'update-col', {
       error: 'Select an availability colour or choose to remove the override.'
     })
   }
@@ -2554,7 +2557,7 @@ router.post(folder + 'update-col', function (request, response) {
 router.post(folder + 'update-hof', function (request, response) {
   const value = request.body.updateHof === 'custom' ? request.body.updateHofValue : request.body.updateHof
   if (!value || value === 'custom') {
-    return response.status(400).render(folder + 'update-hof', {
+    return response.status(400).render(templateFolder + 'update-hof', {
       error: request.body.updateHof === 'custom'
         ? 'Enter a Hands-off Flow value.'
         : 'Select a Hands-off Flow option.'
@@ -2613,7 +2616,7 @@ router.get(folder + 'override-scope', (request, response) => {
     return response.redirect(folder + 'manual-overrides-summary')
   }
 
-  response.render(folder + 'override-scope', {
+  response.render(templateFolder + 'override-scope', {
     pending,
     overrideLabel: overrideTypes[pending.type],
     policyApplicationLabel: localPolicyFields[pending.type]?.applicationLabel,
@@ -2648,7 +2651,7 @@ router.post(folder + 'override-scope', async (request, response, next) => {
       ? ['yes', 'no', 'stack']
       : ['yes', 'no']
     if (!inheritedChoices.includes(request.body.replaceInherited)) {
-      return response.status(400).render(folder + 'override-scope', {
+      return response.status(400).render(templateFolder + 'override-scope', {
         pending,
         overrideLabel: overrideTypes[pending.type],
         policyApplicationLabel: localPolicyFields[pending.type]?.applicationLabel,
@@ -2683,7 +2686,7 @@ router.post(folder + 'override-scope', async (request, response, next) => {
     return response.redirect(folder + 'override-descendants')
   }
   if (request.body.scopeDecision !== 'all') {
-    return response.status(400).render(folder + 'override-scope', {
+    return response.status(400).render(templateFolder + 'override-scope', {
       pending,
       overrideLabel: overrideTypes[pending.type],
       policyApplicationLabel: localPolicyFields[pending.type]?.applicationLabel,
@@ -2714,7 +2717,7 @@ router.get(folder + 'override-descendants', async (request, response, next) => {
   }
   try {
     const children = await getCatchmentChildren(pending.source.type, pending.source.name, pending.source.id)
-    response.render(folder + 'override-descendants', {
+    response.render(templateFolder + 'override-descendants', {
       pending,
       overrideLabel: overrideTypes[pending.type],
       policyApplicationLabel: localPolicyFields[pending.type]?.applicationLabel,
@@ -2781,7 +2784,7 @@ router.get(folder + 'override-conflicts', (request, response) => {
   if (!data.pendingOverride || !data.overrideConflicts) {
     return response.redirect(folder + 'manual-overrides-summary')
   }
-  response.render(folder + 'override-conflicts', {
+  response.render(templateFolder + 'override-conflicts', {
     pending: data.pendingOverride,
     overrideLabel: overrideTypes[data.pendingOverride.type],
     isImplication: isLocalPolicyImplication(data.pendingOverride.type),
@@ -2804,7 +2807,7 @@ router.post(folder + 'override-conflicts', (request, response) => {
     allowedStrategies.push('stackAll')
   }
   if (!allowedStrategies.includes(strategy)) {
-    return response.status(400).render(folder + 'override-conflicts', {
+    return response.status(400).render(templateFolder + 'override-conflicts', {
       pending: data.pendingOverride,
       overrideLabel: overrideTypes[data.pendingOverride.type],
       isImplication: isLocalPolicyImplication(data.pendingOverride.type),
@@ -2824,7 +2827,7 @@ router.post(folder + 'override-conflicts', (request, response) => {
   if (strategy === 'individual' && data.overrideConflicts.some((conflict, index) =>
     !individualChoices.includes(request.body[`conflict-${index}`])
   )) {
-    return response.status(400).render(folder + 'override-conflicts', {
+    return response.status(400).render(templateFolder + 'override-conflicts', {
       pending: data.pendingOverride,
       overrideLabel: overrideTypes[data.pendingOverride.type],
       isImplication: isLocalPolicyImplication(data.pendingOverride.type),
@@ -2861,7 +2864,7 @@ router.get(folder + 'remove-global', (request, response) => {
     delete data.pendingGlobalRemovalId
     return response.redirect(folder + 'manual-overrides-summary')
   }
-  response.render(folder + 'remove-global', {
+  response.render(templateFolder + 'remove-global', {
     record,
     overrideLabel: overrideTypes[record.type],
     isLocalPolicy: localPolicyTypes.includes(record.type)
@@ -2880,7 +2883,7 @@ router.post(folder + 'remove-global', (request, response) => {
     return response.redirect(folder + 'remove-global-descendants')
   }
   if (request.body.removeScope !== 'all') {
-    return response.status(400).render(folder + 'remove-global', {
+    return response.status(400).render(templateFolder + 'remove-global', {
       record,
       overrideLabel: overrideTypes[record.type],
       isLocalPolicy: localPolicyTypes.includes(record.type),
@@ -3024,7 +3027,7 @@ router.get(folder + 'remove-global-descendants', (request, response) => {
       (descendant.applied || descendant.status === 'kept')
     )
   })
-  response.render(folder + 'remove-global-descendants', {
+  response.render(templateFolder + 'remove-global-descendants', {
     record,
     overrideLabel: overrideTypes[record.type],
     isLocalPolicy: localPolicyTypes.includes(record.type),

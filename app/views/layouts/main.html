@@ -5,6 +5,8 @@ https://prototype-kit.service.gov.uk/docs/how-to-use-layouts
 
 {% extends "govuk-prototype-kit/layouts/govuk-branded.njk" %}
 {% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+{% set internalBasePath = internalFolder or '/internal/current' %}
+{% set externalBasePath = externalFolder or '/external/current' %}
 
 <script src="/public/javascripts/tabular-stacked-bar.js"></script>
 
@@ -19,19 +21,19 @@ https://prototype-kit.service.gov.uk/docs/how-to-use-layouts
       {% if internalStartPage %}
         {{ govukServiceNavigation({
           serviceName: "Manual overrides system",
-          serviceUrl: "/internal/current/start"
+          serviceUrl: internalBasePath + "/start"
         }) }}
       {% else %}
         {{ govukServiceNavigation({
           serviceName: "Manual overrides system",
-          serviceUrl: "/internal/current/start",
+          serviceUrl: internalBasePath + "/start",
           navigation: [
             {
               html: "Signed in as: " + internalSignedInEmail,
               classes: "govuk-body-s govuk-!-margin-bottom-0 govuk-!-font-weight-bold"
             },
             {
-              href: "/internal/current/sign-out",
+              href: internalBasePath + "/sign-out",
               text: "Sign out"
             }
           ]
@@ -81,12 +83,12 @@ https://prototype-kit.service.gov.uk/docs/how-to-use-layouts
       },
 
        {
-        href: "/internal/current/start",
+        href: internalBasePath + "/start",
         text: "Internal"
       },
 
        {
-        href: "/external/current/start",
+        href: externalBasePath + "/start",
         text: "External"
       }
       

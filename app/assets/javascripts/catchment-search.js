@@ -91,7 +91,10 @@ operationalCatchment: isOperationalCatchment ? selected.label : (isWaterbody ? s
 operationalCatchmentId: isOperationalCatchment ? selected.id : (isWaterbody ? selected.operationalCatchmentId || '' : '')
 });
 
-window.location.href = '/internal/current/manual-overrides-summary?' + params.toString();
+const internalPrefix = window.location.pathname.startsWith('/internal/sprint-12/')
+? '/internal/sprint-12'
+: '/internal/current';
+window.location.href = internalPrefix + '/manual-overrides-summary?' + params.toString();
 }
 });
 }

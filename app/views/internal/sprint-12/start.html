@@ -1,0 +1,60 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+Water availability manual overrides
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">Water availability manual overrides system</h1>
+
+    <form method="post">
+
+      {{ govukInput({
+        label: {
+          text: "Email address"
+        },
+        name: "email",
+        id: "email",
+        type: "email",
+        classes: "govuk-input--width-20",
+        autocomplete: "email"
+      }) }}
+
+      {{ govukPasswordInput({
+        label: {
+          text: "Password"
+        },
+        name: "password",
+        classes: "govuk-input--width-20",
+        autocomplete: "current-password"
+      }) }}
+
+      {{ govukButton({
+        text: "Sign in",
+        isStartButton: true
+      }) }}
+
+    </form>
+
+    <p class="govuk-body">
+      <a href="#" class="govuk-link">Forgotten your password?</a>
+    </p>
+
+    <p class="govuk-body">
+      <a href="#" class="govuk-link">Create an account to use this service</a>
+    </p>
+
+  </div>
+</div>
+
+{% endblock %}

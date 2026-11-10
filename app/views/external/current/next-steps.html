@@ -25,13 +25,7 @@
 
 {% if data['noWater'] == "false" and data['watertype'] == 'surface' %} 
 
- <p class="govuk-body">Learn more about applying for or varying a licence and 
-      what your other options are for sourcing water.</p>   
-
-
-  {% elseif data['noWater'] == "false" and data['watertype'] == 'ground' %} 
- <p class="govuk-body">Learn more about your next steps for getting a groundwater abstraction licence 
-   and what your other options are for sourcing water.</p>
+ <p class="govuk-body"><span style="color: red;">Learn more about applying for or varying a licence and what your other options are for sourcing water.</span></p>
 {% endif %}
 {% endif %}
    
@@ -39,24 +33,10 @@
 {% if (data['noWater'] == "true") %} 
 
  {% elseif data['noWater'] == "false" and data['watertype'] == 'surface' %} 
- <h2 class="govuk-heading-m">Applying for a licence</h2> 
-  <p class="govuk-body">Find out your next steps for applying or varying, including links to application forms and guidance, 
-        information on costs, permits and permissions, and how to check which areas 
-        have environmental protection in place.</p>
+ <h2 class="govuk-heading-m"><span style="color: red;">Applying for a licence</span></h2>
+  <p class="govuk-body"><span style="color: red;">Find out your next steps for applying or varying, including links to application forms and guidance, information on costs, permits and permissions, and how to check which areas have environmental protection in place.</span></p>
          
 <p class="govuk-body"><a href="how-to-apply.html">How to apply for or vary your licence</a></p>
-<hr>
-<br>
-    {% elseif data['noWater'] == "false" and data['watertype'] == 'ground' %} 
- 
-    <h2 class="govuk-heading-m">Learn more about the groundwater licence application process</h2>
- 
-   
-        <p class="govuk-body">Find out about what you need to do next to get a licence, as 
-          well as information on costs, permits and permissions, and how to check which 
-          areas have environmental protection in place.</p>
-  <p class="govuk-body"><a href="how-to-apply.html">How to apply for or vary your licence</a></p>
-
 <hr>
 <br>
   {% endif %}
@@ -193,8 +173,7 @@
       <p class="govuk-body">The Environment Agency believes <a class="govuk-link" href="https://www.gov.uk/government/publications/water-recycling-for-public-water-supply-environment-agency-position-statement/water-recycling-for-public-water-supply-environment-agency-position-statement#the-environment-agencys-position-on-water-recycling">water recycling</a> can play an 
           effective and increasingly important role in securing water 
           supplies. Indirect recycling treats wastewater and discharges 
-          it to an environmental buffer, such as a river, reservoir or 
-          underground aquifer. Water can then be abstracted and treated further.</p>
+          <span style="color: red;">it to an environmental buffer, such as a river or reservoir.</span> Water can then be abstracted and treated further.</p>
 
  <p class="govuk-body">Increasing water efficiency is also encouraged when local water 
   availability is low. Smart irrigation scheduling, reducing leakages 
@@ -232,7 +211,7 @@
 <ul class="govuk-list govuk-list--bullet">
 <li>collected from roofs and other above ground surfaces</li>
 <li>collected via a system of above ground pipes and tanks</li>
-<li>isolated from inland waters or groundwater</li>
+<li><span style="color: red;">isolated from inland waters</span></li>
 </ul>
 
  <p class="govuk-body">The Environment Agency will not regulate harvested rainwater 

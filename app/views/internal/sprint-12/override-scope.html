@@ -1,0 +1,91 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}Choose where to apply the content – {{ serviceName }}{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "cancel-override"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {% if error or replaceInheritedError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1">
+          <h2 class="govuk-error-summary__title" id="error-summary-title">There is a problem</h2>
+          <div class="govuk-error-summary__body">
+            <ul class="govuk-list govuk-error-summary__list"><li><a href="{% if replaceInheritedError %}#replace-inherited-yes{% else %}#scope-all{% endif %}">{{ replaceInheritedError or error }}</a></li></ul>
+          </div>
+        </div>
+      {% endif %}
+
+      <h1 class="govuk-heading-l">{% if pending.localApplication %}Apply {% if policyApplicationLabel %}this {{ policyApplicationLabel }}{% else %}this {{ overrideLabel | lower }} override{% endif %} to {{ pending.source.name }}?{% else %}Where do you want to apply {% if policyApplicationLabel %}this {{ policyApplicationLabel }}{% elif pending.type == 'hmwbImplications' %}this HMWB implication{% elif pending.type == 'hmwbUniqueContent' %}this unique content{% else %}this {{ overrideLabel | lower }} override{% endif %}?{% endif %}</h1>
+      <p class="govuk-body">The {% if policyApplicationLabel %}{{ policyApplicationLabel }}{% elif pending.type == 'hmwbImplications' %}HMWB implication{% elif pending.type == 'hmwbUniqueContent' %}unique content{% else %}override{% endif %} is {% if pending.type == 'updateCol' %}{{ pending.value | safe }}{% else %}{{ pending.value }}{% endif %} for {{ pending.source.name }}.</p>
+      {% if pending.localApplication %}
+        <p class="govuk-body">This water body currently inherits {% if policyApplicationLabel %}content{% else %}an override{% endif %} from {{ inheritedOverride.sourceEntity.name }}. Applying this {% if policyApplicationLabel %}content{% else %}override{% endif %} here will replace it for this water body only.</p>
+      {% else %}
+      {% if pending.source.type == 'managementCatchment' %}
+        <p class="govuk-body">Applying it to all operational catchments will also apply it to their water bodies.</p>
+      {% else %}
+        <p class="govuk-body">Applying it to all water bodies will apply {% if policyApplicationLabel %}the {{ policyApplicationLabel }}{% elif pending.type == 'hmwbImplications' %}the implication{% elif pending.type == 'hmwbUniqueContent' %}the unique content{% else %}the override{% endif %} to every water body in this operational catchment.</p>
+      {% endif %}
+      {% endif %}
+
+      <form method="post" action="/internal/sprint-12/override-scope">
+        {% if pending.inheritedSourceRecordId %}
+          <div class="govuk-form-group{% if replaceInheritedError %} govuk-form-group--error{% endif %}">
+            <fieldset class="govuk-fieldset" aria-describedby="replace-inherited-hint{% if replaceInheritedError %} replace-inherited-error{% endif %}">
+              <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">{% if pending.localApplication %}This water body inherits {% if policyApplicationLabel %}content{% else %}an override{% endif %} from {{ inheritedOverride.sourceEntity.name }}{% else %}This operational catchment inherits {% if policyApplicationLabel %}content{% else %}an override{% endif %} from {{ inheritedOverride.sourceEntity.name }}{% endif %}</legend>
+              <div class="govuk-hint" id="replace-inherited-hint">{% if pending.localApplication %}Applying this {% if policyApplicationLabel %}content{% else %}override{% endif %} will replace the inherited value for this water body only.{% elif canStackInherited %}Choose whether to replace the inherited implication or keep it and add this new implication for this operational catchment and the descendants you select.{% else %}Applying this {% if policyApplicationLabel %}content{% else %}override{% endif %} will replace the inherited value for {{ pending.source.name }} and the descendants you select. Other operational catchments and their water bodies will keep their existing {% if policyApplicationLabel %}content{% else %}overrides{% endif %}.{% endif %}</div>
+              {% if replaceInheritedError %}<p class="govuk-error-message" id="replace-inherited-error"><span class="govuk-visually-hidden">Error:</span> {{ replaceInheritedError }}</p>{% endif %}
+              <div class="govuk-radios">
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" id="replace-inherited-yes" name="replaceInherited" type="radio" value="yes">
+                  <label class="govuk-label govuk-radios__label" for="replace-inherited-yes">{% if pending.localApplication %}Yes, replace the inherited {% if policyApplicationLabel %}content{% else %}override{% endif %} for this water body{% else %}Yes, replace the inherited {% if policyApplicationLabel %}content{% else %}override{% endif %} and continue{% endif %}</label>
+                </div>
+                {% if canStackInherited %}
+                  <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="replace-inherited-stack" name="replaceInherited" type="radio" value="stack">
+                    <label class="govuk-label govuk-radios__label" for="replace-inherited-stack">Keep the inherited implications and add this implication</label>
+                  </div>
+                {% endif %}
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" id="replace-inherited-no" name="replaceInherited" type="radio" value="no">
+                  <label class="govuk-label govuk-radios__label" for="replace-inherited-no">No, cancel and keep the existing {% if policyApplicationLabel %}content{% else %}value{% endif %}</label>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+        {% endif %}
+        {% if not pending.localApplication %}
+        <div class="govuk-form-group{% if error %} govuk-form-group--error{% endif %}">
+          <fieldset class="govuk-fieldset" aria-describedby="scope-hint{% if error %} scope-error{% endif %}">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Choose descendants</legend>
+            <div class="govuk-hint" id="scope-hint">You can choose all descendants or select which ones to include.</div>
+            {% if error %}<p class="govuk-error-message" id="scope-error"><span class="govuk-visually-hidden">Error:</span> {{ error }}</p>{% endif %}
+            <div class="govuk-radios" data-module="govuk-radios">
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="scope-all" name="scopeDecision" type="radio" value="all">
+                <label class="govuk-label govuk-radios__label" for="scope-all">
+                  {% if pending.source.type == 'managementCatchment' %}
+                    Apply to all operational catchments and their water bodies
+                  {% else %}
+                    Apply to all water bodies
+                  {% endif %}
+                </label>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="scope-selected" name="scopeDecision" type="radio" value="selected">
+                <label class="govuk-label govuk-radios__label" for="scope-selected">Choose which {{ childLabel }} to apply it to</label>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        {% endif %}
+        {{ govukButton({ text: "Continue" }) }}
+      </form>
+    </div>
+  </div>
+{% endblock %}

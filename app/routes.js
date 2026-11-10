@@ -13,6 +13,7 @@ const router = govukPrototypeKit.requests.setupRouter()
 // END TABLE STUFF
 
 // Start folder specific routes
+router.use('/external/sprint-12', require('./views/external/sprint-12/_routes'));
 router.use('/internal/sprint-11', require('./views/internal/sprint-11/_routes'));
 router.use('/external/sprint-11', require('./views/external/sprint-11/_routes'));
 router.use('/external/sprint-10', require('./views/external/sprint-10/_routes'));
@@ -26,6 +27,7 @@ router.use('/external/sprint-2', require('./views/external/sprint-2/_routes'));
 router.use('/external/sprint-1', require('./views/external/sprint-1/_routes'));
 // current sprint, remember to add older sprint when adding a new folder!
 router.use('/external/current', require('./views/external/current/_routes'));
+router.use('/internal/sprint-12', require('./views/internal/sprint-12/_routes'));
 router.use('/internal/current', require('./views/internal/current/_routes'));
 
 module.exports = router

@@ -1,0 +1,31 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Add assessment point team notes – {{ serviceName }}
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "/internal/sprint-12/manual-overrides-summary"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <form class="form" method="post" action="/internal/sprint-12/update-ap">
+        <h1 class="govuk-heading-l">Add assessment point team notes</h1>
+
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="team-notes">Team notes</label>
+          <textarea class="govuk-textarea" id="team-notes" name="teamNotes" rows="5">{{ teamNotes }}</textarea>
+        </div>
+
+        {{ govukButton({
+          text: "Save"
+        }) }}
+      </form>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Edit HMWB unique content – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <form class="form" action="update-hmwb-unique-content" method="post">
+        <div class="govuk-form-group">
+          <h1 class="govuk-label-wrapper">
+            <label class="govuk-label govuk-label--l" for="unique-content">
+              Edit unique content
+            </label>
+          </h1>
+           <div id="more-detail-hint" class="govuk-hint">
+            Provide any contextual unique content to the end user about this HMWB.
+          </div>
+          <textarea class="govuk-textarea" id="unique-content" name="uniqueContent" rows="5">{{ data.hmwbUniqueContent }}</textarea>
+        </div>
+
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="unique-content-notes">Unique content notes</label>
+          <textarea class="govuk-textarea" id="unique-content-notes" name="uniqueContentNotes" rows="5">{{ data.hmwbUniqueContentNotes }}</textarea>
+        </div>
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

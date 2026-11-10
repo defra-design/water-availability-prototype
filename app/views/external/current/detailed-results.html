@@ -20,39 +20,18 @@
 
       <div class="govuk-body">
 
-      {% if (data['watertype'] == "surface") %}  
-        <h1 class="govuk-heading-l">Water availability overview for {{data.riverCatchmentData[data.sid].properties.WB_NAME}}</h1>
-      
-        {% elseif (data['watertype'] == "ground") %}
-        <h1 class="govuk-heading-l">Water availability overview for {{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}</h1>
-      {% endif %}
+      <h1 class="govuk-heading-l"><span style="color: red;">Water availability overview for {{data.riverCatchmentData[data.sid].properties.WB_NAME}}</span></h1>
 
   <p class='govuk-body-s'><i>This page was last updated: 25 October 2025</i></p>
  
 
 
-    {% if (data['watertype'] == "surface" and data.noWater == "false") %}   
-      <p class="govuk-body">This page gives detailed information about 
-        licence availability and restrictions for surface water abstraction 
-        from the water body {{data.riverCatchmentData[data.sid].properties.WB_NAME}}.</p>
+    {% if (data.noWater == "false") %}
+      <p class="govuk-body"><span style="color: red;">This page gives detailed information about licence availability and restrictions for surface water abstraction from the water body {{data.riverCatchmentData[data.sid].properties.WB_NAME}}.</span></p>
 
-   {% elseif (data['watertype'] == "surface" and data.noWater == "true") %}
-           <p class="govuk-body">This page shows availability 
-        information for surface water abstraction from the water 
-        body {{data.riverCatchmentData[data.sid].properties.WB_NAME}}.</p>
-
-
-        {% elseif (data['watertype'] == "ground" and data.noWater == "false") %}
-       <p class="govuk-body">This page gives detailed information about 
-        licence availability and restrictions for groundwater abstraction 
-        from the water body <b>{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}</b>.</p>
-       
-       {% elseif (data['watertype'] == "ground" and data.noWater == "true") %}
-       <p class="govuk-body">This page shows availability 
-        information for groundwater abstraction from the water 
-        body {{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}.</p>
-
-       {% endif %}
+   {% else %}
+           <p class="govuk-body"><span style="color: red;">This page shows availability information for surface water abstraction from the water body {{data.riverCatchmentData[data.sid].properties.WB_NAME}}.</span></p>
+    {% endif %}
 
  
 
@@ -63,10 +42,10 @@
 
 
  {% endif %}
-  {% if (data.noWater == "true" or (data['water-use-type'] == "Consumptive" or data.watertype == "ground")) %} 
+  {% if (data.noWater == "true" or data['water-use-type'] == "Consumptive") %}
   {% else %}
   
-<h2 id="restrictions-and-conditions" class="govuk-heading-m">Water availability and restrictions in {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %}</h2>
+<h2 id="restrictions-and-conditions" class="govuk-heading-m"><span style="color: red;">Water availability and restrictions in {{data.riverCatchmentData[data.sid].properties.WB_NAME}}</span></h2>
 
 
 <p class="govuk-body">Some areas are more water stressed than others. We 
@@ -74,11 +53,11 @@
 
    {% if data.sid == "1" %} 
 <div class="govuk-inset-text">
- {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %} is a <b>mildly</b> water stressed area.
+ <span style="color: red;">{{data.riverCatchmentData[data.sid].properties.WB_NAME}} is a <b>mildly</b> water stressed area.</span>
 </div>
 {% else %}
 <div class="govuk-inset-text">
- {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %} is a <b>moderately</b> water stressed area.
+ <span style="color: red;">{{data.riverCatchmentData[data.sid].properties.WB_NAME}} is a <b>moderately</b> water stressed area.</span>
 </div>
 {% endif %}
 
@@ -95,7 +74,7 @@
   
  
 
-<h2 id="local-policies" class="govuk-heading-m">Local abstraction policies in {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %}</h2>
+<h2 id="local-policies" class="govuk-heading-m"><span style="color: red;">Local abstraction policies in {{data.riverCatchmentData[data.sid].properties.WB_NAME}}</span></h2>
 
         <ul class="govuk-list govuk-list--bullet">
           {% if localPolicyImplicationItems and localPolicyImplicationItems.length %}
@@ -126,7 +105,7 @@
     {% elif data.externalWaterBodyOverrides.updateColOutcome == 'licencesAvailable' %}
       <p class="govuk-body">{{ govukTag({ text: "Licences available", classes: "govuk-tag--blue" }) }}</p>
     {% endif %}
-{% elif (data.noWater == "true" or (data['water-use-type'] == "Consumptive" and data.gid == "1")) %}
+{% elif (data.noWater == "true" or (data['water-use-type'] == "Consumptive" and data.sid == "1")) %}
 
 
     <h2 class="govuk-heading-m">Availability status</h2>
@@ -148,7 +127,7 @@
 
 <!----------------------------------------------------------------->
 
-<h2 id="previous-years" class="govuk-heading-m">Water availability for previous years in {% if (data['watertype'] == "ground")%}{{data.groundwaterCatchmentData[data.gid].properties.WB_NAME}}{% elseif (data['watertype'] == "surface")%}{{data.riverCatchmentData[data.sid].properties.WB_NAME}}{% endif %}</h2>
+<h2 id="previous-years" class="govuk-heading-m"><span style="color: red;">Water availability for previous years in {{data.riverCatchmentData[data.sid].properties.WB_NAME}}</span></h2>
 
    {% if data.sid == "1" %}
 <p class="govuk-body">The information below summarises how often 
@@ -278,61 +257,11 @@
 {% endif %}
 {% endif %}
 
-<!--GROUNDWATER-->
-
-  {% if data['watertype'] == "ground" %}
-
-  {% if data.noWater == "true" or (data['water-use-type'] == "Consumptive" and data.gid == "1") %} 
-
-
- {% else %}
-
-<h2 class="govuk-heading-m">Understanding groundwater availability</h2>
-
-<p class="govuk-body">Water availability will depend on the location and depth of 
-  abstraction.</p>
-
-<p class="govuk-body">You will need to prepare a <a href="https://www.gov.uk/government/publications/preparing-a-hydrogeological-impact-assessment/preparing-a-hydrogeological-impact-assessment">hydrogeological impact assessment</a> 
-  before you can apply for a groundwater licence. A pump test 
-  may also be needed to determine availability for your specific 
-  abstraction point. You must contact the Environment Agency 
-  (see details below) to find out whether you need to
-<a href="https://www.gov.uk/government/publications/apply-for-consent-to-investigate-a-groundwater-source/apply-for-consent-to-investigate-a-groundwater-source" class="govuk-link">get consent to investigate the groundwater source</a> before 
-you can apply for a licence.</p>
-
-<h2 class="govuk-heading-m">Regulations and restrictions</h2>
-<p class="govuk-body">Restrictions may apply to licences where availability is 
-  limited or to protect the environment.</p>
-
-<p class="govuk-body">Hands-off Flow and Hands-off Levels are set by the Environment Agency 
-  as conditions on licences, these prevent abstractors from taking water when levels 
-  drop below a certain point.</p>
-
-
-<h2 class="govuk-heading-m">Get advice on groundwater availability and licensing</h2>
-<p class="govuk-body">Contact the Environment Agency for more information on groundwater availability and licensing.</p>
-<p class="govuk-body">National Customer Contact Centre
-<br>PO Box 544
-<br>Rotherham
-<br>S60 1BY</p>
-
-<p class="govuk-body">Email <a href="mailto:enquiries@environment-agency.gov.uk" class="govuk-link">enquiries@environment-agency.gov.uk</a></p>
-
-<p class="govuk-body">Telephone 03708 506 506</p>
-<p class="govuk-body">Monday to Friday, 8am to 6pm.</p>
-<p class="govuk-body">Telephone from outside the UK (Monday to Friday, 
-8am to 6pm GMT) +44 (0) 114 282 5312</p>
-
-{% endif %}
-{% endif %}
-
-  
-
-  {% if (data.noWater == "true" or (data['water-use-type'] == "Consumptive" and data.gid == "1")) %} 
+  {% if data.noWater == "true" %}
 
 
 
- <h2 class="govuk-heading-m">Other options for sourcing water</h2>
+ <h2 class="govuk-heading-m"><span style="color: red;">Other options for sourcing water</span></h2>
 <p class="govuk-body">You may still be able to obtain water in a different way to licenced abstraction. Find out your alternative options.</p>
 
 

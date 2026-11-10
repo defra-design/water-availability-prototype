@@ -80,10 +80,7 @@ const getLicensingAvailability = (availability, usageType) => {
 }
 
 const addExternalOverridesToWaterBodies = data => {
-  const waterBodies = [
-    ...(data.riverCatchmentData || []),
-    ...(data.groundwaterCatchmentData || [])
-  ]
+  const waterBodies = data.riverCatchmentData || []
   waterBodies.forEach(waterBody => {
     waterBody.properties = waterBody.properties || {}
     waterBody.properties.overrideAvailabilityColour =
@@ -91,10 +88,8 @@ const addExternalOverridesToWaterBodies = data => {
   })
 }
 
-const setSelectedExternalWaterBodyOverrides = (data, waterType, index) => {
-  const waterBodies = waterType === 'surface'
-    ? data.riverCatchmentData
-    : data.groundwaterCatchmentData
+const setSelectedExternalWaterBodyOverrides = (data, index) => {
+  const waterBodies = data.riverCatchmentData
   const waterBody = waterBodies && waterBodies[index]
   data.externalWaterBodyOverrides = waterBody
     ? {
@@ -116,10 +111,8 @@ const localPolicyImplications = [
   'thamesBespokeStrategyImplications',
   'greenLinePolicyImplications'
 ]
-const getLocalPolicyImplicationItems = (data, waterType, index) => {
-  const waterBodies = waterType === 'surface'
-    ? data.riverCatchmentData
-    : data.groundwaterCatchmentData
+const getLocalPolicyImplicationItems = (data, index) => {
+  const waterBodies = data.riverCatchmentData
   const waterBody = waterBodies && waterBodies[index]
   if (!waterBody) {
     return []
@@ -408,7 +401,7 @@ async function convertPostcode(postcode) {
 }
 
 // Get water body information
-// Returns a Promise with an object containing both surface and ground water data
+// Returns a Promise with surface water data
 // Get water body information with a Search Radius (Buffer)
 async function getCatchmentData(geometry, searchRadius = 18) {
     console.log(`Fetching catchment data for ${geometry} with radius ${searchRadius}m`);
@@ -422,17 +415,11 @@ async function getCatchmentData(geometry, searchRadius = 18) {
     
     const surfaceWaterUrl = `https://services1.arcgis.com/JZM7qJpmv7vJ0Hzx/ArcGIS/rest/services/WFD_Cycle_2_River_catchment_classification/FeatureServer/5/query?where=1%3D1&objectIds=&time=&geometry&geometryType=esriGeometryPoint&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=${searchRadius}&units=esriSRUnit_Meter&relationParam=&returnGeodetic=false&outFields=*&returnGeometry=true&returnCentroid=false&returnEnvelope=false&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&defaultSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnTrueCurves=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pgeojson&token=`;
     
-    const groundWaterUrl = `https://services1.arcgis.com/JZM7qJpmv7vJ0Hzx/ArcGIS/rest/services/WFD_Cycle_3_Groundwater_body_classifications/FeatureServer/21/query?where=1%3D1&objectIds=&geometryType=esriGeometryPoint&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=${searchRadius}&units=esriSRUnit_Meter&outDistance=&relationParam=&returnGeodetic=false&outFields=*&returnGeometry=true&returnCentroid=false&returnEnvelope=false&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&defaultSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&collation=&orderByFields=&groupByFieldsForStatistics=&returnAggIds=false&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnTrueCurves=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pgeojson&token=`;
-
     try {
-        const [surfaceResponse, groundResponse] = await Promise.all([
-            axios.get(surfaceWaterUrl, config),
-            axios.get(groundWaterUrl, config)
-        ]);
+        const surfaceResponse = await axios.get(surfaceWaterUrl, config);
 
         return {
-            surfaceWater: surfaceResponse.data,
-            groundWater: groundResponse.data
+            surfaceWater: surfaceResponse.data
         };
 
     } catch (error) {
@@ -446,9 +433,9 @@ async function getCatchmentData(geometry, searchRadius = 18) {
 async function getLicencesWithinWaterBodies(waterBodies, searchRadius = 1800) {
     console.log(`Fetching licences within water bodies`);
 
-    if (!waterBodies || (waterBodies.surfaceWater?.features?.length === 0 && waterBodies.groundWater?.features?.length === 0)) {
+    if (!waterBodies || waterBodies.surfaceWater?.features?.length === 0) {
         console.log("No water body features provided");
-        return { surfaceWaterLicences: [], groundWaterLicences: [] };
+        return { surfaceWaterLicences: [] };
     }
 
     const licenceBaseUrl = `https://services1.arcgis.com/JZM7qJpmv7vJ0Hzx/ArcGIS/rest/services/Help_for_licence_trading_Abstraction_licence_points/FeatureServer/0/query?where=1%3D1&objectIds=&time=&geometry&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&relationParam=&returnGeodetic=false&outFields=*&returnGeometry=true&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&defaultSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnTrueCurves=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pjson&token=`;
@@ -477,22 +464,10 @@ async function getLicencesWithinWaterBodies(waterBodies, searchRadius = 1800) {
             });
         }
 
-        // Query licences for each ground water body
-        if (waterBodies.groundWater?.features?.length > 0) {
-            waterBodies.groundWater.features.forEach((feature, index) => {
-                requests.push({ 
-                    type: 'groundWater', 
-                    featureIndex: index,
-                    promise: axios.get(licenceBaseUrl, createConfig(feature)) 
-                });
-            });
-        }
-
         // Execute all requests in parallel
         const results = await Promise.all(requests.map(r => r.promise));
 
         const surfaceWaterLicences = [];
-        const groundWaterLicences = [];
 
         requests.forEach((request, index) => {
             const responseData = results[index].data.features || [];
@@ -501,16 +476,11 @@ async function getLicencesWithinWaterBodies(waterBodies, searchRadius = 1800) {
                 licences: responseData
             };
 
-            if (request.type === 'surfaceWater') {
-                surfaceWaterLicences.push(entry);
-            } else {
-                groundWaterLicences.push(entry);
-            }
+            surfaceWaterLicences.push(entry);
         });
 
         return {
-            surfaceWaterLicences,
-            groundWaterLicences
+            surfaceWaterLicences
         };
 
     } catch (error) {
@@ -616,7 +586,7 @@ const waterUses = {
   },
   'Dewatering': {
     label: 'dewatering',
-    type: 'non-consumptive'
+    type: 'consumptive'
   },
   'Effluent or slurry dilution': {
     label: 'effluent or slurry dilution',
@@ -705,19 +675,6 @@ router.get(folder + 'ur', function (request, response) {
 
 
 
-//water type page
-//Set variables page
-router.get(folder + 'water-type', function (request, response) {
-	response.render(folder + 'water-type')
-})
-
-router.post('/water-type', function (request, response) {
-  var waterType = request.session.data['watertype']
-	response.redirect(folder + 'summary')
-})
-
-
-
 //Start page
 router.get(folder + 'start', function (request, response) {
   
@@ -780,8 +737,7 @@ router.post('/location', async function (request, response) {
     
     //Clear any previous data
     request.session.data.riverCatchmentData = []
-    request.session.data.groundwaterCatchmentData = []
-    request.session.data.watertype = ""
+    request.session.data.watertype = "surface"
 
     let eastingNorthing = {}; // Object {easting: x, northing: y}
     let latLon = [];
@@ -842,23 +798,6 @@ router.post('/location', async function (request, response) {
           });
         }
 
-        if (catchmentResults?.groundWater?.features) {
-          catchmentResults.groundWater.features.forEach(f => {
-            try {
-              const bb = computeBoundingBox(f.geometry && f.geometry.coordinates);
-              f.properties = f.properties || {};
-              if (bb) {
-                f.properties.BB_MinX = bb.minX;
-                f.properties.BB_MinY = bb.minY;
-                f.properties.BB_MaxX = bb.maxX;
-                f.properties.BB_MaxY = bb.maxY;
-              }
-            } catch (e) {
-              // leave feature unchanged on failure
-            }
-          });
-        }
-
         // 3.5 Get Licences within water bodies
         const licenceResults = await getLicencesWithinWaterBodies(catchmentResults, searchRadius);
         
@@ -886,42 +825,10 @@ router.post('/location', async function (request, response) {
             console.log("Error - Surface water body not modelled for that location");
         }
 
-        // Process Groundwater
-        let groundFeatures = catchmentResults.groundWater.features;
-        if (groundFeatures && groundFeatures.length > 0) {
-            request.session.data.groundwaterCatchmentData = groundFeatures;
-            for (const [featureIndex, groundFeature] of groundFeatures.entries()) {
-                let target = [latLon[0], latLon[1]];
-                let pointsListGW = groundFeature.geometry.coordinates;
-                const resultGW = findClosestWithHoles(target, pointsListGW);
-                groundFeature.nearestPoint = resultGW;
-                console.log("groundwater results " + JSON.stringify(resultGW));
-
-                const entry = licenceResults.groundWaterLicences.find(r => r.featureIndex === featureIndex);
-                const matchingLicences = entry ? entry.licences : [];
-                groundFeature.properties = groundFeature.properties || {};
-                groundFeature.properties.licences = matchingLicences;
-                groundFeature.licences = matchingLicences;
-            }
-                        groundFeatures = groundFeatures.sort((a, b) => {
-  return a.nearestPoint.distanceKm - b.nearestPoint.distanceKm;
-});
-            request.session.data.groundwaterCatchmentData = groundFeatures;
-        } else {
-            console.log("Error - Groundwater body not modelled for that location");
+        if (request.session.data['water-use-label'] == "hydroelectric power generation") {
+            request.session.data.error = "Hydro";
         }
-
-        // 4. Final Redirect Logic
-        // Check if we found valid data to decide where to redirect
-
-     if ((surfaceFeatures && surfaceFeatures.length == 0) || (groundFeatures && groundFeatures.length == 0) || (request.session.data['water-use-label'] == "hydroelectric power generation")) {
-//nested if for different error for hydro         
-if (request.session.data['water-use-label'] == "hydroelectric power generation") { request.session.data.error = "Hydro";} 
-else { request.session.data.error = "Water body not modelled for that location"; }
-            response.redirect(folder + 'summary');
-        } else {
-            response.redirect(folder + 'water-type');
-        }
+        response.redirect(folder + 'summary');
 
       } catch (error) {
         console.error("Route Error:", error.message);
@@ -1196,23 +1103,29 @@ router.post('/summary', function (request, response) {
 //Detailed results page
 router.get(folder + 'detailed-results', function (request, response) {
   const data = request.session.data
-  const waterType = request.query.watertype || data.watertype
-  const index = waterType === 'surface'
-    ? request.query.sid ?? data.sid
-    : request.query.gid ?? data.gid
-  setSelectedExternalWaterBodyOverrides(data, waterType, Number(index))
+  const requestedWaterType = request.query.watertype || data.watertype
+  if (requestedWaterType && requestedWaterType !== 'surface') {
+    data.watertype = 'surface'
+    return response.redirect(folder + 'summary')
+  }
+  const index = request.query.sid ?? data.sid
+  data.watertype = 'surface'
+  setSelectedExternalWaterBodyOverrides(data, Number(index))
   response.render(folder + 'detailed-results', {
-    localPolicyImplicationItems: getLocalPolicyImplicationItems(data, waterType, Number(index))
+    localPolicyImplicationItems: getLocalPolicyImplicationItems(data, Number(index))
   })
 })
 
 router.get(folder + 'technical-info.html', function (request, response) {
   const data = request.session.data
-  const waterType = request.query.watertype || data.watertype
-  const index = waterType === 'surface'
-    ? request.query.sid ?? data.sid
-    : request.query.gid ?? data.gid
-  setSelectedExternalWaterBodyOverrides(data, waterType, Number(index))
+  const requestedWaterType = request.query.watertype || data.watertype
+  if (requestedWaterType && requestedWaterType !== 'surface') {
+    data.watertype = 'surface'
+    return response.redirect(folder + 'summary')
+  }
+  const index = request.query.sid ?? data.sid
+  data.watertype = 'surface'
+  setSelectedExternalWaterBodyOverrides(data, Number(index))
   response.render(folder + 'technical-info')
 })
 
